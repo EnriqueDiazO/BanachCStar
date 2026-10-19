@@ -1,0 +1,240 @@
+\documentclass[10pt,a3paper,landscape]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,spanish]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds}
+\geometry{margin=7mm}
+\pagestyle{empty}
+
+% -----------------------------------------------------------------------------
+% MODO DE SALIDA / OUTPUT MODE
+%   spanish    -> solo español / Spanish only
+%   english    -> solo inglés / English only
+%   bilingual  -> página 1 español, página 2 inglés / page 1 Spanish, page 2 English
+% -----------------------------------------------------------------------------
+\newcommand{\MapMode}{english}
+
+\newif\ifenglishmap
+\newcommand{\txt}[2]{\ifenglishmap #2\else #1\fi}
+
+% Colores por tipo de objeto matemático
+\definecolor{cDef}{HTML}{DDEEFF}
+\definecolor{cObs}{HTML}{EEE6FF}
+\definecolor{cEx}{HTML}{FFF0CC}
+\definecolor{cLemma}{HTML}{E6E1FF}
+\definecolor{cProp}{HTML}{FFE0E8}
+\definecolor{cCor}{HTML}{FFF3D6}
+\definecolor{cThm}{HTML}{DDF3E4}
+\definecolor{cHead}{HTML}{17365D}
+\definecolor{cGroup}{HTML}{F8FAFC}
+\definecolor{cConcept}{HTML}{6B7280}
+
+\tikzset{
+  base/.style={draw, rounded corners=2.0mm, very thick, align=center,
+    inner sep=1.7mm, minimum height=14.2mm, text width=40.5mm,
+    font=\sffamily\fontsize{7.7}{8.8}\selectfont},
+  defn/.style={base, fill=cDef, draw=blue!55!black},
+  obs/.style={base, fill=cObs, draw=violet!60!black},
+  ex/.style={base, fill=cEx, draw=orange!65!black},
+  lemma/.style={base, fill=cLemma, draw=purple!60!black},
+  prop/.style={base, fill=cProp, draw=red!55!black},
+  cor/.style={base, fill=cCor, draw=orange!70!black},
+  thm/.style={base, fill=cThm, draw=green!45!black},
+  group/.style={draw=cConcept!55, fill=cGroup, rounded corners=4mm, line width=.8pt},
+  dep/.style={-{Stealth[length=2.3mm]}, line width=.95pt, draw=black!78},
+  use/.style={-{Stealth[length=2.3mm]}, line width=.9pt, draw=blue!65!black},
+  concept/.style={-{Stealth[length=2.1mm]}, dashed, line width=.78pt, draw=cConcept},
+  examplearrow/.style={-{Stealth[length=2.1mm]}, dotted, line width=.95pt, draw=orange!75!black},
+  title/.style={font=\sffamily\bfseries\fontsize{18}{21}\selectfont, text=cHead, align=center},
+  grouptitle/.style={font=\sffamily\bfseries\fontsize{9.6}{11}\selectfont, text=cHead}
+}
+
+\newcommand{\Obj}[4]{% tipo, número, contenido, página
+  \textbf{#1 #2}\\[-1mm]#3\\[-.5mm]{\scriptsize\textit{\txt{pág.}{p.} #4}}
+}
+
+\newcommand{\MapPage}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% Título
+\node[title, text width=35cm] (title) at (18.5,24.05)
+{\txt{Parte 2: $C^*$-álgebras}{Part 2: $C^*$-algebras}\\[-1mm]
+ {\large\normalfont\txt{Mapa de dependencias conceptuales y lógicas}{Conceptual and logical dependency map}}};
+
+% -----------------------------------------------------------------------------
+% BLOQUE I. Estructura C* y rigidez de la norma
+% -----------------------------------------------------------------------------
+\node[defn] (d21) at (2.5,20.8) {\Obj{\txt{Def.}{Def.}}{2.1}{\txt{$C^*$-álgebra: álgebra de Banach involutiva con $\|a^*a\|=\|a\|^2$}{$C^*$-algebra: involutive Banach algebra with $\|a^*a\|=\|a\|^2$}}{1}};
+\node[obs] (o22) at (7.3,20.8) {\Obj{\txt{Obs.}{Obs.}}{2.2}{$1^*=1$, $\|1\|=1$}{1}};
+\node[defn] (d24) at (12.1,20.8) {\Obj{\txt{Def.}{Def.}}{2.4}{\txt{$*$-homomorfismo; unital si $\varphi(1_A)=1_B$}{$*$-homomorphism; unital if $\varphi(1_A)=1_B$}}{1}};
+\node[defn] (d25) at (16.9,20.8) {\Obj{\txt{Def.}{Def.}}{2.5}{\txt{Normal, autoadjunto, unitario y proyección}{Normal, self-adjoint, unitary and projection}}{1}};
+\node[thm] (t26) at (21.7,20.8) {\Obj{\txt{Teo.}{Thm.}}{2.6}{\txt{Si $a$ es normal: $\|a\|=r(a)$}{If $a$ is normal: $\|a\|=r(a)$}}{1}};
+\node[cor] (c27) at (26.5,20.8) {\Obj{\txt{Cor.}{Cor.}}{2.7}{\txt{La norma $C^*$ es única}{$C^*$-norm is unique}\\$\|a\|=r(a^*a)^{1/2}$}{2}};
+\node[thm] (t28) at (31.3,20.8) {\Obj{\txt{Teo.}{Thm.}}{2.8}{\txt{$*$-homomorfismo unital $\Phi$ es acotado, $\|\Phi\|=1$}{Unital $*$-homomorphism $\Phi$ is bounded, $\|\Phi\|=1$}}{2}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(d21)(o22)(d24)(d25)(t26)(c27)(t28), inner sep=3.5mm,
+ label={[grouptitle]above:\txt{I. Estructura $C^*$, elementos especiales y rigidez}{I. $C^*$-structure, special elements and rigidity}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE II. Autoadjuntos, funcionales y espectro real
+% -----------------------------------------------------------------------------
+\node[obs] (o29) at (2.5,16.75) {\Obj{\txt{Obs.}{Obs.}}{2.9}{\txt{Descomposición $a=x+iy$, $x,y\in A_{\rm sa}$}{Decomposition $a=x+iy$, $x,y\in A_{\rm sa}$}}{2}};
+\node[lemma] (l210) at (7.3,16.75) {\Obj{\txt{Lema}{Lemma}}{2.10}{$x=x^*\Rightarrow \|x+it1\|^2\le \|x\|^2+t^2$}{2}};
+\node[prop] (p211) at (12.1,16.75) {\Obj{\txt{Prop.}{Prop.}}{2.11}{\txt{Criterio escalar: $|z+it|^2\le C+t^2\Rightarrow z\in\mathbb R$}{Scalar criterion: $|z+it|^2\le C+t^2\Rightarrow z\in\mathbb R$}}{2--3}};
+\node[prop] (p212) at (16.9,16.75) {\Obj{\txt{Prop.}{Prop.}}{2.12}{$\|\varphi\|=\varphi(1)\Rightarrow \varphi(A_{\rm sa})\subseteq\mathbb R$}{3}};
+\node[prop] (p213) at (21.7,16.75) {\Obj{\txt{Prop.}{Prop.}}{2.13}{$a=a^*\Rightarrow \sigma(a)\subseteq\mathbb R$}{3}};
+\node[cor] (c214) at (26.5,16.75) {\Obj{\txt{Cor.}{Cor.}}{2.14}{$\|\varphi\|=\varphi(1)\Rightarrow \varphi(a^*)=\overline{\varphi(a)}$}{3}};
+\node[cor] (c215) at (31.3,16.75) {\Obj{\txt{Cor.}{Cor.}}{2.15}{\txt{La transformada de Gelfand es un $*$-homomorfismo unital}{The Gelfand transform is a unital $*$-homomorphism}}{3--4}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(o29)(l210)(p211)(p212)(p213)(c214)(c215), inner sep=3.5mm,
+ label={[grouptitle]above:\txt{II. Autoadjuntos, funcionales y realidad espectral}{II. Self-adjoint elements, functionals and real spectrum}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE III. Permanencia espectral y representación conmutativa
+% -----------------------------------------------------------------------------
+\node[prop] (p216) at (2.5,12.65) {\Obj{\txt{Prop.}{Prop.}}{2.16}{$a\in GL(A)\Longleftrightarrow a^*a,aa^*\in GL(A)$}{4}};
+\node[prop] (p217) at (7.3,12.65) {\Obj{\txt{Prop.}{Prop.}}{2.17}{\txt{Permanencia espectral en $C^*$-subálgebras unitarias}{Spectral permanence in unital $C^*$-subalgebras}\\$\sigma_B(b)=\sigma_A(b)$}{4}};
+\node[prop] (p218) at (12.1,12.65) {\Obj{\txt{Prop.}{Prop.}}{2.18}{$\Omega(C^*(a,1))\xrightarrow{\ \varphi\mapsto\varphi(a)\ }\sigma(a)$\\\txt{es homeomorfismo para $a$ normal}{is a homeomorphism for normal $a$}}{4--5}};
+\node[thm] (t219) at (16.9,12.65) {\Obj{\txt{Teo.}{Thm.}}{2.19}{Stone--Weierstrass\\\txt{$*$-subálgebra unital que separa puntos $\Rightarrow$ densa}{unital $*$-subalgebra separating points $\Rightarrow$ dense}}{5}};
+\node[thm] (t220) at (21.7,12.65) {\Obj{\txt{Teo.}{Thm.}}{2.20}{Gelfand--Naimark\\$A\cong C(\Omega(A))$ \txt{isométricamente}{isometrically}\ \txt{si $A$ es conmutativa unital}{for commutative unital $A$}}{5}};
+\node[cor] (c221) at (26.5,12.65) {\Obj{\txt{Cor.}{Cor.}}{2.21}{\txt{Toda $C^*$-álgebra conmutativa unital es $C(X)$; $X$ único salvo homeomorfismo}{Every commutative unital $C^*$-algebra is $C(X)$; $X$ unique up to homeomorphism}}{6}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(p216)(p217)(p218)(t219)(t220)(c221), inner sep=3.5mm,
+ label={[grouptitle]above:\txt{III. Permanencia espectral y representación conmutativa}{III. Spectral permanence and commutative representation}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE IV. Cálculo funcional y functorialidad
+% -----------------------------------------------------------------------------
+\node[thm] (t222) at (2.5,8.55) {\Obj{\txt{Teo.}{Thm.}}{2.22}{\txt{Cálculo funcional continuo}{Continuous functional calculus}\\$C(\sigma(a))\to A$, $f\mapsto f(a)$\\\txt{único, isométrico y $*$-homomorfismo}{unique, isometric $*$-homomorphism}}{6}};
+\node[defn] (d223) at (7.3,8.55) {\Obj{\txt{Def.}{Def.}}{2.23}{\txt{Extensión del cálculo funcional a $E\supseteq\sigma(a)$}{Extension of functional calculus to $E\supseteq\sigma(a)$}}{6}};
+\node[obs] (o224) at (12.1,8.55) {\Obj{\txt{Obs.}{Obs.}}{2.24}{\txt{Reglas de cálculo: $(\bar z z)(a)=a^*a$, etc.}{Calculus rules: $(\bar z z)(a)=a^*a$, etc.}}{7}};
+\node[obs] (o225) at (16.9,8.55) {\Obj{\txt{Obs.}{Obs.}}{2.25}{\txt{En $C(X)$: $\sigma(g)=g(X)$ y $f(g)=f\circ g$}{In $C(X)$: $\sigma(g)=g(X)$ and $f(g)=f\circ g$}}{7}};
+\node[lemma] (l226) at (21.7,8.55) {\Obj{\txt{Lema}{Lemma}}{2.26}{\txt{Functorialidad}{Functoriality}\\$\Phi(f(a))=f(\Phi(a))$}{7}};
+\node[thm] (t227) at (26.5,8.55) {\Obj{\txt{Teo.}{Thm.}}{2.27}{\txt{$*$-homomorfismo unital inyectivo $\Rightarrow$ isométrico}{Injective unital $*$-homomorphism $\Rightarrow$ isometric}}{7}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(t222)(d223)(o224)(o225)(l226)(t227), inner sep=3.5mm,
+ label={[grouptitle]above:\txt{IV. Cálculo funcional continuo y functorialidad}{IV. Continuous functional calculus and functoriality}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE V. Consecuencias estructurales del cálculo funcional
+% -----------------------------------------------------------------------------
+\node[prop] (p228) at (7.3,4.55) {\Obj{\txt{Prop.}{Prop.}}{2.28}{\txt{Caracterizaciones espectrales (normal $a$)}{Spectral characterizations (normal $a$)}\\$a=a^*\Leftrightarrow\sigma(a)\subseteq\mathbb R$\\$a\in\mathcal U(A)\Leftrightarrow\sigma(a)\subseteq\mathbb T$\\$a\in\mathcal P(A)\Leftrightarrow\sigma(a)\subseteq\{0,1\}$}{8}};
+\node[prop] (p229) at (16.9,4.55) {\Obj{\txt{Prop.}{Prop.}}{2.29}{\txt{Cada elemento es combinación lineal de a lo más cuatro unitarios}{Every element is a linear combination of at most four unitaries}}{8}};
+\node[prop] (p230) at (26.5,4.55) {\Obj{\txt{Prop.}{Prop.}}{2.30}{\txt{Raíz cuadrada positiva: $\sigma(a)\subseteq[0,\infty)\Rightarrow\exists y=y^*\ge0$, $y^2=a$}{Positive square root: $\sigma(a)\subseteq[0,\infty)\Rightarrow\exists y=y^*\ge0$, $y^2=a$}}{8}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(p228)(p229)(p230), inner sep=3.5mm,
+ label={[grouptitle]above:\txt{V. Consecuencias: espectro, unitarios y positividad}{V. Consequences: spectrum, unitaries and positivity}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% FLECHAS: dependencia matemática / mathematical dependencies
+% -----------------------------------------------------------------------------
+% Bloque I
+\draw[dep] (d21) -- (o22);
+\draw[concept] (d21) -- (d24);
+\draw[concept] (d21) -- (d25);
+\draw[dep] (d25) -- (t26);
+\draw[dep] (t26) -- (c27);
+\draw[use] (d24) to[bend left=8] (t28);
+\draw[use] (t26) -- (t28);
+
+% Bloque II
+\draw[concept] (d25) -- (o29);
+\draw[dep] (d25) to[bend right=8] (l210);
+\draw[dep] (l210) -- (p211);
+\draw[use] (l210) to[bend left=8] (p212);
+\draw[dep] (p211) -- (p212);
+\draw[dep] (p212) -- (p213);
+\draw[use] (o29) to[bend right=10] (c214);
+\draw[dep] (p212) -- (c214);
+\draw[dep] (c214) -- (c215);
+
+% Bloque III
+\draw[concept] (d25) to[bend right=10] (p216);
+\draw[use] (p216) -- (p217);
+\draw[use] (p213) to[bend left=8] (p217);
+\draw[dep] (p217) -- (p218);
+\draw[use] (c214) to[bend right=8] (p218);
+\draw[use] (c215) -- (t220);
+\draw[use] (t26) to[bend right=10] (t220);
+\draw[dep] (t219) -- (t220);
+\draw[dep] (t220) -- (c221);
+
+% Bloque IV
+\draw[use] (p218) to[bend right=8] (t222);
+\draw[use] (t220) to[bend left=8] (t222);
+\draw[dep] (t222) -- (d223);
+\draw[examplearrow] (t222) to[bend left=7] (o224);
+\draw[examplearrow] (c221) to[bend left=12] (o225);
+\draw[use] (t222) -- (l226);
+\draw[use] (t28) to[bend right=12] (l226);
+\draw[use] (l226) -- (t227);
+\draw[use] (t28) to[bend left=9] (t227);
+\draw[use] (t26) to[bend left=16] (t227);
+\draw[use] (p213) to[bend left=18] (t227);
+
+% Bloque V
+\draw[use] (t222) to[bend right=7] (p228);
+\draw[concept] (d25) to[bend right=10] (p228);
+\draw[use] (o29) to[bend right=15] (p229);
+\draw[use] (t222) -- (p229);
+\draw[use] (t222) to[bend left=8] (p230);
+\draw[concept] (p228) -- (p230);
+
+% -----------------------------------------------------------------------------
+% LEYENDA
+% -----------------------------------------------------------------------------
+\node[anchor=west, font=\sffamily\bfseries\fontsize{8.2}{9.5}\selectfont, text=cHead]
+ at (0.2,2.0) {\txt{Leyenda}{Legend}:};
+\node[defn, text width=19mm, minimum height=6.5mm, inner sep=.8mm, anchor=west] at (2.0,2.0) {\txt{Definición}{Definition}};
+\node[obs, text width=19mm, minimum height=6.5mm, inner sep=.8mm, anchor=west] at (4.8,2.0) {\txt{Observación}{Observation}};
+\node[lemma, text width=19mm, minimum height=6.5mm, inner sep=.8mm, anchor=west] at (7.6,2.0) {\txt{Lema}{Lemma}};
+\node[prop, text width=19mm, minimum height=6.5mm, inner sep=.8mm, anchor=west] at (10.4,2.0) {\txt{Proposición}{Proposition}};
+\node[cor, text width=19mm, minimum height=6.5mm, inner sep=.8mm, anchor=west] at (13.2,2.0) {\txt{Corolario}{Corollary}};
+\node[thm, text width=19mm, minimum height=6.5mm, inner sep=.8mm, anchor=west] at (16.0,2.0) {\txt{Teorema}{Theorem}};
+
+\draw[dep] (19.0,2.0) -- (20.15,2.0);
+\node[anchor=west, font=\sffamily\fontsize{7.1}{8.2}\selectfont] at (20.3,2.0) {\txt{dependencia directa / se usa en la prueba}{direct dependency / used in proof}};
+\draw[use] (26.6,2.0) -- (27.75,2.0);
+\node[anchor=west, font=\sffamily\fontsize{7.1}{8.2}\selectfont] at (27.9,2.0) {\txt{resultado usado}{result used}};
+
+\draw[concept] (19.0,1.25) -- (20.15,1.25);
+\node[anchor=west, font=\sffamily\fontsize{7.1}{8.2}\selectfont] at (20.3,1.25) {\txt{relación conceptual}{conceptual relation}};
+\draw[examplearrow] (26.6,1.25) -- (27.75,1.25);
+\node[anchor=west, font=\sffamily\fontsize{7.1}{8.2}\selectfont] at (27.9,1.25) {\txt{ejemplo / realización concreta}{example / concrete realization}};
+
+\node[anchor=west, font=\sffamily\fontsize{6.8}{8}\selectfont, text=black!65,
+ text width=35cm] at (0.2,0.55)
+{\txt{Fuente: Parte2.pdf. Se conserva la numeración original (el documento no contiene un ítem 2.3). Las flechas sintetizan dependencias explícitas de las demostraciones y relaciones conceptuales internas del capítulo; varias pruebas reutilizan teoría espectral y transformada de Gelfand desarrolladas en la Parte 1.}{Source: Parte2.pdf. The original numbering is preserved (the document contains no item 2.3). Arrows summarize explicit proof dependencies and internal conceptual relations; several proofs reuse spectral theory and the Gelfand transform developed in Part 1.}};
+
+\end{tikzpicture}
+\end{center}
+}
+
+\begin{document}
+\ifthenelse{\equal{\MapMode}{spanish}}{%
+  \englishmapfalse\selectlanguage{spanish}\MapPage
+}{\ifthenelse{\equal{\MapMode}{english}}{%
+  \englishmaptrue\selectlanguage{english}\MapPage
+}{% bilingual
+  \englishmapfalse\selectlanguage{spanish}\MapPage
+  \newpage
+  \englishmaptrue\selectlanguage{english}\MapPage
+}}
+\end{document}

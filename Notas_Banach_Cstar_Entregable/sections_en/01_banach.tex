@@ -1,0 +1,1248 @@
+\chapter{Spectral theory in Banach algebras}
+
+In the unital results of this chapter, $1$ abbreviates the identity $1_\A$ of
+the ambient algebra $\A$; we write $1_\A$ when the space to which an expression
+belongs needs to be specified.
+
+\section{Banach algebras, involution, and basic examples}
+
+\begin{cthdefinicion}{(Banach algebra)}
+A \emph{Banach algebra} is an associative algebra $\A$ over $\mathbb C$, equipped with a
+norm such that $(\A,\|\cdot\|)$ is a Banach space and
+\[
+  \|ab\|\le \|a\|\,\|b\|,\qquad a,b\in\A.
+\]
+We say that $\A$ is \emph{unital} if there is an identity $1_\A$ with $\|1_\A\|=1$, and \emph{commutative} if
+$ab=ba$ for every $a,b\in\A$.
+\end{cthdefinicion}
+\origen{Definition 1.1}
+
+\begin{cthejemplo}{(Bounded functions as a Banach algebra)}
+We seek a commutative model of the definition. Let $X$ be nonempty,
+locally compact, and Hausdorff, and consider
+\[
+ C_b(X)=\{f:X\to\mathbb C: f\text{ is continuous and bounded}\},\qquad
+ \|f\|_\infty=\sup_{x\in X}|f(x)|,
+\]
+with pointwise operations. For $f,g\in C_b(X)$,
+$|f(x)g(x)|\le\|f\|_\infty\|g\|_\infty$ at each $x$, and therefore
+$\|fg\|_\infty\le\|f\|_\infty\|g\|_\infty$.
+The uniform limit of continuous bounded functions remains in $C_b(X)$,
+which gives completeness; the constant function $1$ is the identity.
+Thus $C_b(X)$ meets the definition of a Banach algebra and is commutative.
+If $X$ is compact, every continuous function is bounded and $C_b(X)=C(X)$.
+\end{cthejemplo}
+
+\begin{cthejemplo}{(Composition of bounded operators)}
+To contrast with pointwise multiplication, let $X$ be a nonzero Banach space.
+We study $\mathcal B(X)$ (also denoted $\mathcal L(X)$), the algebra
+of bounded linear operators $X\to X$, with composition and the operator
+norm. The inequality $\|STx\|\le\|S\|\|T\|\|x\|$ implies
+$\|ST\|\le\|S\|\|T\|$; moreover, the identity $I_X$ is a unit and
+the norm limit of bounded operators remains in $\mathcal B(X)$.
+The product can change when the order is reversed: in
+$\mathcal B(\mathbb C^2)=M_2(\mathbb C)$, if $E_{ij}$ denotes the matrix
+with a $1$ in position $(i,j)$ and zeros elsewhere,
+$E_{12}E_{21}=E_{11}$, whereas $E_{21}E_{12}=E_{22}$.
+This example shows why subsequent proofs cannot assume
+commutativity of the entire algebra.
+\end{cthejemplo}
+
+\begin{investigacion}
+\textbf{Connection with the literature: a direct example.}
+Under Karlovich's hypotheses for a starlike curve $\Gamma$ and $1<p<\infty$, the boundary
+problem leads to an element of $\mathcal B(L^p(\Gamma))$:
+\[
+ T=V_\alpha P_+ + M_G P_-\in \mathcal B(L^p(\Gamma)),
+\]
+where $V_\alpha f=f\circ\alpha$, $M_Gf=Gf$, and $P_\pm=(I\pm S_\Gamma)/2$.
+The formula shows why sums and compositions are studied in a single algebra. In this
+geometry one does not assume $S_\Gamma^2=I$ or that $P_\pm$ are algebraic projections;
+the reduction by Sokhotski--Plemelj is explained at the end of the notes
+\cite[pp.~463--464, eqs.~(1.1)--(1.2)]{Karlovich2017}.
+\textbf{What to recognize:} $\mathcal B(L^p(\Gamma))$ realizes the abstract algebra of
+bounded operators; the formula for $T$ combines elements of that algebra.
+\end{investigacion}
+
+\begin{cthdefinicion}{(Involution)}
+An \emph{involution} on a complex algebra $\A$ is a map $a\mapsto a^*$ such that
+\[
+(\lambda a+b)^*=\overline\lambda a^*+b^*,\qquad
+(a^*)^*=a,\qquad
+(ab)^*=b^*a^*.
+\]
+These identities are required for all $a,b\in\A$ and $\lambda\in\mathbb C$.
+If, in addition, $\A$ is a Banach algebra and $\|a^*\|=\|a\|$ for
+every $a\in\A$, we call $\A$ an \emph{involutive Banach algebra}
+in the sense of these notes.
+\end{cthdefinicion}
+\origen{Definition 1.4}
+
+\begin{cthejemplo}{(Pointwise conjugation as an involution)}
+In the algebra $C_b(X)$ from the preceding example, we want to identify a
+concrete involution. For $f\in C_b(X)$ define
+$f^*(x)=\overline{f(x)}$. If $f,g\in C_b(X)$, then
+$(fg)^*(x)=\overline{f(x)g(x)}=g^*(x)f^*(x)$;
+also $(f^*)^*=f$ and $\|f^*\|_\infty=\|f\|_\infty$.
+Pointwise conjugation thus satisfies the definition of an isometric
+involution; the equality $g^*f^*=f^*g^*$ reflects the commutativity of this model.
+\end{cthejemplo}
+
+\section{Invertibility and the Neumann series}
+
+\begin{cthdefinicion}{(Group of invertible elements)}
+Let $\A$ be a unital Banach algebra, with identity $1_\A$. Its group of invertible elements is
+\[
+ \GL(\A)=\{a\in\A: \exists b\in\A,\ ab=ba=1_\A\}.
+\]
+For $a\in\GL(\A)$, that $b$ is unique and is written $a^{-1}$.
+\end{cthdefinicion}
+\origen{Definition 1.7}
+
+\begin{cthproposicion}{(Neumann series)}
+Let $\A$ be a unital Banach algebra, with identity $1_\A$, and let $a\in\A$.
+If $\|1_\A-a\|<1$, then $a\in\GL(\A)$ and
+\[
+ a^{-1}=\sum_{n=0}^{\infty}(1_\A-a)^n.
+\]
+\end{cthproposicion}
+\origen{Proposition 1.8}
+
+\begin{proof}[Proof]
+Write $q=1_\A-a$. The hypothesis gives $\|q\|<1$ and, by submultiplicativity,
+$\|q^n\|\le\|q\|^n$ for every $n\ge0$. Hence
+\[
+ \sum_{n=0}^{\infty}\|q^n\|
+ \le \sum_{n=0}^{\infty}\|q\|^n<\infty.
+\]
+Completeness of $\A$ ensures that the partial sums
+$s_N=\sum_{n=0}^{N}q^n$ converge in norm to an element $b\in\A$.
+Since $a=1_\A-q$, multiplication on the left telescopes:
+\[
+ as_N=(1_\A-q)\sum_{n=0}^{N}q^n
+ =\sum_{n=0}^{N}q^n-\sum_{n=1}^{N+1}q^n
+ =1_\A-q^{N+1}.
+\]
+Multiplication on the right must also be checked:
+\[
+ s_Na=\sum_{n=0}^{N}q^n(1_\A-q)
+ =\sum_{n=0}^{N}q^n-\sum_{n=1}^{N+1}q^n
+ =1_\A-q^{N+1}.
+\]
+Here we have used only that $q$ commutes with its own powers, without requiring
+$\A$ to be commutative. Finally,
+$\|q^{N+1}\|\le\|q\|^{N+1}\to0$; continuity of
+multiplication lets us pass to the limit in both identities to obtain
+$ab=ba=1_\A$. Thus $a\in\GL(\A)$ and $b=a^{-1}$.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital Banach, $a\in\A$; $\|1_\A-a\|<1$}
+{Completeness of $\A$; $\|(1-a)^n\|\le\|1-a\|^n$}
+{The geometric series converges and the product telescopes}
+{$a^{-1}=\sum_{n\ge0}(1_\A-a)^n$}
+
+\begin{cthejemplo}{(Neumann series for a perturbed matrix)}
+We want to invert a matrix close to the identity. In
+$M_2(\mathbb C)$ with the operator norm, let $A=I_2-E$ with
+$\|E\|<1$. The Neumann proposition applies because
+$\|I_2-A\|=\|E\|<1$, and gives
+\[
+ A^{-1}=I_2+E+E^2+\cdots.
+\]
+For example, if
+$E=\begin{pmatrix}0&t\\0&0\end{pmatrix}$ with $|t|<1$,
+then $E^2=0$ and the series terminates at
+$A^{-1}=I_2+E$; indeed, $(I_2-E)(I_2+E)=I_2$.
+The norm condition ensures invertibility even when the series does not terminate.
+\end{cthejemplo}
+
+\begin{cthejemplo}{(Stable invertibility near an operator)}
+Let $X$ be a nonzero Banach space and suppose an invertible operator
+$A_0\in\mathcal B(X)$ is known. We want to invert $A_0+E$ when
+$E\in\mathcal B(X)$ is small relative to $A_0$, in the sense that
+$\|A_0^{-1}E\|<1$. The factorization
+$A_0+E=A_0(I_X+A_0^{-1}E)$ allows us to apply Neumann to the second factor:
+\[
+ (A_0+E)^{-1}=(I_X+A_0^{-1}E)^{-1}A_0^{-1}
+ =\sum_{n=0}^{\infty}(-A_0^{-1}E)^n A_0^{-1}.
+\]
+The formula computes an exact inverse and shows that the relevant scale of
+the perturbation is $\|A_0^{-1}E\|$. The Fredholm question will be formulated
+later through invertibility of a class in a quotient.
+\end{cthejemplo}
+
+\begin{cthnota}{(Where the hypotheses are used in the Neumann series)}
+The inequality $\|1-a\|<1$ makes the series of norms summable; completeness of $\A$ produces
+its sum inside $\A$; the identity lets us write $a=1-(1-a)$ and telescope.
+Commutativity of the entire algebra is not used.
+\end{cthnota}
+
+\begin{cthproposicion}{(Local stability of invertibility)}
+Let $\A$ be a unital Banach algebra. The set $\GL(\A)$ is open.
+More precisely, if $a\in\GL(\A)$ and $b\in\A$ satisfy
+\[
+ \|b-a\|<\|a^{-1}\|^{-1},
+\]
+then $b\in\GL(\A)$.
+\end{cthproposicion}
+\origen{Remark 1.9}
+
+\begin{proof}[Proof]
+Put $c=a^{-1}(a-b)$. The hypothesis and submultiplicativity give
+\[
+ \|c\|\le \|a^{-1}\|\,\|a-b\|<1,
+ \qquad b=a(1_\A-c).
+\]
+The preceding proposition gives a two-sided inverse
+$(1_\A-c)^{-1}=\sum_{n\ge0}c^n$ inside $\A$. The product of
+the two invertible factors is invertible, with
+\[
+ b^{-1}=(1_\A-c)^{-1}a^{-1}
+ =\sum_{n=0}^{\infty}\bigl[a^{-1}(a-b)\bigr]^n a^{-1}.
+\]
+Therefore every ball $B(a,\|a^{-1}\|^{-1})$ is contained in
+$\GL(\A)$, which is open.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital, $a\in\GL(\A)$ and $b\in\A$ close to $a$}
+{Neumann series}
+{Factor $b=a\,[1-a^{-1}(a-b)]$}
+{$\|a^{-1}(a-b)\|<1\Rightarrow b$ invertible}
+
+\begin{cthejemplo}{(Stability radius around $2I_n$)}
+We want to make the invertibility ball of the preceding proposition concrete.
+In $M_n(\mathbb C)$ with the induced operator norm, take
+$a=2I_n$; then $a^{-1}=\frac12I_n$ and
+$\|a^{-1}\|^{-1}=2$. If a matrix $b$ satisfies
+$\|b-2I_n\|<2$, the local stability condition holds and
+$b$ is invertible. Here the number $2$ measures how much the
+matrix can vary before this criterion ceases to guarantee an inverse.
+\end{cthejemplo}
+
+\begin{cthcorolario}{(Invertibility outside the disk of radius $\|a\|$)}
+Let $\A$ be a complex unital Banach algebra, with identity $1_\A$,
+$a\in\A$, and $\lambda\in\mathbb C$. If $\|a\|<|\lambda|$, then
+$\lambda1_\A-a\in\GL(\A)$.
+\end{cthcorolario}
+\origen{Corollary 1.10}
+
+\begin{proof}[Proof]
+The inequality $\|a\|<|\lambda|$ implies $\lambda\ne0$. For
+$c=\lambda^{-1}a$ we have $\|c\|=\|a\|/|\lambda|<1$;
+by the Neumann proposition, $1_\A-c$ has the two-sided inverse
+$\sum_{n\ge0}c^n$. Since
+$\lambda1_\A-a=\lambda(1_\A-c)$ and the scalar
+$\lambda1_\A$ is invertible, so is $\lambda1_\A-a$.
+More precisely, its two-sided inverse is
+\[
+ (\lambda1_\A-a)^{-1}
+ =\lambda^{-1}\sum_{n=0}^{\infty}(\lambda^{-1}a)^n.
+\]
+The series converges in norm because $\|\lambda^{-1}a\|<1$.
+\end{proof}
+
+\proofdiagram
+{$a\in\A$, $\lambda\in\mathbb C$; $|\lambda|>\|a\|$}
+{$\lambda\ne0$ and $\|\lambda^{-1}a\|<1$}
+{Neumann: $1_\A-\lambda^{-1}a\in\GL(\A)$}
+{$\lambda1_\A-a\in\GL(\A)$}
+
+\begin{cthejemplo}{(Invertibility of $2I_2-A$ outside the norm disk)}
+Let us check the corollary with a matrix whose inverse can be seen
+directly. Let
+$A=\operatorname{diag}(1,-1)\in M_2(\mathbb C)$ with the operator norm;
+$\|A\|=1$. For $\lambda=2$ we have $|\lambda|>\|A\|$ and
+\[
+  (2I_2-A)^{-1}=\operatorname{diag}(1,1/3).
+\]
+Diagonal multiplication verifies that this is a two-sided inverse.
+The computation anticipates that there are no spectral values outside
+the closed disk of radius $\|a\|$, a reading formalized after defining the spectrum.
+\end{cthejemplo}
+
+\section{Spectrum and resolvent}
+
+\begin{cthdefinicion}{(Spectrum)}
+Let $\A$ be a complex unital Banach algebra, with identity $1_\A$,
+and let $a\in\A$. The \emph{spectrum of $a$ in $\A$} is
+\[
+ \spec_\A(a)=\{\lambda\in\mathbb C:\lambda1_\A-a\notin\GL(\A)\}.
+\]
+When there is no ambiguity, we write $\spec(a)$.
+\end{cthdefinicion}
+\origen{Definition 1.11}
+
+\begin{cthobservacion}{(Spectral reading of the preceding corollary)}
+Let $\A$ be a complex unital Banach algebra, $a\in\A$, and
+$\lambda\in\mathbb C$. With the notation just defined, if
+$|\lambda|>\|a\|$, then $\lambda\notin\sigma_\A(a)$.
+\end{cthobservacion}
+
+\begin{cthejemplo}{(Spectrum as the image of a continuous function)}
+To relate the definition of spectrum to a familiar object, let
+$X$ be nonempty compact Hausdorff and $f\in C(X)$. We want to decide when
+$\lambda1-f$ is invertible in $C(X)$. If
+$f(x)\ne\lambda$ for every $x\in X$, the function
+$x\mapsto(\lambda-f(x))^{-1}$ is continuous and bounded by compactness,
+and is its pointwise inverse. If $f(x_0)=\lambda$, no product with a
+function in $C(X)$ can equal $1$ at $x_0$. Thus
+$\spec_{C(X)}(f)=f(X)$: the spectrum coincides with the values
+actually attained by the function.
+\end{cthejemplo}
+
+\pagebreak
+\begin{cthproposicion}{(Compactness of the spectrum)}
+Let $\A$ be a complex unital Banach algebra and $a\in\A$.
+Then $\spec_\A(a)$ is compact and
+\[
+ \spec_\A(a)\subset\{\lambda\in\mathbb C:|\lambda|\le\|a\|\}.
+\]
+\end{cthproposicion}
+\origen{Proposition 1.12}
+
+\begin{proof}[Proof]
+If $|\lambda|>\|a\|$, the preceding corollary gives
+$\lambda1_\A-a\in\GL(\A)$. By the definition of spectrum, no
+such $\lambda$ belongs to $\spec_\A(a)$; the spectrum is contained in the
+closed disk of radius $\|a\|$ and is therefore bounded.
+Moreover, the map $F:\mathbb C\to\A$, $F(\lambda)=\lambda1_\A-a$,
+is continuous, since
+$\|F(\lambda)-F(\mu)\|=|\lambda-\mu|\|1_\A\|$.
+The stability proposition shows that $\GL(\A)$ is open, so
+$F^{-1}(\GL(\A))=\mathbb C\setminus\spec_\A(a)$ is open.
+The spectrum is closed and bounded in $\mathbb C$; by Heine--Borel, it is compact.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital, $a\in\A$; definition of $\spec_\A(a)$}
+{Large scalars are in the resolvent set; $\GL(\A)$ is open}
+{The spectrum's complement is open, and everything outside the disk lies in the resolvent set}
+{$\spec(a)$ closed and bounded, hence compact}
+
+\begin{cthejemplo}{(Spectrum of a triangular matrix)}
+Let us verify the spectral bound for a matrix that is not diagonal.
+Take $A=\begin{pmatrix}2&1\\0&3\end{pmatrix}\in M_2(\mathbb C)$.
+The matrix $\lambda I_2-A$ is triangular and its determinant is
+$(\lambda-2)(\lambda-3)$; it is therefore invertible exactly when
+$\lambda\notin\{2,3\}$, and $\spec(A)=\{2,3\}$.
+The compactness proposition also ensures $|\lambda|\le\|A\|$
+for both values: the off-diagonal entry can change the
+norm, but not these spectral values.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Resolvent set and resolvent function)}
+Let $\A$ be a complex unital Banach algebra and $a\in\A$.
+The \emph{resolvent set} is $\rho_\A(a)=\mathbb C\setminus\spec_\A(a)$.
+The \emph{resolvent function} is
+\[
+ R_a:\rho_\A(a)\to\A,\qquad R_a(z)=(z1_\A-a)^{-1}.
+\]
+When the ambient algebra is clear, we write $\rho(a)$.
+\end{cthdefinicion}
+\origen{Definition 1.13}
+
+\noindent The conclusion of the corollary on invertibility outside the disk
+can now also be written as
+$|\lambda|>\|a\|\Rightarrow\lambda\in\rho_\A(a)$, because
+$\rho_\A(a)=\mathbb C\setminus\spec_\A(a)$.
+
+\begin{cthejemplo}{(Resolvent of a diagonal matrix)}
+We want to compute the resolvent function of
+$A=\operatorname{diag}(1,2)\in M_2(\mathbb C)$.
+For $z\notin\{1,2\}$, the matrix $zI_2-A$ has nonzero diagonal entries,
+and its inverse is found by inverting them separately:
+\[
+ R_A(z)=\operatorname{diag}\bigl((z-1)^{-1},(z-2)^{-1}\bigr).
+\]
+The formula is undefined precisely at the spectral values
+$1$ and $2$; the resolvent thus records where invertibility fails.
+\end{cthejemplo}
+
+\begin{cthejemplo}{(The resolvent in the operator algebra)}
+Let us place the same question in the algebra $\mathcal B(X)$ of a nonzero
+Banach space $X$. Its identity is $I_X$, so for
+$A\in\mathcal B(X)$ the preceding definitions read
+\[
+ \spec_{\mathcal B(X)}(A)
+ =\{\lambda\in\mathbb C:\lambda I_X-A\notin\GL(\mathcal B(X))\},
+ \qquad R_A(\lambda)=(\lambda I_X-A)^{-1}.
+\]
+Invertibility here means the existence of a \emph{bounded} linear inverse
+$X\to X$. If $X=\mathbb C^2$ and
+$A=\operatorname{diag}(1,2)$, we recover the calculation from the
+preceding example. The abstract notation allows the same definition
+to be applied to operators on infinite-dimensional spaces.
+\end{cthejemplo}
+
+\begin{cthlema}{(Resolvent identity and holomorphy)}
+Let $\A$ be a complex unital Banach algebra and $a\in\A$.
+The function $R_a:\rho_\A(a)\to\A$ is holomorphic and
+\[
+ R_a'(z)=-(z1-a)^{-2}.
+\]
+Moreover, for $z,w\in\rho(a)$,
+\[
+ R_a(z)-R_a(w)=(w-z)R_a(w)R_a(z).
+\]
+\end{cthlema}
+\origen{Lemma 1.14}
+
+\begin{proof}[Proof]
+Write $b_z=z1_\A-a$ and $b_w=w1_\A-a$. Both are invertible
+for $z,w\in\rho_\A(a)$, and $b_z-b_w=(z-w)1_\A$.
+The general identity for two invertible elements,
+$b_z^{-1}-b_w^{-1}=b_z^{-1}(b_w-b_z)b_w^{-1}$,
+is checked because the right-hand side is
+$b_z^{-1}b_wb_w^{-1}-b_z^{-1}b_zb_w^{-1}
+=b_z^{-1}-b_w^{-1}$. Moreover, $b_z$
+and $b_w$ commute, so their inverses commute as well. Thus
+\[
+ R_a(z)-R_a(w)=(w-z)R_a(z)R_a(w)
+                =(w-z)R_a(w)R_a(z).
+\]
+To justify holomorphy as well, fix $w\in\rho_\A(a)$.
+If $|z-w|\|R_a(w)\|<1$, the factorization
+$b_z=b_w[1_\A+(z-w)R_a(w)]$ and Neumann give
+\[
+ R_a(z)=\sum_{n=0}^{\infty}(-1)^n(z-w)^nR_a(w)^{n+1}.
+\]
+This series converges in norm locally around $w$, so $R_a$
+is holomorphic there. Dividing the preceding identity by $z-w$ and letting
+$z\to w$ in the series yields
+$R_a'(w)=-R_a(w)^2=-(w1_\A-a)^{-2}$.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital Banach, $a\in\A$; $z,w\in\rho_\A(a)$}
+{Identity for inverses and local Neumann series}
+{Obtain the resolvent identity and differentiate the local series}
+{$R_a'(w)=-R_a(w)^2$}
+
+\begin{cthejemplo}{(Derivative of the scalar resolvent)}
+To check the sign in the lemma's formula, take
+$\A=\mathbb C$ and $a=\alpha\in\mathbb C$.
+For $z\ne\alpha$, $R_a(z)=(z-\alpha)^{-1}$ and
+\[
+ \frac{R_a(z+h)-R_a(z)}{h}
+ =-\frac{1}{(z+h-\alpha)(z-\alpha)}
+ \longrightarrow -(z-\alpha)^{-2}.
+\]
+This is the ordinary derivative of a reciprocal function; the lemma extends
+the calculation to inverses in any unital Banach algebra.
+\end{cthejemplo}
+
+\begin{cthteorema}{(Nonemptiness of the spectrum)}
+Let $\A$ be a complex unital Banach algebra and $a\in\A$. Then
+\[
+ \spec(a)\neq\varnothing.
+\]
+\end{cthteorema}
+\origen{Theorem 1.15}
+
+\begin{proof}[Proof]
+Suppose $\spec_\A(a)=\varnothing$. Then
+$R_a:\mathbb C\to\A$ is entire by the preceding lemma. In particular,
+$R_a(0)=(-a)^{-1}\ne0$, since it is the inverse of an element of the
+nonzero algebra. Hahn--Banach gives
+$\varphi\in\A^*$ with $\varphi(R_a(0))\ne0$.
+For $|z|>2\|a\|$, the Neumann series gives
+\[
+ R_a(z)=z^{-1}(1_\A-z^{-1}a)^{-1},\qquad
+ \|R_a(z)\|\le\frac{1}{|z|}
+ \sum_{n=0}^{\infty}\left(\frac{\|a\|}{|z|}\right)^n
+ \le\frac{2}{|z|}.
+\]
+The scalar function $f=\varphi\circ R_a$ is entire and tends to zero
+as $|z|\to\infty$. It is bounded outside a disk by the estimate,
+and inside it by continuity and compactness. Liouville's theorem forces
+$f$ to be constant; its limit at infinity makes that constant zero.
+This contradicts $f(0)=\varphi(R_a(0))\ne0$. Hence
+$\spec_\A(a)\ne\varnothing$.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ complex unital Banach, $a\in\A$; suppose $\spec(a)=\varnothing$}
+{$R_a$ would be entire and $R_a(z)\to0$ as $|z|\to\infty$}
+{Hahn--Banach + Liouville applied to $\varphi\circ R_a$}
+{Choose $\varphi$ with $\varphi(R_a(0))\ne0$; Liouville gives $\varphi\circ R_a=0$}
+{$\spec(a)$ must be nonempty}
+
+\begin{cthejemplo}{(Spectrum without using a determinant)}
+As a familiar case, consider
+$A=\begin{pmatrix}1&1\\0&1\end{pmatrix}\in M_2(\mathbb C)$.
+The determinant of $\lambda I_2-A$ is $(\lambda-1)^2$, so
+$\spec(A)=\{1\}$ and the spectrum is nonempty.
+The nonemptiness theorem gives the same general conclusion without
+using determinants, which are unavailable for an arbitrary
+infinite-dimensional operator.
+\end{cthejemplo}
+
+\begin{cthnota}{(Where the hypotheses of nonemptiness are used)}
+The complex scalar field allows Liouville's theorem to be applied to $\varphi\circ R_a$; completeness
+guarantees the Neumann series and $\A$-valued holomorphy; Hahn--Banach separates a
+nonzero value of $R_a$. The identity appears in $\lambda1-a$. Commutativity is
+not needed.
+\end{cthnota}
+
+\section{Characters, maximal ideals, and the Gelfand transform}
+
+\begin{cthteorema}{(Gelfand--Mazur rigidity)}
+If $\A$ is a complex unital Banach algebra and every nonzero element
+is invertible, then
+$\A=\mathbb C1_\A$.
+\end{cthteorema}
+\origen{Theorem 1.16}
+
+\begin{proof}[Proof]
+Fix $a\in\A$. Nonemptiness of the spectrum gives
+$\lambda\in\spec_\A(a)$ for some $\lambda\in\mathbb C$.
+By definition, $\lambda1_\A-a$ is not invertible. Since every
+nonzero element of $\A$ is invertible by hypothesis, necessarily
+$\lambda1_\A-a=0$, that is, $a=\lambda1_\A$.
+Thus the unital homomorphism $\mathbb C\to\A$,
+$\lambda\mapsto\lambda1_\A$, is surjective; it is injective because
+$1_\A\ne0$. It identifies $\A$ with $\mathbb C1_\A$.
+\end{proof}
+
+\proofdiagram
+{$\A$ complex unital; every $a\in\A\setminus\{0\}$ is invertible}
+{Nonemptiness of $\spec(a)$}
+{Choose $\lambda\in\spec(a)$; then $\lambda1-a$ is not invertible}
+{$\lambda1-a=0$, so $a=\lambda1$}
+
+\begin{cthejemplo}{(The scalars as a division algebra)}
+Let us test the theorem's hypothesis in the simplest model:
+$\A=\mathbb C$ with absolute value. Every $z\ne0$ has inverse
+$z^{-1}=1/z$, and the spectrum of $\alpha\in\mathbb C$ is
+$\{\alpha\}$ because $\lambda-\alpha$ ceases to be invertible only
+when it is zero. Gelfand--Mazur says that any complex unital
+Banach algebra in which every nonzero element is invertible
+is, algebraically, this same scalar model.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Character and Gelfand spectrum)}
+A \emph{character} of a commutative unital Banach algebra $\A$ is a nonzero
+multiplicative linear functional $\varphi:\A\to\mathbb C$. The set of characters is denoted
+\[
+ \Omega(\A)=\{\varphi:\A\to\mathbb C:\varphi\text{ is a character}\},
+\]
+as a set. After continuity of the characters has been proved, it will be given
+the weak-$*$ topology inherited from $\A^*$.
+\end{cthdefinicion}
+\origen{Definition 1.17}
+
+\begin{cthejemplo}{(Point evaluation is a character)}
+Let $X$ be nonempty compact Hausdorff and fix $x\in X$.
+We want to check that evaluation at $x$ meets the definition of a character
+of $C(X)$. The functional $\operatorname{ev}_x(f)=f(x)$ is linear and
+\[
+ \operatorname{ev}_x(fg)=f(x)g(x)
+ =\operatorname{ev}_x(f)\operatorname{ev}_x(g),\qquad
+ \operatorname{ev}_x(1)=1.
+\]
+It is therefore multiplicative and nonzero. Each point thus gives a
+character; Assignment 2 will prove that $C(X)$ has no others.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Characters have norm one)}
+Let $\A$ be a complex commutative unital Banach algebra and
+$\varphi\in\Omega(\A)$. Then $\varphi$ is continuous and
+\[
+ \|\varphi\|=\varphi(1_\A)=1.
+\]
+\end{cthproposicion}
+\origen{Proposition 1.18}
+
+\begin{proof}[Proof]
+Since $\varphi\ne0$, there is $b\in\A$ with $\varphi(b)\ne0$.
+The equality $\varphi(b)=\varphi(1_\A b)=\varphi(1_\A)\varphi(b)$
+forces $\varphi(1_\A)=1$. Fix $a\in\A$.
+If $|\varphi(a)|>\|a\|$, the Neumann corollary shows that
+$u=\varphi(a)1_\A-a$ is invertible. But
+\[
+ \varphi(u)=\varphi(a)\varphi(1_\A)-\varphi(a)=0.
+\]
+If $v=u^{-1}$, multiplicativity would give
+$1=\varphi(1_\A)=\varphi(uv)=\varphi(u)\varphi(v)=0$,
+a contradiction. Hence $|\varphi(a)|\le\|a\|$ for every
+$a\in\A$. This bound proves continuity of $\varphi$ and
+$\|\varphi\|\le1$; since $\|1_\A\|=\varphi(1_\A)=1$,
+we obtain $\|\varphi\|\ge1$ and finally $\|\varphi\|=1$.
+\end{proof}
+
+\proofdiagram
+{$\A$ commutative unital, $\varphi\in\Omega(\A)$, $a\in\A$}
+{$\varphi(1)=1$; large scalars are in the resolvent set}
+{If $|\varphi(a)|>\|a\|$, then $\varphi(a)1-a$ would be invertible but its image under $\varphi$ is $0$}
+{$|\varphi(a)|\le\|a\|$ and $\|\varphi\|=1$}
+
+\begin{cthejemplo}{(Norm of the evaluation functional on $C(X)$)}
+Let $X$ be nonempty compact Hausdorff, fix $x\in X$, and consider
+$\operatorname{ev}_x:C(X)\to\mathbb C$, $\operatorname{ev}_x(f)=f(x)$.
+We want to calculate its norm. For any $f\in C(X)$,
+\[
+ |\operatorname{ev}_x(f)|=|f(x)|\le\|f\|_\infty,
+\]
+so $\|\operatorname{ev}_x\|\le1$. The constant function $1$
+has uniform norm one and $\operatorname{ev}_x(1)=1$, hence
+$\|\operatorname{ev}_x\|\ge1$. We conclude that
+$\|\operatorname{ev}_x\|=1$, in agreement with the general proposition
+on characters: evaluation at a point is a normalized continuous
+functional.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Topology of the character space)}
+Let $\A$ be a complex commutative unital Banach algebra.
+Since every $\varphi\in\Omega(\A)$ is continuous, $\Omega(\A)\subset\A^*$.
+Its \emph{Gelfand topology} is the weak-$*$ topology
+restricted from $\A^*$: a net $\varphi_i$ converges to $\varphi$ if
+$\varphi_i(a)\to\varphi(a)$ for every $a\in\A$.
+With this topology, $\Omega(\A)$ is compact and Hausdorff.
+\end{cthdefinicion}
+\origen{Definition 1.19}
+
+\begin{proof}[Justification of compactness]
+By the preceding proposition, every character has norm one, so
+$\Omega(\A)$ lies in the unit ball of $\A^*$. If a net of
+characters $\varphi_i$ converges weak-$*$ to $\varphi$ in that ball,
+then $\varphi(1_\A)=\lim_i\varphi_i(1_\A)=1$, so
+$\varphi\ne0$. Pointwise limits preserve linearity and, for
+$a,b\in\A$,
+\[
+ \varphi(ab)=\lim_i\varphi_i(ab)
+ =\lim_i\bigl(\varphi_i(a)\varphi_i(b)\bigr)
+ =\varphi(a)\varphi(b).
+\]
+Thus $\Omega(\A)$ is closed in the weak-$*$ compact ball by
+Banach--Alaoglu. The weak-$*$ topology is Hausdorff because two
+distinct functionals differ on some element of $\A$.
+\end{proof}
+
+\begin{cthdefinicion}{(Two-sided ideal and quotient algebra)}
+Let $\A$ be a Banach algebra. A subspace $J\subset\A$ is a
+\emph{two-sided ideal} if $aJ\subset J$ and
+$Ja\subset J$ for every $a\in\A$. Its classes $a+J$ form the quotient algebra
+$\A/J$, with $(a+J)(b+J)=ab+J$. If $J$ is closed, the norm
+\[
+ \|a+J\|_{\A/J}=\inf_{j\in J}\|a+j\|
+\]
+makes $\A/J$ a Banach algebra; the proof of completeness is developed in
+Assignment 1, Problem 4. A maximal ideal is a proper ideal that is not contained in another
+larger proper ideal.
+\end{cthdefinicion}
+
+\begin{cthejemplo}{(Classes and norm in a simple quotient)}[unbreakable]
+In arithmetic, $\mathbb Z/n\mathbb Z$ teaches us to identify elements
+that differ by an ideal. Consider the normed version with
+$X=\{p,q\}$ discrete, $\A=C(X)\cong\mathbb C^2$, and
+$J=\{f:f(p)=0\}$. Two functions represent the same class
+exactly when they have the same value at $p$. Moreover,
+\[
+ \|f+J\|_{\A/J}
+ =\inf_{h\in J}\max\{|f(p)|,|f(q)+h(q)|\}
+ =|f(p)|,
+\]
+since we can choose $h(q)=-f(q)$. The quotient retains only the
+$p$ coordinate; the quotient norm measures the size of the
+information that remains.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Maximal ideals and scalar quotients)}
+Let $J$ be a maximal ideal of a unital Banach algebra $\A$.
+Then $J$ is closed. If $\A$ is commutative, also
+\[
+ \A/J\cong\mathbb C.
+\]
+\end{cthproposicion}
+\origen{Proposition 1.20}
+
+\begin{proof}[Proof]
+The closure $\overline J$ is still a two-sided ideal: if
+$j_n\in J$ converges to $j$ and $a\in\A$, continuity of
+multiplication gives $aj_n\to aj$ and $j_na\to ja$, both in
+$\overline J$. If $J$ were not closed, maximality would require
+$\overline J=\A$. Then there would be $j\in J$ with
+$\|1_\A-j\|<1$. Neumann would make $j$ invertible, and
+$1_\A=j^{-1}j\in J$, contradicting that $J$ is proper.
+Hence $J$ is closed and $\A/J$ is a nonzero unital Banach algebra.
+Its identity is $1_\A+J$ and has norm one: the quotient norm is at most
+$\|1_\A\|=1$, while a distance less than one from $1_\A$ to $J$
+would, by Neumann, produce an invertible element of $J$ and force
+$J=\A$.
+
+Now suppose $\A$ is commutative. The ideals of $\A/J$
+correspond, under the quotient map, to the ideals
+of $\A$ that contain $J$; by maximality, $\A/J$ has no
+ideals other than $\{0\}$ and itself. Let $a+J\ne0$.
+The ideal $(\A/J)(a+J)$ is nonzero and thus equals all of $\A/J$.
+There is $b+J$ with $(b+J)(a+J)=1_\A+J$. Commutativity also gives
+$(a+J)(b+J)=1_\A+J$, so every nonzero element
+of the quotient is invertible. Gelfand--Mazur yields
+$\A/J\cong\mathbb C$ as complex unital algebras.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ unital Banach, $J\subset\A$ maximal}
+{In the second assertion, $\A$ commutative}
+{The closure of $J$ is still an ideal; $\A/J$ has no nontrivial ideals}
+{Every nonzero element of $\A/J$ is invertible; apply Gelfand--Mazur}
+{$J$ closed and $\A/J\cong\mathbb C$}
+
+\begin{cthejemplo}{(A maximal ideal defined by evaluation)}[unbreakable]
+Let $X$ be nonempty compact Hausdorff and fix $x\in X$.
+We want to describe the quotient that forgets functions vanishing at $x$.
+The set $J_x=\{f\in C(X):f(x)=0\}$ is the kernel of the character
+$\operatorname{ev}_x$, and the map
+\[
+ C(X)/J_x\longrightarrow\mathbb C,\qquad f+J_x\longmapsto f(x)
+\]
+is well defined, multiplicative, and surjective because it includes
+constant functions. Its kernel is zero, so it is an
+isomorphism. Since the quotient is a field, $J_x$ is maximal:
+the value at a point is all the information that survives.
+\end{cthejemplo}
+
+\begin{investigacion}
+\textbf{Direct construction example.}
+Let $X$ be an infinite-dimensional complex Banach space.
+An operator $K\in\mathcal B(X)$ is \emph{compact} if
+$K$ maps the unit ball to a relatively compact set. The set
+$\mathcal K(X)$ of such operators is a closed two-sided ideal of $\mathcal B(X)$:
+composition with a bounded operator preserves compactness, and the norm limit
+of compact operators is compact. The quotient
+\[
+ \mathcal Q(X):=\mathcal B(X)/\mathcal K(X)
+\]
+is called the \emph{Calkin algebra} \cite[p.~2]{Karlovich2025}.
+If $X$ is a Hilbert space, this quotient is also a
+$C^*$-algebra; for a general Banach space, only its Banach algebra structure is used here.
+\textbf{What to recognize:} $\mathcal K(X)$ plays exactly the role of the
+closed ideal $J$ in the construction $\A/J$; $\mathcal Q(X)$ is the concrete quotient.
+\end{investigacion}
+
+\begin{investigacion}
+\textbf{Connection with the literature: use of a quotient.}
+Let $X$ be an infinite-dimensional complex Banach space.
+An operator $A\in\mathcal B(X)$ is \emph{Fredholm} if its kernel is finite-dimensional,
+its range is closed, and the codimension of its range is finite. The equivalence from
+operator theory
+\[
+ A\text{ Fredholm}\quad\Longleftrightarrow\quad
+ A+\mathcal K(X)\in\GL(\mathcal Q(X))
+\]
+identifies an operator question with a question of invertibility in a
+quotient \cite[p.~2]{Karlovich2025}. In $X=\ell^2$, let $P$ be the rank-one projection
+onto $\mathbb Ce_1$ and $A=I_X-P$. Then $A$ is not invertible, but
+$A+\mathcal K(X)=I_X+\mathcal K(X)$ is: the difference $P$ disappears
+in the quotient. This is an instructional elaboration based on the cited criterion.
+\textbf{What to recognize:} the quotient $\A/J$ from Problem 1.4 reappears with
+$\A=\mathcal B(X)$ and $J=\mathcal K(X)$; the equivalence with the Fredholm property is
+an additional result from operator theory.
+\end{investigacion}
+
+\pagebreak
+\begin{cthproposicion}{(Characters and maximal ideals)}
+Let $\A$ be a complex commutative unital Banach algebra.
+The assignment
+\[
+ \Omega(\A)\longrightarrow\{\text{maximal ideals of }\A\},\qquad
+ \varphi\longmapsto\ker\varphi,
+\]
+is a bijection.
+\end{cthproposicion}
+\origen{Proposition 1.21}
+
+\begin{proof}[Proof]
+If $\varphi\in\Omega(\A)$, then $\varphi(1_\A)=1$ and
+$\varphi$ is surjective because $\varphi(\lambda1_\A)=\lambda$
+for every $\lambda\in\mathbb C$. Its kernel is a proper ideal, and the
+first isomorphism theorem gives
+$\A/\ker\varphi\cong\mathbb C$; since $\mathbb C$ has no
+nonzero proper ideals, $\ker\varphi$ is maximal.
+
+Conversely, if $J$ is maximal, the preceding proposition allows us to
+choose a complex unital isomorphism
+$\theta:\A/J\to\mathbb C$. Let
+$q:\A\to\A/J$ be the quotient map. The composition
+$\varphi=\theta\circ q$ is linear, multiplicative, and unital;
+it is a character with $\ker\varphi=J$.
+To check uniqueness, if $\psi$ is another character with the same
+kernel, then for each $a\in\A$,
+$a-\varphi(a)1_\A\in J=\ker\psi$. Therefore
+$\psi(a)=\varphi(a)\psi(1_\A)=\varphi(a)$. Thus the two assignments
+are inverses of one another.
+\end{proof}
+
+\proofdiagram
+{$\A$ commutative unital; $\varphi\in\Omega(\A)$ or $J\subset\A$ maximal}
+{Quotients $\A/J\cong\mathbb C$}
+{A character's kernel has codimension $1$; conversely, use the quotient map}
+{$\varphi\leftrightarrow\ker\varphi$}
+
+\begin{cthejemplo}{(Recovering two points from ideals)}
+To see the bijection between characters and maximal ideals,
+take $X=\{p,q\}$ and $C(X)\cong\mathbb C^2$.
+Evaluations give the distinct ideals
+$J_p=\{f:f(p)=0\}$ and $J_q=\{f:f(q)=0\}$.
+If $\varphi$ is any character, the indicator functions
+$e_p,e_q$ satisfy $e_p+e_q=1$ and $e_pe_q=0$;
+their images are scalar idempotents and exactly one equals $1$.
+Since $f=f(p)e_p+f(q)e_q$, it follows that $\varphi$ is
+$\operatorname{ev}_p$ or $\operatorname{ev}_q$.
+In this case, the two points of the space are recovered as the
+two maximal ideals of the algebra.
+\end{cthejemplo}
+
+\begin{cthteorema}{(The spectrum is read through characters)}
+Let $\A$ be a complex commutative unital Banach algebra.
+Then, for each $a\in\A$,
+\[
+ \spec(a)=\{\varphi(a):\varphi\in\Omega(\A)\}.
+\]
+\end{cthteorema}
+\origen{Theorem 1.22}
+
+\begin{proof}[Proof]
+If $\lambda=\varphi(a)$ for a character $\varphi$, then
+$\varphi(\lambda1_\A-a)=\lambda-\varphi(a)=0$.
+An invertible element cannot have zero image under a unital character;
+therefore $\lambda1_\A-a$ is not invertible and
+$\lambda\in\spec_\A(a)$.
+
+Conversely, let $\lambda\in\spec_\A(a)$ and put
+$b=\lambda1_\A-a$. Since $b$ is not invertible, the principal ideal
+$\A b$ is proper: if $1_\A=cb$ for some $c\in\A$,
+commutativity would also give $bc=1_\A$. By Zorn's lemma,
+$\A b$ is contained in a maximal ideal $J$: indeed, the union
+of a chain of proper ideals containing $\A b$ remains
+proper, since if it contained $1_\A$, that element would already belong
+to one of its members. That union is an upper bound for the chain.
+The preceding proposition gives a character $\varphi$ with $J=\ker\varphi$.
+Since $b\in J$, we obtain
+$0=\varphi(b)=\lambda-\varphi(a)$, whence
+$\lambda=\varphi(a)$. Both inclusions are proved.
+\end{proof}
+
+\proofdiagrambranch
+{$a\in\A$, $\varphi\in\Omega(\A)$ and $\lambda=\varphi(a)$}
+{$\lambda\in\spec_\A(a)$}
+{Characters $\leftrightarrow$ maximal ideals}
+{$\lambda1-a$ lies in a maximal ideal exactly when some character annihilates it}
+{$\lambda\in\spec(a)\Longleftrightarrow\exists\varphi\in\Omega(\A):\lambda=\varphi(a)$}
+
+\begin{cthejemplo}{(Spectrum of the square function on $[0,1]$)}
+Apply the spectral theorem via characters to
+$X=[0,1]$ and $f(x)=x^2\in C(X)$.
+Each evaluation $\operatorname{ev}_x$ takes on $f$ the value $x^2$,
+and the pointwise invertibility criterion already checked for $C(X)$
+rules out other spectral values. Therefore
+\[
+ \spec_{C(X)}(f)
+ =\{\operatorname{ev}_x(f):x\in[0,1]\}
+ =\{x^2:x\in[0,1]\}=[0,1].
+\]
+The spectrum recovers exactly the geometric range of the function.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Jacobson's lemma for $1-ab$)}
+Let $\A$ be a unital Banach algebra with identity $1_\A$ and
+$a,b\in\A$. Then
+\[
+ 1_\A-ab\in\GL(\A)\quad\Longleftrightarrow\quad 1_\A-ba\in\GL(\A).
+\]
+If $1_\A-ab$ is invertible,
+\[
+ (1_\A-ba)^{-1}=1_\A+b(1_\A-ab)^{-1}a.
+\]
+\end{cthproposicion}
+\origen{Proposition 1.23}
+
+\begin{proof}[Proof]
+Suppose $1_\A-ab$ is invertible and write
+$c=(1_\A-ab)^{-1}$. The two inverse identities give
+$c-abc=1_\A$ and $c-cab=1_\A$.
+Define $d=1_\A+bca$. On the left,
+\[
+ (1_\A-ba)d
+ =1_\A-ba+bca-babca
+ =1_\A+b(c-1_\A-abc)a=1_\A.
+\]
+On the right, use the other identity for $c$:
+\[
+ d(1_\A-ba)
+ =1_\A-ba+bca-bcaba
+ =1_\A+b(c-1_\A-cab)a=1_\A.
+\]
+Thus $d$ is the two-sided inverse of $1_\A-ba$, proving
+the formula in the statement. Starting instead from invertibility of
+$1_\A-ba$, the same reasoning with $a$ and $b$ interchanged
+proves the reverse implication.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital, $a,b\in\A$ and $1_\A-ab$ invertible}
+{Associativity}
+{Explicitly construct $1+b(1-ab)^{-1}a$}
+{It is a two-sided inverse of $1-ba$}
+
+\begin{cthejemplo}{(Jacobson's identity for noncommuting matrices)}[unbreakable]
+We want to see the proposition without assuming the factors commute.
+In $M_2(\mathbb C)$ take $A=E_{12}$ and
+$B=\frac12E_{21}$, where $E_{ij}$ are the matrices with a
+single entry $1$ in position $(i,j)$. Then
+$AB=\frac12E_{11}$ and $BA=\frac12E_{22}$ are distinct, but
+\[
+ (I_2-AB)^{-1}=\operatorname{diag}(2,1),\qquad
+ (I_2-BA)^{-1}=\operatorname{diag}(1,2).
+\]
+Jacobson's formula gives the second inverse from the first:
+$I_2+B(I_2-AB)^{-1}A=I_2+E_{22}$.
+Simultaneous invertibility follows from the structure of the product,
+without requiring $AB=BA$.
+\end{cthejemplo}
+
+\begin{cthcorolario}{(Nonzero spectra of $ab$ and $ba$)}
+Let $\A$ be a complex unital Banach algebra and $a,b\in\A$.
+Then
+\[
+ \spec_\A(ab)\cup\{0\}=\spec_\A(ba)\cup\{0\},
+ \qquad\text{equivalently}\qquad
+ \spec_\A(ab)\setminus\{0\}=\spec_\A(ba)\setminus\{0\}.
+\]
+\end{cthcorolario}
+\origen{Corollary 1.24}
+
+\begin{proof}[Proof]
+Let $\lambda\in\mathbb C\setminus\{0\}$ and use
+the factorization
+$\lambda1_\A-ab=\lambda(1_\A-\lambda^{-1}ab)$.
+The scalar factor $\lambda1_\A$ is invertible, so
+\[
+\lambda1-ab\in\GL(\A)
+\Longleftrightarrow
+1-\lambda^{-1}ab\in\GL(\A)
+\Longleftrightarrow
+1-\lambda^{-1}ba\in\GL(\A)
+\Longleftrightarrow
+\lambda1-ba\in\GL(\A).
+\]
+The middle equivalence is the preceding lemma applied to
+$\lambda^{-1}a$ and $b$; the last again uses the scalar factor
+$\lambda\ne0$. By the definition of spectrum, $\lambda$ belongs
+to $\spec_\A(ab)$ exactly when it belongs to
+$\spec_\A(ba)$. Equality of the spectra away from zero
+follows for every $\lambda\ne0$; adding $\{0\}$ to both
+sets gives the first equality in the statement.
+\end{proof}
+
+\proofdiagram
+{$a,b\in\A$, $\lambda\in\mathbb C\setminus\{0\}$}
+{Jacobson's lemma}
+{$\lambda1_\A-ab=\lambda(1_\A-\lambda^{-1}ab)$}
+{The nonzero spectra coincide; adding $\{0\}$ gives the equality}
+
+\begin{cthejemplo}{(Reversing the order across different dimensions)}
+Let $A:\mathbb C^m\to\mathbb C^n$ and
+$B:\mathbb C^n\to\mathbb C^m$. We want to compare the products
+$AB\in M_n(\mathbb C)$ and $BA\in M_m(\mathbb C)$.
+Jacobson's identity adapts to the two identities and, for
+$\lambda\ne0$, gives
+\[
+ (I_m-\lambda^{-1}BA)^{-1}
+ =I_m+\lambda^{-1}B(I_n-\lambda^{-1}AB)^{-1}A
+\]
+ if $I_n-\lambda^{-1}AB$ is invertible. As a concrete case, take
+$A(t)=(t,0)$ from $\mathbb C$ to $\mathbb C^2$ and
+$B(x,y)=x$ from $\mathbb C^2$ to $\mathbb C$. Then
+$AB=\operatorname{diag}(1,0)$ and $BA=(1)$:
+their nonzero spectra are both $\{1\}$, although only the first
+contains $0$. This explains why the corollary adds $\{0\}$.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Spectral radius)}
+Let $\A$ be a complex unital Banach algebra and $a\in\A$.
+The \emph{spectral radius} of $a$ is
+\[
+ r(a)=\max\{|\lambda|:\lambda\in\spec_\A(a)\}.
+\]
+\end{cthdefinicion}
+\origen{Definition 1.25}
+
+\begin{cthejemplo}{(Spectral radius and matrix norm)}
+For $A=\operatorname{diag}(2,-3,i)\in M_3(\mathbb C)$,
+the spectral values are its diagonal entries, so
+$r(A)=\max\{2,3,1\}=3$. With the Euclidean operator norm, also
+$\|A\|=3$, since it is diagonal. Equality is not automatic for
+nonnormal matrices: if
+$B=\begin{pmatrix}2&10\\0&-3\end{pmatrix}$,
+its spectrum is still $\{2,-3\}$ and $r(B)=3$, whereas
+$\|B\|\ge\|Be_2\|=\sqrt{109}>3$.
+The radius measures spectral values and can be less than the norm.
+\end{cthejemplo}
+
+\begin{cthteorema}{(Spectral radius formula)}
+Let $\A$ be a complex unital Banach algebra and $a\in\A$.
+Then
+\[
+ r(a)=\lim_{n\to\infty}\|a^n\|^{1/n}
+     =\inf_{n\ge1}\|a^n\|^{1/n}.
+\]
+\end{cthteorema}
+\origen{Theorem 1.26}
+
+\begin{proof}[Proof]
+First check that the limit of norms exists. Put
+$\beta_n=\|a^n\|$. Submultiplicativity gives
+$\beta_{m+n}\le\beta_m\beta_n$. If $\beta_m=0$ for some
+$m\ge1$, then $a^n=0$ for every $n\ge m$ and
+$\lim_n\beta_n^{1/n}=\inf_{n\ge1}\beta_n^{1/n}=0$.
+Otherwise, fix $m\ge1$ and write $n=qm+s$,
+$0\le s<m$. Since
+$\beta_n\le\beta_m^q\beta_s$ and there are only finitely many
+possible $s$, taking $n$th roots and letting $n\to\infty$
+gives
+\[
+ \limsup_{n\to\infty}\beta_n^{1/n}\le\beta_m^{1/m}.
+\]
+This holds for every $m$. On the other hand, each term
+$\beta_n^{1/n}$ is at least $\inf_{m\ge1}\beta_m^{1/m}$.
+Consequently,
+\[
+ L:=\lim_{n\to\infty}\|a^n\|^{1/n}
+   =\inf_{n\ge1}\|a^n\|^{1/n}.
+\]
+
+Let us show that $r(a)\le L$. If $\lambda\in\spec_\A(a)$ and
+$n\ge1$, the polynomial factorization
+\[
+ \lambda^n1_\A-a^n
+ =(\lambda1_\A-a)
+   \sum_{k=0}^{n-1}\lambda^{n-1-k}a^k
+ \]
+has commuting factors. If the product were invertible, each
+factor would be: indeed, if $x$ and $y$ commute and $xy$ has
+inverse $c$, the equality $x(xy)=(xy)x$ implies $xc=cx$ after
+multiplication by $c$. Then
+$x(yc)=(xy)c=1_\A$ and
+$(yc)x=y(cx)=yx c=(xy)c=1_\A$, so $yc$ is
+a two-sided inverse of $x$.
+This contradicts the noninvertibility of $\lambda1_\A-a$. Thus
+$\lambda^n\in\spec_\A(a^n)$, and the spectral bound already proved gives
+$|\lambda|^n\le\|a^n\|$. Taking the maximum over the spectrum
+and then taking roots yields $r(a)\le\|a^n\|^{1/n}$ for every
+$n$, and therefore $r(a)\le L$.
+
+For the other inequality, let $R=1/r(a)$ if $r(a)>0$ and
+$R=\infty$ if $r(a)=0$. The function
+$g(z)=(1_\A-za)^{-1}$ is defined and holomorphic on
+$|z|<R$: for $z\ne0$ in that disk,
+$|z^{-1}|>r(a)$ and
+$1_\A-za=z(z^{-1}1_\A-a)$ is invertible; at $z=0$
+it is the identity. If $z\ne0$, moreover,
+$g(z)=z^{-1}R_a(z^{-1})$, which is holomorphic by the resolvent
+lemma and holomorphy of $z\mapsto z^{-1}$ away from zero.
+Near zero, Neumann gives
+$g(z)=\sum_{n\ge0}a^nz^n$.
+This series converges in norm for $|z|\|a\|<1$ and proves
+holomorphy at zero as well.
+
+Fix a real $t$ with $0<t<R$. For each $\varphi\in\A^*$,
+$\varphi\circ g$ is holomorphic on $|z|<R$, and its Taylor series
+at zero has coefficients $\varphi(a^n)$. Choose $s$ with
+$t<s<R$. Cauchy's bound on the circle $|z|=s$ gives
+$|\varphi(a^n)|\le M_{\varphi,s}s^{-n}$, where
+$M_{\varphi,s}=\max_{|z|=s}|\varphi(g(z))|<\infty$.
+Thus $t^n|\varphi(a^n)|\le M_{\varphi,s}(t/s)^n$ is
+bounded for each $\varphi$. Apply Banach--Steinhaus on the Banach space
+$\A^*$ to the continuous operators
+$T_n:\A^*\to\mathbb C$,
+$T_n(\varphi)=t^n\varphi(a^n)$. Pointwise boundedness implies
+$\sup_n\|T_n\|<\infty$. Hahn--Banach gives
+$\|T_n\|=t^n\|a^n\|$, so there is $C_t<\infty$ with
+$t^n\|a^n\|\le C_t$ for every $n$. Taking roots and limits,
+$L\le t^{-1}$. If $r(a)>0$, let $t\uparrow1/r(a)$ and
+obtain $L\le r(a)$; if $r(a)=0$, we may take $t$
+arbitrarily large and obtain $L=0$. Together with the first
+inequality and the existence of $L$, this proves both equalities.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ unital, $a\in\A$; $\lambda\in\spec(a)\Rightarrow\lambda^n\in\spec(a^n)$}
+{Study $g(z)=(1-za)^{-1}$ on $|z|<R$, $R=1/r(a)$ or $\infty$}
+{Holomorphy + Taylor + Banach--Steinhaus}
+{Bound $t^n\|a^n\|$ for each $t<R$ and let $t\uparrow R$}
+{$r(a)=\lim\|a^n\|^{1/n}$}
+
+\begin{cthejemplo}{(The Volterra operator is quasinilpotent)}[unbreakable]
+Let us study a nonzero operator whose spectral radius is zero.
+On $C[0,1]$ with the uniform norm, define
+$(Vf)(x)=\int_0^x f(t)\,dt$. Iterating the integral gives, for
+$n\ge1$,
+\[
+ (V^nf)(x)=\frac1{(n-1)!}\int_0^x(x-t)^{n-1}f(t)\,dt,
+ \qquad \|V^n\|\le\frac1{n!}.
+\]
+The bound follows by replacing $|f(t)|$ with $\|f\|_\infty$
+and integrating the power.
+By the spectral radius formula,
+$r(V)=\lim_n\|V^n\|^{1/n}=0$.
+Since the spectrum is nonempty and all its points have modulus
+at most zero, $\spec(V)=\{0\}$.
+This case distinguishes a quasinilpotent operator from the zero operator:
+$V\ne0$ although its spectrum is $\{0\}$.
+\end{cthejemplo}
+
+\begin{cthnota}{(Interpretation of the formula for iterates)}
+Let $X$ be a Banach space and $A\in\mathcal B(X)$. Then $\|A^n\|$
+measures the largest effect of $n$ successive
+applications. The limit $\lim_n\|A^n\|^{1/n}$ measures its asymptotic exponential rate and
+equals $r(A)$. The Volterra example shows that this rate may be zero
+even when $A\ne0$.
+\end{cthnota}
+
+\begin{cthdefinicion}{(Gelfand transform)}
+Let $\A$ be a complex commutative unital Banach algebra.
+The \emph{Gelfand transform} is
+\[
+ \Gamma:\A\to C(\Omega(\A)),\qquad
+ a\mapsto\widehat a,\qquad \widehat a(\varphi)=\varphi(a).
+\]
+\end{cthdefinicion}
+\origen{Definition 1.27}
+
+\begin{cthejemplo}{(The transform recovers a function in $C(X)$)}
+Take $X=[0,1]$ and $f(t)=t\in C(X)$ to make the definition concrete.
+Each point $x\in X$ gives the evaluation character
+$\operatorname{ev}_x$, and
+\[
+ \widehat f(\operatorname{ev}_x)
+ =\operatorname{ev}_x(f)=x=f(x).
+\]
+Under the identification $\Omega(C(X))\cong X$, proved in Assignment 2,
+the Gelfand transform is the function $f$ itself.
+The formula shows how a function is read through all the
+characters of the algebra.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(The Gelfand transform is contractive)}
+Let $\A$ be a complex commutative unital Banach algebra and
+$a\in\A$. The Gelfand transform is linear, multiplicative,
+unital, and
+\[
+ \|\widehat a\|_\infty=r(a)\le\|a\|.
+\]
+\end{cthproposicion}
+\origen{Remark 1.28}
+
+\begin{proof}[Proof]
+For each $\varphi\in\Omega(\A)$, linearity and
+multiplicativity of the character give
+\[
+ \widehat{\alpha a+b}(\varphi)
+   =\alpha\widehat a(\varphi)+\widehat b(\varphi),\qquad
+ \widehat{ab}(\varphi)=\widehat a(\varphi)\widehat b(\varphi),
+ \qquad \widehat{1_\A}(\varphi)=1.
+\]
+Each $\widehat a$ is continuous in the weak-$*$ topology by its
+definition. The theorem describing the spectrum through
+characters identifies the range of $\widehat a$
+with $\spec_\A(a)$. Hence
+\[
+ \|\widehat a\|_\infty=\sup_{\varphi\in\Omega(\A)}|\varphi(a)|
+ =\max_{\lambda\in\spec(a)}|\lambda|=r(a)\le\|a\|.
+\]
+The maximum exists because the spectrum is compact and nonempty;
+the last inequality is the spectral bound proved earlier.
+\end{proof}
+
+\proofdiagram
+{Definition $\widehat a(\varphi)=\varphi(a)$}
+{Linear and multiplicative characters; spectrum via characters}
+{$\|\widehat a\|_\infty=\sup_{\varphi}|\varphi(a)|$}
+{$\|\widehat a\|_\infty=r(a)\le\|a\|$}
+
+\begin{investigacion}[unbreakable]
+\textbf{Connection with the literature: a direct example of a commutative algebra.}
+Karlovich considers $\SO(\mathbb R_+)$, the algebra of bounded continuous functions whose
+oscillation on $[r,2r]$ tends to zero as $r\to0$ and as $r\to\infty$
+\cite[pp.~465--466, §2]{Karlovich2017}. It is a commutative $C^*$-subalgebra of
+$C_b(\mathbb R_+)$: it contains constants, is closed under addition, multiplication, and conjugation, and
+the oscillation condition is preserved under uniform limits. The
+$C^*$ identity will be recognized formally in Section 2; at this point all that is
+needed is that the algebra is commutative and unital. For $a$ in this algebra,
+$\widehat a(\xi)=\xi(a)$ evaluates $a$ at a character $\xi\in\Omega(\SO(\mathbb R_+))$.
+Besides evaluations at $r>0$, the maximal ideal space has fibers over $0$ and
+$\infty$. These fibers organize limiting behaviors that a single value $a(0)$ or
+$a(\infty)$ would not describe. The Gelfand transform of this coefficient algebra
+is a conceptual step toward Fredholm symbols, not the full Fredholm symbol.
+\textbf{What to recognize:} the characters of $\A$ studied in the course
+become ordinary evaluations and characters in the fibers of
+$\Omega(\SO(\mathbb R_+))$ here. For the precise construction, see
+\cite[§2, Propositions~2.1--2.2]{Karlovich2017}.
+\end{investigacion}
+
+\begin{cthdefinicion}{(Modular ideal)}
+An ideal $I$ of an algebra $\A$ is called \emph{modular} if there is $u\in\A$ such that
+\[
+ a-ua\in I,\qquad a-au\in I,\qquad a\in\A.
+\]
+\end{cthdefinicion}
+\origen{Definition 1.29}
+
+\begin{cthejemplo}{(Local identity for an evaluation ideal)}
+Let $X$ be locally compact Hausdorff and fix $x\in X$.
+We want to check the modularity of the ideal
+\[
+ I_x=\{f\in C_0(X):f(x)=0\}.
+\]
+Choose a continuous compactly supported function $u$ with
+$u(x)=1$, available by local compactness and the Hausdorff separation property;
+in particular, $u\in C_0(X)$.
+For every $f\in C_0(X)$ we have
+$(f-uf)(x)=(f-fu)(x)=0$; therefore both differences belong to
+$I_x$. The class $u+I_x$ acts as the identity of the quotient, although
+$C_0(X)$ may lack a global identity.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Modularity criterion via the quotient)}
+Let $\A$ be an algebra and $I\subsetneq\A$ a proper two-sided ideal.
+Then $I$ is modular if and only if $\A/I$ has an identity.
+\end{cthproposicion}
+\origen{Proposition 1.31}
+
+\begin{proof}[Proof]
+If $I$ is modular, there is $u\in\A$ such that for every
+$a\in\A$, we have $a-au\in I$ and $a-ua\in I$. In the
+quotient, this is equivalent to
+\[
+ (a+I)(u+I)=au+I=a+I=ua+I=(u+I)(a+I).
+\]
+Therefore $u+I$ is a two-sided identity of $\A/I$.
+Conversely, if $\A/I$ has an identity, it is a class
+$u+I$ for some $u\in\A$. For each $a\in\A$, the
+identity laws give $au+I=a+I=ua+I$, that is,
+$a-au\in I$ and $a-ua\in I$. This $u$ proves that $I$ is
+modular.
+\end{proof}
+
+\proofdiagram
+{$I\subsetneq\A$ a proper two-sided ideal}
+{Definition of multiplication in $\A/I$}
+{$u$ modulo $I$ acts as the identity exactly when $a-au,a-ua\in I$}
+{$I$ modular $\Longleftrightarrow \A/I$ unital}
+
+\begin{cthejemplo}{(A unital quotient of $C_0(\mathbb R)$)}
+To see the proposition in a nonunital algebra, take
+$\A=C_0(\mathbb R)$ and
+$I_0=\{f\in\A:f(0)=0\}$. The constant function $1$ does not belong
+to $\A$, but $u(t)=\max\{1-|t|,0\}$ does and satisfies $u(0)=1$.
+Evaluation induces
+\[
+ \A/I_0\longrightarrow\mathbb C,\qquad f+I_0\longmapsto f(0),
+\]
+a surjective isomorphism because the functions $\lambda u$ attain
+any value $\lambda$. Thus $\A/I_0$ has identity $u+I_0$:
+modularity detects an identity that appears only after taking the quotient.
+\end{cthejemplo}

@@ -1,0 +1,237 @@
+% --------------------------------------------
+%  miestilo.sty  —  Estilo personal con cajas
+%                 de teorema en español
+% Fuente: 
+% https://github.com/joaomlourenco/coloredtheorem
+% --------------------------------------------
+\ProvidesPackage{miestilo}[2025/08/03 v1.0 estilos de teorema]
+\NeedsTeXFormat{LaTeX2e}
+
+% --------------------------------------------
+% Paquetes básicos
+% --------------------------------------------
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage[spanish]{babel}
+\RequirePackage{textcomp}
+\RequirePackage{geometry}
+\geometry{margin=1in}
+
+% --------------------------------------------
+% Matemáticas y gráficos
+% --------------------------------------------
+\RequirePackage{amsmath,amssymb,amsfonts,amsthm}
+\RequirePackage{thmtools}          % interfaz avanzada para amsthm
+\RequirePackage{physics}
+\RequirePackage{tikz}
+\usetikzlibrary{babel,decorations.pathreplacing}
+\RequirePackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\RequirePackage{qtree}
+\RequirePackage{mathdots,yhmath,cancel,extarrows}
+\tikzset{every picture/.style={line width=.8pt}}
+
+% --------------------------------------------
+% Otros paquetes útiles
+% --------------------------------------------
+\RequirePackage{array,multirow,tabularx,booktabs}
+\RequirePackage{siunitx,gensymb}
+\RequirePackage{xcolor}
+\RequirePackage{hyperref}
+\RequirePackage{dirtree}
+\RequirePackage{tikz-qtree}
+\RequirePackage{listings}
+\RequirePackage{mdframed}
+
+% --------------------------------------------
+% Cajas de colores para resaltar código
+% --------------------------------------------
+
+\RequirePackage[most]{tcolorbox}
+\newtcbox{\kbd}{on line,
+  boxrule=0pt,
+  colback=green!8,
+  colframe=green!20,
+  arc=2pt,
+  left=2pt,right=2pt,top=1pt,bottom=1pt,
+  boxsep=0pt
+}
+
+
+% --------------------------------------------
+% Soporte de acentos en listings (UTF-8)
+% --------------------------------------------
+\lstset{
+  literate=
+   {á}{{\'a}}1
+   {é}{{\'e}}1
+   {í}{{\'i}}1
+   {ó}{{\'o}}1
+   {ú}{{\'u}}1
+   {Á}{{\'A}}1
+   {É}{{\'E}}1
+   {Í}{{\'I}}1
+   {Ó}{{\'O}}1
+   {Ú}{{\'U}}1
+   {ñ}{{\~n}}1
+   {Ñ}{{\~N}}1
+}
+
+%%%
+% Para punto decimal
+\decimalpoint 
+%%%
+% --------------------------------------------
+% Definir colores parar el código
+% --------------------------------------------
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{ocre}{HTML}{E38217}
+\definecolor{verdeoscuro}{HTML}{225E24}
+
+% Paleta coherente con los materiales COCID/MathMongo.
+\definecolor{BootBlue}{HTML}{1565C0}
+\definecolor{BootBlueDark}{HTML}{0D3B66}
+\definecolor{BootBlueLight}{HTML}{EAF4FA}
+\definecolor{BootTeal}{HTML}{00897B}
+\definecolor{BootTealDark}{HTML}{0F6B78}
+\definecolor{BootTealLight}{HTML}{E8F6F4}
+\definecolor{BootGreen}{HTML}{2E7D32}
+\definecolor{BootGreenLight}{HTML}{EAF5EA}
+\definecolor{BootPink}{HTML}{C2185B}
+\definecolor{BootPinkLight}{HTML}{FCEAF3}
+\definecolor{BootAmber}{HTML}{F9A825}
+\definecolor{BootAmberDark}{HTML}{8A5A00}
+\definecolor{BootAmberLight}{HTML}{FFF7DD}
+\definecolor{BootRed}{HTML}{B42318}
+\definecolor{BootRedLight}{HTML}{FDECEC}
+\definecolor{BootInk}{HTML}{1F2937}
+\definecolor{BootMuted}{HTML}{667085}
+\definecolor{BootBorder}{HTML}{CBD5E1}
+\definecolor{BootSurface}{HTML}{F8FAFC}
+\definecolor{BootWhite}{HTML}{FFFFFF}
+% --------------------------------------------
+% Paleta académica opcional para Notas/Diario
+% --------------------------------------------
+% `\providecolor` mantiene intacta cualquier definición explícita de la nota.
+% Así, documentos con una identidad visual propia pueden seguir usando
+% `\definecolor` en su preámbulo sin que el estilo común la reemplace.
+\providecolor{DIblue}{HTML}{1F4E79}
+\providecolor{DIteal}{HTML}{0F6B78}
+\providecolor{DIgreen}{HTML}{3A7D44}
+\providecolor{DIorange}{HTML}{B45F06}
+\providecolor{DIred}{HTML}{9C2F2F}
+\providecolor{DIgray}{HTML}{4F5B66}
+\providecolor{DIpurple}{HTML}{665191}
+\providecolor{DIlightblue}{HTML}{EAF2F8}
+\providecolor{DIlightgreen}{HTML}{EDF7ED}
+\providecolor{DIlightorange}{HTML}{FFF4E5}
+\providecolor{DIlightred}{HTML}{FDECEC}
+\providecolor{DIlightpurple}{HTML}{F2EFF9}
+% --------------------------------------------
+% Secciones
+% --------------------------------------------
+\RequirePackage{titlesec}
+\titleformat{\section}
+  {\large\bfseries\sffamily\color{blue}}{\thesection}{.5em}{}
+
+% --------------------------------------------
+%  Cajas de teorema (coloredtheorem+tcolorbox)
+% --------------------------------------------
+\RequirePackage{coloredtheorem}
+
+% --- estilo “miestilo” (sin sombreado clásico) ---
+\declaretheoremstyle[
+  headfont       = \color{blue}\bfseries,
+  bodyfont       = \itshape,
+  headpunct      = {.},
+  postheadspace  = 0.5em
+]{miestilo}
+
+% --- estilo “de código” (sin sombreado clásico) ---
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% --------------------------------------------
+% Bloques de algoritmo / código procedimental
+% --------------------------------------------
+% `ProvideTCBListing` evita reemplazar una definición aportada por
+% otro paquete. El primer argumento es opcional y se pasa a `listings`; el
+% segundo es el título visible de la caja.
+\tcbuselibrary{listings,breakable,skins}
+\ProvideTCBListing{algoritmo}{O{} m}{
+  enhanced,
+  breakable,
+  listing only,
+  listing engine=listings,
+  colback=blue!2,
+  colframe=blue!15!black,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={#2},
+  listing options={
+    style=mystyle,
+    breaklines=true,
+    upquote=true,
+    #1
+  }
+}
+
+% --- cajas con tcolorbox a través de coloredtheorem ---
+%   (colores: azul para definiciones, rojo para teoremas,
+%    verde para corolarios, púrpura para lemas… cambia al gusto)
+%
+\cthnewtheorem{definicion}{Definición}[colback=blue!5,colframe=blue!75!black,coltitle=white!100!black,fonttitle=\bfseries]
+
+\cthnewtheorem{teorema}{Teorema}[colback=red!5,colframe=red!65!black,coltitle=white!100!black,fonttitle=\bfseries]
+
+\cthnewtheorem{corolario}{Corolario}[colback=green!5,colframe=green!60!black,coltitle=white!100!black,fonttitle=\bfseries]
+
+\cthnewtheorem{lema}{Lema}[colback=purple!5,colframe=purple!60!black,coltitle=white!100!black,fonttitle=\bfseries]
+
+\cthnewtheorem{proposicion}{Proposición}[colback=orange!5,colframe=white!100!black,coltitle=orange!85!black,fonttitle=\bfseries]
+
+\cthnewtheorem{ejemplo}{Ejemplo}[colback=orange!8,colframe=orange!90,coltitle=white!100!black,fonttitle=\bfseries]
+
+\cthnewtheorem{nota}{Nota}[colback=yellow!10,colframe=yellow!65!black,coltitle=white!100!black,fonttitle=\bfseries]
+
+\cthnewtheorem{observacion}{Observación}[colback=teal!6,colframe=teal!60!black,coltitle=white!100!black,fonttitle=\bfseries]
+
+% --------------------------------------------
+% Alias “legacy” (por compatibilidad con ntheorem)
+% --------------------------------------------
+\let\theorem     \cthteorema
+\let\endtheorem  \endcthteorema
+\let\definition  \cthdefinicion
+\let\enddefinition\endcthdefinicion
+\let\corollary   \cthcorolario
+\let\endcorollary\endcthcorolario
+\let\lemma       \cthlema
+\let\endlemma    \endcthlema
+\let\proposition \cthproposicion
+\let\endproposition\endcthproposicion
+\let\example     \cthejemplo
+\let\endexample  \endcthejemplo
+\let\remark      \cthnota
+\let\endremark   \endcthnota

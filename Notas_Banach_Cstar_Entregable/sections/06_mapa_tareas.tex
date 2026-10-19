@@ -1,0 +1,173 @@
+\chapter{Mapa de dependencias entre resultados, tareas e investigación}
+
+\section{Qué significa una flecha en este mapa}
+
+\begin{context}
+Una flecha continua indica que el resultado de origen se usa en la demostración o en la
+construcción del resultado de destino. Una flecha discontinua indica una aplicación o comparación
+conceptual: no afirma que el resultado de destino se deduzca del primero. Las hipótesis escritas
+junto a cada ruta son parte de la conexión.
+\end{context}
+
+\section{Rutas que intervienen en demostraciones}
+
+\begin{dependencias}
+\textbf{Continuidad e inversos.}
+\[
+\boxed{\text{Serie de Neumann (Parte 1)}}
+\longrightarrow
+\boxed{\text{T1.1(b): inversión continua}}
+\longrightarrow
+\boxed{\text{Prop. 2.17: permanencia espectral}}.
+\]
+En la última flecha se usa que $(b+i/n)^{-1}\to b^{-1}$ en la álgebra ambiente y que la
+$C^*$-subálgebra es cerrada. T1.1(a) aporta, por otra vía, continuidad del producto para T1.3,
+T1.7 y T2.8.
+\end{dependencias}
+
+\begin{dependencias}
+\textbf{Reducción conmutativa.}
+\[
+\begin{gathered}
+\boxed{\text{T1.2: inversos que conmutan}}
+\quad+\quad
+\boxed{\text{T1.3: álgebra generada}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{T1.9: subálgebra inversamente cerrada}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{Prop. 2.13: espectro real}}.
+\end{gathered}
+\]
+La última prueba añade la identidad $C^*$, la realidad de los caracteres en autoadjuntos y la
+descripción del espectro mediante caracteres. T1.9 aporta la subálgebra conmutativa que conserva
+el espectro; por sí solo no demuestra que el espectro sea real.
+\end{dependencias}
+
+\begin{dependencias}
+\textbf{De las funciones al cálculo funcional.}
+\[
+\begin{gathered}
+\boxed{\text{T1.3(d): }C^*(a,1)\text{ conmutativa para $a$ normal}}\\[2mm]
+\quad+\quad
+\boxed{\text{Prop. 2.17: permanencia espectral}}
+\quad+\quad
+\boxed{\text{Teo. 2.20: Gelfand--Naimark}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{Teo. 2.22: cálculo funcional}}.
+\end{gathered}
+\]
+T1.10 calcula el espectro de una función continua y, combinado con el cálculo funcional y la
+permanencia espectral, da T2.4. T2.2(a,c) proporciona las direcciones directas de T2.6(c,b);
+las recíprocas usan normalidad y cálculo funcional.
+\end{dependencias}
+
+\begin{dependencias}
+\textbf{Continuidad al variar el operador.}
+\[
+\begin{gathered}
+\boxed{\text{T1.7: límite de normales normal}}
+\quad+\quad
+\boxed{\text{Stone--Weierstrass}}\\[2mm]
+\quad+\quad
+\boxed{\text{cálculo funcional isométrico}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{T2.8: }f(x_n)\to f(x)}.
+\end{gathered}
+\]
+La convergencia aquí es en norma. T2.9 estudia otra situación: una red creciente y acotada de
+autoadjuntos converge fuertemente, es decir, vector por vector en norma de $H$.
+\end{dependencias}
+
+\section{Cobertura de los ejercicios}
+
+\small
+\begin{longtable}{>{\bfseries}p{1.3cm}p{4.3cm}p{8.2cm}}
+\toprule
+Tarea & Resultado demostrado & Uso exacto o alcance de la conexión\\
+\midrule
+\endhead
+T1.1 & Producto e inversión continuos & El producto permite T1.3 y T1.7; la inversión se usa en la Prop. 2.17 y el producto de nuevo en T2.8.\\
+T1.2 & Conmutación con inversos y adjuntos & Se usa al añadir inversos en la construcción de T1.9.\\
+T1.3 & Álgebra generada y conmutación & Para un normal $a$, construye $C^*(a,1)$ conmutativa, usada en las Props. 2.18 y 2.22.\\
+T1.4 & Cociente por ideal cerrado & Hace de $\mathcal B(X)/\K(X)$ una álgebra de Banach; la equivalencia Fredholm--invertibilidad es el teorema externo de Atkinson.\\
+T1.5 & $C_0(X)$ cerrado en $C_b(X)$ & Si $X$ no es compacto, es no unital; la clasificación general de $C_0(X)$ requiere la versión no unital del teorema de la Sección 2.\\
+T1.6 & $\spec(x^*)=\overline{\spec(x)}$ & Simetría válida en álgebras involutivas; la realidad del espectro autoadjunto exige además el argumento $C^*$ de la Prop. 2.13.\\
+T1.7 & Normalidad cerrada & Primera hipótesis que T2.8 necesita para definir $f(x)$ en el límite.\\
+T1.8 & Inclusión espectral por homomorfismos & Aplicada a $a^*a$, entra en la prueba de contractividad de $*$-homomorfismos (Teo. 2.8).\\
+T1.9 & Subálgebra conmutativa inversamente cerrada & Se usa expresamente en la prueba de la Prop. 2.13 para preservar el espectro de un autoadjunto.\\
+T1.10 & $\spec(f)=f(X)$ para $X$ compacto & Calcula el espectro de $f$ en la prueba de T2.4; ilustra el modelo $C(X)$ de Gelfand--Naimark.\\
+T1.11 & $\mathcal B(H)$ y shift unilateral & El inciso (a) da el modelo concreto de T2.1; (c,d) separan espectro puntual aproximado y espectro, y T2.10 completa el cálculo de $\spec(S)$.\\
+T1.12 & Álgebra del disco & Muestra que una inclusión unital y cerrada de álgebras de Banach puede cambiar el espectro; la inclusión no es de $C^*$-subálgebras.\\
+\midrule
+T2.1 & $C_b(X)\hookrightarrow\mathcal B(\ell^2(X))$ & Verifica directamente un $*$-homomorfismo isométrico; ejemplo concreto del Teo. 2.27.\\
+T2.2 & Idempotentes, productos, unitarios & (a,c) dan direcciones directas de la Prop. 2.28; (b) estima radios de productos conmutativos y no se necesita para esa proposición.\\
+T2.3 & Producto acotado y suma $c_0$ & Construye una $C^*$-álgebra y su ideal cerrado; T1.4 permite considerar el cociente como álgebra de Banach.\\
+T2.4 & Mapeo espectral continuo & Depende del Teo. 2.22, la Prop. 2.17 y T1.10; se aplica al espectro de funciones de normales.\\
+T2.5 & $X\cong\Omega(C(X))$ & Da la unicidad del espacio compacto en el Cor. 2.21.\\
+T2.6 & Autoadjuntos, unitarios y proyecciones normales & Reconstruye la Prop. 2.28 mediante cálculo funcional y muestra con contraejemplos la necesidad de normalidad.\\
+T2.7 & Factor unitario de un invertible & Usa la raíz positiva de la Prop. 2.30 y la invertibilidad de $a^*a$ para obtener $a=u|a|$.\\
+T2.8 & Continuidad de $f(x_n)$ & Combina T1.7, Stone--Weierstrass y cálculo funcional; la convergencia es en norma.\\
+T2.9 & Convergencia monótona de autoadjuntos & Usa orden positivo, polarización y Riesz; concluye convergencia fuerte, sin afirmar convergencia en norma.\\
+T2.10 & Espectro del shift unilateral & Amplía T1.11(d) a $\spec(S)=\overline{\mathbb D}$; $S$ no es normal.\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\section{Dos puentes controlados hacia Haseman}
+
+\begin{center}
+\begin{tikzpicture}[node distance=8mm]
+\node[taskbox,text width=2.6cm] (q) {T1.4\\cociente por ideal};
+\node[theorybox,text width=2.7cm,right=of q] (calkin) {$\K(X)$ cerrado\\$\mathcal B(X)/\K(X)$};
+\node[researchbox,text width=2.6cm,right=of calkin] (class) {Clase de $A$\\$A+\K(X)$};
+\node[flowend,text width=2.7cm,right=of class] (fred) {Atkinson\\invertible $\Leftrightarrow$ Fredholm};
+\draw[arr] (q)--(calkin);
+\draw[arr] (calkin)--(class);
+\draw[arr] (class)--(fred);
+\end{tikzpicture}
+\end{center}
+
+\noindent Para $X$ de Banach e infinito-dimensional, la primera flecha usa que $\K(X)$ es un ideal cerrado. La última es el teorema de
+Atkinson, no una consecuencia de T1.4. En los operadores de la línea Haseman, esta formulación
+permite plantear el problema de Fredholm en un cociente; véase
+\cite[p.~2]{Karlovich2025}.
+Como comprobación concreta, en $X=\ell^2$ tome $P$ como proyección
+sobre el primer vector canónico $e_1$ y ponga $A=I_X-P$.
+Entonces $A e_1=0$, pero
+$A+\K(X)=I_X+\K(X)$ porque $P$ es compacto. El cálculo muestra qué
+información conserva el cociente y por qué T1.4 prepara la formulación
+de Atkinson.
+
+\begin{center}
+\begin{tikzpicture}[node distance=9mm and 8mm]
+\node[theorybox,text width=3.0cm] (model) {Modelo $L^2(\Gamma_0)$,\\$\Gamma_0=\mathbb R$ o $\mathbb T$\\$S_{\Gamma_0}^2=I$, $S_{\Gamma_0}^*=S_{\Gamma_0}$};
+\node[taskbox,text width=3.0cm,right=of model] (orth) {$P_{\Gamma_0}^\pm=(I\pm S_{\Gamma_0})/2$\\proyecciones ortogonales};
+\draw[arr] (model)--(orth);
+\node[researchbox,text width=3.0cm,below=of model] (plem) {Estrella abierta de Karlovich\\Sokhotski--Plemelj};
+\node[researchbox,text width=3.0cm,right=of plem] (trace) {$P_\pm=(I\pm S_\Gamma)/2$\\componentes de trazas};
+\node[flowend,text width=3.0cm,right=of trace] (has) {$T=V_\alpha P_+ + GP_-$\\ecuación de Haseman};
+\draw[arr] (plem)--(trace);
+\draw[arr] (trace)--(has);
+\draw[mergearr,dash pattern=on 4pt off 2pt] (orth.south)--(trace.north);
+\end{tikzpicture}
+\end{center}
+
+\noindent La flecha discontinua sólo compara la forma de las fórmulas.
+En el modelo de Bastos--Fernandes--Karlovich \cite[§2, p.~22]{BFK2006},
+$P_{\Gamma_0}^\pm$ son proyecciones ortogonales. En la estrella abierta de
+Karlovich 2017, la reducción de frontera a $T$ procede de
+Sokhotski--Plemelj \cite[pp.~463--464]{Karlovich2017}; la identidad
+$S_\Gamma^2=I$ no vale en general allí, según el teorema 5.3 de esa fuente.
+Por tanto, los operadores $P_\pm$ de esa ecuación no se llaman aquí
+idempotentes ni proyecciones.
+En el caso de comprobación $\alpha=\mathrm{id}$ y $G=1$, la fórmula de
+Haseman da $T=P_++P_-=I$ por cancelación de los dos términos $S_\Gamma$.
+Este cálculo usa la fórmula de Plemelj, sin requerir $S_\Gamma^2=I$.
+
+\begin{reflection}
+Para comprobar una flecha, localiza la línea de la demostración que usa su origen. Por ejemplo,
+identifica dónde entra T1.9 en la realidad del espectro y dónde entra T1.10 en T2.4. Después
+verifica en el modelo $L^2(\Gamma_0)$ cómo $S_{\Gamma_0}^2=I$ produce
+idempotentes y cómo $S_{\Gamma_0}^*=S_{\Gamma_0}$ los hace proyecciones
+ortogonales. Contrasta esas hipótesis con las de la estrella abierta.
+\end{reflection}

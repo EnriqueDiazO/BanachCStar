@@ -1,0 +1,379 @@
+\chapter{Ejemplos de investigación: cómo reaparece la teoría en Haseman y operadores integrales singulares}
+
+\section{De la condición de frontera al operador}
+
+En Karlovich \cite[pp.~463--464, ecs.~(1.1)--(1.2)]{Karlovich2017}, $\Gamma$ es una
+estrella abierta de espirales logarítmicas y $1<p<\infty$.
+Se toman $G\in\SO(\Gamma)$, $g\in L^p(\Gamma)$ y un difeomorfismo
+$\alpha:\Gamma\to\Gamma$ que preserva la orientación de cada rama y
+satisface las hipótesis de la fuente. La condición de Haseman es
+\[
+ \Phi^+(\alpha(t))=G(t)\Phi^-(t)+g(t),\qquad t\in\Gamma.
+\]
+Aquí $S_\Gamma\in\mathcal B(L^p(\Gamma))$ es el operador integral singular de Cauchy,
+$V_\alpha f=f\circ\alpha$ y $M_Gf=Gf$. Si $\varphi$ es la densidad de Cauchy, las
+fórmulas de Sokhotski--Plemelj dan
+\[
+ \Phi^+=P_+\varphi,\qquad \Phi^-=-P_-\varphi,\qquad
+ P_\pm=\tfrac12(I\pm S_\Gamma).
+\]
+El signo de la traza negativa explica el signo más en la ecuación operatorial:
+\[
+ \bigl(V_\alpha P_++M_GP_-\bigr)\varphi=g,\qquad
+ T:=V_\alpha P_++M_GP_-\in\mathcal B(L^p(\Gamma)).
+\]
+El curso proporciona el lenguaje para preguntar si $T$ es invertible y estudiar su
+espectro. La reducción de frontera y el criterio de Fredholm son resultados posteriores
+que dependen de las hipótesis geométricas y de símbolos del artículo.
+
+\begin{cthejemplo}{(La identidad como caso de la ecuación de Haseman)}
+En $X=L^p(\Gamma)$ consideremos la fórmula $T=V_\alpha P_++M_GP_-$
+obtenida arriba. Queremos comprobar qué operador resulta cuando
+$\alpha=\mathrm{id}_\Gamma$ y $G=1$. En ese caso $V_\alpha=I_X$ y
+$M_G=I_X$, mientras que la definición de $P_\pm$ da
+\[
+ P_++P_- =\tfrac12(I_X+S_\Gamma)+\tfrac12(I_X-S_\Gamma)=I_X.
+\]
+Por tanto $T=P_++P_-=I_X$. Este cálculo docente muestra que la
+reducción por Plemelj se puede leer sin suponer $S_\Gamma^2=I_X$.
+\end{cthejemplo}
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+\node[theorybox,text width=3.35cm] (b) {Frontera de Haseman\\$\Phi^+\circ\alpha=G\Phi^-+g$};
+\node[theorybox,text width=3.35cm,right=of b] (p) {Sokhotski--Plemelj\\$\Phi^+=P_+\varphi$, $\Phi^-=-P_-\varphi$};
+\node[researchbox,text width=3.35cm,right=of p] (t) {$T=V_\alpha P_++M_GP_-$\\$T\varphi=g$};
+\draw[arr] (b)--(p);
+\draw[arr] (p)--(t);
+\end{tikzpicture}
+\end{center}
+
+\section{Del ideal compacto a la propiedad de Fredholm}
+
+Sea $X$ un espacio de Banach complejo infinito-dimensional. El ideal bilateral cerrado
+$\mathcal K(X)\triangleleft\mathcal B(X)$ produce la álgebra de Calkin
+$\mathcal Q(X)=\mathcal B(X)/\mathcal K(X)$. Para $A\in\mathcal B(X)$,
+\[
+ A\text{ Fredholm}
+ \quad\Longleftrightarrow\quad
+ A+\mathcal K(X)\in\GL(\mathcal Q(X)).
+\]
+Karlovich enuncia esta equivalencia en la introducción de su artículo de 2025
+\cite[p.~2]{Karlovich2025}. La Tarea 1.4 explica por qué el cociente por un ideal
+cerrado sigue siendo una álgebra de Banach; la equivalencia de Fredholm añade un
+teorema propio de operadores.
+
+\begin{cthejemplo}{(Invertible módulo compactos sin inversa exacta)}
+El criterio de Atkinson anterior distingue la inversa exacta de una
+inversa en Calkin. Para verlo en $X=\ell^2$, tome $P$ la proyección ortogonal de rango uno sobre
+$\mathbb Ce_1$ y $A=I_X-P$. Se tiene
+$\ker A=\operatorname{Ran}P\ne\{0\}$, así que $A$ no es invertible. Sin embargo,
+$P\in\mathcal K(X)$ y $A+\mathcal K(X)=I_X+\mathcal K(X)$: su clase es la
+unidad de $\mathcal Q(X)$. Además,
+$\operatorname{Ran}(A)=(\mathbb Ce_1)^\perp$ es cerrado, mientras que el núcleo
+y el conúcleo tienen dimensión uno. Así $A$ es Fredholm. El cálculo es una
+elaboración docente del criterio anterior.
+\end{cthejemplo}
+
+Si se define el \emph{espectro esencial de Fredholm} por
+\[
+ \sigma_{\mathrm{ess}}(A)
+ :=\sigma_{\mathcal Q(X)}\bigl(A+\mathcal K(X)\bigr),
+\]
+entonces $0\notin\sigma_{\mathrm{ess}}(A)$ equivale a que $A$ sea Fredholm.
+Esto no dice que $0\notin\sigma_{\mathcal B(X)}(A)$; el ejemplo $I_X-P$
+muestra la diferencia.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 7mm]
+\node[theorybox,text width=2.65cm] (ideal) {$\mathcal K(X)\triangleleft\mathcal B(X)$\\ideal cerrado};
+\node[theorybox,text width=2.65cm,right=of ideal] (quot) {$\mathcal Q(X)$\\cociente};
+\node[theorybox,text width=2.65cm,right=of quot] (class) {$A+\mathcal K(X)$\\clase invertible};
+\node[researchbox,text width=2.65cm,right=of class] (fred) {$A$ Fredholm\\criterio de Calkin};
+\draw[arr] (ideal)--(quot);
+\draw[arr] (quot)--(class);
+\draw[arr] (class)--(fred);
+\end{tikzpicture}
+\end{center}
+
+En un espacio de Hilbert $H$, $\mathcal B(H)$ y su cociente por
+$\mathcal K(H)$ son $C^*$-álgebras. Para un Banach general, el argumento
+anterior sólo necesita la estructura de álgebra de Banach. Los cálculos de
+símbolos y la localización intentan convertir la invertibilidad de la clase
+en condiciones verificables para una \emph{álgebra de operadores específica};
+no basta con escribir el cociente para obtener un criterio.
+
+\Needspace{17\baselineskip}
+\section{Proyecciones de Cauchy: el caso modelo y el caso Haseman}
+
+La comparación precisa qué hipótesis convierte la fórmula
+$(I\pm S_\Gamma)/2$ en una proyección y qué parte de ella se utiliza en
+la ecuación de Haseman.
+
+En el modelo $\Gamma=\mathbb R$ o $\mathbb T$ sobre $L^2(\Gamma)$,
+sea $S_\Gamma$ el operador integral singular de Cauchy.
+Bastos--Fernandes--Karlovich recuerdan $S_\Gamma^2=I$ y que
+\[
+ P_\Gamma^\pm=\tfrac12(I\pm S_\Gamma)
+\]
+son proyecciones ortogonales \cite[§2, p.~22]{BFK2006}. La identidad
+$S_\Gamma^2=I$ da $P_\Gamma^\pm{}^2=P_\Gamma^\pm$ y
+$P_\Gamma^+P_\Gamma^-=0$; la autoadjunción de $S_\Gamma$ da además
+$(P_\Gamma^\pm)^*=P_\Gamma^\pm$. Es ésta la conexión literal con las
+proyecciones $p=p^*=p^2$ de una $C^*$-álgebra.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 7mm]
+\node[theorybox,text width=2.6cm] (s) {$S_\Gamma^2=I$\\$S_\Gamma^*=S_\Gamma$};
+\node[theorybox,text width=2.6cm,right=of s] (def) {$P_\Gamma^\pm=(I\pm S_\Gamma)/2$};
+\node[theorybox,text width=2.6cm,right=of def] (proj) {$P_\Gamma^\pm{}^2=P_\Gamma^\pm$\\$(P_\Gamma^\pm)^*=P_\Gamma^\pm$};
+\node[researchbox,text width=2.6cm,right=of proj] (split) {$L^2(\Gamma)=\operatorname{Ran}P_\Gamma^+\oplus\operatorname{Ran}P_\Gamma^-$};
+\draw[arr] (s)--(def);
+\draw[arr] (def)--(proj);
+\draw[arr] (proj)--(split);
+\end{tikzpicture}
+\end{center}
+
+En la estrella abierta de Karlovich 2017, la misma \emph{fórmula}
+$P_\pm=(I\pm S_\Gamma)/2$ aparece en Sokhotski--Plemelj y en
+$T=V_\alpha P_++M_GP_-$, pero no se puede importar la idempotencia del
+modelo anterior. Si $X$ es un espacio de Banach, $S\in\mathcal B(X)$
+y $P_\pm=(I_X\pm S)/2$, entonces
+\[
+ P_\pm^2-P_\pm=\tfrac14(S^2-I_X),\qquad
+ P_+P_-=\tfrac14(I_X-S^2),\qquad P_++P_-=I_X.
+\]
+De hecho, el símbolo Mellin de $S_\Gamma$ en el caso de una sola rama,
+$p=2$ y parámetro geométrico $\delta=0$ es
+$\varepsilon_1\tanh(\pi x)$, donde $\varepsilon_1\in\{-1,1\}$
+registra la orientación; su cuadrado
+no es idénticamente uno \cite[teorema~5.3, p.~476]{Karlovich2017}.
+Por tanto, en ese caso $P_\pm$ no son proyecciones algebraicas.
+La conexión correcta con Haseman es la \emph{descomposición de las trazas}
+por Plemelj, no una descomposición ortogonal del espacio.
+
+\begin{cthnota}{(Dónde intervienen las hipótesis)}
+La igualdad $S_\Gamma^2=I$ es exactamente la que da idempotencia;
+$S_\Gamma^*=S_\Gamma$ es necesaria para ortogonalidad. El modelo
+$L^2(\mathbb R)$ o $L^2(\mathbb T)$ satisface ambas propiedades en la
+fuente citada. El problema de Haseman de 2017 actúa en $L^p(\Gamma)$
+sobre una estrella abierta y sólo usa aquí la fórmula de Plemelj.
+\end{cthnota}
+
+\Needspace{25\baselineskip}
+\section{Shifts unitarios y shifts de composición}
+
+Comparamos una rotación que es unitaria con el operador de composición
+que aparece en Haseman. El espacio de acción y la medida deciden qué
+propiedad se puede afirmar.
+
+En \cite[§1, p.~20]{BFK2006}, el círculo $\mathbb T$ actúa mediante una representación unitaria;
+para $z,t\in\mathbb T$ y $\varphi\in L^2(\mathbb T)$ se escribe
+\[
+ U:\mathbb T\to\mathcal B(L^2(\mathbb T)),
+ \qquad
+ (U_z\varphi)(t)=\varphi(zt).
+\]
+La rotación preserva la medida de Haar $m$: al sustituir $u=zt$,
+\[
+ \|U_z\varphi\|_2^2=\int_{\mathbb T}|\varphi(zt)|^2\,dm(t)
+ =\int_{\mathbb T}|\varphi(u)|^2\,dm(u)=\|\varphi\|_2^2.
+\]
+Como $U_z^{-1}=U_{z^{-1}}$, $U_z$ es unitario. En el problema de Haseman aparece en cambio
+$V_\alpha f=f\circ\alpha$ sobre $L^p(\Gamma)$; Karlovich impone condiciones
+de regularidad y control de la derivada del shift en cada rama
+\cite[§2, p.~467]{Karlovich2017}. Estas condiciones permiten trabajar con
+un operador acotado, pero no afirman que sea unitario.
+
+\begin{center}
+\begin{tikzpicture}[node distance=10mm]
+\node[theorybox] (shift) {Idea común\\operador de composición / shift};
+\node[researchbox,above right=of shift] (unit) {$U_z$ en $L^2(\mathbb T)$\\unitario};
+\node[researchbox,below right=of shift] (hasa) {$V_\alpha$ en $L^p(\Gamma)$\\acotado bajo hipótesis del shift};
+\node[theorybox,right=22mm of unit] (uspec) {Unitario $\Rightarrow\spec(U_z)\subset\mathbb T$};
+\node[theorybox,right=22mm of hasa] (fred) {Se combina con $P_\pm$ y $M_G$ en el operador de Haseman};
+\draw[arr] (shift)--(unit);
+\draw[arr] (shift)--(hasa);
+\draw[arr] (unit)--(uspec);
+\draw[arr] (hasa)--(fred);
+\end{tikzpicture}
+\end{center}
+
+\section{Funciones lentamente oscilantes y fibras de caracteres}
+
+Para $a\in C_b(\mathbb R_+)$, escriba
+$\operatorname{osc}(a,[r,2r])=\sup_{s,t\in[r,2r]}|a(s)-a(t)|$.
+Karlovich define $\SO(\mathbb R_+)$ exigiendo que esta oscilación tienda a
+cero tanto cuando $r\to0$ como cuando $r\to\infty$
+\cite[§2, pp.~465--466]{Karlovich2017}. Para $I=[r,2r]$ y funciones
+$a,b\in C_b(\mathbb R_+)$ se tiene
+\[
+\begin{aligned}
+ \operatorname{osc}(a+b,I)&\le\operatorname{osc}(a,I)+\operatorname{osc}(b,I),\\
+ \operatorname{osc}(ab,I)&\le\|a\|_\infty\operatorname{osc}(b,I)
+                         +\|b\|_\infty\operatorname{osc}(a,I),\\
+ \operatorname{osc}(\overline a,I)&=\operatorname{osc}(a,I).
+\end{aligned}
+\]
+Si $a_n\to a$ uniformemente, entonces
+$\operatorname{osc}(a,I)\le2\|a-a_n\|_\infty+
+\operatorname{osc}(a_n,I)$; primero se fija $n$ grande y después se
+deja tender $r$ al extremo. Así la clase es una subálgebra cerrada,
+contiene las constantes y es estable bajo la involución puntual.
+La identidad $\|\overline a a\|_\infty=\|a\|_\infty^2$ muestra que
+es una $C^*$-álgebra conmutativa unital.
+
+\begin{cthejemplo}{(Oscilación lenta sin límite ordinario)}
+Queremos comprobar que la oscilación lenta en los extremos no obliga a
+tener un límite ordinario. En $\mathbb R_+$ consideremos la función
+\[
+ a(r)=\sin\!\bigl(\log(1+|\log r|)\bigr),\qquad r>0,
+\]
+pertenece a $\SO(\mathbb R_+)$. Si $s,t\in[r,2r]$, entonces
+$|\log s-\log t|\le\log2$. Ponga $h(u)=\log(1+|u|)$.
+En el intervalo $I_r=[\log r,\log r+\log2]$, cuando está alejado de $0$,
+el teorema del valor medio da
+\[
+ |h(\log s)-h(\log t)|
+ \le \frac{\log2}{1+\min_{u\in I_r}|u|}.
+\]
+El denominador tiende a infinito tanto si $r\to0$ como si $r\to\infty$.
+Como $|\sin v-\sin w|\le|v-w|$, la oscilación de $a$ en $[r,2r]$
+tiende a cero en ambos extremos. Para ver que no hay límite ordinario,
+defina
+\[
+ r_n^+=\exp\!\bigl(e^{\pi/2+2\pi n}-1\bigr),\qquad
+ r_n^-=\exp\!\bigl(e^{3\pi/2+2\pi n}-1\bigr).
+\]
+Ambas sucesiones tienden a infinito, mientras que
+$a(r_n^+)=1$ y $a(r_n^-)=-1$. Sus recíprocas tienden a cero y dan
+los mismos dos valores, porque $a(r)=a(1/r)$.
+Esta función, elaborada a partir de la definición de la fuente, muestra por
+qué los caracteres de frontera de $\SO(\mathbb R_+)$ no se pueden sustituir
+simplemente por evaluaciones $a(0)$ y $a(\infty)$.
+\end{cthejemplo}
+
+El espacio maximal $\Omega(\SO(\mathbb R_+))$ contiene las evaluaciones
+en $r>0$ y fibras $M_0,M_\infty$ sobre los extremos
+\cite[§2, p.~466]{Karlovich2017}. La transformada de Gelfand
+$a\mapsto\widehat a$, $\widehat a(\xi)=\xi(a)$, permite describir
+valores de estos caracteres sin fingir que existen $a(0)$ y
+$a(\infty)$. En los cálculos de símbolos, esas fibras son parte del
+espacio de parámetros; el mapa de Gelfand de los coeficientes y el
+símbolo completo de un operador son mapas distintos.
+
+\section{Generadores, cocientes y mapas de símbolos}
+
+Karlovich \cite[ec.~(1.4), p.~3]{Karlovich2025} fija una curva estrellada
+con cúspides $\Gamma$ de (1.1)--(1.2), un peso de potencia admisible $w$
+de su §2.1, con $1<p<\infty$ y exponente
+$-1/p<\alpha_{\mathrm{peso}}<1-1/p$, y considera la álgebra
+de Banach generada por
+\[
+ \mathfrak B=
+ \operatorname{alg}_{\mathbb R}
+ \{M_a,S_\Gamma,C:\ a\in\SO^\diamond(\Gamma)\}
+ \subset\mathcal B(\mathbb RL^p(\Gamma,w)).
+\]
+Aquí $M_a$ multiplica por $a$, $S_\Gamma$ es el operador singular de
+Cauchy y $Cf=\overline f$ es conjugación compleja. El símbolo
+$\mathbb RL^p(\Gamma,w)$ significa el espacio $L^p$ considerado sobre
+los escalares reales: para $f\in L^p(\Gamma,w)$ se tiene
+$C(if)=\overline{if}=-i\overline f=-iCf$, mientras que
+$C(rf)=rCf$ para $r\in\mathbb R$. Así $C$ es lineal sobre
+$\mathbb R$, pero no sobre $\mathbb C$. Por eso esta álgebra no se convierte automáticamente en una
+$C^*$-álgebra compleja ni se puede aplicar sin más el teorema espectral
+complejo de la Parte 1. La notación $\SO^\diamond(\Gamma)$ pertenece
+al artículo de 2025 y no designa la misma álgebra
+$\SO(\mathbb R_+)$ del artículo de 2017.
+El artículo de 2025 llama $\alpha$ al exponente del peso; aquí el
+subíndice evita confundirlo con el shift $\alpha$ de Karlovich 2017.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+\node[researchbox,text width=3.25cm] (gen) {$M_a,\ S_\Gamma,\ C$\\generadores tipados};
+\node[theorybox,text width=3.25cm,right=of gen] (alg) {$\mathfrak B$\\cierre real bajo suma,\\producto y norma};
+\node[researchbox,text width=3.25cm,right=of alg] (sym) {Cociente y símbolos\\criterio en una álgebra fijada};
+\draw[arr] (gen)--(alg);
+\draw[arr] (alg)--(sym);
+\end{tikzpicture}
+\end{center}
+
+La Tarea 1.3 enseña qué significa generar y cerrar una álgebra. La
+Tarea 1.4 enseña a pasar a un cociente. En el artículo de 2025, el
+paso adicional es construir mapas matriciales de símbolo y probar
+que detectan Fredholmness. El teorema~6.2 trata la subálgebra compleja
+$\mathfrak A=\operatorname{alg}_{\mathbb C}
+\{M_a,S_\Gamma,CS_\Gamma C:a\in\SO^\diamond(\Gamma)\}$;
+la representación matricial compleja del teorema~7.1 permite después formular el criterio
+para $N\in\mathfrak B$ mediante el mapa de símbolo $Y$ del teorema~7.2
+\cite[pp.~25--26]{Karlovich2025}. Este último exige pertenencia a
+$\mathfrak B$ y las hipótesis de curva, peso y coeficientes del artículo;
+no certifica por sí solo un operador de Haseman con shift.
+
+\begin{cthnota}{(Cuatro mapas relacionados y diferentes)}
+Un homomorfismo de álgebras preserva suma y producto. Un
+$*$-homomorfismo preserva además la involución. La transformada de
+Gelfand $a\mapsto\widehat a$ de una álgebra conmutativa evalúa en sus
+caracteres. Un mapa de símbolo de Fredholm se construye para una
+álgebra concreta de operadores, frecuentemente después de pasar
+módulo compactos, y puede tomar valores matriciales. Estas
+construcciones comparten operaciones algebraicas, pero sus dominios,
+codominios e hipótesis no son intercambiables.
+\end{cthnota}
+
+\Needspace{20\baselineskip}
+\section{Ruta completa desde el problema hasta un criterio}
+
+En el diagrama, azul marca el lenguaje del curso, verde el objeto de
+investigación y la flecha hacia símbolos presupone que se ha construido
+el cálculo correspondiente para la álgebra concreta. Aquí
+$X=L^p(\Gamma)$, de modo que $T+\mathcal K(X)$ es una clase de la
+álgebra de Calkin asociada al mismo espacio de acción. El criterio de
+Karlovich 2017 exige además las hipótesis de su teorema 7.1
+\cite[pp.~487--489]{Karlovich2017}.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 7mm]
+\node[researchbox,text width=3.25cm] (h) {[investigación]\\frontera de Haseman};
+\node[researchbox,text width=3.25cm,right=of h] (p) {[investigación]\\Sokhotski--Plemelj};
+\node[researchbox,text width=3.25cm,right=of p] (t) {[investigación]\\$T=V_\alpha P_++M_GP_-$};
+\node[theorybox,text width=3.25cm,below=of t] (b) {[curso]\\$T\in\mathcal B(L^p(\Gamma))$};
+\node[theorybox,text width=3.25cm,left=of b] (q) {[curso + puente]\\$T+\mathcal K(X)$ en $\mathcal Q(X)$};
+\node[researchbox,text width=3.25cm,left=of q] (f) {[puente]\\invertibilidad de clase\\$\Longleftrightarrow$ Fredholm};
+\node[researchbox,text width=3.25cm,below=of f] (s) {[investigación]\\símbolos y localización};
+\node[researchbox,text width=3.25cm,right=of s] (c) {[investigación]\\criterio de Fredholm\\bajo hipótesis del artículo};
+\draw[arr] (h)--(p);
+\draw[arr] (p)--(t);
+\draw[arr] (t)--(b);
+\draw[arr] (b)--(q);
+\draw[arr] (q)--(f);
+\draw[arr] (f)--(s);
+\draw[arr] (s)--(c);
+\end{tikzpicture}
+\end{center}
+
+La última fila describe cómo se \emph{comprueba} Fredholmness en la
+literatura. No afirma que todo operador Fredholm tenga automáticamente
+el símbolo concreto del artículo, ni que el criterio de 2017 se aplique
+a un operador con cúspides de 2025.
+
+\Needspace{19\baselineskip}
+\section{Una ruta de lectura para el manuscrito de investigación}
+
+Cuando aparezca una construcción operatorial en el manuscrito, conviene hacer las siguientes
+preguntas en este orden:
+\begin{enumerate}
+\item ¿En qué álgebra de Banach vive el operador?
+\item ¿Cuál es la unidad y cuáles son los generadores relevantes?
+\item ¿Se está trabajando exactamente o módulo un ideal, normalmente $\K(X)$?
+\item ¿La subálgebra considerada es conmutativa o sólo posee una subálgebra central conmutativa?
+\item ¿Aparecen caracteres, espacio maximal o transformada de Gelfand?
+\item ¿Hay una estructura de $C^*$-álgebra compleja (típicamente en $L^2$) que permita usar normalidad, unitarios,
+      proyecciones o cálculo funcional?
+\item ¿Qué parte del criterio de Fredholm equivale a invertibilidad en un cociente o de un símbolo?
+\end{enumerate}
+
+Estas preguntas obligan a distinguir el lenguaje común de las hipótesis que autorizan
+cada teorema. Por ejemplo, un criterio publicado para una álgebra de operadores con cúspides
+no se aplica automáticamente a un operador con shift de otra geometría.

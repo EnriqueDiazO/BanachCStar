@@ -1,0 +1,194 @@
+\PassOptionsToPackage{english}{babel}
+\documentclass{notes}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,fit,calc,matrix}
+\usepackage{mathmongo-macros}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,citecolor=teal!55!black,urlcolor=blue!55!black}
+\hypersetup{pdftitle={Study Notes: Spectral Theory in Banach and C* Algebras},pdfauthor={Enrique Díaz Ocampo},pdflang={en-US}}
+
+% The shared style defines its theorem boxes in Spanish; the English
+% edition changes only their displayed names.
+\renewcommand{\cthdefinicionname}{Definition}
+\renewcommand{\cthteoremaname}{Theorem}
+\renewcommand{\cthcorolarioname}{Corollary}
+\renewcommand{\cthlemaname}{Lemma}
+\renewcommand{\cthproposicionname}{Proposition}
+\renewcommand{\cthejemploname}{Example}
+\renewcommand{\cthnotaname}{Note}
+\renewcommand{\cthobservacionname}{Observation}
+\renewtcolorbox{context}{notesbase,title=Context,colback=gray!6,colframe=gray!60}
+\renewtcolorbox{reflection}{notesbase,title=Reflection,colback=yellow!10,colframe=yellow!65}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\K}{\mathcal K}
+\newcommand{\Calkin}{\mathcal Q}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\spn}{\operatorname{span}}
+\newcommand{\alg}{\operatorname{alg}}
+\newcommand{\Id}{I}
+\newcommand{\spec}{\sigma}
+\newcommand{\rad}{r}
+\newcommand{\bbD}{\mathbb D}
+\newcommand{\bbT}{\mathbb T}
+\newcommand{\SO}{\operatorname{SO}}
+\newcommand{\PSO}{\operatorname{PSO}}
+\newcommand{\ran}{\operatorname{Ran}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\clos}{\overline}
+
+\newcommand{\origen}[1]{%
+  \par\smallskip{\footnotesize\color{DIgray}\textbf{Correspondence with the source notes:} #1.}\par\smallskip
+}
+
+\newtcolorbox{dependencias}[1][]{
+  notesbase,
+  title={Logical dependencies},
+  colback=DIlightblue,
+  colframe=DIblue,
+  #1
+}
+\newtcolorbox{investigacion}[1][]{
+  notesbase,
+  title={Example from the Haseman/SIO research line},
+  colback=DIlightgreen,
+  colframe=DIgreen,
+  #1
+}
+\newtcolorbox{puente}[1][]{
+  notesbase,
+  title={Bridge to Section 2},
+  colback=DIlightpurple,
+  colframe=DIpurple,
+  #1
+}
+\newtcolorbox{criterio}[1][]{
+  notesbase,
+  title={Key point to remember},
+  colback=DIlightorange,
+  colframe=DIorange,
+  #1
+}
+
+\tikzset{
+  flowbox/.style={draw=DIblue, rounded corners=3pt, very thick, fill=DIlightblue,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  flowbox2/.style={draw=DIteal, rounded corners=3pt, very thick, fill=BootTealLight,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  flowbox3/.style={draw=DIpurple, rounded corners=3pt, very thick, fill=DIlightpurple,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  flowend/.style={draw=DIgreen, rounded corners=3pt, very thick, fill=DIlightgreen,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  taskbox/.style={draw=DIorange, rounded corners=3pt, thick, fill=DIlightorange,
+    align=center, text width=3.1cm, minimum height=0.95cm, inner sep=4pt},
+  theorybox/.style={draw=DIblue, rounded corners=3pt, thick, fill=DIlightblue,
+    align=center, text width=3.15cm, minimum height=0.95cm, inner sep=4pt},
+  researchbox/.style={draw=DIgreen, rounded corners=3pt, thick, fill=DIlightgreen,
+    align=center, text width=3.2cm, minimum height=0.95cm, inner sep=4pt},
+  arr/.style={-{Latex[length=2.6mm]},thick,draw=DIgray},
+  mergearr/.style={-{Latex[length=2.6mm]},thick,draw=DIpurple}
+}
+
+\newcommand{\proofdiagram}[4]{%
+\begin{center}
+\begin{tikzpicture}[node distance=7mm]
+  \node[flowbox] (h) {\textbf{Assumptions / data}\\#1};
+  \node[flowbox2,right=of h] (r) {\textbf{Earlier results}\\#2};
+  \node[flowbox3,right=of r] (m) {\textbf{Main mechanism}\\#3};
+  \node[flowend,right=of m] (c) {\textbf{Conclusion}\\#4};
+  \draw[arr] (h) -- (r);
+  \draw[arr] (r) -- (m);
+  \draw[arr] (m) -- (c);
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\proofdiagrambranch}[5]{%
+\begin{center}
+\begin{tikzpicture}[node distance=7mm]
+  \node[flowbox] (h1) {\textbf{Datum 1}\\#1};
+  \node[flowbox,below=of h1] (h2) {\textbf{Datum 2}\\#2};
+  \node[flowbox2,anchor=west] (r) at ($(h1.east)!0.5!(h2.east)+(9mm,0)$)
+    {\textbf{Tool}\\#3};
+  \node[flowbox3,right=of r] (m) {\textbf{Decisive step}\\#4};
+  \node[flowend,right=of m] (c) {\textbf{Conclusion}\\#5};
+  \draw[arr] (h1.east) -- (r.west);
+  \draw[arr] (h2.east) -- (r.west);
+  \draw[arr] (r) -- (m);
+  \draw[arr] (m) -- (c);
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\examplediagram}[5]{%
+\begin{center}
+\begin{tikzpicture}[node distance=6mm and 7mm]
+  \node[theorybox] (g) {\textbf{General concept / result}\\#1};
+  \node[taskbox,right=of g] (k) {\textbf{Specific instance}\\#2};
+  \node[researchbox,right=of k] (t) {\textbf{Theoretical expression}\\#3};
+  \node[theorybox,below=of t] (s) {\textbf{Symbolic expression}\\#4};
+  \node[taskbox,left=of s] (i) {\textbf{Interpretation}\\#5};
+  \draw[arr] (g) -- (k);
+  \draw[arr] (k) -- (t);
+  \draw[arr] (t) -- (s);
+  \draw[arr] (s) -- (i);
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tasksource}[1]{\par\smallskip\textbf{Results used:} #1\par\smallskip}
+\newcommand{\researchcite}[1]{\textcolor{DIgreen}{\textbf{Research connection:} #1}}
+
+\title{Study Notes: Spectral Theory in Banach and $C^*$-Algebras}
+\author{Enrique Díaz Ocampo}
+\date{September 2026}
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+\tableofcontents
+
+\begin{context}
+These notes bring together \emph{Part 1: Spectral Theory in Banach Algebras}
+\cite{CastillejosParte1}, \emph{Section 2: $C^*$-Algebras}
+\cite{CastillejosCap2}, \emph{Assignment 1}, and \emph{Assignment 2}. Each result is studied
+from its assumptions through its proof and a diagram that summarizes the argument.
+Elementary examples come before connections to the literature: quotients by compact
+operators, slowly oscillating functions, and Cauchy components of the Haseman problem.
+Each connection identifies its underlying space and the additional assumptions it
+requires, so the reader can trace an application back to the course results.
+\end{context}
+
+\input{sections_en/00_mapa_global}
+\input{sections_en/01_banach}
+\input{sections_en/02_cstar}
+\input{sections_en/03_tarea1}
+\input{sections_en/04_tarea2}
+\input{sections_en/05_investigacion}
+\input{sections_en/06_mapa_tareas}
+\input{sections_en/07_indice_literatura}
+
+\renewcommand{\bibname}{Working References}
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Working References}
+\bibitem{CastillejosParte1} J. Castillejos, \emph{$C^*$-álgebras: Parte 1. Teoría espectral en álgebras de Banach} [Part 1: Spectral Theory in Banach Algebras], course notes provided by the user.
+\bibitem{CastillejosCap2} J. Castillejos, \emph{$C^*$-álgebras: Sección 2} [Section 2], course notes provided by the user.
+\bibitem{Karlovich2017} Yu. I. Karlovich, \emph{The Haseman Boundary Value Problem with Slowly Oscillating Coefficients and Shifts}, Operator Theory: Advances and Applications 259 (2017), 463--500.
+\bibitem{Karlovich2025} Yu. I. Karlovich, \emph{Algebras of singular integral operators with complex conjugation on curves with cusps}, Bol. Soc. Mat. Mex. 31 (2025), 102.
+\bibitem{BFK2006} M. A. Bastos, C. A. Fernandes, Yu. I. Karlovich, \emph{$C^*$-Algebras of Integral Operators with Piecewise Slowly Oscillating Coefficients and Shifts Acting Freely}, Integral Equations Operator Theory 55 (2006), 19--67.
+\end{thebibliography}
+
+\end{document}

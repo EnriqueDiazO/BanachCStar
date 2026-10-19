@@ -1,0 +1,104 @@
+\chapter{Logical Map of the Two Topics}
+
+\section{The central idea}
+
+Let $\A$ be a unital complex Banach algebra and let $a\in\A$. Part 1 begins with a question:
+when does $(\lambda1-a)^{-1}$ exist? The Neumann series answers this near an invertible
+element; the resolvent organizes the answer for all scalars; and the spectrum records the values
+at which inversion fails. Section 2 adds the $C^*$ identity and obtains consequences that do not
+hold in an arbitrary Banach algebra.
+
+\section{Map of Part 1}
+
+\begin{center}
+\begin{tikzpicture}[node distance=9mm and 8mm]
+  \node[theorybox,text width=3.25cm] (ban) {Unital Banach algebra\\completeness and product};
+  \node[theorybox,text width=3.25cm,right=of ban] (neu) {Neumann series\\$\|x\|<1\Rightarrow(1-x)^{-1}$};
+  \node[theorybox,text width=3.25cm,right=of neu] (open) {$\GL(\A)$ is open\\continuous inversion};
+  \node[theorybox,text width=3.25cm,below=of neu] (bound) {Bound for $|\lambda|>\|a\|$\\compact spectrum};
+  \node[theorybox,text width=3.25cm,right=of bound] (res) {Resolvent\\identity and holomorphy};
+  \node[theorybox,text width=3.25cm,below=of bound] (non) {Nonempty spectrum\\Liouville + Hahn--Banach};
+  \draw[arr] (ban)--(neu);
+  \draw[arr] (neu)--(open);
+  \draw[arr] (open)--(res);
+  \draw[arr] (neu)--(bound);
+  \draw[arr] (open.south west)--(bound.north east);
+  \draw[arr] (res.south) |- (non.east);
+  \draw[arr] (bound)--(non);
+\end{tikzpicture}
+\end{center}
+
+The arrow leading to nonemptiness requires two separate ingredients: holomorphy of the
+resolvent and its decay at infinity, obtained from the Neumann series. Compactness uses
+the openness of $\GL(\A)$ to establish closedness and the same series for boundedness.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+  \node[theorybox,text width=3.25cm] (non) {Nonempty spectrum};
+  \node[theorybox,text width=3.25cm,right=of non] (gm) {Gelfand--Mazur\\division algebras};
+  \node[theorybox,text width=3.25cm,right=of gm] (max) {Maximal ideals\\$\A/J\cong\mathbb C$ if $\A$ is commutative};
+  \node[theorybox,text width=3.25cm,below=of max] (char) {Characters\\$\Omega(\A)$};
+  \node[theorybox,text width=3.25cm,left=of char] (gel) {Gelfand transform\\$a\mapsto\widehat a$};
+  \node[theorybox,text width=3.25cm,left=of gel] (rad) {Spectral radius\\resolvent + powers};
+  \draw[arr] (non)--(gm);
+  \draw[arr] (gm)--(max);
+  \draw[arr] (max)--(char);
+  \draw[arr] (char)--(gel);
+  \draw[arr] (non)--(rad);
+\end{tikzpicture}
+\end{center}
+
+The spectral radius lies on a separate branch: its formula uses holomorphy of the resolvent,
+the spectral relation for powers, and the uniform boundedness principle; it does not follow
+from the Gelfand transform. Identifying characters with maximal ideals requires
+commutativity, whereas the initial spectral theory does not.
+
+\section{Map of Section 2}
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+  \node[theorybox,text width=3.25cm] (id) {$C^*$ identity\\$\|a^*a\|=\|a\|^2$};
+  \node[theorybox,text width=3.25cm,right=of id] (nr) {For normal $a$\\$\|a\|=r(a)$};
+  \node[theorybox,text width=3.25cm,right=of nr] (uq) {Uniqueness of the $C^*$ norm\\via the radius of $a^*a$};
+  \draw[arr] (id)--(nr);
+  \draw[arr] (nr)--(uq);
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+  \node[theorybox,text width=3.25cm] (a) {Normal $a$ in a unital $C^*$-algebra};
+  \node[theorybox,text width=3.25cm,right=of a] (comm) {Commutative $C^*(a,1)$\\because $aa^*=a^*a$};
+  \node[theorybox,text width=3.25cm,right=of comm] (gn) {Commutative\\Gelfand--Naimark};
+  \node[theorybox,text width=3.25cm,below=of gn] (fc) {Continuous functional calculus\\$f\mapsto f(a)$};
+  \node[theorybox,text width=3.25cm,left=of fc] (class) {Spectral classification\\and positive roots};
+  \draw[arr] (a)--(comm);
+  \draw[arr] (comm)--(gn);
+  \draw[arr] (gn)--(fc);
+  \draw[arr] (fc)--(class);
+\end{tikzpicture}
+\end{center}
+
+The equality $\|a\|=r(a)$ requires normality and the $C^*$ identity.
+Commutativity of $C^*(a,1)$ follows directly from $aa^*=a^*a$.
+The Gelfand transform from Part 1 and the norm equality yield the
+commutative isometric representation. Spectral permanence identifies the spectrum
+of $a$ in $C^*(a,1)$ with its spectrum in the ambient algebra. The positive root and
+polar decomposition then use functional calculus under the assumptions in their statements.
+
+\section{Three reading paths}
+
+\noindent\textbf{Invertibility and spectrum.} Neumann series $\Rightarrow$ stability of invertible
+elements $\Rightarrow$ holomorphic resolvent; together with the estimate at infinity and
+Liouville's theorem, this gives $\sigma_{\A}(a)\neq\varnothing$. For operators
+$A\in\mathcal B(X)$, the same resolvent is $(\lambda I_X-A)^{-1}$.
+
+\noindent\textbf{Commutativity and functions.} For commutative unital $\A$, maximal ideals
+produce characters, which identify $\sigma_{\A}(a)$ with the range of $\widehat a$.
+If $\A$ is also a $C^*$-algebra, the commutative representation yields functional calculus.
+
+\noindent\textbf{Quotients and operators.} For a Banach space $X$, the closed ideal
+$\mathcal K(X)\triangleleft\mathcal B(X)$ gives the Calkin quotient. Invertibility of
+$A+\mathcal K(X)$ is equivalent to $A$ being Fredholm; this equivalence is a theorem of
+operator theory applied after constructing the quotient, rather than an elementary theorem
+about every Banach algebra. The research chapter discusses the Haseman operators.

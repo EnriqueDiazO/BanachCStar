@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\Cstar}{C^*}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Cb}{C_b}
+\newcommand{\Czero}{C_0}
+\newcommand{\one}{\mathbf{1}}
+
+\newenvironment{definicion}[1]
+  {\par\medskip\noindent\textbf{Definición #1.}\ }
+  {\par\medskip}
+
+\title{Definiciones de la Parte 1 de $C^*$-álgebras: Teoría espectral en álgebras de Banach}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Índice de definiciones}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Definición 1.1.} Álgebra de Banach; unidad y conmutatividad. \hfill (p. 1)
+  \item \textbf{Definición 1.4.} Involución y álgebra de Banach involutiva. \hfill (p. 1)
+  \item \textbf{Definición 1.7.} Grupo de elementos invertibles $\GL(A)$. \hfill (p. 2)
+  \item \textbf{Definición 1.11.} Espectro de un elemento. \hfill (p. 3)
+  \item \textbf{Definición 1.13.} Conjunto resolvente y función resolvente. \hfill (p. 3)
+  \item \textbf{Definición 1.17.} Carácter. \hfill (p. 4)
+  \item \textbf{Definición 1.19.} Espectro de Gelfand o espacio de caracteres. \hfill (p. 4)
+  \item \textbf{Definición 1.25.} Radio espectral. \hfill (p. 6)
+  \item \textbf{Definición 1.27.} Transformada de Gelfand. \hfill (p. 9)
+  \item \textbf{Definición 1.29.} Ideal modular. \hfill (p. 9)
+\end{itemize}
+
+\section*{Definiciones}
+
+% Fuente: Parte1.pdf, p. 1
+\begin{definicion}{1.1}
+Un \emph{álgebra de Banach} es un álgebra asociativa $A$ sobre $\mathbb{C}$ con una norma tal que
+\begin{itemize}[leftmargin=2em]
+  \item $(A,+,\lVert\cdot\rVert)$ es un espacio de Banach;
+  \item para todo $x,y\in A$,
+  \[
+    \lVert xy\rVert\leq \lVert x\rVert\,\lVert y\rVert.
+  \]
+\end{itemize}
+Además decimos que $A$ es:
+\begin{itemize}[leftmargin=2em]
+  \item \emph{con unidad} si tiene un neutro multiplicativo $1_A$ que satisface
+  \[
+    \lVert 1_A\rVert=1;
+  \]
+  \item \emph{conmutativa} si
+  \[
+    xy=yx
+    \qquad\text{para todo }x,y\in A.
+  \]
+\end{itemize}
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 1
+\begin{definicion}{1.4}
+Sea $A$ un álgebra compleja. Una \emph{involución} en $A$ es un mapeo
+\[
+  *:A\longrightarrow A
+\]
+tal que
+\[
+  (\lambda a+b)^*=\overline{\lambda}\,a^*+b^*,
+  \qquad
+  (a^*)^*=a,
+  \qquad
+  (ab)^*=b^*a^*.
+\]
+Si $A$ está equipada con una involución, diremos que $A$ es un \emph{álgebra involutiva}.
+
+Si $A$ es además un álgebra de Banach tal que
+\[
+  \lVert a^*\rVert=\lVert a\rVert,
+\]
+diremos que $A$ es un \emph{álgebra de Banach involutiva}.
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 2
+\begin{definicion}{1.7}
+Sea $A$ un álgebra de Banach con unidad. Definimos
+\[
+  \GL(A)=\{\text{elementos invertibles de }A\}.
+\]
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 3
+\begin{definicion}{1.11}
+Sea $A$ un álgebra de Banach con unidad y $x\in A$. El \emph{espectro} de $x$ se define como
+\[
+  \sigma(x)=\sigma_A(x)
+  =\{\lambda\in\mathbb{C}:\lambda 1_A-x\notin\GL(A)\}.
+\]
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 3
+\begin{definicion}{1.13}
+Sea $A$ un álgebra de Banach y $x\in A$. Definimos el \emph{conjunto resolvente} de $x$ como
+\[
+  \rho(x)=\mathbb{C}\setminus\sigma(x),
+\]
+y la \emph{función resolvente}
+\[
+  R_x:\rho(x)\longrightarrow A,
+  \qquad
+  R_x(z)=(z1_A-x)^{-1}.
+\]
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 4
+\begin{definicion}{1.17}
+Sea $A$ un álgebra de Banach. Un \emph{carácter} en $A$ es un funcional lineal multiplicativo no nulo
+\[
+  \varphi:A\longrightarrow\mathbb{C}.
+\]
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 4
+\begin{definicion}{1.19}
+Sea $A$ un álgebra de Banach conmutativa con unidad. Definimos el \emph{espectro} (o \emph{espacio de caracteres}, o \emph{espectro de Gelfand}) como
+\[
+  \Omega(A)=\{\text{caracteres }A\to\mathbb{C}\}\subseteq A^*.
+\]
+Equipamos $\Omega(A)$ con la topología $w^*$.
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 6
+\begin{definicion}{1.25}
+Sea $A$ un álgebra de Banach con unidad y $x\in A$. Definimos el \emph{radio espectral} como
+\[
+  r(x)=\max\{\lvert\lambda\rvert:\lambda\in\sigma(x)\}.
+\]
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 9
+\begin{definicion}{1.27}
+Sea $A$ un álgebra de Banach conmutativa con unidad. Se define la \emph{transformada de Gelfand} como el mapeo
+\[
+  \Lambda:A\longrightarrow C(\Omega(A)),
+  \qquad
+  x\longmapsto \widehat{x},
+  \qquad
+  \widehat{x}(\varphi):=\varphi(x).
+\]
+\end{definicion}
+
+% Fuente: Parte1.pdf, p. 9
+\begin{definicion}{1.29}
+Un ideal $I$ de $A$ es \emph{modular} si existe $u\in A$ tal que
+\[
+  a-ua\in I,
+  \qquad
+  a-au\in I,
+  \qquad
+  \forall a\in A.
+\]
+\end{definicion}
+
+\end{document}

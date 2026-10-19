@@ -1,0 +1,377 @@
+\chapter{Research Examples: How the Theory Reappears in Haseman Problems and Singular Integral Operators}
+
+\section{From the boundary condition to an operator}
+
+In Karlovich \cite[pp.~463--464, eqs.~(1.1)--(1.2)]{Karlovich2017}, $\Gamma$ is an
+open star of logarithmic spirals and $1<p<\infty$. Take $G\in\SO(\Gamma)$,
+$g\in L^p(\Gamma)$, and a diffeomorphism $\alpha:\Gamma\to\Gamma$ that preserves
+the orientation of each branch and satisfies the source's assumptions. The Haseman
+condition is
+\[
+ \Phi^+(\alpha(t))=G(t)\Phi^-(t)+g(t),\qquad t\in\Gamma.
+\]
+Here $S_\Gamma\in\mathcal B(L^p(\Gamma))$ is the Cauchy singular integral operator,
+$V_\alpha f=f\circ\alpha$, and $M_Gf=Gf$. If $\varphi$ is the Cauchy density, the
+Sokhotski--Plemelj formulas give
+\[
+ \Phi^+=P_+\varphi,\qquad \Phi^-=-P_-\varphi,\qquad
+ P_\pm=\tfrac12(I\pm S_\Gamma).
+\]
+The sign of the negative trace explains the plus sign in the operator equation:
+\[
+ \bigl(V_\alpha P_++M_GP_-\bigr)\varphi=g,\qquad
+ T:=V_\alpha P_++M_GP_-\in\mathcal B(L^p(\Gamma)).
+\]
+The course supplies the language for asking whether $T$ is invertible and for
+studying its spectrum. The boundary reduction and Fredholm criterion are later
+results that depend on the article's geometric and symbol assumptions.
+
+\begin{cthejemplo}{(The identity as a case of the Haseman equation)}
+On $X=L^p(\Gamma)$ consider the formula $T=V_\alpha P_++M_GP_-$ obtained above.
+We check which operator results when $\alpha=\mathrm{id}_\Gamma$ and $G=1$.
+Then $V_\alpha=I_X$ and $M_G=I_X$, while the definition of $P_\pm$ gives
+\[
+ P_++P_- =\tfrac12(I_X+S_\Gamma)+\tfrac12(I_X-S_\Gamma)=I_X.
+\]
+Thus $T=P_++P_-=I_X$. The Plemelj reduction here does not require
+$S_\Gamma^2=I_X$.
+\end{cthejemplo}
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+\node[theorybox,text width=3.35cm] (b) {Haseman boundary\\$\Phi^+\circ\alpha=G\Phi^-+g$};
+\node[theorybox,text width=3.35cm,right=of b] (p) {Sokhotski--Plemelj\\$\Phi^+=P_+\varphi$, $\Phi^-=-P_-\varphi$};
+\node[researchbox,text width=3.35cm,right=of p] (t) {$T=V_\alpha P_++M_GP_-$\\$T\varphi=g$};
+\draw[arr] (b)--(p);
+\draw[arr] (p)--(t);
+\end{tikzpicture}
+\end{center}
+
+\section{From the compact ideal to the Fredholm property}
+
+Let $X$ be an infinite-dimensional complex Banach space. The closed two-sided ideal
+$\mathcal K(X)\triangleleft\mathcal B(X)$ yields the Calkin algebra
+$\mathcal Q(X)=\mathcal B(X)/\mathcal K(X)$. For $A\in\mathcal B(X)$,
+\[
+ A\text{ Fredholm}
+ \quad\Longleftrightarrow\quad
+ A+\mathcal K(X)\in\GL(\mathcal Q(X)).
+\]
+Karlovich states this equivalence in the introduction to his 2025 article
+\cite[p.~2]{Karlovich2025}. Problem 1.4 explains why a quotient by a closed ideal
+remains a Banach algebra; the Fredholm equivalence adds a theorem specific to operators.
+
+\begin{cthejemplo}{(Invertible modulo compact operators without an exact inverse)}
+Atkinson's criterion distinguishes an exact inverse from an inverse in the Calkin algebra.
+To see this on $X=\ell^2$, let $P$ be the rank-one orthogonal projection onto
+$\mathbb Ce_1$ and set $A=I_X-P$. Then
+$\ker A=\operatorname{Ran}P\ne\{0\}$, so $A$ is not invertible. However,
+$P\in\mathcal K(X)$ and $A+\mathcal K(X)=I_X+\mathcal K(X)$: its class is the
+identity of $\mathcal Q(X)$. Moreover,
+$\operatorname{Ran}(A)=(\mathbb Ce_1)^\perp$ is closed, while the kernel and
+cokernel each have dimension one. Thus $A$ is Fredholm.
+\end{cthejemplo}
+
+If the \emph{Fredholm essential spectrum} is defined by
+\[
+ \sigma_{\mathrm{ess}}(A)
+ :=\sigma_{\mathcal Q(X)}\bigl(A+\mathcal K(X)\bigr),
+\]
+then $0\notin\sigma_{\mathrm{ess}}(A)$ is equivalent to $A$ being Fredholm.
+This does not say that $0\notin\sigma_{\mathcal B(X)}(A)$; the example $I_X-P$
+shows the difference.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 7mm]
+\node[theorybox,text width=2.65cm] (ideal) {$\mathcal K(X)\triangleleft\mathcal B(X)$\\closed ideal};
+\node[theorybox,text width=2.65cm,right=of ideal] (quot) {$\mathcal Q(X)$\\quotient};
+\node[theorybox,text width=2.65cm,right=of quot] (class) {$A+\mathcal K(X)$\\invertible class};
+\node[researchbox,text width=2.65cm,right=of class] (fred) {$A$ Fredholm\\Calkin criterion};
+\draw[arr] (ideal)--(quot);
+\draw[arr] (quot)--(class);
+\draw[arr] (class)--(fred);
+\end{tikzpicture}
+\end{center}
+
+On a Hilbert space $H$, $\mathcal B(H)$ and its quotient by $\mathcal K(H)$ are
+$C^*$-algebras. For a general Banach space, the preceding argument needs only
+the Banach algebra structure. Symbol calculations and localization seek to turn
+invertibility of the class into verifiable conditions for a \emph{specific operator
+algebra}; simply writing down the quotient does not produce a criterion.
+
+\Needspace{17\baselineskip}
+\section{Cauchy projections: the model case and the Haseman case}
+
+The comparison identifies which assumption turns the formula $(I\pm S_\Gamma)/2$
+into a projection and which part of the formula is used in the Haseman equation.
+
+In the model $\Gamma=\mathbb R$ or $\mathbb T$ on $L^2(\Gamma)$, let $S_\Gamma$
+be the Cauchy singular integral operator. Bastos--Fernandes--Karlovich recall
+$S_\Gamma^2=I$ and that
+\[
+ P_\Gamma^\pm=\tfrac12(I\pm S_\Gamma)
+\]
+are orthogonal projections \cite[§2, p.~22]{BFK2006}. The identity
+$S_\Gamma^2=I$ gives $P_\Gamma^\pm{}^2=P_\Gamma^\pm$ and
+$P_\Gamma^+P_\Gamma^-=0$; self-adjointness of $S_\Gamma$ also gives
+$(P_\Gamma^\pm)^*=P_\Gamma^\pm$. This is the literal connection with
+projections $p=p^*=p^2$ in a $C^*$-algebra.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 7mm]
+\node[theorybox,text width=2.6cm] (s) {$S_\Gamma^2=I$\\$S_\Gamma^*=S_\Gamma$};
+\node[theorybox,text width=2.6cm,right=of s] (def) {$P_\Gamma^\pm=(I\pm S_\Gamma)/2$};
+\node[theorybox,text width=2.6cm,right=of def] (proj) {$P_\Gamma^\pm{}^2=P_\Gamma^\pm$\\$(P_\Gamma^\pm)^*=P_\Gamma^\pm$};
+\node[researchbox,text width=2.6cm,right=of proj] (split) {$L^2(\Gamma)=\operatorname{Ran}P_\Gamma^+\oplus\operatorname{Ran}P_\Gamma^-$};
+\draw[arr] (s)--(def);
+\draw[arr] (def)--(proj);
+\draw[arr] (proj)--(split);
+\end{tikzpicture}
+\end{center}
+
+On the open star of Karlovich 2017, the same \emph{formula}
+$P_\pm=(I\pm S_\Gamma)/2$ appears in Sokhotski--Plemelj and in
+$T=V_\alpha P_++M_GP_-$, but idempotence from the preceding model cannot
+be imported. If $X$ is a Banach space, $S\in\mathcal B(X)$, and
+$P_\pm=(I_X\pm S)/2$, then
+\[
+ P_\pm^2-P_\pm=\tfrac14(S^2-I_X),\qquad
+ P_+P_-=\tfrac14(I_X-S^2),\qquad P_++P_-=I_X.
+\]
+Indeed, the Mellin symbol of $S_\Gamma$ in the one-branch case with $p=2$
+and geometric parameter $\delta=0$ is $\varepsilon_1\tanh(\pi x)$, where
+$\varepsilon_1\in\{-1,1\}$ records orientation; its square is not
+identically one \cite[Theorem~5.3, p.~476]{Karlovich2017}.
+Thus, in this case $P_\pm$ are not algebraic projections.
+The correct connection to Haseman is the \emph{decomposition of traces}
+by Plemelj, not an orthogonal decomposition of the space.
+
+\begin{cthnota}{(Where the assumptions enter)}
+The identity $S_\Gamma^2=I$ is exactly what gives idempotence;
+$S_\Gamma^*=S_\Gamma$ is needed for orthogonality. The model
+$L^2(\mathbb R)$ or $L^2(\mathbb T)$ satisfies both properties in the cited
+source. The 2017 Haseman problem acts on $L^p(\Gamma)$ over an open star and
+uses only the Plemelj formula here.
+\end{cthnota}
+
+\Needspace{25\baselineskip}
+\section{Unitary shifts and composition shifts}
+
+We compare a unitary rotation with the composition operator that appears in
+Haseman. The underlying space and measure determine which property can be asserted.
+
+In \cite[§1, p.~20]{BFK2006}, the circle $\mathbb T$ acts by a unitary representation;
+for $z,t\in\mathbb T$ and $\varphi\in L^2(\mathbb T)$ one writes
+\[
+ U:\mathbb T\to\mathcal B(L^2(\mathbb T)),
+ \qquad
+ (U_z\varphi)(t)=\varphi(zt).
+\]
+Rotation preserves Haar measure $m$: substituting $u=zt$ gives
+\[
+ \|U_z\varphi\|_2^2=\int_{\mathbb T}|\varphi(zt)|^2\,dm(t)
+ =\int_{\mathbb T}|\varphi(u)|^2\,dm(u)=\|\varphi\|_2^2.
+\]
+Since $U_z^{-1}=U_{z^{-1}}$, $U_z$ is unitary. The Haseman problem instead
+involves $V_\alpha f=f\circ\alpha$ on $L^p(\Gamma)$; Karlovich imposes
+regularity and derivative-control assumptions on the shift on each branch
+\cite[§2, p.~467]{Karlovich2017}. These conditions allow one to work with a
+bounded operator, but do not assert that it is unitary.
+
+\begin{center}
+\begin{tikzpicture}[node distance=10mm]
+\node[theorybox] (shift) {Common idea\\composition operator / shift};
+\node[researchbox,above right=of shift] (unit) {$U_z$ on $L^2(\mathbb T)$\\unitary};
+\node[researchbox,below right=of shift] (hasa) {$V_\alpha$ on $L^p(\Gamma)$\\bounded under shift assumptions};
+\node[theorybox,right=22mm of unit] (uspec) {Unitary $\Rightarrow\spec(U_z)\subset\mathbb T$};
+\node[theorybox,right=22mm of hasa] (fred) {Combined with $P_\pm$ and $M_G$ in the Haseman operator};
+\draw[arr] (shift)--(unit);
+\draw[arr] (shift)--(hasa);
+\draw[arr] (unit)--(uspec);
+\draw[arr] (hasa)--(fred);
+\end{tikzpicture}
+\end{center}
+
+\section{Slowly oscillating functions and fibers of characters}
+
+For $a\in C_b(\mathbb R_+)$, write
+$\operatorname{osc}(a,[r,2r])=\sup_{s,t\in[r,2r]}|a(s)-a(t)|$.
+Karlovich defines $\SO(\mathbb R_+)$ by requiring this oscillation to
+tend to zero both as $r\to0$ and as $r\to\infty$
+\cite[§2, pp.~465--466]{Karlovich2017}. For $I=[r,2r]$ and functions
+$a,b\in C_b(\mathbb R_+)$,
+\[
+\begin{aligned}
+ \operatorname{osc}(a+b,I)&\le\operatorname{osc}(a,I)+\operatorname{osc}(b,I),\\
+ \operatorname{osc}(ab,I)&\le\|a\|_\infty\operatorname{osc}(b,I)
+                         +\|b\|_\infty\operatorname{osc}(a,I),\\
+ \operatorname{osc}(\overline a,I)&=\operatorname{osc}(a,I).
+\end{aligned}
+\]
+If $a_n\to a$ uniformly, then
+$\operatorname{osc}(a,I)\le2\|a-a_n\|_\infty+
+\operatorname{osc}(a_n,I)$; first fix a large $n$ and then let $r$
+approach the endpoint. Thus the class is a closed subalgebra, contains
+the constants, and is stable under pointwise involution. The identity
+$\|\overline a a\|_\infty=\|a\|_\infty^2$ shows that it is a unital
+commutative $C^*$-algebra.
+
+\begin{cthejemplo}{(Slow oscillation without an ordinary limit)}
+We check that slow oscillation at the endpoints need not imply an
+ordinary limit. On $\mathbb R_+$ consider the function
+\[
+ a(r)=\sin\!\bigl(\log(1+|\log r|)\bigr),\qquad r>0.
+\]
+It belongs to $\SO(\mathbb R_+)$. If $s,t\in[r,2r]$, then
+$|\log s-\log t|\le\log2$. Put $h(u)=\log(1+|u|)$.
+On the interval $I_r=[\log r,\log r+\log2]$, when it is away from $0$,
+the mean value theorem gives
+\[
+ |h(\log s)-h(\log t)|
+ \le \frac{\log2}{1+\min_{u\in I_r}|u|}.
+\]
+The denominator tends to infinity both as $r\to0$ and as $r\to\infty$.
+Since $|\sin v-\sin w|\le|v-w|$, the oscillation of $a$ on $[r,2r]$
+tends to zero at both endpoints. To see that there is no ordinary
+limit, define
+\[
+ r_n^+=\exp\!\bigl(e^{\pi/2+2\pi n}-1\bigr),\qquad
+ r_n^-=\exp\!\bigl(e^{3\pi/2+2\pi n}-1\bigr).
+\]
+Both sequences tend to infinity, while $a(r_n^+)=1$ and $a(r_n^-)=-1$.
+Their reciprocals tend to zero and give the same two values, because
+$a(r)=a(1/r)$. This function shows why boundary characters of
+$\SO(\mathbb R_+)$ cannot simply be
+replaced by evaluations $a(0)$ and $a(\infty)$.
+\end{cthejemplo}
+
+The maximal ideal space $\Omega(\SO(\mathbb R_+))$ contains evaluations
+at $r>0$ and fibers $M_0,M_\infty$ over the endpoints
+\cite[§2, p.~466]{Karlovich2017}. The Gelfand transform
+$a\mapsto\widehat a$, $\widehat a(\xi)=\xi(a)$, describes values of these
+characters without pretending that $a(0)$ and $a(\infty)$ exist. In
+symbol calculations, these fibers are part of the parameter space;
+the Gelfand map of the coefficients and the full symbol of an operator
+are different maps.
+
+\section{Generators, quotients, and symbol maps}
+
+Karlovich \cite[eq.~(1.4), p.~3]{Karlovich2025} fixes a star-shaped
+curve with cusps $\Gamma$ from (1.1)--(1.2), an admissible power weight
+$w$ from §2.1, with $1<p<\infty$ and exponent
+$-1/p<\alpha_{\mathrm{wt}}<1-1/p$, and considers the Banach algebra
+generated by
+\[
+ \mathfrak B=
+ \operatorname{alg}_{\mathbb R}
+ \{M_a,S_\Gamma,C:\ a\in\SO^\diamond(\Gamma)\}
+ \subset\mathcal B(\mathbb RL^p(\Gamma,w)).
+\]
+Here $M_a$ multiplies by $a$, $S_\Gamma$ is the Cauchy singular operator,
+and $Cf=\overline f$ is complex conjugation. The notation
+$\mathbb RL^p(\Gamma,w)$ means that the $L^p$ space is considered over
+the real scalars: for $f\in L^p(\Gamma,w)$,
+$C(if)=\overline{if}=-i\overline f=-iCf$, whereas
+$C(rf)=rCf$ for $r\in\mathbb R$. Thus $C$ is linear over $\mathbb R$
+but not over $\mathbb C$. This algebra therefore does not automatically
+become a complex $C^*$-algebra, and the spectral results for complex
+Banach algebras in Part 1 cannot simply be applied. The notation $\SO^\diamond(\Gamma)$
+belongs to the 2025 article and does not denote the same algebra
+$\SO(\mathbb R_+)$ as in the 2017 article. The 2025 article calls the
+weight exponent $\alpha$; the subscript here avoids confusing it with
+the shift $\alpha$ of Karlovich 2017.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+\node[researchbox,text width=3.25cm] (gen) {$M_a,S_\Gamma$ complex-linear\\$C$ real-linear};
+\node[theorybox,text width=3.25cm,right=of gen] (alg) {$\mathfrak B$\\real algebra;\\norm closed};
+\node[researchbox,text width=3.25cm,right=of alg] (sym) {Quotient and symbols\\criterion in a fixed algebra};
+\draw[arr] (gen)--(alg);
+\draw[arr] (alg)--(sym);
+\end{tikzpicture}
+\end{center}
+
+Problem 1.3 teaches what it means to generate and close an algebra.
+Problem 1.4 teaches how to pass to a quotient. In the 2025 article,
+the additional step is to construct matrix-valued symbol maps and
+prove that they detect the Fredholm property. Theorem~6.2 treats the
+complex subalgebra
+$\mathfrak A=\operatorname{alg}_{\mathbb C}
+\{M_a,S_\Gamma,CS_\Gamma C:a\in\SO^\diamond(\Gamma)\}$;
+the complex matrix representation of Theorem~7.1 then allows the
+criterion for $N\in\mathfrak B$ to be formulated using the symbol map
+$Y$ of Theorem~7.2 \cite[pp.~25--26]{Karlovich2025}. The latter
+requires membership in $\mathfrak B$ and the article's assumptions
+on the curve, weight, and coefficients; it does not by itself certify
+a Haseman operator with a shift.
+
+\begin{cthnota}{(Four related but distinct maps)}
+An algebra homomorphism preserves sums and products. A
+$*$-homomorphism also preserves the involution. The Gelfand transform
+$a\mapsto\widehat a$ of a commutative algebra evaluates at its
+characters. A Fredholm symbol map is constructed for a particular
+operator algebra, often after passing modulo compact operators, and
+may take matrix values. These constructions share algebraic
+operations, but their domains, codomains, and assumptions cannot be
+interchanged.
+\end{cthnota}
+
+\Needspace{20\baselineskip}
+\section{The full route from the problem to a criterion}
+
+In the diagram, blue marks the language of the course, green the
+research object, and the arrow toward symbols presupposes that the
+corresponding calculus has been constructed for the particular
+algebra. Here $X=L^p(\Gamma)$, so $T+\mathcal K(X)$ is a class in the
+Calkin algebra associated with the same underlying space. The
+criterion of Karlovich 2017 also requires the assumptions of its
+Theorem 7.1 \cite[pp.~487--489]{Karlovich2017}.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 7mm]
+\node[researchbox,text width=3.25cm] (h) {[research]\\Haseman boundary};
+\node[researchbox,text width=3.25cm,right=of h] (p) {[research]\\Sokhotski--Plemelj};
+\node[researchbox,text width=3.25cm,right=of p] (t) {[research]\\$T=V_\alpha P_++M_GP_-$};
+\node[theorybox,text width=3.25cm,below=of t] (b) {[course]\\$T\in\mathcal B(L^p(\Gamma))$};
+\node[theorybox,text width=3.25cm,left=of b] (q) {[course + bridge]\\$T+\mathcal K(X)$ in $\mathcal Q(X)$};
+\node[researchbox,text width=3.25cm,left=of q] (f) {[bridge]\\invertibility of the class\\$\Longleftrightarrow$ Fredholm};
+\node[researchbox,text width=3.25cm,below=of f] (s) {[research]\\symbols and localization};
+\node[researchbox,text width=3.25cm,right=of s] (c) {[research]\\Fredholm criterion\\under article assumptions};
+\draw[arr] (h)--(p);
+\draw[arr] (p)--(t);
+\draw[arr] (t)--(b);
+\draw[arr] (b)--(q);
+\draw[arr] (q)--(f);
+\draw[arr] (f)--(s);
+\draw[arr] (s)--(c);
+\end{tikzpicture}
+\end{center}
+
+The last row describes how the Fredholm property is \emph{checked} in
+the literature. It does not claim that every Fredholm operator
+automatically has the particular symbol of the article, or that the
+2017 criterion applies to a 2025 operator with cusps.
+
+\Needspace{19\baselineskip}
+\section{A reading path for the research manuscript}
+
+When an operator construction appears in the manuscript, it is
+helpful to ask the following questions in order:
+\begin{enumerate}
+\item In which Banach algebra does the operator live?
+\item What is the identity, and what are the relevant generators?
+\item Are we working exactly or modulo an ideal, usually $\K(X)$?
+\item Is the subalgebra under consideration commutative, or does it only
+      have a commutative central subalgebra?
+\item Do characters, a maximal ideal space, or a Gelfand transform appear?
+\item Is there a complex $C^*$-algebra structure (typically on $L^2$)
+      that permits the use of normal elements, unitaries, projections,
+      or functional calculus?
+\item Which part of the Fredholm criterion is equivalent to
+      invertibility in a quotient or of a symbol?
+\end{enumerate}
+
+These questions distinguish the common language from the assumptions
+that authorize each theorem. For example, a published criterion for
+an operator algebra on a curve with cusps does not automatically apply
+to an operator with a shift on a different geometry.

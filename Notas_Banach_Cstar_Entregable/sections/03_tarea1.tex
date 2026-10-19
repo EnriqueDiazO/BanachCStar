@@ -1,0 +1,902 @@
+\chapter{Tarea 1 resuelta y conectada con la teoría}
+
+\begin{context}
+Al terminar esta tarea, podrás justificar qué continuidad hace posibles las construcciones por
+clausura, decidir en qué álgebra se calcula un espectro y reconstruir la subálgebra conmutativa que
+permite estudiar un autoadjunto. Cada solución identifica los resultados que utiliza y el uso
+posterior de su conclusión.
+\end{context}
+
+\section{Problema 1: continuidad de multiplicación e inversión}
+
+Sea $\A$ un álgebra de Banach. En el inciso (b) se supone además que tiene unidad.
+
+\subsection*{1(a) La multiplicación es conjuntamente continua}
+
+\noindent\textbf{Enunciado.} Para $x_n\to x$ y $y_n\to y$ en $\A$, prueba que $x_ny_n\to xy$; equivale a la continuidad conjunta de $\A\times\A\to\A$.
+
+\begin{proof}[Solución]
+Como $x_n\to x$, la sucesión $(x_n)$ es acotada: existe $M$ con $\|x_n\|\le M$. Entonces
+\[
+\|x_ny_n-xy\|
+\le \|x_n\|\,\|y_n-y\|+\|x_n-x\|\,\|y\|
+\le M\|y_n-y\|+\|y\|\|x_n-x\|\to0.
+\]
+Así la multiplicación $\A\times\A\to\A$ es continua en ambas variables de manera conjunta.
+\end{proof}
+
+\proofdiagram
+{$x_n\to x$, $y_n\to y$}
+{$\|ab\|\le\|a\|\|b\|$}
+{Escribir $x_ny_n-xy=x_n(y_n-y)+(x_n-x)y$}
+{$\|x_ny_n-xy\|\to0$}
+
+\begin{cthejemplo}{(Producto de operadores que convergen)}
+En $\mathcal B(H)$ comprobamos T1.1(a) con $T_n=T+n^{-1}I$ y $S_n=S+n^{-1}I$.
+Entonces $T_nS_n-TS=n^{-1}(T+S)+n^{-2}I$, de donde
+$\|T_nS_n-TS\|\le n^{-1}(\|T\|+\|S\|)+n^{-2}\to0$.
+El cálculo muestra que el producto converge aunque cambien simultáneamente los dos factores.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La desigualdad submultiplicativa de la definición de álgebra de Banach y el hecho de que toda sucesión convergente está acotada. La estimación separa la variación de cada factor.
+
+\noindent\textbf{Qué prepara este ejercicio.} Permite cerrar por límites las álgebras generadas en T1.3, pasar al límite en la normalidad en T1.7 y controlar los polinomios en $x_n,x_n^*$ de T2.8.
+
+\subsection*{1(b) La inversión es continua en $\GL(\A)$}
+
+Para este inciso, $\A$ es un álgebra de Banach unital y $\GL(\A)$ lleva la norma heredada de
+$\A$.
+
+\noindent\textbf{Enunciado.} Prueba que la aplicación $\GL(\A)\to\GL(\A)$, $a\mapsto a^{-1}$, es continua en la norma de $\A$.
+
+\begin{proof}[Solución]
+Primero, si $x\to1$ y $\|1-x\|<1$, la serie de Neumann da
+\[
+ x^{-1}=\sum_{n=0}^\infty(1-x)^n,
+ \qquad
+ \|x^{-1}-1\|
+ \le \sum_{n=1}^\infty\|1-x\|^n
+ =\frac{\|1-x\|}{1-\|1-x\|}\to0.
+\]
+Por tanto la inversión es continua en $1$. Si ahora $a_n\to a\in\GL(\A)$, entonces
+$a^{-1}a_n\to1$ y, para $n$ grande, $a_n$ es invertible. Además
+\[
+ a_n^{-1}=(a^{-1}a_n)^{-1}a^{-1}\longrightarrow a^{-1}.
+\]
+\end{proof}
+
+\proofdiagram
+{$a_n\to a\in\GL(\A)$}
+{Continuidad en $1$ por serie de Neumann}
+{$a_n=a(a^{-1}a_n)$ y $a^{-1}a_n\to1$}
+{$a_n^{-1}=(a^{-1}a_n)^{-1}a^{-1}\to a^{-1}$}
+
+\begin{cthejemplo}{(Inversión de una perturbación pequeña)}
+En $\mathcal B(H)$ interesa saber cuándo una perturbación de la identidad conserva inverso.
+Si $E\in\mathcal B(H)$ cumple $\|E\|<1$, la serie de Neumann da
+\[
+ (I+E)^{-1}=\sum_{k=0}^{\infty}(-E)^k,
+ \qquad \|(I+E)^{-1}-I\|\le\frac{\|E\|}{1-\|E\|}.
+\]
+La cota tiende a cero con $\|E\|$: éste es el mecanismo concreto de continuidad de T1.1(b).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La serie de Neumann de la Parte 1 da un inverso para $1-h$ si $\|h\|<1$; la apertura de $\GL(\A)$ permite aplicar esa fórmula cerca de cualquier invertible.
+
+\noindent\textbf{Qué prepara este ejercicio.} La demostración de permanencia espectral de la Sección 2 usa esta continuidad al pasar de $(b+i/n)^{-1}$ a $b^{-1}$ dentro de una subálgebra cerrada.
+
+\Needspace{14\baselineskip}
+\section{Problema 2: conmutación e inversos}
+
+Sea $\A$ un álgebra compleja unital, $a,b\in\A$ y $a$ invertible. En el inciso (b), $\A$ tiene
+además una involución.
+
+Recordemos que $x$ y $y$ \emph{$*$-conmutan} cuando
+\[
+ xy=yx,
+ \qquad x^*y=yx^*.
+\]
+
+\subsection*{2(a) Conmutar con $a$ equivale a conmutar con $a^{-1}$}
+
+\noindent\textbf{Enunciado.} Prueba que $ab=ba$ si y sólo si $a^{-1}b=ba^{-1}$.
+
+\begin{proof}[Solución]
+Si $ab=ba$, multiplicando por $a^{-1}$ a la izquierda y luego a la derecha,
+\[
+ b=a^{-1}ba \quad\Longrightarrow\quad ba^{-1}=a^{-1}b.
+\]
+Recíprocamente, si $a^{-1}b=ba^{-1}$, multiplicamos primero a la izquierda y después a la
+derecha por $a$: de $b=aba^{-1}$ resulta $ba=ab$. Así también $a$ conmuta con $b$.
+\end{proof}
+
+\proofdiagram
+{$ab=ba$, $a$ invertible}
+{Multiplicar por $a^{-1}$ a izquierda y derecha}
+{$a^{-1}b=ba^{-1}$}
+{Equivalencia, usando que $(a^{-1})^{-1}=a$}
+
+\begin{cthejemplo}{(Conmutación de matrices diagonales e inversos)}
+En $M_2(\mathbb C)$ podemos ver la equivalencia de T1.2(a) sin recurrir a límites.
+Tomemos $A=\operatorname{diag}(2,3)$ y $B=\operatorname{diag}(5,7)$.
+Como $A^{-1}=\operatorname{diag}(1/2,1/3)$,
+\[
+ AB=BA=\operatorname{diag}(10,21),\qquad
+ A^{-1}B=BA^{-1}=\operatorname{diag}(5/2,7/3).
+\]
+El inverso cambia las entradas de $A$, pero conserva exactamente la conmutación con $B$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Sólo se necesitan la asociatividad, la unidad y la existencia de $a^{-1}$; no interviene la norma.
+
+\noindent\textbf{Qué prepara este ejercicio.} En T1.9 se aplica esta identidad a $\lambda1-c$ para mostrar que su inverso conmuta con la subálgebra elegida.
+
+\subsection*{2(b) $*$-conmutación e inversos}
+
+\noindent\textbf{Enunciado.} Prueba que $a$ y $b$ $*$-conmutan si y sólo si $a^{-1}$ y $b$ $*$-conmutan.
+
+\begin{proof}[Solución]
+De $ab=ba$ y el inciso (a), $a^{-1}b=ba^{-1}$. Además $a^*b=ba^*$; como $a^*$ es invertible,
+$(a^*)^{-1}b=b(a^*)^{-1}$. Pero $(a^*)^{-1}=(a^{-1})^*$, así que se satisfacen las dos
+condiciones de $*$-conmutación. Si, recíprocamente, $a^{-1}$ y $b$ $*$-conmutan, aplicamos el
+argumento ya probado al invertible $a^{-1}$: su inverso $a$ y su adjunto $a^*$ conmutan con $b$.
+\end{proof}
+
+\Needspace{14\baselineskip}
+\proofdiagram
+{$a$ y $b$ $*$-conmutan}
+{Inciso (a) aplicado a $a$ y a $a^*$}
+{$a^{-1}$ y $(a^{-1})^*=(a^*)^{-1}$ conmutan con $b$}
+{$a^{-1}$ y $b$ $*$-conmutan}
+
+\begin{cthejemplo}{(El inverso de una matriz normal)}
+Para comprobar la $*$-conmutación en T1.2(b), usemos la matriz normal e invertible
+$A=\operatorname{diag}(2,i)$ en $M_2(\mathbb C)$.
+Se tiene $A^{-1}=\operatorname{diag}(1/2,-i)$ y
+\[
+ A^{-1}(A^{-1})^*=(A^{-1})^*A^{-1}=\operatorname{diag}(1/4,1).
+\]
+Así $A^{-1}$ sigue siendo normal: el paso decisivo es que su adjunto también es el inverso de $A^*$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se aplica T1.2(a) tanto a $a$ como a $a^*$, junto con $(a^{-1})^*=(a^*)^{-1}$. La definición de $*$-conmutación fija las dos relaciones que hay que verificar.
+
+\noindent\textbf{Qué prepara este ejercicio.} Permite controlar los inversos en la versión involutiva de T1.9 y explica por qué el inverso de un elemento normal invertible vuelve a ser normal.
+
+\section{Problema 3: álgebras generadas por un conjunto}
+
+Sea $\A$ un álgebra de Banach y $S\subset\A$. Definimos
+\[
+\mathcal B(S)=\overline{\spn\{s_1\cdots s_k:k\ge1,\ s_j\in S\}}.
+\]
+Si $\A$ tiene una involución, ponemos $S^*=\{s^*:s\in S\}$ y
+$\mathcal B^*(S)=\mathcal B(S\cup S^*)$.
+
+\subsection*{3(a) Minimalidad de $\mathcal B(S)$ y $\mathcal B^*(S)$}
+
+\noindent\textbf{Enunciado.} Prueba que $\mathcal B(S)$ es la mínima subálgebra de Banach de $\A$ que contiene $S$ y, cuando $\A$ es involutiva, que $\mathcal B^*(S)$ es la mínima subálgebra de Banach involutiva que contiene $S$.
+
+\begin{proof}[Solución]
+El conjunto de combinaciones lineales de palabras en $S$ es una subálgebra; su clausura sigue
+siendo subálgebra por continuidad de la multiplicación. Así $\mathcal B(S)$ es una subálgebra de
+Banach que contiene $S$. Si $C\subset\A$ es cualquier subálgebra de Banach con $S\subset C$,
+entonces $C$ contiene todas las palabras $s_1\cdots s_k$, sus combinaciones lineales y, por ser
+cerrada, su clausura. Por tanto $\mathcal B(S)\subset C$.
+
+Para $\mathcal B^*(S)$ se aplica lo mismo a $S\cup S^*$. Ese conjunto generado es estable bajo
+$*$: el adjunto de una palabra es otra palabra en $S\cup S^*$, y la involución es continua. Por ello
+es la mínima subálgebra de Banach involutiva que contiene $S$.
+\end{proof}
+
+\pagebreak
+\proofdiagram
+{$S\subset\A$}
+{Productos finitos, combinaciones lineales y clausura}
+{Toda subálgebra cerrada que contiene $S$ contiene cada palabra y su límite}
+{$\mathcal B(S)$ es la mínima subálgebra de Banach que contiene $S$}
+
+\begin{cthejemplo}{(Añadir la unidad cambia el álgebra generada)}
+En $M_2(\mathbb C)$, el operador $T=\operatorname{diag}(0,2)$ permite distinguir
+$\mathcal B(\{T\})$ de la álgebra unital generada por $T$.
+Como $T^k=\operatorname{diag}(0,2^k)$ para $k\ge1$,
+\[
+ \mathcal B(\{T\})=\{\operatorname{diag}(0,c):c\in\mathbb C\}.
+\]
+Al añadir $I$ se obtienen todas las matrices diagonales. La distinción responde a la definición
+por palabras de longitud positiva en T1.3(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La clausura de combinaciones lineales de palabras es completa por ser cerrada en $\A$; T1.1(a) garantiza que el producto pasa a la clausura. La continuidad de $*$ da el caso involutivo.
+
+\noindent\textbf{Qué prepara este ejercicio.} Construye de modo concreto $C^*(a,1)$, la subálgebra conmutativa que se emplea en la Sección 2 para Gelfand--Naimark y el cálculo funcional. La misma operación de generación aparece en álgebras de operadores singulares.
+
+\begin{investigacion}[title={Generación de un álgebra real de operadores}]
+Para reconocer T1.3(a) en una construcción de investigación, consideremos la álgebra
+\emph{real} de operadores en $\mathcal B(\mathbb R L^p(\Gamma,w))$ estudiada por Karlovich.
+Sus generadores incluyen $M_a$ con $a\in\SO^\diamond(\Gamma)$, $S_\Gamma$ y la
+conjugación $C$, que es real-lineal. Por ejemplo, una palabra $M_aS_\Gamma C$ pertenece
+a la álgebra generada; también pertenecen las sumas reales de palabras y sus límites en
+norma \cite[ec.~(1.4), p.~3]{Karlovich2025}.
+La operación de generación es la de T1.3(a) sobre escalares reales. La presencia de $C$
+sitúa este ejemplo fuera del cálculo funcional complejo de la Sección 2.
+\end{investigacion}
+
+\subsection*{3(b) La conmutación se propaga al álgebra generada}
+
+\noindent\textbf{Enunciado.} Si $a\in\A$ conmuta con cada $s\in S$, prueba que conmuta con todo $x\in\mathcal B(S)$. En el caso involutivo, si $a$ $*$-conmuta con cada $s\in S$, prueba la misma conclusión para $\mathcal B^*(S)$ y la $*$-conmutación.
+
+\begin{proof}[Solución]
+Si $a$ conmuta con cada $s\in S$, entonces, por inducción, conmuta con cada palabra
+$s_1\cdots s_k$. Por linealidad conmuta con toda combinación lineal de palabras. Si
+$x_n\to x$ y $ax_n=x_na$, la continuidad del producto da $ax=x a$. Así conmuta con toda
+$\mathcal B(S)$.
+
+En el caso involutivo, si $a$ $*$-conmuta con cada $s\in S$, entonces $a$ y $a^*$ conmutan con
+$s$ y, tomando adjuntos, también con $s^*$. Por el argumento anterior, $a$ y $a^*$ conmutan con
+toda $\mathcal B^*(S)$, que es exactamente decir que $a$ $*$-conmuta con todos sus elementos.
+\end{proof}
+
+\proofdiagram
+{$as=sa$ para todo $s\in S$}
+{La conmutación se preserva por productos y sumas}
+{Pasar a límites por continuidad}
+{$ax=xa$ para todo $x\in\mathcal B(S)$}
+
+\begin{cthejemplo}{(Un conmutante de matrices diagonales)}
+En $M_2(\mathbb C)$ queremos seguir la conmutación desde un generador hasta su álgebra.
+Sean $D=\operatorname{diag}(1,2)$ y $A=\operatorname{diag}(3,4)$.
+Para cualquier polinomio $p$,
+\[
+ Ap(D)=\operatorname{diag}(3p(1),4p(2))=p(D)A.
+\]
+La igualdad persiste en límites de polinomios en norma, tal como establece T1.3(b).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La identidad $as=sa$ se conserva al formar palabras y combinaciones lineales; T1.1(a) permite pasar al límite. Para $*$-conmutación se aplican además las relaciones adjuntas.
+
+\noindent\textbf{Qué prepara este ejercicio.} La propagación de conmutación justifica en T1.9 que se pueda añadir un inverso sin perder conmutatividad y permite analizar el conmutante de familias de operadores.
+
+\subsection*{3(c) Si $S$ conmuta dos a dos, $\mathcal B(S)$ es conmutativa}
+
+\noindent\textbf{Enunciado.} Si $st=ts$ para todo $s,t\in S$, prueba que $\mathcal B(S)$ es conmutativa.
+
+\begin{proof}[Solución]
+Dos palabras $s_1\cdots s_k$ y $t_1\cdots t_m$ pueden reordenarse factor a factor porque todos
+los generadores conmutan. Por tanto las palabras conmutan. El resultado se extiende por bilinealidad
+a sus combinaciones lineales y por continuidad a la clausura.
+\end{proof}
+
+\proofdiagram
+{Los elementos de $S$ conmutan dos a dos}
+{Reordenar factores en dos palabras}
+{Las palabras conmutan; luego sus combinaciones lineales también}
+{La clausura $\mathcal B(S)$ es conmutativa}
+
+\begin{cthejemplo}{(Álgebra de un nilpotente)}
+La conmutatividad de una álgebra generada por un solo elemento no exige que éste sea normal.
+En $M_2(\mathbb C)$, tomemos $N=\begin{pmatrix}0&1\\0&0\end{pmatrix}$.
+Como $N^2=0$, toda palabra de longitud positiva es $N$ o $0$, y
+$\mathcal B(\{N\})=\mathbb C N$.
+Dos elementos $cN,dN$ tienen producto $0$ en ambos órdenes. Esto concreta T1.3(c).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se usa la construcción de T1.3(a): si los generadores conmutan dos a dos, dos palabras cualesquiera se pueden reordenar. T1.1(a) extiende la identidad a sus límites.
+
+\noindent\textbf{Qué prepara este ejercicio.} Permite reconocer la conmutatividad de $C^*(a,1)$ cuando $a$ es normal, paso necesario para representar esa álgebra como funciones continuas en la Sección 2.
+
+\subsection*{3(d) $*$-conmutación dos a dos}
+
+\noindent\textbf{Enunciado.} En el caso involutivo, si cada par de elementos de $S$ $*$-conmuta, prueba que $\mathcal B^*(S)$ es una subálgebra de Banach involutiva y conmutativa.
+
+\begin{proof}[Solución]
+De $st=ts$ y $s^*t=ts^*$ se obtienen por adjunción también
+$st^*=t^*s$ y $s^*t^*=t^*s^*$. Por tanto todos los elementos de $S\cup S^*$ conmutan dos a dos.
+El inciso (c) aplicado a $S\cup S^*$ muestra que $\mathcal B^*(S)$ es conmutativa; por construcción
+es una álgebra de Banach involutiva.
+\end{proof}
+
+\proofdiagram
+{Cada par $s,t\in S$ $*$-conmuta}
+{Tomar adjuntos de las relaciones}
+{$S\cup S^*$ conmuta dos a dos}
+{$\mathcal B^*(S)$ es conmutativa e involutiva}
+
+\begin{cthejemplo}{(Un normal genera una álgebra involutiva conmutativa)}
+En $M_2(\mathbb C)$, la matriz $A=\operatorname{diag}(1,i)$ muestra por qué
+la normalidad permite usar cálculo funcional.
+Su adjunto es $A^*=\operatorname{diag}(1,-i)$, de modo que $AA^*=A^*A=I$.
+Así las palabras en $A$, $A^*$ e $I$ son diagonales y conmutan; también lo hace su clausura.
+Por T1.3(d), $C^*(A,I)$ es conmutativa, condición de entrada de la Sección 2.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La definición de $*$-conmutación aplicada a cada par de generadores da conmutación en $S\cup S^*$; luego se aplica T1.3(c).
+
+\noindent\textbf{Qué prepara este ejercicio.} Si $a$ es normal, al aplicar el inciso a $S=\{a,1\}$ se obtiene la $C^*$-subálgebra conmutativa $C^*(a,1)$, punto de partida del cálculo funcional continuo.
+
+\section{Problema 4: el cociente por un ideal es una álgebra de Banach}
+
+Sea $\A$ un álgebra de Banach y $J\subset\A$ un ideal bilateral cerrado.
+
+\noindent\textbf{Enunciado.} Prueba que $(x+J)(y+J)=xy+J$ está bien definido y que $\A/J$, con $\|x+J\|=\inf_{j\in J}\|x-j\|$, es una álgebra de Banach.
+
+\begin{proof}[Solución]
+Si $x'=x+j_1$ y $y'=y+j_2$ con $j_1,j_2\in J$, entonces
+\[
+ x'y'-xy=xj_2+j_1y+j_1j_2\in J,
+\]
+de modo que $(x+J)(y+J)=xy+J$ está bien definido.
+
+Para la norma, dados $j_1,j_2\in J$,
+\[
+(x-j_1)(y-j_2)=xy-\underbrace{(xj_2+j_1y-j_1j_2)}_{\in J},
+\]
+por lo que
+\[
+\|xy+J\|\le\|x-j_1\|\,\|y-j_2\|.
+\]
+Tomando ínfimo en $j_1$ y $j_2$ se obtiene
+$\|(x+J)(y+J)\|\le\|x+J\|\|y+J\|$. Finalmente, como $J$ es cerrado, el espacio cociente
+$\A/J$ es completo. Así es una álgebra de Banach.
+\end{proof}
+
+\proofdiagrambranch
+{$J$ ideal bilateral cerrado}
+{$\|x+J\|=\inf_{b\in J}\|x-b\|$}
+{Comprobar independencia de representantes y submultiplicatividad}
+{Usar que el cociente por un subespacio cerrado es Banach}
+{$\A/J$ es una álgebra de Banach}
+
+\begin{cthejemplo}{(Una clase en el álgebra de Calkin)}
+Para ver qué identifica el cociente de T1.4, trabajemos en $X=\ell^2(\mathbb N)$.
+Sea $P$ la proyección de rango uno sobre $\mathbb C e_1$; entonces $P\in\K(X)$ y
+\[
+ (I+P)+\K(X)=I+\K(X).
+\]
+Dos operadores distintos representan la misma clase porque su diferencia es compacta.
+Ésta es la igualdad básica que permite trabajar en el álgebra de Calkin.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Un ideal bilateral asegura que el producto de clases no depende de representantes; que $J$ sea cerrado asegura la completitud del cociente. Se usa la norma cociente y la submultiplicatividad de $\A$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Al tomar $\A=\mathcal B(X)$ y $J=\K(X)$ se obtiene el álgebra de Calkin. La equivalencia entre Fredholm e invertibilidad en ese cociente es el teorema de Atkinson, un resultado adicional que este ejercicio permite formular pero no demuestra.
+
+\begin{investigacion}[title={Fredholm en el álgebra de Calkin}]
+Para situar T1.4 en una aplicación, sea $X$ un Banach de dimensión infinita y
+$\pi:\mathcal B(X)\to\mathcal B(X)/\K(X)$ el mapa cociente.
+La clase $\pi(A)$ es invertible exactamente cuando existe $B\in\mathcal B(X)$ con
+$AB-I,BA-I\in\K(X)$; ambas igualdades se leen multiplicando clases en el cociente.
+El teorema de Atkinson añade que esa condición equivale a que $A$ sea Fredholm: rango
+cerrado, núcleo finito dimensional y cociente $X/\operatorname{Ran}(A)$ finito dimensional
+\cite[p.~2]{Karlovich2025}. T1.4 proporciona el álgebra donde se formula esta
+equivalencia; el teorema de Atkinson es un resultado adicional.
+\end{investigacion}
+
+\section{Problema 5: $C_0(X)$ es una subálgebra de Banach de $C_b(X)$}
+
+Sea $X$ un espacio localmente compacto y Hausdorff.
+
+\noindent\textbf{Enunciado.} Definimos $C_0(X)=\{f\in C_b(X):\text{ para todo }\varepsilon>0\text{ existe un compacto }K\subset X\text{ con }|f(x)|<\varepsilon\text{ fuera de }K\}$. Prueba que es una subálgebra de Banach de $C_b(X)$.
+
+\begin{proof}[Solución]
+Toda función continua que se desvanece al infinito es acotada: para $\varepsilon=1$ es menor
+que $1$ fuera de un compacto, y sobre ese compacto alcanza un máximo finito.
+Además, si $f,h\in C_0(X)$, elegimos compactos $K_f,K_h$ fuera de los cuales
+$|f|,|h|<\varepsilon/2$; fuera de $K_f\cup K_h$ se tiene $|f+h|<\varepsilon$.
+La multiplicación por escalares se verifica escogiendo el umbral
+$\varepsilon/(1+|c|)$ para $cf$. Así $C_0(X)$ es un subespacio lineal de $C_b(X)$.
+
+Si $f\in C_0(X)$ y $g\in C_b(X)$, dado $\varepsilon>0$ elegimos un compacto $K$ tal que
+$|f(x)|<\varepsilon/(1+\|g\|_\infty)$ fuera de $K$. Entonces
+$|f(x)g(x)|<\varepsilon$ fuera de $K$, así que $fg\in C_0(X)$. Esto muestra incluso que $C_0(X)$
+es un ideal de $C_b(X)$.
+
+Para ver que es cerrado, sea $f_n\in C_0(X)$ y $f_n\to f$ uniformemente. Dado $\varepsilon>0$,
+elegimos $n$ con $\|f-f_n\|_\infty<\varepsilon/2$ y un compacto $K$ con
+$|f_n(x)|<\varepsilon/2$ fuera de $K$. Entonces $|f(x)|<\varepsilon$ fuera de $K$.
+Por tanto $f\in C_0(X)$. Un subespacio cerrado de un Banach es Banach.
+
+La conjugación puntual preserva $C_0(X)$ y
+$\|f^*f\|_\infty=\sup_x|f(x)|^2=\|f\|_\infty^2$; por ello $C_0(X)$ es además una
+$C^*$-álgebra, aunque no tenga unidad cuando $X$ no es compacto.
+\end{proof}
+
+\proofdiagram
+{$f\in C_0(X)$, $g\in C_b(X)$}
+{Definición de desvanecimiento al infinito}
+{$fg$ se hace pequeño fuera de un compacto; límites uniformes preservan la propiedad}
+{$C_0(X)$ es un ideal cerrado de $C_b(X)$, luego Banach}
+
+\begin{cthejemplo}{(Una función que se desvanece en la recta)}
+En $X=\mathbb R$ queremos comparar una función que se desvanece con la unidad de $C_b(X)$.
+Para $f(x)=1/(1+x^2)$ y $\varepsilon>0$, si $|x|>\varepsilon^{-1/2}$ entonces
+$|f(x)|<\varepsilon$; por ello $f\in C_0(\mathbb R)$.
+La función constante $1$ no cumple esa condición para $\varepsilon=1/2$ fuera de ningún
+compacto. T1.5 sitúa a $f$ en el ideal cerrado $C_0(\mathbb R)$ y deja la unidad fuera de él.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La definición de desvanecimiento al infinito permite escoger un compacto para cada tolerancia. La norma uniforme de $C_b(X)$ controla tanto productos como límites.
+
+\noindent\textbf{Qué prepara este ejercicio.} Si $X$ no es compacto, $C_0(X)$ es el modelo conmutativo no unital; para $X$ compacto coincide con $C(X)$. La clasificación general de $C_0(X)$ requiere la versión no unital de Gelfand--Naimark, mientras la Sección 2 demuestra la versión unital.
+
+\section{Problema 6: espectro e involución}
+
+Sea $\A$ un álgebra de Banach involutiva unital y $x\in\A$.
+
+\noindent\textbf{Enunciado.} Para cada $x\in\A$, prueba $\spec(x^*)=\overline{\spec(x)}$.
+
+\begin{proof}[Solución]
+Un elemento $a$ es invertible si y sólo si $a^*$ lo es, pues de $ab=ba=1$ se obtiene
+$b^*a^*=a^*b^*=1$. Ahora
+\[
+(\lambda1-x^*)^*=\overline\lambda1-x.
+\]
+Por tanto
+\[
+\lambda1-x^*\notin\GL(\A)
+\Longleftrightarrow
+\overline\lambda1-x\notin\GL(\A),
+\]
+lo que equivale a
+\[
+ \spec(x^*)=\overline{\spec(x)}.
+\]
+\end{proof}
+
+\proofdiagram
+{$\lambda1-x^*$}
+{La involución preserva invertibilidad: $a^{-1}\mapsto(a^*)^{-1}$}
+{$(\lambda1-x^*)^*=\overline\lambda1-x$}
+{$\lambda\in\spec(x^*)\Longleftrightarrow\overline\lambda\in\spec(x)$}
+
+\begin{cthejemplo}{(Espectro del adjunto no normal)}
+La simetría de T1.6 no necesita normalidad. Consideremos
+$A=\begin{pmatrix}1&1\\0&i\end{pmatrix}$ en $M_2(\mathbb C)$.
+Por triangularidad, $\spec(A)=\{1,i\}$; su adjunto es triangular inferior con diagonal
+$(1,-i)$, así que $\spec(A^*)=\{1,-i\}=\overline{\spec(A)}$.
+La conjugación del espectro proviene de la involución, aunque $A$ no conmute con $A^*$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La definición de espectro de la Parte 1 y la identidad $(a^*)^{-1}=(a^{-1})^*$ permiten transportar invertibilidad a través de la involución.
+
+\noindent\textbf{Qué prepara este ejercicio.} Muestra una simetría espectral válida antes de imponer la identidad $C^*$. Para concluir que todo el espectro de un autoadjunto es real, la Sección 2 añade argumentos propios de $C^*$-álgebras.
+
+\section{Problema 7: los elementos normales forman un conjunto cerrado}
+
+Sea $\A$ una $C^*$-álgebra y $x_n\to x$ en norma, con cada $x_n$ normal.
+
+\noindent\textbf{Enunciado.} Prueba que el conjunto $\{x\in\A:x^*x=xx^*\}$ de elementos normales es cerrado en norma.
+
+\begin{proof}[Solución]
+Como $\|x_n^*-x^*\|=\|x_n-x\|\to0$ y la multiplicación es conjuntamente continua,
+\[
+ x_n^*x_n\to x^*x,
+ \qquad
+ x_nx_n^*\to xx^*.
+\]
+Pero ambos términos son iguales para cada $n$. Por unicidad del límite, $x^*x=xx^*$.
+\end{proof}
+
+\proofdiagram
+{$x_n\to x$, $x_n^*x_n=x_nx_n^*$}
+{La involución es isométrica; producto conjuntamente continuo}
+{$x_n^*\to x^*$ y ambos productos convergen}
+{$x^*x=xx^*$}
+
+\begin{cthejemplo}{(Límite de matrices normales)}
+En $M_2(\mathbb C)$ podemos observar el cierre del conjunto de normales sin cambiar de dimensión.
+Sea $A_n=\operatorname{diag}(1+1/n,i-1/n)$; cada $A_n$ es normal y
+$\|A_n-\operatorname{diag}(1,i)\|=1/n$.
+El límite $A=\operatorname{diag}(1,i)$ también conmuta con su adjunto.
+Éste es un caso concreto del paso al límite demostrado en T1.7.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La involución isométrica da $x_n^*\to x^*$ y T1.1(a) permite pasar al límite en los dos productos de la ecuación de normalidad.
+
+\noindent\textbf{Qué prepara este ejercicio.} Es el primer paso de T2.8: el límite $x$ sigue siendo normal, de modo que $f(x)$ está definido por cálculo funcional continuo.
+
+\section{Problema 8: inclusión espectral bajo homomorfismos}
+
+Sean $\A,\B$ álgebras de Banach unitales y $\psi:\A\to\B$ un homomorfismo complejo unital.
+
+\noindent\textbf{Enunciado.} Para cada $x\in\A$, prueba $\spec_\B(\psi(x))\subset\spec_\A(x)$ y $r_\B(\psi(x))\le r_\A(x)$.
+
+\begin{proof}[Solución]
+Si $\lambda\notin\spec_\A(x)$, entonces existe $(\lambda1-x)^{-1}$. Aplicando $\psi$,
+\[
+ \psi(\lambda1-x)\,\psi((\lambda1-x)^{-1})
+ =\psi((\lambda1-x)^{-1})\,\psi(\lambda1-x)=1_\B,
+\]
+así que $\lambda1-\psi(x)$ es invertible. Esto prueba
+$\spec_\B(\psi(x))\subset\spec_\A(x)$. Tomando máximos de $|\lambda|$ se obtiene
+$r(\psi(x))\le r(x)$.
+\end{proof}
+
+\proofdiagram
+{$\psi:\A\to\B$ homomorfismo unital}
+{Los homomorfismos unitales mandan inversos en inversos}
+{$\lambda1-\psi(x)=\psi(\lambda1-x)$}
+{$\spec(\psi(x))\subset\spec(x)$ y $r(\psi(x))\le r(x)$}
+
+\begin{cthejemplo}{(Inclusión espectral estricta en un cociente)}
+Para mostrar que la inclusión de T1.8 puede ser estricta, tomemos
+$\A=\mathbb C\oplus\mathbb C$ con norma supremo y $J=\{0\}\oplus\mathbb C$.
+La clase de $a=(1,2)$ en $\A/J\cong\mathbb C$ es $1$.
+Como $\lambda1-a=(\lambda-1,\lambda-2)$ es invertible exactamente cuando
+$\lambda\notin\{1,2\}$,
+\[
+ \spec_{\A/J}(a+J)=\{1\}\subsetneq\{1,2\}=\spec_\A(a).
+\]
+El cociente puede perder puntos espectrales, de acuerdo con T1.8.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Un homomorfismo unital conserva el inverso de $\lambda1-x$ cuando existe; la definición de espectro convierte esta observación algebraica en una inclusión.
+
+\noindent\textbf{Qué prepara este ejercicio.} En la Sección 2 se aplica la inclusión a $a^*a$ para probar que los $*$-homomorfismos unitarios son contractivos.
+
+\section{Problema 9: una subálgebra conmutativa que preserva el espectro}
+
+Sea $\A$ un álgebra de Banach unital y $S\subset\A$ una familia que conmuta dos a dos. Para la
+versión involutiva, suponemos además que $\A$ es involutiva y los elementos de $S$
+$*$-conmutan dos a dos.
+
+\noindent\textbf{Enunciado.} Prueba que existe una subálgebra de Banach unital y conmutativa $C\subset\A$ que contiene $S$ y satisface $\spec_C(s)=\spec_\A(s)$ para todo $s\in S$. En el caso involutivo con $*$-conmutación dos a dos, exige además que $C$ sea involutiva.
+
+\begin{proof}[Solución]
+Sea $\mathscr F$ la familia de subálgebras de Banach conmutativas unitales $C\subset\A$ que contienen
+a $S$, ordenada por inclusión. Es no vacía: contiene la clausura de la álgebra unital generada por
+$S$. Si $\{C_i\}$ es una cadena, la clausura de $\bigcup_i C_i$ vuelve a ser una subálgebra de
+Banach conmutativa unital que contiene $S$. Por el lema de Zorn existe un elemento maximal $C$.
+
+Afirmamos que $C$ es inversamente cerrada en $\A$. Si $c\in C$ es invertible en $\A$, entonces
+de $cd=dc$ para $d\in C$ se deduce $c^{-1}d=dc^{-1}$. Por tanto la subálgebra cerrada unital
+generada por $C\cup\{c^{-1}\}$ sigue siendo conmutativa. La maximalidad obliga a
+$c^{-1}\in C$. En consecuencia, para $s\in S$,
+\[
+\lambda1-s\in\GL(\A)\Longleftrightarrow\lambda1-s\in\GL(C),
+\]
+y los espectros coinciden.
+
+En el caso involutivo, partimos de la familia de subálgebras de Banach involutivas, conmutativas y
+unitales que contienen $S$. La hipótesis de $*$-conmutación garantiza que la familia es no vacía por
+el Problema 3(d), aplicado a $S\cup\{1\}$. Si $c\in C$ es invertible en $\A$, tanto $c^{-1}$ como $(c^{-1})^*$ conmutan con
+$C$ y entre sí: $c,c^*\in C$ conmutan y sus inversos también. Se pueden añadir conservando
+conmutatividad e involución. La maximalidad vuelve a
+forzar $c^{-1}\in C$.
+\end{proof}
+
+\proofdiagrambranch
+{$S$ conmuta dos a dos}
+{Familia de subálgebras cerradas, conmutativas, unitales que contienen $S$}
+{Zorn produce una maximal; los inversos de sus elementos también conmutan con ella}
+{Maximalidad fuerza que los inversos pertenezcan a la subálgebra}
+{$\spec_\A(s)=\spec_C(s)$ para $s\in S$}
+
+\begin{cthejemplo}{(Una subálgebra espectralmente fiel de matrices)}
+En $M_2(\mathbb C)$, el autoadjunto $A=\operatorname{diag}(1,2)$ permite construir
+explícitamente la subálgebra de T1.9.
+Tomemos $C$ como todas las matrices diagonales. El inverso de
+$\lambda I-A=\operatorname{diag}(\lambda-1,\lambda-2)$, cuando existe, sigue en $C$:
+\[
+ (\lambda I-A)^{-1}=\operatorname{diag}((\lambda-1)^{-1},(\lambda-2)^{-1}).
+\]
+Por ello $\spec_C(A)=\{1,2\}=\spec_{M_2(\mathbb C)}(A)$; el espectro se conserva porque
+los inversos necesarios pertenecen a $C$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se usan T1.3 para generar una subálgebra conmutativa, T1.2 para conmutar con inversos y el lema de Zorn para escoger una subálgebra maximal. La versión involutiva exige $*$-conmutación.
+
+\noindent\textbf{Qué prepara este ejercicio.} La Sección 2 emplea esta reducción para estudiar un autoadjunto mediante caracteres sin cambiar su espectro. En el entorno $C^*$, la permanencia espectral ofrece después una vía más directa para $C^*(a,1)$.
+
+\pagebreak
+\section{Problema 10: espectro de una función continua}
+
+Sea $X$ compacto Hausdorff y $f\in C(X)$. Después compararemos con $C_b(X)$ para un espacio
+localmente compacto que no sea compacto.
+
+\noindent\textbf{Enunciado.} Prueba que $\spec_{C(X)}(f)=f(X)$ para cada $f\in C(X)$ y decide, mediante un ejemplo, si la igualdad sigue siendo válida en $C_b(X)$ para $X$ sólo localmente compacto.
+
+\begin{proof}[Solución]
+Si $\lambda\notin f(X)$, la función $\lambda-f$ no se anula. Como $X$ es compacto,
+$|\lambda-f|$ tiene mínimo positivo; por tanto
+$(\lambda-f)^{-1}\in C(X)$ y $\lambda\notin\spec(f)$. Si $\lambda=f(x_0)$, entonces
+$\lambda-f$ se anula en $x_0$ y no puede ser invertible. Por tanto $\spec(f)=f(X)$.
+
+Si $X$ sólo es localmente compacto y usamos $C_b(X)$, el enunciado puede fallar porque una función
+no nula puede acercarse a cero sin alcanzar cero. Por ejemplo, en $X=(0,1)$, $f(x)=x$ tiene
+$f(X)=(0,1)$, pero
+\[
+ \spec_{C_b((0,1))}(f)=[0,1].
+\]
+En efecto, para $\lambda\in(0,1)$ la función $\lambda-f$ se anula; para $\lambda=0,1$,
+sus recíprocos no son acotados. Si $\lambda\notin[0,1]$, en cambio,
+$|\lambda-f(x)|\ge\operatorname{dist}(\lambda,[0,1])>0$ para todo $x$, de modo que el
+recíproco pertenece a $C_b((0,1))$. Esto prueba la igualdad anunciada.
+\end{proof}
+
+\proofdiagram
+{$f\in C(X)$, $X$ compacto}
+{Invertibilidad puntual en una álgebra de funciones}
+{$\lambda1-f$ invertible $\Longleftrightarrow$ $\lambda-f$ no se anula}
+{$\spec(f)=f(X)$}
+
+\begin{cthejemplo}{(Un espectro con forma de circunferencia)}
+Para leer geométricamente T1.10, consideremos $f(z)=2+z$ en $C(\mathbb T)$.
+La función $\lambda-f$ se anula en $\mathbb T$ exactamente cuando
+$\lambda=2+z$ para algún $|z|=1$; fuera de esos valores tiene recíproco continuo.
+Por tanto
+\[
+ \spec_{C(\mathbb T)}(f)=\{\lambda\in\mathbb C:|\lambda-2|=1\}.
+\]
+El espectro es la imagen de $f$, una circunferencia de centro $2$ y radio $1$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} En $C(X)$, $\lambda1-f$ es invertible exactamente cuando $\lambda-f$ no se anula; la compacidad de $X$ asegura que su recíproco es continuo y acotado.
+
+\noindent\textbf{Qué prepara este ejercicio.} Identifica el espectro con un rango de valores en la representación de Gelfand--Naimark y es el paso concreto que usa T2.4 para demostrar el mapeo espectral.
+
+\pagebreak
+\section{Problema 11: $\mathcal B(H)$ y el shift unilateral}
+
+Sea $H$ un espacio de Hilbert y $T\in\mathcal B(H)$. Los incisos (b)--(d) cambian las hipótesis
+sobre $H$ según se indica en cada uno.
+
+\subsection*{11(a) $\mathcal B(H)$ es una $C^*$-álgebra}
+
+\noindent\textbf{Enunciado.} Prueba que $\mathcal B(H)$, con la norma operatorial y la involución $T\mapsto T^*$, es una $C^*$-álgebra.
+
+\begin{proof}[Solución]
+La Parte 1 ya estableció que los operadores acotados sobre un espacio de Banach forman una álgebra
+de Banach; por tanto $\mathcal B(H)$ es completa. Las reglas del adjunto dan una involución.
+La norma del adjunto coincide con la de $T$: por la caracterización de la norma de un vector de
+Hilbert mediante productos interiores,
+\[
+ \|T^*\|=\sup_{\|\eta\|=\|\xi\|=1}|\langle T^*\eta,\xi\rangle|
+ =\sup_{\|\eta\|=\|\xi\|=1}|\langle\eta,T\xi\rangle|=\|T\|.
+\]
+La submultiplicatividad da entonces $\|T^*T\|\le\|T^*\|\|T\|=\|T\|^2$.
+Para la desigualdad inversa, si $\|\xi\|=1$,
+\[
+\|T\xi\|^2=\langle T^*T\xi,\xi\rangle\le\|T^*T\|.
+\]
+Tomando supremo en $\xi$ se obtiene $\|T\|^2\le\|T^*T\|$.
+\end{proof}
+
+\proofdiagram
+{$T\in\mathcal B(H)$}
+{Propiedades del adjunto}
+{$\|T^*T\|\le\|T\|^2$ y $\|T\xi\|^2=\langle T^*T\xi,\xi\rangle$}
+{$\|T^*T\|=\|T\|^2$}
+
+\begin{cthejemplo}{(La identidad $C^*$ en una matriz diagonal)}
+En $H=\mathbb C^2$ queremos comprobar la igualdad de normas que distingue a
+$\mathcal B(H)$ como $C^*$-álgebra.
+Para $T=\operatorname{diag}(2,i)$, se tiene
+$T^*T=\operatorname{diag}(4,1)$, luego $\|T^*T\|=4$ y $\|T\|=2$.
+Así $\|T^*T\|=\|T\|^2$, la identidad verificada de modo general en T1.11(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La Parte 1 presenta $\mathcal B(H)$ como álgebra de Banach; las propiedades del adjunto y la norma operatorial permiten comprobar la identidad $C^*$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Suministra el modelo concreto de la Sección 2 y el espacio de operadores en el que T2.1 representa isométricamente a $C_b(X)$.
+
+\subsection*{11(b) En dimensión finita, espectro = valores propios}
+
+\noindent\textbf{Enunciado.} Si $\dim H<\infty$, prueba que $\spec(T)$ coincide con el conjunto de valores propios de $T$.
+
+\begin{proof}[Solución]
+En dimensión finita un operador lineal es invertible si y sólo si su núcleo es cero. Así
+$\lambda I-T$ no es invertible exactamente cuando existe $\xi\neq0$ con
+$(\lambda I-T)\xi=0$, es decir, $T\xi=\lambda\xi$.
+\end{proof}
+
+\proofdiagram
+{$\dim H<\infty$}
+{En dimensión finita: inyectivo $\Longleftrightarrow$ sobreyectivo}
+{$\lambda I-T$ no invertible $\Longleftrightarrow\Ker(\lambda I-T)\neq0$}
+{$\lambda\in\spec(T)\Longleftrightarrow\lambda$ valor propio}
+
+\begin{cthejemplo}{(Valores propios de una matriz triangular)}
+En dimensión dos, el determinante permite contrastar directamente el espectro y los
+vectores propios de T1.11(b).
+Para $T=\begin{pmatrix}1&1\\0&2\end{pmatrix}$,
+$\det(\lambda I-T)=(\lambda-1)(\lambda-2)$.
+Además $Te_1=e_1$ y $T(1,1)=(2,2)$, así que $1$ y $2$ son valores propios.
+No hay otros puntos espectrales: en dimensión finita la singularidad de $\lambda I-T$
+coincide con la existencia de un vector propio.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} En dimensión finita, inyectividad y sobreyectividad de $\lambda I-T$ son equivalentes por rango y nulidad. Se aplica la definición de espectro de la Parte 1.
+
+\noindent\textbf{Qué prepara este ejercicio.} Permite interpretar los ejemplos matriciales de la Sección 2 como cálculos de espectro mediante valores propios; T1.11(c)--(d) muestran qué cambia en dimensión infinita.
+
+\subsection*{11(c) Vectores propios aproximados producen puntos espectrales}
+
+\noindent\textbf{Enunciado.} Si $\lambda\in\mathbb C$ y existen vectores unitarios $\xi_n\in H$ tales que $\|(\lambda I-T)\xi_n\|\to0$, prueba que $\lambda\in\spec(T)$.
+
+\begin{proof}[Solución]
+Si $\lambda\notin\spec(T)$, entonces $R=(\lambda I-T)^{-1}$ es acotado. Por tanto
+\[
+1=\|\xi_n\|=\|R(\lambda I-T)\xi_n\|
+\le\|R\|\,\|(\lambda I-T)\xi_n\|\to0,
+\]
+contradicción. Luego $\lambda\in\spec(T)$.
+\end{proof}
+
+\proofdiagram
+{$\|\xi_n\|=1$, $\|(\lambda I-T)\xi_n\|\to0$}
+{Suponer $\lambda I-T$ invertible}
+{$\xi_n=(\lambda I-T)^{-1}(\lambda I-T)\xi_n$}
+{$1\le\|(\lambda I-T)^{-1}\|\|(\lambda I-T)\xi_n\|\to0$, contradicción}
+
+\begin{cthejemplo}{(Espectro aproximado sin vector propio)}
+En $\ell^2(\mathbb N)$ queremos ver que un punto espectral aproximado puede carecer de
+vector propio. Definamos $T(\xi_n)=(\xi_n/n)$ y tomemos $\lambda=0$.
+Cada $e_n$ es unitario y $\|Te_n\|=1/n\to0$, pero $T\xi=0$ implica
+$\xi_n/n=0$ para todo $n$, es decir, $\xi=0$.
+Por T1.11(c), $0\in\spec(T)$; el cálculo distingue espectro aproximado de espectro puntual.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Si $\lambda I-T$ es invertible, su inverso es acotado. La estimación de la norma de la composición contradice la existencia de vectores unitarios casi anulados.
+
+\noindent\textbf{Qué prepara este ejercicio.} Define el espectro puntual aproximado y deja preparada la comparación con el shift unilateral de T1.11(d), cuyo cero espectral no es un valor propio aproximado.
+
+\subsection*{11(d) El shift unilateral muestra la diferencia}
+
+\noindent\textbf{Enunciado.} Sea $S(x_1,x_2,\ldots)=(0,x_1,x_2,\ldots)$ en
+$\ell^2(\mathbb N)$. Prueba que $0\in\spec(S)$ y que no existen vectores unitarios
+$\xi_n$ con $\|S\xi_n\|\to0$.
+
+\begin{proof}[Solución]
+$S$ no es sobreyectivo: ningún vector con primera coordenada no nula está en su rango. Así $S$ no
+es invertible y $0\in\spec(S)$. Pero
+\[
+ \|S\xi\|^2=0+\sum_{n\ge1}|\xi_n|^2=\|\xi\|^2.
+\]
+Por tanto, para todo vector unitario $\xi$, $\|S\xi\|=1$; no puede existir una sucesión unitaria con
+$\|S\xi_n\|\to0$.
+\end{proof}
+
+\proofdiagram
+{$S(x_1,x_2,\dots)=(0,x_1,x_2,\dots)$}
+{$S$ es isometría pero no es sobreyectivo}
+{$0\in\spec(S)$; sin embargo $\|S\xi\|=\|\xi\|$}
+{No hay vectores unitarios con $\|S\xi_n\|\to0$}
+
+\begin{cthejemplo}{(Una isometría que no es sobreyectiva)}
+Para distinguir conservación de norma e invertibilidad en T1.11(d), tomemos el primer
+vector de la base de $\ell^2(\mathbb N)$.
+El shift satisface $Se_1=e_2$ y $\|Se_1\|=\|e_1\|=1$, pero ningún vector puede
+transformarse en $e_1$, porque la primera coordenada de $S\xi$ siempre es cero.
+La isometría no es sobreyectiva; por eso $0$ pertenece a su espectro sin haber vectores
+unitarios casi anulados.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} El shift unilateral es una isometría, pero su rango omite vectores con primera coordenada no nula. La definición de espectro detecta esta falta de sobreyectividad.
+
+\noindent\textbf{Qué prepara este ejercicio.} T2.10 determinará todo el disco espectral usando vectores propios del adjunto. La isometría sin sobreyectividad explica por qué $0$ puede ser espectral sin ser valor propio aproximado.
+
+\begin{investigacion}[title={Dos shifts en espacios distintos}]
+Para reconocer el alcance de T1.11(d), comparemos el shift $S$ de $\ell^2(\mathbb N)$ con
+$V_\alpha$ en la formulación de Haseman. El primero satisface $Se_1=e_2$; el segundo
+compone funciones de frontera, $(V_\alpha f)(t)=f(\alpha(t))$
+\cite[pp.~463--464, ecs.~(1.1)--(1.2)]{Karlovich2017}.
+Ambos desplazan datos, pero actúan en espacios y geometrías diferentes. T1.11(d)
+determina $0\in\spec(S)$; no determina por analogía ningún punto de $\spec(V_\alpha)$.
+\end{investigacion}
+
+\section{Problema 12: el álgebra del disco y la no permanencia espectral general}
+
+Sea $\mathbb D=\{z:|z|<1\}$, $\mathbb T=\{z:|z|=1\}$ y
+\[
+ A(\mathbb D)=\{f\in C(\overline{\mathbb D}): f\text{ es holomorfa en }\mathbb D\}.
+\]
+
+\subsection*{12(a) $A(\mathbb D)$ es una álgebra de Banach}
+
+\noindent\textbf{Enunciado.} Prueba que $A(\mathbb D)$ es una álgebra de Banach unital con la norma del supremo en $\overline{\mathbb D}$.
+
+\begin{proof}[Solución]
+Sea $(f_n)$ de Cauchy en norma supremo. Converge uniformemente en $\overline{\mathbb D}$ a una
+función continua $f$. En cada compacto $K\subset\mathbb D$, la convergencia es uniforme; por el
+teorema de Weierstrass, $f$ es holomorfa en $\mathbb D$. Así $f\in A(\mathbb D)$ y el espacio es
+completo. Las sumas y productos de funciones holomorfas son holomorfos, y la función constante
+$1$ pertenece a $A(\mathbb D)$; las operaciones y la norma se heredan de
+$C(\overline{\mathbb D})$.
+\end{proof}
+
+\proofdiagram
+{Sucesión de Cauchy en norma supremo}
+{$C(\overline{\mathbb D})$ es Banach; teorema de Weierstrass para límites holomorfos}
+{El límite uniforme es continuo y el límite en compactos interiores es holomorfo}
+{$A(\mathbb D)$ es cerrado, unital y Banach}
+
+\begin{cthejemplo}{(Aproximación polinómica en el álgebra del disco)}
+En $A(\mathbb D)$ interesa aproximar funciones holomorfas sin salir de la norma uniforme.
+Para $f\in A(\mathbb D)$, las dilataciones $f_r(z)=f(rz)$ convergen uniformemente a $f$
+en $\overline{\mathbb D}$ cuando $r\uparrow1$, por continuidad uniforme de $f$.
+Cada $f_r$ es holomorfa en un disco de radio $1/r>1$, así que sus polinomios de Taylor
+convergen uniformemente en $\overline{\mathbb D}$.
+Esto explica por qué los polinomios forman una subálgebra densa del Banach de T1.12(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La completitud de $C(\overline{\mathbb D})$ y el teorema de Weierstrass sobre límites uniformes locales de funciones holomorfas garantizan que $A(\mathbb D)$ es cerrado.
+
+\noindent\textbf{Qué prepara este ejercicio.} Hace posible tratar la restricción de frontera como una inclusión de álgebras de Banach en T1.12(b) y comparar espectros en T1.12(c).
+
+\subsection*{12(b) La restricción a la frontera es isométrica}
+
+\noindent\textbf{Enunciado.} Prueba que la restricción $f\mapsto f|_{\mathbb T}$ es un homomorfismo unital e isométrico de $A(\mathbb D)$ en $C(\mathbb T)$.
+
+\begin{proof}[Solución]
+Por el principio del máximo,
+\[
+ \|f\|_{C(\overline{\mathbb D})}=\max_{|z|=1}|f(z)|=\|f|_{\mathbb T}\|_{C(\mathbb T)}.
+\]
+Así la restricción es isométrica e inyectiva. Para $f,g\in A(\mathbb D)$ y $z\in\mathbb T$,
+\[
+ (f+g)|_{\mathbb T}(z)=f(z)+g(z),\qquad
+ (fg)|_{\mathbb T}(z)=f(z)g(z),\qquad
+ 1|_{\mathbb T}(z)=1.
+\]
+Por tanto es un homomorfismo unital de álgebras de Banach.
+\end{proof}
+
+\proofdiagram
+{$f\in A(\mathbb D)$}
+{Principio del máximo para funciones holomorfas}
+{$\max_{\overline{\mathbb D}}|f|=\max_{\mathbb T}|f|$}
+{$f\mapsto f|_{\mathbb T}$ es un encaje isométrico}
+
+\begin{cthejemplo}{(La norma del disco se alcanza en la frontera)}
+En $A(\mathbb D)$ comprobamos T1.12(b) con $f(z)=1+z^2$.
+Para $|z|\le1$, $|f(z)|\le2$, y la igualdad se alcanza en $z=\pm1\in\mathbb T$.
+Así $\|f\|_{C(\overline{\mathbb D})}=\|f|_{\mathbb T}\|_{C(\mathbb T)}=2$:
+la frontera ya determina la norma de esta función.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} El principio del máximo identifica la norma en el disco cerrado con la norma sobre la frontera; por ello la restricción es isométrica e inyectiva.
+
+\noindent\textbf{Qué prepara este ejercicio.} Proporciona una inclusión isométrica y unital en $C(\mathbb T)$ para T1.12(c), donde la misma función tendrá distintos inversos disponibles según el álgebra.
+
+\subsection*{12(c) Un mismo elemento cambia de espectro al cambiar de álgebra}
+
+\noindent\textbf{Enunciado.} Para $h(z)=z$, prueba $\spec_{A(\mathbb D)}(h)=\overline{\mathbb D}$ y $\spec_{C(\mathbb T)}(h|_{\mathbb T})=\mathbb T$.
+
+\begin{proof}[Solución]
+Si $|\lambda|>1$, la función $(\lambda-z)^{-1}$ es continua en $\overline{\mathbb D}$ y holomorfa
+en $\mathbb D$, así que $\lambda-h$ es invertible en $A(\mathbb D)$. Si $|\lambda|<1$,
+$\lambda-z$ se anula en $z=\lambda$; si $|\lambda|=1$, cualquier supuesto inverso coincidiría en
+$\mathbb D$ con $(\lambda-z)^{-1}$, que se hace no acotado al acercarse a $\lambda$. Por tanto
+\[
+ \spec_{A(\mathbb D)}(h)=\overline{\mathbb D}.
+\]
+
+En $C(\mathbb T)$, $\lambda-h$ es invertible exactamente cuando no se anula sobre $\mathbb T$; por
+tanto
+\[
+ \spec_{C(\mathbb T)}(h)=\mathbb T.
+\]
+\end{proof}
+
+\proofdiagrambranch
+{$h(z)=z$ en $A(\mathbb D)$}
+{$h|_{\mathbb T}$ en $C(\mathbb T)$}
+{Invertibilidad de $\lambda-h$ depende de si el recíproco pertenece al álgebra considerada}
+{En $A(\mathbb D)$ falla para $\lambda\in\overline{\mathbb D}$; en $C(\mathbb T)$ sólo falla en $\mathbb T$}
+{$\spec_{A(\mathbb D)}(h)=\overline{\mathbb D}$, $\spec_{C(\mathbb T)}(h)=\mathbb T$}
+
+\begin{cthejemplo}{(El inverso depende del álgebra ambiente)}
+Para comparar los dos espectros de T1.12(c), tomemos $h(z)=z$ en $A(\mathbb D)$ y
+su restricción en $C(\mathbb T)$.
+En el primer álgebra, $0-h$ no tiene inverso holomorfo porque $1/z$ tiene un polo en
+$0$; en el segundo, $h^{-1}(z)=\overline z$ es continuo sobre $\mathbb T$.
+Así $0\in\spec_{A(\mathbb D)}(h)$ y $0\notin\spec_{C(\mathbb T)}(h|_{\mathbb T})$.
+La misma función de frontera dispone de inverso sólo en el álgebra mayor. Además,
+$\overline z$ no proviene de $A(\mathbb D)$: si una función $g$ tuviera esos valores de
+frontera, $zg(z)=1$ en $\mathbb T$ y el principio del máximo daría $zg(z)=1$ en todo
+$\mathbb D$, contradicción en $z=0$. Por eso la inclusión no es de $C^*$-subálgebras.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se usa la definición de espectro y la inclusión de T1.12(b); T1.10 calcula el espectro en $C(\mathbb T)$. En $A(\mathbb D)$ el recíproco de $\lambda-z$ debe además ser holomorfo en el disco.
+
+\noindent\textbf{Qué prepara este ejercicio.} Es el contraejemplo que motiva la hipótesis de $C^*$-subálgebra en la permanencia espectral de la Sección 2: una subálgebra de Banach cerrada y unital puede cambiar el espectro.

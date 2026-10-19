@@ -1,0 +1,1250 @@
+\chapter{Teoría espectral en álgebras de Banach}
+
+En los resultados unitarios de este capítulo, $1$ abrevia la unidad $1_\A$ de
+la álgebra ambiente $\A$; se escribe $1_\A$ cuando se necesita fijar el
+espacio al que pertenece una expresión.
+
+\section{Álgebras de Banach, involución y ejemplos básicos}
+
+\begin{cthdefinicion}{(Álgebra de Banach)}
+Una \emph{álgebra de Banach} es un álgebra asociativa $\A$ sobre $\mathbb C$, equipada con una
+norma tal que $(\A,\|\cdot\|)$ es un espacio de Banach y
+\[
+  \|ab\|\le \|a\|\,\|b\|,\qquad a,b\in\A.
+\]
+Decimos que $\A$ es \emph{unital} si existe $1_\A$ con $\|1_\A\|=1$, y \emph{conmutativa} si
+$ab=ba$ para todo $a,b\in\A$.
+\end{cthdefinicion}
+\origen{Definición 1.1}
+
+\begin{cthejemplo}{(Funciones acotadas como álgebra de Banach)}
+Buscamos un modelo conmutativo de la definición. Sea $X$ no vacío,
+localmente compacto y Hausdorff, y consideremos
+\[
+ C_b(X)=\{f:X\to\mathbb C: f\text{ continua y acotada}\},\qquad
+ \|f\|_\infty=\sup_{x\in X}|f(x)|,
+\]
+con las operaciones puntuales. Para $f,g\in C_b(X)$,
+$|f(x)g(x)|\le\|f\|_\infty\|g\|_\infty$ en cada $x$, y por tanto
+$\|fg\|_\infty\le\|f\|_\infty\|g\|_\infty$.
+El límite uniforme de funciones continuas y acotadas sigue en $C_b(X)$,
+lo que da completitud; la función constante $1$ es la unidad.
+Así $C_b(X)$ cumple la definición de álgebra de Banach y es conmutativa.
+Si $X$ es compacto, toda función continua es acotada y $C_b(X)=C(X)$.
+\end{cthejemplo}
+
+\begin{cthejemplo}{(Composición de operadores acotados)}
+Para contrastar con el producto puntual, sea $X$ un espacio de Banach no nulo.
+Estudiamos $\mathcal B(X)$ (también denotada $\mathcal L(X)$), el álgebra
+de los operadores lineales acotados $X\to X$, con composición y norma de
+operador. La desigualdad $\|STx\|\le\|S\|\|T\|\|x\|$ implica
+$\|ST\|\le\|S\|\|T\|$; además, la identidad $I_X$ es unidad y
+el límite en norma de operadores acotados permanece en $\mathcal B(X)$.
+El producto puede cambiar al alterar el orden: en
+$\mathcal B(\mathbb C^2)=M_2(\mathbb C)$, si $E_{ij}$ denota la matriz
+con un $1$ en la posición $(i,j)$ y ceros en las demás,
+$E_{12}E_{21}=E_{11}$, mientras $E_{21}E_{12}=E_{22}$.
+Este ejemplo muestra por qué las pruebas posteriores no pueden suponer
+conmutatividad de toda el álgebra.
+\end{cthejemplo}
+
+\begin{investigacion}
+\textbf{Conexión con la literatura: ejemplo directo.}
+Bajo las hipótesis de Karlovich para una curva estrellada $\Gamma$ y $1<p<\infty$, el problema
+de frontera conduce a un elemento de $\mathcal B(L^p(\Gamma))$:
+\[
+ T=V_\alpha P_+ + M_G P_-\in \mathcal B(L^p(\Gamma)),
+\]
+donde $V_\alpha f=f\circ\alpha$, $M_Gf=Gf$ y $P_\pm=(I\pm S_\Gamma)/2$.
+La fórmula muestra por qué se estudian sumas y composiciones en una misma álgebra. En esta
+geometría no se presupone $S_\Gamma^2=I$ ni que $P_\pm$ sean proyecciones algebraicas;
+la reducción por Sokhotski--Plemelj se explica al final de las notas
+\cite[pp.~463--464, ecs.~(1.1)--(1.2)]{Karlovich2017}.
+\textbf{Qué reconocer:} $\mathcal B(L^p(\Gamma))$ concreta la álgebra abstracta de
+operadores acotados; la fórmula de $T$ combina elementos de esa álgebra.
+\end{investigacion}
+
+\begin{cthdefinicion}{(Involución)}
+Una \emph{involución} en un álgebra compleja $\A$ es un mapa $a\mapsto a^*$ tal que
+\[
+(\lambda a+b)^*=\overline\lambda a^*+b^*,\qquad
+(a^*)^*=a,\qquad
+(ab)^*=b^*a^*.
+\]
+Estas identidades se exigen para todo $a,b\in\A$ y $\lambda\in\mathbb C$.
+Si además $\A$ es una álgebra de Banach y $\|a^*\|=\|a\|$ para
+todo $a\in\A$, llamamos a $\A$ una \emph{álgebra de Banach involutiva}
+en el sentido de estas notas.
+\end{cthdefinicion}
+\origen{Definición 1.4}
+
+\begin{cthejemplo}{(Conjugación puntual como involución)}
+En el álgebra $C_b(X)$ del ejemplo anterior queremos identificar una
+involución concreta. Para $f\in C_b(X)$ definimos
+$f^*(x)=\overline{f(x)}$. Si $f,g\in C_b(X)$, entonces
+$(fg)^*(x)=\overline{f(x)g(x)}=g^*(x)f^*(x)$;
+también $(f^*)^*=f$ y $\|f^*\|_\infty=\|f\|_\infty$.
+La conjugación puntual satisface así la definición de involución
+isométrica; la igualdad $g^*f^*=f^*g^*$ refleja que este modelo es conmutativo.
+\end{cthejemplo}
+
+\section{Invertibilidad y serie de Neumann}
+
+\begin{cthdefinicion}{(Grupo de invertibles)}
+Sea $\A$ una álgebra de Banach unital, con unidad $1_\A$. Su grupo de invertibles es
+\[
+ \GL(\A)=\{a\in\A: \exists b\in\A,\ ab=ba=1_\A\}.
+\]
+Para $a\in\GL(\A)$, ese $b$ es único y se escribe $a^{-1}$.
+\end{cthdefinicion}
+\origen{Definición 1.7}
+
+\begin{cthproposicion}{(Serie de Neumann)}
+Sea $\A$ una álgebra de Banach unital, con unidad $1_\A$, y sea $a\in\A$.
+Si $\|1_\A-a\|<1$, entonces $a\in\GL(\A)$ y
+\[
+ a^{-1}=\sum_{n=0}^{\infty}(1_\A-a)^n.
+\]
+\end{cthproposicion}
+\origen{Proposición 1.8}
+
+\begin{proof}[Demostración]
+Escribamos $q=1_\A-a$. La hipótesis da $\|q\|<1$ y, por submultiplicatividad,
+$\|q^n\|\le\|q\|^n$ para todo $n\ge0$. Por ello
+\[
+ \sum_{n=0}^{\infty}\|q^n\|
+ \le \sum_{n=0}^{\infty}\|q\|^n<\infty.
+\]
+La completitud de $\A$ asegura que las sumas parciales
+$s_N=\sum_{n=0}^{N}q^n$ convergen en norma a un elemento $b\in\A$.
+Como $a=1_\A-q$, el producto por la izquierda telescopa:
+\[
+ as_N=(1_\A-q)\sum_{n=0}^{N}q^n
+ =\sum_{n=0}^{N}q^n-\sum_{n=1}^{N+1}q^n
+ =1_\A-q^{N+1}.
+\]
+También debe comprobarse el producto por la derecha:
+\[
+ s_Na=\sum_{n=0}^{N}q^n(1_\A-q)
+ =\sum_{n=0}^{N}q^n-\sum_{n=1}^{N+1}q^n
+ =1_\A-q^{N+1}.
+\]
+Aquí sólo se ha usado que $q$ conmuta con sus propias potencias, sin exigir que
+$\A$ sea conmutativa. Finalmente,
+$\|q^{N+1}\|\le\|q\|^{N+1}\to0$; por la continuidad de la
+multiplicación al pasar al límite en ambas identidades se obtiene
+$ab=ba=1_\A$. Así $a\in\GL(\A)$ y $b=a^{-1}$.
+\end{proof}
+
+\proofdiagram
+{$\A$ Banach unital, $a\in\A$; $\|1_\A-a\|<1$}
+{Completitud de $\A$; $\|(1-a)^n\|\le\|1-a\|^n$}
+{La serie geométrica converge y el producto telescopa}
+{$a^{-1}=\sum_{n\ge0}(1_\A-a)^n$}
+
+\begin{cthejemplo}{(Serie de Neumann para una matriz perturbada)}
+Queremos invertir una matriz cercana a la identidad. En
+$M_2(\mathbb C)$ con la norma operatorial, sea $A=I_2-E$ con
+$\|E\|<1$. La proposición de Neumann se aplica porque
+$\|I_2-A\|=\|E\|<1$, y proporciona
+\[
+ A^{-1}=I_2+E+E^2+\cdots.
+\]
+Por ejemplo, si
+$E=\begin{pmatrix}0&t\\0&0\end{pmatrix}$ con $|t|<1$,
+entonces $E^2=0$ y la serie termina en
+$A^{-1}=I_2+E$; en efecto, $(I_2-E)(I_2+E)=I_2$.
+La condición de norma asegura la inversión aun cuando la serie no termine.
+\end{cthejemplo}
+
+\begin{cthejemplo}{(Invertibilidad estable alrededor de un operador)}
+Sea $X$ un espacio de Banach no nulo y supongamos conocido un operador
+invertible $A_0\in\mathcal B(X)$. Queremos invertir $A_0+E$ cuando
+$E\in\mathcal B(X)$ es pequeño respecto de $A_0$, en el sentido de que
+$\|A_0^{-1}E\|<1$. La factorización
+$A_0+E=A_0(I_X+A_0^{-1}E)$ permite aplicar Neumann al segundo factor:
+\[
+ (A_0+E)^{-1}=(I_X+A_0^{-1}E)^{-1}A_0^{-1}
+ =\sum_{n=0}^{\infty}(-A_0^{-1}E)^n A_0^{-1}.
+\]
+La fórmula calcula una inversa exacta y muestra que la escala relevante de
+la perturbación es $\|A_0^{-1}E\|$. La pregunta de Fredholm se formulará más
+adelante mediante invertibilidad de una clase en un cociente.
+\end{cthejemplo}
+
+\begin{cthnota}{(Dónde se usan las hipótesis en la serie de Neumann)}
+La desigualdad $\|1-a\|<1$ hace sumable la serie de normas; la completitud de $\A$ produce
+su suma dentro de $\A$; la unidad permite escribir $a=1-(1-a)$ y efectuar el telescopaje.
+No se usa conmutatividad de toda la álgebra.
+\end{cthnota}
+
+\begin{cthproposicion}{(Estabilidad local de la invertibilidad)}
+Sea $\A$ una álgebra de Banach unital. El conjunto $\GL(\A)$ es abierto.
+Más precisamente, si $a\in\GL(\A)$ y $b\in\A$ satisfacen
+\[
+ \|b-a\|<\|a^{-1}\|^{-1},
+\]
+entonces $b\in\GL(\A)$.
+\end{cthproposicion}
+\origen{Observación 1.9}
+
+\begin{proof}[Demostración]
+Pongamos $c=a^{-1}(a-b)$. La hipótesis y la submultiplicatividad dan
+\[
+ \|c\|\le \|a^{-1}\|\,\|a-b\|<1,
+ \qquad b=a(1_\A-c).
+\]
+La proposición anterior da una inversa bilateral
+$(1_\A-c)^{-1}=\sum_{n\ge0}c^n$ dentro de $\A$. El producto de
+los dos factores invertibles es invertible, con
+\[
+ b^{-1}=(1_\A-c)^{-1}a^{-1}
+ =\sum_{n=0}^{\infty}\bigl[a^{-1}(a-b)\bigr]^n a^{-1}.
+\]
+Por tanto toda bola $B(a,\|a^{-1}\|^{-1})$ está contenida en
+$\GL(\A)$, que es abierto.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital, $a\in\GL(\A)$ y $b\in\A$ cercano a $a$}
+{Serie de Neumann}
+{Factorizar $b=a\,[1-a^{-1}(a-b)]$}
+{$\|a^{-1}(a-b)\|<1\Rightarrow b$ invertible}
+
+\begin{cthejemplo}{(Radio de estabilidad alrededor de $2I_n$)}
+Queremos hacer concreta la bola de invertibilidad de la proposición anterior.
+En $M_n(\mathbb C)$ con la norma operatorial inducida, tomamos
+$a=2I_n$; entonces $a^{-1}=\frac12I_n$ y
+$\|a^{-1}\|^{-1}=2$. Si una matriz $b$ satisface
+$\|b-2I_n\|<2$, la condición de estabilidad local se cumple y
+$b$ es invertible. El número $2$ mide aquí cuánto puede variar la
+matriz antes de que este criterio deje de garantizar una inversa.
+\end{cthejemplo}
+
+\begin{cthcorolario}{(Invertibilidad fuera del disco de radio $\|a\|$)}
+Sea $\A$ una álgebra de Banach compleja unital, con unidad $1_\A$,
+$a\in\A$ y $\lambda\in\mathbb C$. Si $\|a\|<|\lambda|$, entonces
+$\lambda1_\A-a\in\GL(\A)$.
+\end{cthcorolario}
+\origen{Corolario 1.10}
+
+\begin{proof}[Demostración]
+La desigualdad $\|a\|<|\lambda|$ implica $\lambda\ne0$. Para
+$c=\lambda^{-1}a$ se tiene $\|c\|=\|a\|/|\lambda|<1$;
+por la proposición de Neumann, $1_\A-c$ tiene la inversa bilateral
+$\sum_{n\ge0}c^n$. Como
+$\lambda1_\A-a=\lambda(1_\A-c)$ y el escalar
+$\lambda1_\A$ es invertible, también lo es $\lambda1_\A-a$.
+Más precisamente, su inversa, por ambos lados, es
+\[
+ (\lambda1_\A-a)^{-1}
+ =\lambda^{-1}\sum_{n=0}^{\infty}(\lambda^{-1}a)^n.
+\]
+La serie converge en norma por $\|\lambda^{-1}a\|<1$.
+\end{proof}
+
+\proofdiagram
+{$a\in\A$, $\lambda\in\mathbb C$; $|\lambda|>\|a\|$}
+{$\lambda\ne0$ y $\|\lambda^{-1}a\|<1$}
+{Neumann: $1_\A-\lambda^{-1}a\in\GL(\A)$}
+{$\lambda1_\A-a\in\GL(\A)$}
+
+\begin{cthejemplo}{(Invertibilidad de $2I_2-A$ fuera del disco normado)}
+Comprobemos el corolario en una matriz para la que la inversa se ve
+directamente. Sea
+$A=\operatorname{diag}(1,-1)\in M_2(\mathbb C)$ con la norma operatorial;
+$\|A\|=1$. Para $\lambda=2$ se tiene $|\lambda|>\|A\|$ y
+\[
+  (2I_2-A)^{-1}=\operatorname{diag}(1,1/3).
+\]
+La multiplicación diagonal verifica que éste es un inverso bilateral.
+El cálculo anticipa que fuera del disco cerrado de radio $\|a\|$ no hay
+valores espectrales, lectura que se formaliza tras definir el espectro.
+\end{cthejemplo}
+
+\section{Espectro y resolvente}
+
+\begin{cthdefinicion}{(Espectro)}
+Sea $\A$ una álgebra de Banach compleja unital, con unidad $1_\A$,
+y sea $a\in\A$. El \emph{espectro de $a$ en $\A$} es
+\[
+ \spec_\A(a)=\{\lambda\in\mathbb C:\lambda1_\A-a\notin\GL(\A)\}.
+\]
+Cuando no hay ambigüedad escribimos $\spec(a)$.
+\end{cthdefinicion}
+\origen{Definición 1.11}
+
+\begin{cthobservacion}{(Lectura espectral del corolario anterior)}
+Sea $\A$ una álgebra de Banach compleja unital, $a\in\A$ y
+$\lambda\in\mathbb C$. Con la notación recién definida, si
+$|\lambda|>\|a\|$, entonces $\lambda\notin\sigma_\A(a)$.
+\end{cthobservacion}
+
+\begin{cthejemplo}{(Espectro como imagen de una función continua)}
+Para relacionar la definición de espectro con un objeto familiar, sea
+$X$ compacto Hausdorff no vacío y $f\in C(X)$. Queremos decidir cuándo
+$\lambda1-f$ es invertible en $C(X)$. Si
+$f(x)\ne\lambda$ para todo $x\in X$, la función
+$x\mapsto(\lambda-f(x))^{-1}$ es continua y acotada por compacidad,
+y es su inversa puntual. Si $f(x_0)=\lambda$, ningún producto por una
+función de $C(X)$ puede valer $1$ en $x_0$. Así
+$\spec_{C(X)}(f)=f(X)$: el espectro coincide con los valores
+efectivamente alcanzados por la función.
+\end{cthejemplo}
+
+\pagebreak
+\begin{cthproposicion}{(Compactación del espectro)}
+Sea $\A$ una álgebra de Banach compleja unital y $a\in\A$.
+Entonces $\spec_\A(a)$ es compacto y
+\[
+ \spec_\A(a)\subset\{\lambda\in\mathbb C:|\lambda|\le\|a\|\}.
+\]
+\end{cthproposicion}
+\origen{Proposición 1.12}
+
+\begin{proof}[Demostración]
+Si $|\lambda|>\|a\|$, el corolario anterior da
+$\lambda1_\A-a\in\GL(\A)$. Por la definición de espectro, ningún
+tal $\lambda$ pertenece a $\spec_\A(a)$; éste está contenido en el
+disco cerrado de radio $\|a\|$ y es, por tanto, acotado.
+Además, el mapa $F:\mathbb C\to\A$, $F(\lambda)=\lambda1_\A-a$,
+es continuo, pues
+$\|F(\lambda)-F(\mu)\|=|\lambda-\mu|\|1_\A\|$.
+La proposición de estabilidad muestra que $\GL(\A)$ es abierto, de modo que
+$F^{-1}(\GL(\A))=\mathbb C\setminus\spec_\A(a)$ es abierto.
+El espectro es cerrado y acotado en $\mathbb C$; por Heine--Borel, es compacto.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital, $a\in\A$; definición de $\spec_\A(a)$}
+{Escalares grandes resolventes; $\GL(\A)$ abierto}
+{El complemento del espectro es abierto y fuera del disco todo es resolvente}
+{$\spec(a)$ cerrado y acotado, luego compacto}
+
+\begin{cthejemplo}{(Espectro de una matriz triangular)}
+Verifiquemos la cota espectral en una matriz que no es diagonal.
+Tomamos $A=\begin{pmatrix}2&1\\0&3\end{pmatrix}\in M_2(\mathbb C)$.
+La matriz $\lambda I_2-A$ es triangular y su determinante es
+$(\lambda-2)(\lambda-3)$; por tanto es invertible exactamente cuando
+$\lambda\notin\{2,3\}$ y $\spec(A)=\{2,3\}$.
+La proposición de compactación asegura además $|\lambda|\le\|A\|$
+para ambos valores: la entrada fuera de la diagonal puede cambiar la
+norma, pero no estos valores espectrales.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Conjunto y función resolvente)}
+Sea $\A$ una álgebra de Banach compleja unital y $a\in\A$.
+El \emph{conjunto resolvente} es $\rho_\A(a)=\mathbb C\setminus\spec_\A(a)$.
+La \emph{función resolvente} es
+\[
+ R_a:\rho_\A(a)\to\A,\qquad R_a(z)=(z1_\A-a)^{-1}.
+\]
+Cuando el álgebra ambiente está clara se escribe $\rho(a)$.
+\end{cthdefinicion}
+\origen{Definición 1.13}
+
+\noindent La conclusión del corolario sobre invertibilidad fuera del disco
+también puede escribirse ahora como
+$|\lambda|>\|a\|\Rightarrow\lambda\in\rho_\A(a)$, porque
+$\rho_\A(a)=\mathbb C\setminus\spec_\A(a)$.
+
+\begin{cthejemplo}{(Resolvente de una matriz diagonal)}
+Queremos calcular la función resolvente de
+$A=\operatorname{diag}(1,2)\in M_2(\mathbb C)$.
+Para $z\notin\{1,2\}$, la matriz $zI_2-A$ tiene entradas diagonales
+no nulas y su inversa se obtiene invirtiéndolas por separado:
+\[
+ R_A(z)=\operatorname{diag}\bigl((z-1)^{-1},(z-2)^{-1}\bigr).
+\]
+La fórmula deja de estar definida precisamente en los valores
+espectrales $1$ y $2$; el resolvente codifica así dónde falla la
+invertibilidad.
+\end{cthejemplo}
+
+\begin{cthejemplo}{(Resolvente visto en el álgebra de operadores)}
+Situemos la misma pregunta en el álgebra $\mathcal B(X)$ de un espacio
+de Banach no nulo $X$. Su unidad es $I_X$, de modo que para
+$A\in\mathcal B(X)$ las definiciones anteriores se leen
+\[
+ \spec_{\mathcal B(X)}(A)
+ =\{\lambda\in\mathbb C:\lambda I_X-A\notin\GL(\mathcal B(X))\},
+ \qquad R_A(\lambda)=(\lambda I_X-A)^{-1}.
+\]
+Invertibilidad aquí significa la existencia de una inversa lineal
+\emph{acotada} $X\to X$. Si $X=\mathbb C^2$ y
+$A=\operatorname{diag}(1,2)$, recuperamos el cálculo del ejemplo
+anterior. La notación abstracta permite aplicar la misma definición
+a operadores en espacios de dimensión infinita.
+\end{cthejemplo}
+
+\begin{cthlema}{(Identidad y holomorfía del resolvente)}
+Sea $\A$ una álgebra de Banach compleja unital y $a\in\A$.
+La función $R_a:\rho_\A(a)\to\A$ es holomorfa y
+\[
+ R_a'(z)=-(z1-a)^{-2}.
+\]
+Además, para $z,w\in\rho(a)$,
+\[
+ R_a(z)-R_a(w)=(w-z)R_a(w)R_a(z).
+\]
+\end{cthlema}
+\origen{Lema 1.14}
+
+\begin{proof}[Demostración]
+Escribamos $b_z=z1_\A-a$ y $b_w=w1_\A-a$. Ambos son invertibles
+para $z,w\in\rho_\A(a)$, y $b_z-b_w=(z-w)1_\A$.
+La identidad general para dos invertibles,
+$b_z^{-1}-b_w^{-1}=b_z^{-1}(b_w-b_z)b_w^{-1}$,
+se comprueba porque el lado derecho es
+$b_z^{-1}b_wb_w^{-1}-b_z^{-1}b_zb_w^{-1}
+=b_z^{-1}-b_w^{-1}$. Además, $b_z$
+y $b_w$ conmutan, y por ello también conmutan sus inversos. Así,
+\[
+ R_a(z)-R_a(w)=(w-z)R_a(z)R_a(w)
+                =(w-z)R_a(w)R_a(z).
+\]
+Para justificar también la holomorfía, fijemos $w\in\rho_\A(a)$.
+Si $|z-w|\|R_a(w)\|<1$, la factorización
+$b_z=b_w[1_\A+(z-w)R_a(w)]$ y Neumann dan
+\[
+ R_a(z)=\sum_{n=0}^{\infty}(-1)^n(z-w)^nR_a(w)^{n+1}.
+\]
+Esta serie converge en norma localmente alrededor de $w$, así que $R_a$
+es holomorfa allí. Al dividir la identidad anterior por $z-w$ y dejar
+$z\to w$ en la serie se obtiene
+$R_a'(w)=-R_a(w)^2=-(w1_\A-a)^{-2}$.
+\end{proof}
+
+\proofdiagram
+{$\A$ Banach unital, $a\in\A$; $z,w\in\rho_\A(a)$}
+{Identidad de inversos y serie local de Neumann}
+{Obtener la identidad resolvente y derivar la serie local}
+{$R_a'(w)=-R_a(w)^2$}
+
+\begin{cthejemplo}{(Derivada del resolvente escalar)}
+Para comprobar el signo de la fórmula del lema, tomemos
+$\A=\mathbb C$ y $a=\alpha\in\mathbb C$.
+En $z\ne\alpha$, $R_a(z)=(z-\alpha)^{-1}$ y
+\[
+ \frac{R_a(z+h)-R_a(z)}{h}
+ =-\frac{1}{(z+h-\alpha)(z-\alpha)}
+ \longrightarrow -(z-\alpha)^{-2}.
+\]
+Es la derivada ordinaria de una función recíproca; el lema extiende
+este cálculo a inversos dentro de cualquier álgebra de Banach unital.
+\end{cthejemplo}
+
+\begin{cthteorema}{(No vacuidad del espectro)}
+Sea $\A$ una álgebra de Banach compleja unital y $a\in\A$. Entonces
+\[
+ \spec(a)\neq\varnothing.
+\]
+\end{cthteorema}
+\origen{Teorema 1.15}
+
+\begin{proof}[Demostración]
+Supongamos $\spec_\A(a)=\varnothing$. Entonces
+$R_a:\mathbb C\to\A$ es entera por el lema anterior. En particular,
+$R_a(0)=(-a)^{-1}\ne0$, porque es inverso de un elemento de la
+álgebra no nula. Hahn--Banach proporciona
+$\varphi\in\A^*$ con $\varphi(R_a(0))\ne0$.
+Para $|z|>2\|a\|$, la serie de Neumann da
+\[
+ R_a(z)=z^{-1}(1_\A-z^{-1}a)^{-1},\qquad
+ \|R_a(z)\|\le\frac{1}{|z|}
+ \sum_{n=0}^{\infty}\left(\frac{\|a\|}{|z|}\right)^n
+ \le\frac{2}{|z|}.
+\]
+La función escalar $f=\varphi\circ R_a$ es entera y tiende a cero
+cuando $|z|\to\infty$. Es acotada fuera de un disco por la estimación,
+y dentro de él por continuidad y compacidad. Liouville obliga a que
+$f$ sea constante; el límite en infinito hace esa constante igual a cero.
+Esto contradice $f(0)=\varphi(R_a(0))\ne0$. Luego
+$\spec_\A(a)\ne\varnothing$.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ Banach compleja unital, $a\in\A$; suponer $\spec(a)=\varnothing$}
+{$R_a$ sería entera y $R_a(z)\to0$ cuando $|z|\to\infty$}
+{Hahn--Banach + Liouville aplicados a $\varphi\circ R_a$}
+{Elegir $\varphi$ con $\varphi(R_a(0))\ne0$; Liouville da $\varphi\circ R_a=0$}
+{$\spec(a)$ debe ser no vacío}
+
+\begin{cthejemplo}{(Espectro sin recurrir a un determinante)}
+Como caso familiar, consideremos
+$A=\begin{pmatrix}1&1\\0&1\end{pmatrix}\in M_2(\mathbb C)$.
+El determinante de $\lambda I_2-A$ es $(\lambda-1)^2$, de modo que
+$\spec(A)=\{1\}$ y el espectro no está vacío.
+El teorema de no vacuidad obtiene la misma conclusión general sin
+usar determinantes, que no están disponibles para un operador
+arbitrario de dimensión infinita.
+\end{cthejemplo}
+
+\begin{cthnota}{(Dónde se usan las hipótesis de la no vacuidad)}
+La complejidad del cuerpo permite aplicar Liouville a $\varphi\circ R_a$; la completitud
+garantiza la serie de Neumann y la holomorfía con valores en $\A$; Hahn--Banach separa un
+valor no nulo de $R_a$. La unidad interviene en $\lambda1-a$. No se necesita
+conmutatividad.
+\end{cthnota}
+
+\section{Caracteres, ideales maximales y transformada de Gelfand}
+
+\begin{cthteorema}{(Rigidez de Gelfand--Mazur)}
+Si $\A$ es una álgebra de Banach compleja unital y todo elemento no nulo
+es invertible, entonces
+$\A=\mathbb C1_\A$.
+\end{cthteorema}
+\origen{Teorema 1.16}
+
+\begin{proof}[Demostración]
+Fijemos $a\in\A$. La no vacuidad del espectro da
+$\lambda\in\spec_\A(a)$ para algún $\lambda\in\mathbb C$.
+Por definición, $\lambda1_\A-a$ no es invertible. Como todo elemento
+no nulo de $\A$ sí es invertible por hipótesis, necesariamente
+$\lambda1_\A-a=0$, esto es, $a=\lambda1_\A$.
+Así, el homomorfismo unital $\mathbb C\to\A$,
+$\lambda\mapsto\lambda1_\A$, es sobreyectivo; es inyectivo porque
+$1_\A\ne0$. Identifica $\A$ con $\mathbb C1_\A$.
+\end{proof}
+
+\proofdiagram
+{$\A$ compleja unital; todo $a\in\A\setminus\{0\}$ es invertible}
+{No vacuidad de $\spec(a)$}
+{Elegir $\lambda\in\spec(a)$; entonces $\lambda1-a$ no es invertible}
+{$\lambda1-a=0$, así $a=\lambda1$}
+
+\begin{cthejemplo}{(Los escalares como álgebra de división)}
+Probemos la hipótesis del teorema en el modelo más simple:
+$\A=\mathbb C$ con el valor absoluto. Cada $z\ne0$ tiene el inverso
+$z^{-1}=1/z$, y el espectro de $\alpha\in\mathbb C$ es
+$\{\alpha\}$ porque $\lambda-\alpha$ deja de ser invertible sólo
+cuando vale cero. Gelfand--Mazur afirma que cualquier álgebra de
+Banach compleja unital en la que todo elemento no nulo sea invertible
+es, algebraicamente, este mismo modelo escalar.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Carácter y espectro de Gelfand)}
+Un \emph{carácter} de una álgebra de Banach conmutativa unital $\A$ es un funcional lineal
+multiplicativo no nulo $\varphi:\A\to\mathbb C$. El conjunto de caracteres se denota
+\[
+ \Omega(\A)=\{\varphi:\A\to\mathbb C:\varphi\text{ carácter}\},
+\]
+como conjunto. Después de probar continuidad de los caracteres se le dará
+la topología débil-$*$ heredada de $\A^*$.
+\end{cthdefinicion}
+\origen{Definición 1.17}
+
+\begin{cthejemplo}{(La evaluación puntual es un carácter)}
+Sea $X$ compacto Hausdorff no vacío y fijemos $x\in X$.
+Queremos comprobar que evaluar en $x$ cumple la definición de carácter
+de $C(X)$. El funcional $\operatorname{ev}_x(f)=f(x)$ es lineal y
+\[
+ \operatorname{ev}_x(fg)=f(x)g(x)
+ =\operatorname{ev}_x(f)\operatorname{ev}_x(g),\qquad
+ \operatorname{ev}_x(1)=1.
+\]
+Por tanto es multiplicativo y no nulo. Cada punto produce así un
+carácter; la Tarea 2 demostrará que en $C(X)$ no hay otros.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Los caracteres tienen norma uno)}
+Sea $\A$ una álgebra de Banach compleja conmutativa unital y
+$\varphi\in\Omega(\A)$. Entonces $\varphi$ es continuo y
+\[
+ \|\varphi\|=\varphi(1_\A)=1.
+\]
+\end{cthproposicion}
+\origen{Proposición 1.18}
+
+\begin{proof}[Demostración]
+Como $\varphi\ne0$, existe $b\in\A$ con $\varphi(b)\ne0$.
+La igualdad $\varphi(b)=\varphi(1_\A b)=\varphi(1_\A)\varphi(b)$
+obliga a $\varphi(1_\A)=1$. Fijemos $a\in\A$.
+Si $|\varphi(a)|>\|a\|$, el corolario de Neumann muestra que
+$u=\varphi(a)1_\A-a$ es invertible. Pero
+\[
+ \varphi(u)=\varphi(a)\varphi(1_\A)-\varphi(a)=0.
+\]
+Si $v=u^{-1}$, la multiplicatividad daría
+$1=\varphi(1_\A)=\varphi(uv)=\varphi(u)\varphi(v)=0$,
+una contradicción. Por tanto $|\varphi(a)|\le\|a\|$ para todo
+$a\in\A$. Esta cota prueba la continuidad de $\varphi$ y
+$\|\varphi\|\le1$; como $\|1_\A\|=\varphi(1_\A)=1$,
+se obtiene $\|\varphi\|\ge1$ y finalmente $\|\varphi\|=1$.
+\end{proof}
+
+\proofdiagram
+{$\A$ conmutativa unital, $\varphi\in\Omega(\A)$, $a\in\A$}
+{$\varphi(1)=1$; escalares grandes son resolventes}
+{Si $|\varphi(a)|>\|a\|$, entonces $\varphi(a)1-a$ sería invertible pero su imagen por $\varphi$ es $0$}
+{$|\varphi(a)|\le\|a\|$ y $\|\varphi\|=1$}
+
+\begin{cthejemplo}{(Norma del funcional de evaluación en $C(X)$)}
+Sea $X$ compacto Hausdorff no vacío, fijemos $x\in X$ y consideremos
+$\operatorname{ev}_x:C(X)\to\mathbb C$, $\operatorname{ev}_x(f)=f(x)$.
+Queremos calcular su norma. Para cualquier $f\in C(X)$,
+\[
+ |\operatorname{ev}_x(f)|=|f(x)|\le\|f\|_\infty,
+\]
+de donde $\|\operatorname{ev}_x\|\le1$. La función constante $1$
+tiene norma uniforme uno y $\operatorname{ev}_x(1)=1$, por lo que
+$\|\operatorname{ev}_x\|\ge1$. Concluimos
+$\|\operatorname{ev}_x\|=1$, en acuerdo con la proposición general
+sobre caracteres: evaluar en un punto es un funcional continuo
+normalizado.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Topología del espacio de caracteres)}
+Sea $\A$ una álgebra de Banach compleja conmutativa unital.
+Como todo $\varphi\in\Omega(\A)$ es continuo, $\Omega(\A)\subset\A^*$.
+Su \emph{topología de Gelfand} es la topología débil-$*$
+restringida desde $\A^*$: una red $\varphi_i$ converge a $\varphi$ si
+$\varphi_i(a)\to\varphi(a)$ para todo $a\in\A$.
+Con esta topología, $\Omega(\A)$ es compacto y Hausdorff.
+\end{cthdefinicion}
+\origen{Definición 1.19}
+
+\begin{proof}[Justificación de compacidad]
+Por la proposición anterior, todo carácter tiene norma uno, así que
+$\Omega(\A)$ está dentro de la bola unidad de $\A^*$. Si una red de
+caracteres $\varphi_i$ converge débil-$*$ a $\varphi$ en esa bola,
+entonces $\varphi(1_\A)=\lim_i\varphi_i(1_\A)=1$, de modo que
+$\varphi\ne0$. El límite puntual conserva la linealidad y, para
+$a,b\in\A$,
+\[
+ \varphi(ab)=\lim_i\varphi_i(ab)
+ =\lim_i\bigl(\varphi_i(a)\varphi_i(b)\bigr)
+ =\varphi(a)\varphi(b).
+\]
+Así $\Omega(\A)$ es cerrado en la bola débil-$*$ compacta por
+Banach--Alaoglu. La topología débil-$*$ es Hausdorff porque dos
+funcionales distintos difieren en algún elemento de $\A$.
+\end{proof}
+
+\begin{cthdefinicion}{(Ideal bilateral y álgebra cociente)}
+Sea $\A$ una álgebra de Banach. Un subespacio $J\subset\A$ es un
+\emph{ideal bilateral} si $aJ\subset J$ y
+$Ja\subset J$ para todo $a\in\A$. Sus clases $a+J$ forman la álgebra cociente
+$\A/J$, con $(a+J)(b+J)=ab+J$. Si $J$ es cerrado, la norma
+\[
+ \|a+J\|_{\A/J}=\inf_{j\in J}\|a+j\|
+\]
+hace de $\A/J$ una álgebra de Banach; la demostración de completitud se desarrolla en la
+Tarea 1, Problema 4. Un ideal maximal es un ideal propio que no está contenido en otro
+ideal propio más grande.
+\end{cthdefinicion}
+
+\begin{cthejemplo}{(Clases y norma en un cociente sencillo)}[unbreakable]
+En aritmética, $\mathbb Z/n\mathbb Z$ enseña a identificar elementos
+que difieren en un ideal. Veamos la versión normada con
+$X=\{p,q\}$ discreto, $\A=C(X)\cong\mathbb C^2$ y
+$J=\{f:f(p)=0\}$. Dos funciones representan la misma clase
+exactamente cuando tienen el mismo valor en $p$. Además,
+\[
+ \|f+J\|_{\A/J}
+ =\inf_{h\in J}\max\{|f(p)|,|f(q)+h(q)|\}
+ =|f(p)|,
+\]
+pues podemos elegir $h(q)=-f(q)$. El cociente conserva sólo la
+coordenada $p$; la norma cociente mide el tamaño de esa información
+que permanece.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Ideales maximales y cocientes escalares)}
+Sea $J$ un ideal maximal de una álgebra de Banach unital $\A$.
+Entonces $J$ es cerrado. Si $\A$ es conmutativa, además
+\[
+ \A/J\cong\mathbb C.
+\]
+\end{cthproposicion}
+\origen{Proposición 1.20}
+
+\begin{proof}[Demostración]
+La clausura $\overline J$ sigue siendo un ideal bilateral: si
+$j_n\in J$ converge a $j$ y $a\in\A$, la continuidad de la
+multiplicación da $aj_n\to aj$ y $j_na\to ja$, ambos en
+$\overline J$. Si $J$ no fuese cerrado, la maximalidad exigiría
+$\overline J=\A$. Entonces existiría $j\in J$ con
+$\|1_\A-j\|<1$. Neumann haría invertible a $j$, y
+$1_\A=j^{-1}j\in J$, contradiciendo que $J$ es propio.
+Luego $J$ es cerrado y $\A/J$ es una álgebra de Banach unital no nula.
+Su unidad es $1_\A+J$ y tiene norma uno: la norma cociente es a lo más
+$\|1_\A\|=1$, mientras una distancia menor que uno de $1_\A$ a $J$
+produciría, por Neumann, un elemento invertible de $J$ y forzaría
+$J=\A$.
+
+Supongamos ahora que $\A$ es conmutativa. Los ideales de $\A/J$
+se corresponden, mediante la proyección cociente, con los ideales
+de $\A$ que contienen $J$; por maximalidad, $\A/J$ no tiene
+ideales distintos de $\{0\}$ y de sí misma. Sea $a+J\ne0$.
+El ideal $(\A/J)(a+J)$ es no nulo y, por tanto, es todo $\A/J$.
+Existe $b+J$ con $(b+J)(a+J)=1_\A+J$. La conmutatividad da
+también $(a+J)(b+J)=1_\A+J$, así que todo elemento no nulo
+del cociente es invertible. Gelfand--Mazur proporciona
+$\A/J\cong\mathbb C$ como álgebras complejas unitarias.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ Banach unital, $J\subset\A$ maximal}
+{En la segunda afirmación, $\A$ conmutativa}
+{La clausura de $J$ sigue siendo ideal; $\A/J$ no tiene ideales propios}
+{Todo elemento no nulo de $\A/J$ es invertible; aplicar Gelfand--Mazur}
+{$J$ cerrado y $\A/J\cong\mathbb C$}
+
+\begin{cthejemplo}{(Un ideal maximal definido por evaluación)}[unbreakable]
+Sea $X$ compacto Hausdorff no vacío y fijemos $x\in X$.
+Queremos describir el cociente que olvida las funciones nulas en $x$.
+El conjunto $J_x=\{f\in C(X):f(x)=0\}$ es el núcleo del carácter
+$\operatorname{ev}_x$, y la aplicación
+\[
+ C(X)/J_x\longrightarrow\mathbb C,\qquad f+J_x\longmapsto f(x)
+\]
+está bien definida, es multiplicativa y sobreyectiva porque incluye
+las funciones constantes. Su núcleo es cero, así que es un
+isomorfismo. Como el cociente es un cuerpo, $J_x$ es maximal:
+el valor en un punto es toda la información que sobrevive.
+\end{cthejemplo}
+
+\begin{investigacion}
+\textbf{Ejemplo directo de construcción.}
+Sea $X$ un espacio de Banach complejo infinito-dimensional.
+Un operador $K\in\mathcal B(X)$ es \emph{compacto} si
+$K$ envía la bola unidad a un conjunto relativamente compacto. El conjunto
+$\mathcal K(X)$ de tales operadores es un ideal bilateral cerrado de $\mathcal B(X)$:
+la composición con un operador acotado preserva compacidad y el límite en norma
+de compactos es compacto. El cociente
+\[
+ \mathcal Q(X):=\mathcal B(X)/\mathcal K(X)
+\]
+se llama \emph{álgebra de Calkin} \cite[p.~2]{Karlovich2025}.
+Si $X$ es Hilbert, este cociente es también una
+$C^*$-álgebra; en un Banach general se usa aquí sólo su estructura de álgebra de Banach.
+\textbf{Qué reconocer:} $\mathcal K(X)$ cumple exactamente el papel del ideal
+cerrado $J$ de la construcción $\A/J$; $\mathcal Q(X)$ es el cociente concreto.
+\end{investigacion}
+
+\begin{investigacion}
+\textbf{Conexión con la literatura: uso de un cociente.}
+Sea $X$ un espacio de Banach complejo infinito-dimensional.
+Un operador $A\in\mathcal B(X)$ es \emph{Fredholm} si su núcleo es finito-dimensional,
+su rango es cerrado y la codimensión de su rango es finita. La equivalencia de la
+teoría de operadores
+\[
+ A\text{ Fredholm}\quad\Longleftrightarrow\quad
+ A+\mathcal K(X)\in\GL(\mathcal Q(X))
+\]
+identifica una pregunta operatorial con una pregunta de invertibilidad en un
+cociente \cite[p.~2]{Karlovich2025}. En $X=\ell^2$, sea $P$ la proyección de rango
+uno sobre $\mathbb Ce_1$ y $A=I_X-P$. Entonces $A$ no es invertible, pero
+$A+\mathcal K(X)=I_X+\mathcal K(X)$ sí lo es: la diferencia $P$ desaparece
+en el cociente. Ésta es una elaboración docente a partir del criterio citado.
+\textbf{Qué reconocer:} el cociente $\A/J$ de la Tarea 1.4 reaparece con
+$\A=\mathcal B(X)$ y $J=\mathcal K(X)$; la equivalencia con Fredholmness es
+un resultado adicional de teoría de operadores.
+\end{investigacion}
+
+\pagebreak
+\begin{cthproposicion}{(Caracteres e ideales maximales)}
+Sea $\A$ una álgebra de Banach compleja conmutativa unital.
+La asignación
+\[
+ \Omega(\A)\longrightarrow\{\text{ideales maximales de }\A\},\qquad
+ \varphi\longmapsto\ker\varphi,
+\]
+es una biyección.
+\end{cthproposicion}
+\origen{Proposición 1.21}
+
+\begin{proof}[Demostración]
+Si $\varphi\in\Omega(\A)$, entonces $\varphi(1_\A)=1$ y
+$\varphi$ es sobreyectivo porque $\varphi(\lambda1_\A)=\lambda$
+para todo $\lambda\in\mathbb C$. Su núcleo es un ideal propio y el
+primer teorema de isomorfía da
+$\A/\ker\varphi\cong\mathbb C$; como $\mathbb C$ no tiene
+ideales propios no nulos, $\ker\varphi$ es maximal.
+
+Recíprocamente, si $J$ es maximal, la proposición anterior permite
+elegir un isomorfismo unital complejo
+$\theta:\A/J\to\mathbb C$. Sea
+$q:\A\to\A/J$ el mapa cociente. La composición
+$\varphi=\theta\circ q$ es lineal, multiplicativa y unital;
+es un carácter con $\ker\varphi=J$.
+Para comprobar la unicidad, si $\psi$ es otro carácter con el mismo
+núcleo, para cada $a\in\A$ se tiene
+$a-\varphi(a)1_\A\in J=\ker\psi$. Por tanto
+$\psi(a)=\varphi(a)\psi(1_\A)=\varphi(a)$. Las dos asignaciones
+son así inversas una de otra.
+\end{proof}
+
+\proofdiagram
+{$\A$ conmutativa unital; $\varphi\in\Omega(\A)$ o $J\subset\A$ maximal}
+{Cocientes $\A/J\cong\mathbb C$}
+{Núcleo de carácter tiene codimensión $1$; recíprocamente usar el mapa cociente}
+{$\varphi\leftrightarrow\ker\varphi$}
+
+\begin{cthejemplo}{(Recuperar dos puntos a partir de ideales)}
+Para ver la biyección entre caracteres e ideales maximales,
+tomemos $X=\{p,q\}$ y $C(X)\cong\mathbb C^2$.
+Las evaluaciones dan los ideales distintos
+$J_p=\{f:f(p)=0\}$ y $J_q=\{f:f(q)=0\}$.
+Si $\varphi$ es cualquier carácter, las funciones indicadoras
+$e_p,e_q$ satisfacen $e_p+e_q=1$ y $e_pe_q=0$;
+sus imágenes son idempotentes escalares y exactamente una vale $1$.
+Como $f=f(p)e_p+f(q)e_q$, se sigue que $\varphi$ es
+$\operatorname{ev}_p$ o $\operatorname{ev}_q$.
+En este caso, los dos puntos del espacio se recuperan como los
+dos ideales maximales del álgebra.
+\end{cthejemplo}
+
+\begin{cthteorema}{(El espectro se lee con caracteres)}
+Sea $\A$ una álgebra de Banach compleja conmutativa unital.
+Entonces para cada $a\in\A$,
+\[
+ \spec(a)=\{\varphi(a):\varphi\in\Omega(\A)\}.
+\]
+\end{cthteorema}
+\origen{Teorema 1.22}
+
+\begin{proof}[Demostración]
+Si $\lambda=\varphi(a)$ para un carácter $\varphi$, entonces
+$\varphi(\lambda1_\A-a)=\lambda-\varphi(a)=0$.
+Un invertible no puede tener imagen cero por un carácter unital;
+por ello $\lambda1_\A-a$ no es invertible y
+$\lambda\in\spec_\A(a)$.
+
+En sentido contrario, sea $\lambda\in\spec_\A(a)$ y pongamos
+$b=\lambda1_\A-a$. Como $b$ no es invertible, el ideal principal
+$\A b$ es propio: si $1_\A=cb$ para algún $c\in\A$, la
+conmutatividad también daría $bc=1_\A$. Por el lema de Zorn,
+$\A b$ está contenido en un ideal maximal $J$: en efecto, la unión
+de una cadena de ideales propios que contienen $\A b$ sigue siendo
+propia, pues si contuviera $1_\A$, éste pertenecería ya a uno de
+sus miembros. Esa unión es una cota superior para la cadena.
+La proposición
+anterior da un carácter $\varphi$ con $J=\ker\varphi$.
+Como $b\in J$, se obtiene
+$0=\varphi(b)=\lambda-\varphi(a)$, de donde
+$\lambda=\varphi(a)$. Quedan probadas ambas inclusiones.
+\end{proof}
+
+\proofdiagrambranch
+{$a\in\A$, $\varphi\in\Omega(\A)$ y $\lambda=\varphi(a)$}
+{$\lambda\in\spec_\A(a)$}
+{Caracteres $\leftrightarrow$ ideales maximales}
+{$\lambda1-a$ cae en un ideal maximal exactamente cuando algún carácter lo anula}
+{$\lambda\in\spec(a)\Longleftrightarrow\exists\varphi\in\Omega(\A):\lambda=\varphi(a)$}
+
+\begin{cthejemplo}{(Espectro de la función cuadrado en $[0,1]$)}
+Apliquemos el teorema espectral por caracteres a
+$X=[0,1]$ y $f(x)=x^2\in C(X)$.
+Cada evaluación $\operatorname{ev}_x$ toma en $f$ el valor $x^2$,
+y el criterio de invertibilidad puntual ya comprobado para $C(X)$
+descarta otros valores espectrales. Por tanto
+\[
+ \spec_{C(X)}(f)
+ =\{\operatorname{ev}_x(f):x\in[0,1]\}
+ =\{x^2:x\in[0,1]\}=[0,1].
+\]
+El espectro recupera exactamente el rango geométrico de la función.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Lema de Jacobson para $1-ab$)}
+Sea $\A$ una álgebra de Banach unital con unidad $1_\A$ y
+$a,b\in\A$. Entonces
+\[
+ 1_\A-ab\in\GL(\A)\quad\Longleftrightarrow\quad 1_\A-ba\in\GL(\A).
+\]
+Si $1_\A-ab$ es invertible,
+\[
+ (1_\A-ba)^{-1}=1_\A+b(1_\A-ab)^{-1}a.
+\]
+\end{cthproposicion}
+\origen{Proposición 1.23}
+
+\begin{proof}[Demostración]
+Supongamos que $1_\A-ab$ es invertible y escribamos
+$c=(1_\A-ab)^{-1}$. Las dos identidades de inverso dan
+$c-abc=1_\A$ y $c-cab=1_\A$.
+Definamos $d=1_\A+bca$. Por la izquierda,
+\[
+ (1_\A-ba)d
+ =1_\A-ba+bca-babca
+ =1_\A+b(c-1_\A-abc)a=1_\A.
+\]
+Por la derecha se usa la otra identidad de $c$:
+\[
+ d(1_\A-ba)
+ =1_\A-ba+bca-bcaba
+ =1_\A+b(c-1_\A-cab)a=1_\A.
+\]
+Así $d$ es la inversa bilateral de $1_\A-ba$, lo que prueba
+la fórmula del enunciado. Si se parte de la invertibilidad de
+$1_\A-ba$, el mismo razonamiento, con $a$ y $b$ intercambiados,
+demuestra la implicación contraria.
+\end{proof}
+
+\proofdiagram
+{$\A$ unital, $a,b\in\A$ y $1_\A-ab$ invertible}
+{Asociatividad}
+{Construir explícitamente $1+b(1-ab)^{-1}a$}
+{Es inverso bilateral de $1-ba$}
+
+\begin{cthejemplo}{(La identidad de Jacobson en matrices que no conmutan)}[unbreakable]
+Queremos ver la proposición sin suponer que los factores conmuten.
+En $M_2(\mathbb C)$ tomamos $A=E_{12}$ y
+$B=\frac12E_{21}$, donde $E_{ij}$ son las matrices con una
+única entrada $1$ en la posición $(i,j)$. Entonces
+$AB=\frac12E_{11}$ y $BA=\frac12E_{22}$ son distintos, pero
+\[
+ (I_2-AB)^{-1}=\operatorname{diag}(2,1),\qquad
+ (I_2-BA)^{-1}=\operatorname{diag}(1,2).
+\]
+La fórmula de Jacobson produce el segundo inverso desde el primero:
+$I_2+B(I_2-AB)^{-1}A=I_2+E_{22}$.
+La invertibilidad simultánea proviene de la estructura del producto,
+sin requerir $AB=BA$.
+\end{cthejemplo}
+
+\begin{cthcorolario}{(Espectros no nulos de $ab$ y $ba$)}
+Sea $\A$ una álgebra de Banach compleja unital y $a,b\in\A$.
+Entonces
+\[
+ \spec_\A(ab)\cup\{0\}=\spec_\A(ba)\cup\{0\},
+ \qquad\text{equivalentemente}\qquad
+ \spec_\A(ab)\setminus\{0\}=\spec_\A(ba)\setminus\{0\}.
+\]
+\end{cthcorolario}
+\origen{Corolario 1.24}
+
+\begin{proof}[Demostración]
+Sea $\lambda\in\mathbb C\setminus\{0\}$ y usemos
+la factorización
+$\lambda1_\A-ab=\lambda(1_\A-\lambda^{-1}ab)$.
+El factor escalar $\lambda1_\A$ es invertible, de modo que
+\[
+\lambda1-ab\in\GL(\A)
+\Longleftrightarrow
+1-\lambda^{-1}ab\in\GL(\A)
+\Longleftrightarrow
+1-\lambda^{-1}ba\in\GL(\A)
+\Longleftrightarrow
+\lambda1-ba\in\GL(\A).
+\]
+La equivalencia central es el lema anterior aplicado a
+$\lambda^{-1}a$ y $b$; la última vuelve a usar el factor escalar
+$\lambda\ne0$. Por la definición de espectro, $\lambda$ pertenece
+a $\spec_\A(ab)$ exactamente cuando pertenece a
+$\spec_\A(ba)$. La igualdad de los espectros fuera de cero se
+sigue para todo $\lambda\ne0$; al agregar $\{0\}$ a ambos
+conjuntos se obtiene la primera igualdad del enunciado.
+\end{proof}
+
+\proofdiagram
+{$a,b\in\A$, $\lambda\in\mathbb C\setminus\{0\}$}
+{Lema de Jacobson}
+{$\lambda1_\A-ab=\lambda(1_\A-\lambda^{-1}ab)$}
+{Coinciden los espectros no nulos; añadir $\{0\}$ da la igualdad}
+
+\begin{cthejemplo}{(Cambio de orden entre dimensiones diferentes)}
+Sea $A:\mathbb C^m\to\mathbb C^n$ y
+$B:\mathbb C^n\to\mathbb C^m$. Queremos comparar los productos
+$AB\in M_n(\mathbb C)$ y $BA\in M_m(\mathbb C)$.
+La identidad de Jacobson se adapta a las dos unidades y, para
+$\lambda\ne0$, da
+\[
+ (I_m-\lambda^{-1}BA)^{-1}
+ =I_m+\lambda^{-1}B(I_n-\lambda^{-1}AB)^{-1}A
+\]
+ si $I_n-\lambda^{-1}AB$ es invertible. Como caso concreto, tomemos
+$A(t)=(t,0)$ de $\mathbb C$ a $\mathbb C^2$ y
+$B(x,y)=x$ de $\mathbb C^2$ a $\mathbb C$. Entonces
+$AB=\operatorname{diag}(1,0)$ y $BA=(1)$:
+sus espectros no nulos son ambos $\{1\}$, aunque sólo el primero
+contiene $0$. Esto explica por qué el corolario agrega $\{0\}$.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Radio espectral)}
+Sea $\A$ una álgebra de Banach compleja unital y $a\in\A$.
+El \emph{radio espectral} de $a$ es
+\[
+ r(a)=\max\{|\lambda|:\lambda\in\spec_\A(a)\}.
+\]
+\end{cthdefinicion}
+\origen{Definición 1.25}
+
+\begin{cthejemplo}{(Radio espectral y norma de matrices)}
+Para $A=\operatorname{diag}(2,-3,i)\in M_3(\mathbb C)$,
+los valores espectrales son sus entradas diagonales, así que
+$r(A)=\max\{2,3,1\}=3$. Con la norma operatorial euclidiana también
+$\|A\|=3$, por ser diagonal. La igualdad no es automática para matrices
+no normales: si
+$B=\begin{pmatrix}2&10\\0&-3\end{pmatrix}$,
+su espectro sigue siendo $\{2,-3\}$ y $r(B)=3$, mientras
+$\|B\|\ge\|Be_2\|=\sqrt{109}>3$.
+El radio mide los valores espectrales y puede ser menor que la norma.
+\end{cthejemplo}
+
+\begin{cthteorema}{(Fórmula del radio espectral)}
+Sea $\A$ una álgebra de Banach compleja unital y $a\in\A$.
+Entonces
+\[
+ r(a)=\lim_{n\to\infty}\|a^n\|^{1/n}
+     =\inf_{n\ge1}\|a^n\|^{1/n}.
+\]
+\end{cthteorema}
+\origen{Teorema 1.26}
+
+\begin{proof}[Demostración]
+Comencemos por comprobar que el límite de normas existe. Pongamos
+$\beta_n=\|a^n\|$. La submultiplicatividad da
+$\beta_{m+n}\le\beta_m\beta_n$. Si $\beta_m=0$ para algún
+$m\ge1$, entonces $a^n=0$ para todo $n\ge m$ y
+$\lim_n\beta_n^{1/n}=\inf_{n\ge1}\beta_n^{1/n}=0$.
+En otro caso, fijemos $m\ge1$ y escribamos $n=qm+s$,
+$0\le s<m$. Como
+$\beta_n\le\beta_m^q\beta_s$ y sólo hay un número finito de
+posibles $s$, al tomar raíces $n$-ésimas y dejar $n\to\infty$
+se obtiene
+\[
+ \limsup_{n\to\infty}\beta_n^{1/n}\le\beta_m^{1/m}.
+\]
+Esto vale para todo $m$. Por otra parte, cada término
+$\beta_n^{1/n}$ es al menos $\inf_{m\ge1}\beta_m^{1/m}$.
+En consecuencia,
+\[
+ L:=\lim_{n\to\infty}\|a^n\|^{1/n}
+   =\inf_{n\ge1}\|a^n\|^{1/n}.
+\]
+
+Veamos que $r(a)\le L$. Si $\lambda\in\spec_\A(a)$ y
+$n\ge1$, la factorización polinómica
+\[
+ \lambda^n1_\A-a^n
+ =(\lambda1_\A-a)
+   \sum_{k=0}^{n-1}\lambda^{n-1-k}a^k
+ \]
+tiene factores que conmutan. Si el producto fuese invertible, cada
+factor lo sería: en efecto, si $x$ y $y$ conmutan y $xy$ tiene
+inversa $c$, la igualdad $x(xy)=(xy)x$ implica $xc=cx$ al
+multiplicar por $c$. Entonces
+$x(yc)=(xy)c=1_\A$ y
+$(yc)x=y(cx)=yx c=(xy)c=1_\A$, de modo que $yc$ es
+una inversa bilateral de $x$.
+Esto contradice que $\lambda1_\A-a$ no es invertible. Así
+$\lambda^n\in\spec_\A(a^n)$ y la cota espectral ya demostrada da
+$|\lambda|^n\le\|a^n\|$. Tomando el máximo sobre el espectro
+y luego raíces se obtiene $r(a)\le\|a^n\|^{1/n}$ para todo
+$n$, y por tanto $r(a)\le L$.
+
+Para la otra desigualdad, sea $R=1/r(a)$ si $r(a)>0$ y
+$R=\infty$ si $r(a)=0$. La función
+$g(z)=(1_\A-za)^{-1}$ está definida y es holomorfa en
+$|z|<R$: para $z\ne0$ en ese disco,
+$|z^{-1}|>r(a)$ y
+$1_\A-za=z(z^{-1}1_\A-a)$ es invertible; para $z=0$
+es la unidad. Si $z\ne0$, además,
+$g(z)=z^{-1}R_a(z^{-1})$, que es holomorfa por el lema del
+resolvente y la holomorfía de $z\mapsto z^{-1}$ fuera de cero.
+En un entorno de cero, Neumann da
+$g(z)=\sum_{n\ge0}a^nz^n$.
+Esta serie converge en norma para $|z|\|a\|<1$ y prueba la
+holomorfía también en cero.
+
+Fijemos $t$ real con $0<t<R$. Para cada $\varphi\in\A^*$,
+$\varphi\circ g$ es holomorfa en $|z|<R$ y su serie de Taylor
+en cero tiene coeficientes $\varphi(a^n)$. Elegimos $s$ con
+$t<s<R$. La cota de Cauchy en el círculo $|z|=s$ da
+$|\varphi(a^n)|\le M_{\varphi,s}s^{-n}$, donde
+$M_{\varphi,s}=\max_{|z|=s}|\varphi(g(z))|<\infty$.
+Por tanto $t^n|\varphi(a^n)|\le M_{\varphi,s}(t/s)^n$ está
+acotada para cada $\varphi$. Apliquemos Banach--Steinhaus en el espacio de Banach
+$\A^*$ a los operadores continuos
+$T_n:\A^*\to\mathbb C$,
+$T_n(\varphi)=t^n\varphi(a^n)$. La acotación puntual implica
+$\sup_n\|T_n\|<\infty$. Hahn--Banach da
+$\|T_n\|=t^n\|a^n\|$, así que existe $C_t<\infty$ con
+$t^n\|a^n\|\le C_t$ para todo $n$. Tomando raíces y límites,
+$L\le t^{-1}$. Si $r(a)>0$, hacemos $t\uparrow1/r(a)$ y
+obtenemos $L\le r(a)$; si $r(a)=0$, podemos tomar $t$
+arbitrariamente grande y obtenemos $L=0$. Junto con la primera
+desigualdad y la existencia de $L$, esto prueba las dos igualdades.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ unital, $a\in\A$; $\lambda\in\spec(a)\Rightarrow\lambda^n\in\spec(a^n)$}
+{Estudiar $g(z)=(1-za)^{-1}$ en $|z|<R$, $R=1/r(a)$ o $\infty$}
+{Holomorfía + Taylor + Banach--Steinhaus}
+{Acotar $t^n\|a^n\|$ para cada $t<R$ y dejar $t\uparrow R$}
+{$r(a)=\lim\|a^n\|^{1/n}$}
+
+\begin{cthejemplo}{(El operador de Volterra es cuasinilpotente)}[unbreakable]
+Estudiemos un operador no nulo cuyo radio espectral resulta cero.
+En $C[0,1]$ con la norma uniforme, definimos
+$(Vf)(x)=\int_0^x f(t)\,dt$. La iteración de la integral da, para
+$n\ge1$,
+\[
+ (V^nf)(x)=\frac1{(n-1)!}\int_0^x(x-t)^{n-1}f(t)\,dt,
+ \qquad \|V^n\|\le\frac1{n!}.
+\]
+La cota se obtiene al reemplazar $|f(t)|$ por $\|f\|_\infty$
+e integrar la potencia. 
+Por la fórmula del radio espectral,
+$r(V)=\lim_n\|V^n\|^{1/n}=0$.
+Como el espectro no está vacío y todos sus puntos tienen módulo
+a lo más cero, $\spec(V)=\{0\}$.
+Este caso distingue un operador cuasinilpotente de un operador nulo:
+$V\ne0$ aunque su espectro sea $\{0\}$.
+\end{cthejemplo}
+
+\begin{cthnota}{(Interpretación de la fórmula para iteraciones)}
+Sea $X$ un espacio de Banach y $A\in\mathcal B(X)$. Entonces $\|A^n\|$
+mide el efecto máximo de $n$ aplicaciones
+sucesivas. El límite $\lim_n\|A^n\|^{1/n}$ mide su tasa asintótica exponencial y
+coincide con $r(A)$. El ejemplo de Volterra muestra que esta tasa puede ser cero
+aunque $A\ne0$.
+\end{cthnota}
+
+\begin{cthdefinicion}{(Transformada de Gelfand)}
+Sea $\A$ una álgebra de Banach compleja conmutativa unital.
+La \emph{transformada de Gelfand} es
+\[
+ \Gamma:\A\to C(\Omega(\A)),\qquad
+ a\mapsto\widehat a,\qquad \widehat a(\varphi)=\varphi(a).
+\]
+\end{cthdefinicion}
+\origen{Definición 1.27}
+
+\begin{cthejemplo}{(La transformada recupera una función de $C(X)$)}
+Tomemos $X=[0,1]$ y $f(t)=t\in C(X)$ para concretar la definición.
+Cada punto $x\in X$ proporciona el carácter de evaluación
+$\operatorname{ev}_x$, y
+\[
+ \widehat f(\operatorname{ev}_x)
+ =\operatorname{ev}_x(f)=x=f(x).
+\]
+Bajo la identificación $\Omega(C(X))\cong X$, demostrada en la Tarea 2,
+la transformada de Gelfand es la propia función $f$.
+La fórmula enseña cómo una función se lee a través de todos los
+caracteres del álgebra.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(La transformada de Gelfand es contractiva)}
+Sea $\A$ una álgebra de Banach compleja conmutativa unital y
+$a\in\A$. La transformada de Gelfand es lineal, multiplicativa,
+unital y
+\[
+ \|\widehat a\|_\infty=r(a)\le\|a\|.
+\]
+\end{cthproposicion}
+\origen{Observación 1.28}
+
+\begin{proof}[Demostración]
+Para cada $\varphi\in\Omega(\A)$, la linealidad y
+multiplicatividad del carácter dan
+\[
+ \widehat{\alpha a+b}(\varphi)
+   =\alpha\widehat a(\varphi)+\widehat b(\varphi),\qquad
+ \widehat{ab}(\varphi)=\widehat a(\varphi)\widehat b(\varphi),
+ \qquad \widehat{1_\A}(\varphi)=1.
+\]
+Cada $\widehat a$ es continua en la topología débil-$*$ por la
+definición de ésta. El teorema que describe el espectro con
+caracteres identifica el conjunto de valores de $\widehat a$
+con $\spec_\A(a)$. Por ello
+\[
+ \|\widehat a\|_\infty=\sup_{\varphi\in\Omega(\A)}|\varphi(a)|
+ =\max_{\lambda\in\spec(a)}|\lambda|=r(a)\le\|a\|.
+\]
+El máximo existe porque el espectro es compacto y no vacío;
+la última desigualdad es la cota espectral previamente probada.
+\end{proof}
+
+\proofdiagram
+{Definición $\widehat a(\varphi)=\varphi(a)$}
+{Caracteres lineales y multiplicativos; espectro vía caracteres}
+{$\|\widehat a\|_\infty=\sup_{\varphi}|\varphi(a)|$}
+{$\|\widehat a\|_\infty=r(a)\le\|a\|$}
+
+\begin{investigacion}[unbreakable]
+\textbf{Conexión con la literatura: ejemplo directo de álgebra conmutativa.}
+Karlovich considera $\SO(\mathbb R_+)$, la álgebra de funciones continuas acotadas cuya
+oscilación en $[r,2r]$ tiende a cero cuando $r\to0$ y cuando $r\to\infty$
+\cite[pp.~465--466, §2]{Karlovich2017}. Es una $C^*$-subálgebra conmutativa de
+$C_b(\mathbb R_+)$: contiene constantes, es estable bajo suma, producto y conjugación, y
+la condición de oscilación se conserva bajo límites uniformes. La identidad
+$C^*$ se reconocerá formalmente en la Sección 2; en este punto sólo se
+necesita que la álgebra es conmutativa y unital. Para $a$ en esta álgebra,
+$\widehat a(\xi)=\xi(a)$ evalúa $a$ en un carácter $\xi\in\Omega(\SO(\mathbb R_+))$.
+Además de las evaluaciones en $r>0$, el espacio maximal tiene fibras sobre $0$ e
+$\infty$. Estas fibras organizan comportamientos límite que un solo valor $a(0)$ o
+$a(\infty)$ no describiría. La transformada de Gelfand de esta álgebra de coeficientes
+es un paso conceptual hacia los símbolos de Fredholm, no el símbolo de Fredholm completo.
+\textbf{Qué reconocer:} los caracteres de $\Omega(\A)$ estudiados en el curso
+se vuelven aquí evaluaciones ordinarias y caracteres de fibras de
+$\Omega(\SO(\mathbb R_+))$. Para leer la construcción precisa, véase
+\cite[§2, proposiciones~2.1--2.2]{Karlovich2017}.
+\end{investigacion}
+
+\begin{cthdefinicion}{(Ideal modular)}
+Un ideal $I$ de una álgebra $\A$ se llama \emph{modular} si existe $u\in\A$ tal que
+\[
+ a-ua\in I,\qquad a-au\in I,\qquad a\in\A.
+\]
+\end{cthdefinicion}
+\origen{Definición 1.29}
+
+\begin{cthejemplo}{(Unidad local para un ideal de evaluación)}
+Sea $X$ localmente compacto Hausdorff y fijemos $x\in X$.
+Queremos comprobar la modularidad del ideal
+\[
+ I_x=\{f\in C_0(X):f(x)=0\}.
+\]
+Elegimos una función continua $u$ de soporte compacto con
+$u(x)=1$, disponible por local compacidad y la separación de Hausdorff;
+en particular, $u\in C_0(X)$.
+Para todo $f\in C_0(X)$ se tiene
+$(f-uf)(x)=(f-fu)(x)=0$; por tanto ambas diferencias pertenecen a
+$I_x$. La clase $u+I_x$ actúa como unidad del cociente, aunque
+$C_0(X)$ puede carecer de unidad global.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Criterio de modularidad mediante el cociente)}
+Sea $\A$ una álgebra y $I\subsetneq\A$ un ideal bilateral propio.
+Entonces $I$ es modular si y sólo si $\A/I$ tiene unidad.
+\end{cthproposicion}
+\origen{Proposición 1.31}
+
+\begin{proof}[Demostración]
+Si $I$ es modular, existe $u\in\A$ tal que para todo
+$a\in\A$ se tiene $a-au\in I$ y $a-ua\in I$. En el
+cociente, esto equivale a
+\[
+ (a+I)(u+I)=au+I=a+I=ua+I=(u+I)(a+I).
+\]
+Por tanto $u+I$ es una unidad bilateral de $\A/I$.
+Recíprocamente, si $\A/I$ tiene unidad, ésta es una clase
+$u+I$ para algún $u\in\A$. Para cada $a\in\A$, las
+identidades de unidad dan $au+I=a+I=ua+I$, es decir,
+$a-au\in I$ y $a-ua\in I$. Ese $u$ prueba que $I$ es
+modular.
+\end{proof}
+
+\proofdiagram
+{$I\subsetneq\A$ ideal bilateral propio}
+{Definición de producto en $\A/I$}
+{$u$ módulo $I$ actúa como identidad exactamente cuando $a-au,a-ua\in I$}
+{$I$ modular $\Longleftrightarrow \A/I$ unital}
+
+\begin{cthejemplo}{(Un cociente unital de $C_0(\mathbb R)$)}
+Para ver la proposición en una álgebra sin unidad, tomemos
+$\A=C_0(\mathbb R)$ e
+$I_0=\{f\in\A:f(0)=0\}$. La función constante $1$ no pertenece
+a $\A$, pero $u(t)=\max\{1-|t|,0\}$ sí pertenece y cumple $u(0)=1$.
+La evaluación induce
+\[
+ \A/I_0\longrightarrow\mathbb C,\qquad f+I_0\longmapsto f(0),
+\]
+un isomorfismo sobreyectivo porque las funciones $\lambda u$ realizan
+cualquier valor $\lambda$. Así $\A/I_0$ tiene unidad $u+I_0$:
+la modularidad detecta una unidad que aparece sólo después del cociente.
+\end{cthejemplo}

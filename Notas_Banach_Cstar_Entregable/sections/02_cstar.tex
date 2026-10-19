@@ -1,0 +1,1234 @@
+\chapter{$C^*$-álgebras: rigidez espectral y cálculo funcional}
+
+\section{La identidad $C^*$ y clases especiales de elementos}
+
+\begin{cthdefinicion}{($C^*$-álgebra)}
+Una $C^*$-álgebra es una álgebra de Banach involutiva $\A$ que satisface
+\[
+ \|a^*a\|=\|a\|^2,
+ \qquad a\in\A.
+\]
+\end{cthdefinicion}
+\origen{Definición 2.1}
+
+\begin{cthejemplo}{(Operadores en Hilbert y la identidad $C^*$)}
+Queremos reconocer un modelo concreto de la definición. Si $H$ es un
+espacio de Hilbert, $\mathcal B(H)$ es el álgebra de operadores lineales
+acotados $H\to H$, con involución dada por el adjunto $T\mapsto T^*$.
+Para $T\in\mathcal B(H)$, la desigualdad
+$\|T^*T\|\le\|T^*\|\|T\|=\|T\|^2$ y la identidad
+\[
+ \|T\|^2=\sup_{\|x\|=1}\langle T^*Tx,x\rangle
+ \le\|T^*T\|
+\]
+dan $\|T^*T\|=\|T\|^2$. Así la norma operatorial y el adjunto
+satisfacen exactamente la identidad $C^*$.
+\end{cthejemplo}
+
+\begin{cthobservacion}{(Unidad compatible con la involución)}
+Si una $C^*$-álgebra $\A$ tiene unidad $1_\A$, entonces
+$1_\A^*=1_\A$ y $\|1_\A\|=1$.
+\end{cthobservacion}
+\origen{Observación 2.2}
+
+\begin{proof}[Demostración]
+Para todo $a\in\A$, la identidad $(a1_\A)^*=1_\A^*a^*=a^*$ muestra que
+$1_\A^*$ actúa como unidad izquierda. Del mismo modo, actúa como unidad
+derecha; por unicidad de la unidad, $1_\A^*=1_\A$. La identidad $C^*$ da
+$\|1_\A\|^2=\|1_\A^*1_\A\|=\|1_\A\|$, y $1_\A\ne0$ implica
+$\|1_\A\|=1$.
+\end{proof}
+
+\begin{cthejemplo}{(Unidad autoadjunta de norma uno en matrices)}
+Ilustremos la observación anterior con la unidad de
+$M_n(\mathbb C)$, $n\ge1$, dotada de la norma operatorial y del
+adjunto conjugado-transpuesto. La matriz $I_n$ cumple
+$I_n^*=I_n$; además, $\|I_nx\|=\|x\|$ para todo vector, de donde
+$\|I_n\|=1$. La afirmación abstracta sobre $1_\A$ se convierte aquí
+en una propiedad visible de la matriz identidad.
+\end{cthejemplo}
+
+\begin{investigacion}
+\textbf{Ejemplo directo.} Para la estrella logarítmica abierta $\Gamma$ del problema de
+Haseman, $C_b(\Gamma)$, con la norma uniforme y la conjugación puntual, es una
+$C^*$-álgebra unital; la subálgebra $\SO(\Gamma)$ reúne las funciones que oscilan
+lentamente en $0$ e $\infty$ \cite[§1, p.~464]{Karlovich2017}.
+\textbf{Lo que conviene reconocer:} ambas son álgebras de funciones del tipo recién
+definido; esta observación sólo ejemplifica la identidad $C^*$, sin intervenir en
+las demostraciones del curso.
+\end{investigacion}
+
+\begin{cthdefinicion}{($*$-homomorfismo)}
+Sean $\A,\B$ $C^*$-álgebras. Un $*$-homomorfismo es un homomorfismo lineal y multiplicativo
+$\Phi:\A\to\B$ que satisface
+\[
+ \Phi(a^*)=\Phi(a)^*\qquad(a\in\A).
+\]
+Si ambas álgebras son unitales, diremos que $\Phi$ es unital si $\Phi(1_\A)=1_\B$.
+\end{cthdefinicion}
+\origen{Definición 2.4}
+
+\begin{cthejemplo}{(Funciones como operadores de multiplicación)}
+Sea $X$ localmente compacto y Hausdorff. Queremos representar el álgebra
+$C_b(X)$ por operadores en $\ell^2(X)$, el espacio de familias complejas
+cuadrado sumables indexadas por $X$. Para $f\in C_b(X)$ definimos
+$(M_f\xi)(x)=f(x)\xi(x)$. La estimación
+$\|M_f\xi\|_2\le\|f\|_\infty\|\xi\|_2$ prueba que $M_f$ es acotado.
+Además, $M_fM_g=M_{fg}$ y, al comparar productos internos,
+$M_f^*=M_{\overline f}$; también $M_1=I$.
+Por tanto $f\mapsto M_f$ es un $*$-homomorfismo unital.
+La Tarea 2.1 comprueba que preserva incluso la norma: un álgebra de
+funciones puede verse fielmente como un álgebra de operadores.
+\end{cthejemplo}
+
+\begin{cthdefinicion}{(Normal, autoadjunto, unitario y proyección)}
+Sea $\A$ una $C^*$-álgebra y $a\in\A$.
+\begin{enumerate}[label=(\roman*)]
+\item $a$ es \emph{normal} si $a^*a=aa^*$;
+\item $a$ es \emph{autoadjunto} si $a^*=a$; escribimos
+$\A_{\mathrm{sa}}=\{x\in\A:x=x^*\}$;
+\item si $\A$ tiene unidad $1_\A$, $a$ es \emph{unitario} si
+$a^*a=aa^*=1_\A$; escribimos $\mathcal U(\A)$ para el conjunto de unitarios;
+\item $a$ es una \emph{proyección} si $a=a^*=a^2$; escribimos
+$\mathcal P(\A)$ para el conjunto de proyecciones.
+\end{enumerate}
+\end{cthdefinicion}
+\origen{Definición 2.5}
+
+\begin{cthejemplo}{(Normalidad, autoadjunción, unitariedad y proyección en $M_2$)}
+Busquemos un representante de cada clase de la definición en
+$M_2(\mathbb C)$:
+\[
+\begin{array}{c|c}
+\text{tipo}&\text{ejemplo}\\ \hline
+\text{normal}&\begin{pmatrix}1&0\\0&i\end{pmatrix}\\[2mm]
+\text{autoadjunto}&\begin{pmatrix}1&0\\0&-2\end{pmatrix}\\[2mm]
+\text{unitario}&\begin{pmatrix}0&1\\1&0\end{pmatrix}\\[2mm]
+\text{proyección}&\begin{pmatrix}1&0\\0&0\end{pmatrix}
+\end{array}
+\]
+Las dos matrices diagonales conmutan con sus adjuntos; la segunda
+coincide con su adjunto. Para la tercera, $U^*=U$ y $U^2=I_2$,
+de modo que $U^*U=UU^*=I_2$. La cuarta satisface
+$P=P^*=P^2$. Estas verificaciones muestran por qué todo
+autoadjunto, unitario o proyección es normal, aunque la primera
+matriz normal no sea autoadjunta.
+\end{cthejemplo}
+
+\begin{investigacion}
+\textbf{Ejemplo directo en $L^2$; analogía de lectura para Haseman.}
+Para $\Gamma_0=\mathbb R$ o la circunferencia
+$\mathbb T=\{z\in\mathbb C:|z|=1\}$, con la medida de longitud en $L^2(\Gamma_0)$,
+el operador de Cauchy satisface $S_{\Gamma_0}^2=I$ y define
+\[
+ P_{\Gamma_0}^\pm=\frac12(I\pm S_{\Gamma_0}).
+\]
+La identidad $S_{\Gamma_0}^2=I$ da $(P_{\Gamma_0}^\pm)^2=P_{\Gamma_0}^\pm$ por cálculo
+algebraico. En este modelo, además, $S_{\Gamma_0}$ es autoadjunto y
+$(P_{\Gamma_0}^\pm)^*=P_{\Gamma_0}^\pm$: son proyecciones ortogonales
+\cite[Sec.~2, p.~22]{BFK2006}. La fórmula
+$P_\pm=(I\pm S_\Gamma)/2$ reaparece en el operador
+de Haseman sobre $L^p(\Gamma)$ de una estrella logarítmica abierta $\Gamma$, con
+$1<p<\infty$ y los datos bajo las hipótesis de \cite{Karlovich2017},
+\[
+ T=V_\alpha P_+ + GP_-\in\mathcal B(L^p(\Gamma)),
+\]
+que aplica el shift $V_\alpha f=f\circ\alpha$ al término $P_+f$ y la
+multiplicación por $G$ al término $P_-f$. En la estrella abierta,
+$S_\Gamma^2=I$ y la ortogonalidad no se deducen del caso $\Gamma_0$
+\cite[(1.2)]{Karlovich2017}.
+\textbf{Lo que conviene reconocer:} $S^2=I$ asegura idempotencia en el modelo
+Hilbertiano y $S^*=S$ añade ortogonalidad; la fórmula de Haseman se lee término a
+término sin trasladar esas propiedades a la estrella abierta.
+\end{investigacion}
+
+\pagebreak
+\section{Norma y espectro de elementos normales}
+
+\begin{cthteorema}{(La norma de un normal es su radio espectral)}
+Sea $\A$ una $C^*$-álgebra unital y $a\in\A$ normal. Entonces
+\[
+ \|a\|=r(a).
+\]
+\end{cthteorema}
+\origen{Teorema 2.6}
+
+\begin{proof}[Demostración]
+La normalidad permite reagrupar:
+\[
+\|a^2\|^2
+=\|(a^2)^*a^2\|
+=\|(a^*)^2a^2\|
+=\|(a^*a)^2\|
+=\|a^*a\|^2
+=\|a\|^4.
+\]
+Así $\|a^2\|=\|a\|^2$. Como $a^2$ también es normal, por inducción
+$\|a^{2^n}\|=\|a\|^{2^n}$. Aplicando la fórmula del radio espectral sobre la subsucesión
+$2^n$,
+\[
+ r(a)=\lim_{n\to\infty}\|a^{2^n}\|^{1/2^n}=\|a\|.
+\]
+\end{proof}
+
+\proofdiagram
+{$\A$ es $C^*$ unital; $a\in\A$ normal}
+{Identidad $C^*$; fórmula del radio espectral}
+{Probar inductivamente $\|a^{2^n}\|=\|a\|^{2^n}$}
+{$r(a)=\lim_n\|a^{2^n}\|^{1/2^n}=\|a\|$}
+
+\begin{cthejemplo}{(Norma y radio de una matriz normal)}
+Comprobemos el teorema en $A=\operatorname{diag}(2,-i)$ con la
+norma operatorial euclidiana. Como $A$ es diagonal, conmuta con
+$A^*$ y es normal. Sus valores espectrales son $2$ y $-i$;
+por tanto $r(A)=\max\{2,1\}=2$. La norma de una matriz diagonal
+en esta norma es el mayor módulo de sus entradas, así que
+$\|A\|=2=r(A)$. El cálculo concreta la igualdad que el teorema
+garantiza para todo elemento normal.
+\end{cthejemplo}
+
+\begin{cthnota}{(Dónde intervienen las hipótesis)}
+La normalidad permite pasar de $(a^*)^2a^2$ a $(a^*a)^2$.
+La identidad $C^*$ convierte esa igualdad algebraica en la igualdad de normas;
+la fórmula del radio espectral, demostrada en la Parte 1 para álgebras de Banach,
+cierra el argumento.
+\end{cthnota}
+
+
+\begin{cthcorolario}{(La norma $C^*$ está determinada algebraicamente)}
+Sea $\A$ una $C^*$-álgebra unital. Para cada $a\in\A$,
+\[
+ \|a\|=r(a^*a)^{1/2}.
+\]
+En particular, dos normas que hagan de la misma álgebra involutiva unital una
+$C^*$-álgebra coinciden.
+\end{cthcorolario}
+\origen{Corolario 2.7}
+
+\begin{proof}[Demostración]
+El elemento $a^*a$ es autoadjunto y por tanto normal. Entonces
+$r(a^*a)=\|a^*a\|=\|a\|^2$ por el teorema precedente y la identidad $C^*$.
+Al tomar raíces no negativas obtenemos la fórmula del enunciado.
+Si $\|\cdot\|_1$ y $\|\cdot\|_2$ hacen $C^*$ a la misma álgebra involutiva
+unital, la invertibilidad de $a^*a-\lambda1_\A$ depende únicamente del producto
+y de la unidad. Así $r(a^*a)$ es el mismo para ambas normas, y la fórmula da
+$\|a\|_1=\|a\|_2$ para cada $a\in\A$.
+\end{proof}
+
+\proofdiagram
+{$\A$ es $C^*$ unital; $a\in\A$; $a^*a$ es normal}
+{Teorema anterior + identidad $C^*$}
+{$r(a^*a)=\|a^*a\|=\|a\|^2$}
+{$\|a\|=r(a^*a)^{1/2}$; unicidad de norma}
+
+\begin{cthejemplo}{(La norma uniforme está forzada en $C(X)$)}
+Queremos aplicar el corolario de unicidad de la norma a un álgebra
+de funciones. Sea $X$ compacto Hausdorff y $f\in C(X)$, con la
+conjugación puntual como involución. El elemento
+$f^*f=|f|^2$ tiene espectro $|f|^2(X)$, por el criterio de
+invertibilidad puntual de la Parte 1. La fórmula del corolario da
+\[
+ \|f\|=r(f^*f)^{1/2}
+ =\bigl(\max_{x\in X}|f(x)|^2\bigr)^{1/2}
+ =\|f\|_\infty.
+\]
+Cualquier norma $C^*$ compatible con esas operaciones debe,
+por tanto, coincidir con la norma uniforme.
+\end{cthejemplo}
+
+\begin{cthteorema}{($*$-homomorfismos unitarios son contractivos)}
+Sean $\A,\B$ $C^*$-álgebras unitales y $\Phi:\A\to\B$ un $*$-homomorfismo unital. Entonces
+\[
+ \|\Phi(a)\|\le\|a\|\quad(a\in\A),
+ \qquad \|\Phi\|=1.
+\]
+\end{cthteorema}
+\origen{Teorema 2.8}
+
+\begin{proof}[Demostración]
+Para cada $b\in\A$, el homomorfismo unital satisface
+$\spec(\Phi(b))\subset\spec(b)$ y por tanto
+$r(\Phi(b))\le r(b)$. Tomando $b=a^*a$,
+\[
+\|\Phi(a)\|^2
+=\|\Phi(a)^*\Phi(a)\|
+=\|\Phi(a^*a)\|
+=r(\Phi(a^*a))
+\le r(a^*a)=\|a\|^2.
+\]
+Como $\Phi(1_\A)=1_\B$ y ambas unidades tienen norma uno, se tiene
+$\|\Phi\|\ge1$; la contractividad da la igualdad.
+\end{proof}
+
+\proofdiagram
+{$\Phi$ unital y $*$-homomorfismo}
+{Inclusión espectral de homomorfismos; teorema normal $\|x\|=r(x)$}
+{Aplicar a $a^*a$: $\Phi(a^*a)=\Phi(a)^*\Phi(a)$}
+{$\|\Phi(a)\|^2\le\|a\|^2$ y $\|\Phi\|=1$}
+
+\begin{cthejemplo}{(Restricción como $*$-homomorfismo contractivo)}
+Sean $X$ compacto Hausdorff e $Y\subset X$ cerrado y no vacío.
+Queremos comparar una función definida en $X$ con su restricción a
+$Y$. El mapa $\Phi:C(X)\to C(Y)$,
+$\Phi(f)=f|_Y$, preserva sumas, productos, conjugación puntual y la
+función constante $1$, así que es un $*$-homomorfismo unital.
+El teorema de contractividad implica
+$\|f|_Y\|_\infty\le\|f\|_\infty$, desigualdad que también se ve al
+tomar el supremo sobre un conjunto menor. Restringir el dominio no
+puede aumentar la norma uniforme.
+\end{cthejemplo}
+
+\begin{cthobservacion}{(Parte real e imaginaria)}
+Sea $\A$ una $C^*$-álgebra. Todo $a\in\A$ se escribe de manera única
+\[
+ a=x+iy,
+ \qquad
+ x=\frac{a+a^*}{2},\quad y=\frac{a-a^*}{2i},
+\]
+con $x=x^*$ y $y=y^*$.
+\end{cthobservacion}
+\origen{Observación 2.9}
+
+\begin{proof}[Demostración]
+Las fórmulas dadas cumplen $x^*=x$, $y^*=y$ y $x+iy=a$. Si también
+$a=u+iv$ con $u=u^*$ y $v=v^*$, entonces $a^*=u-iv$; al sumar y restar
+estas dos identidades se obtiene $u=(a+a^*)/2=x$ y
+$v=(a-a^*)/(2i)=y$. Esto prueba la unicidad.
+\end{proof}
+
+\begin{cthejemplo}{(Partes autoadjuntas de una matriz no hermitiana)}
+Para ver la descomposición de la observación en un caso no trivial,
+tomemos
+$A=\begin{pmatrix}1&i\\0&2\end{pmatrix}$.
+El cálculo de las partes real e imaginaria da
+\[
+ X=\frac{A+A^*}{2}
+ =\begin{pmatrix}1&i/2\\-i/2&2\end{pmatrix},
+ \qquad
+ Y=\frac{A-A^*}{2i}
+ =\begin{pmatrix}0&1/2\\1/2&0\end{pmatrix}.
+\]
+Se verifica $X^*=X$, $Y^*=Y$ y $A=X+iY$.
+Así incluso una matriz que no es autoadjunta se reconstruye a
+partir de dos matrices que sí lo son.
+\end{cthejemplo}
+
+\begin{cthlema}{(Estimación vertical para autoadjuntos)}
+Sea $\A$ una $C^*$-álgebra unital, $x\in\A$ autoadjunto y $t\in\mathbb R$. Entonces
+\[
+ \|x+it1_\A\|^2\le \|x\|^2+t^2.
+\]
+\end{cthlema}
+\origen{Lema 2.10}
+
+\begin{proof}[Demostración]
+\[
+\|x+it1_\A\|^2
+=\|(x-it1_\A)(x+it1_\A)\|
+=\|x^2+t^2 1_\A\|
+\le\|x^2\|+t^2
+=\|x\|^2+t^2.
+\]
+\end{proof}
+
+\proofdiagram
+{$x\in\A$ autoadjunto; $t\in\mathbb R$}
+{Identidad $C^*$}
+{$\|x+it1_\A\|^2=\|x^2+t^2 1_\A\|$}
+{$\le\|x\|^2+t^2$}
+
+\begin{cthejemplo}{(La cota vertical es exacta para escalares reales)}
+Comprobemos si la desigualdad del lema puede mejorarse en general.
+En la $C^*$-álgebra $\mathbb C$, tomamos el autoadjunto
+$s\in\mathbb R$ y $t\in\mathbb R$. Entonces
+$|s+it|^2=(s-it)(s+it)=s^2+t^2$ y $\|s\|^2=s^2$.
+La desigualdad del lema es igualdad en este caso; el término
+$t^2$ y el coeficiente de $\|s\|^2$ son, por ello, naturales.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Una cota vertical fuerza realidad)}
+Si $z\in\mathbb C$ y existe $C\ge0$ tal que
+\[
+ |z+it|^2\le C+t^2\qquad(t\in\mathbb R),
+\]
+entonces $z\in\mathbb R$.
+\end{cthproposicion}
+\origen{Proposición 2.11}
+
+\begin{proof}[Demostración]
+Si $z=x+iy$ con $x,y\in\mathbb R$, entonces
+$|z+it|^2-t^2=x^2+y^2+2yt$. Si $y>0$, el lado derecho tiende a $+\infty$ cuando
+$t\to+\infty$; si $y<0$, ocurre cuando $t\to-\infty$. La existencia de una cota uniforme obliga a
+$y=0$.
+\end{proof}
+
+\proofdiagram
+{$z\in\mathbb C$; $C\ge0$; escribir $z=x+iy$}
+{Expandir $|z+it|^2-t^2=x^2+y^2+2yt$}
+{Si $y\neq0$, elegir $t\to\pm\infty$ con el signo de $y$}
+{La cota falla; luego $y=0$}
+
+\begin{cthejemplo}{(Una cota que falla para $1+i$)}
+Para ver cómo la Proposición~2.11 detecta una parte imaginaria, probemos su hipótesis con
+$z=1+i$. El cálculo da
+\[
+ |z+it|^2-t^2=|1+i(1+t)|^2-t^2=2+2t.
+\]
+Al hacer $t\to+\infty$, esta expresión supera cualquier constante $C$. Por tanto no existe
+una cota $|1+i+it|^2\le C+t^2$ válida para todo $t\in\mathbb R$.
+El término lineal en $t$ es la señal concreta de que $z$ no es real.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Funcionales que alcanzan su norma en la unidad son reales en autoadjuntos)}
+Sea $\A$ una $C^*$-álgebra unital y $\varphi:\A\to\mathbb C$ un funcional
+lineal continuo con $\|\varphi\|=\varphi(1_\A)$. Entonces
+\[
+ \varphi(x)\in\mathbb R\qquad\text{para todo }x\in\A\text{ con }x=x^*.
+\]
+\end{cthproposicion}
+\origen{Proposición 2.12}
+
+\begin{proof}[Demostración]
+Si $\varphi=0$, entonces $\varphi(x)=0\in\mathbb R$ para todo autoadjunto $x$.
+En otro caso, $\varphi(1_\A)=\|\varphi\|>0$.
+Definimos $\psi=\varphi/\varphi(1_\A)$; entonces $\|\psi\|=\psi(1_\A)=1$.
+Para $t\in\mathbb R$,
+\[
+ |\psi(x)+it|^2
+ =|\psi(x+it1_\A)|^2
+ \le\|x+it1_\A\|^2
+ \le\|x\|^2+t^2.
+\]
+La proposición anterior, con $z=\psi(x)$, implica que $\psi(x)$ es real; como
+$\varphi(1_\A)>0$, también $\varphi(x)$ lo es.
+\end{proof}
+
+\proofdiagram
+{$\varphi:\A\to\mathbb C$ continuo; $\|\varphi\|=\varphi(1_\A)$; $x=x^*$}
+{Lema de estimación vertical + proposición escalar anterior}
+{Si $\varphi\ne0$: $\psi=\varphi/\varphi(1_\A)$ y $|\psi(x)+it|^2\le\|x+it1_\A\|^2$}
+{$\varphi=0$ o $\psi(x)\in\mathbb R$; luego $\varphi(x)\in\mathbb R$}
+
+\begin{cthejemplo}{(Una evaluación cumple la hipótesis de realidad)}
+Tomemos $X=[0,1]$ y $x_0\in X$. La evaluación
+$\varphi=\operatorname{ev}_{x_0}:C(X)\to\mathbb C$ satisface
+$\|\varphi\|=\varphi(1)=1$, como se comprobó en la Sección~1.
+Para la función autoadjunta $h(t)=t^2$, se obtiene
+$\varphi(h)=x_0^2\in\mathbb R$.
+La Proposición~2.12 asegura la misma conclusión para \emph{todo} autoadjunto
+de $C(X)$ y, más generalmente, para funcionales con esa condición de norma en
+cualquier $C^*$-álgebra unital.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(El espectro de un autoadjunto es real)}
+Sea $\A$ una $C^*$-álgebra unital y $a\in\A$ autoadjunto. Entonces
+\[
+ \spec(a)\subset\mathbb R.
+\]
+\end{cthproposicion}
+\origen{Proposición 2.13}
+
+\begin{proof}[Demostración]
+Por la Tarea 1.9 existe una subálgebra de Banach conmutativa, involutiva y unital
+$\mathcal C\subset\A$ que contiene a $a$ y preserva su espectro. En ella,
+\[
+ \spec_\A(a)=\spec_{\mathcal C}(a)=\{\varphi(a):\varphi\in\Omega(\mathcal C)\}.
+\]
+Como $\mathcal C$ es cerrada y hereda la identidad $C^*$, también es una
+$C^*$-álgebra. Cada carácter de $\mathcal C$ tiene norma uno y
+$\varphi(1_{\mathcal C})=1$, por lo que
+la proposición anterior da
+$\varphi(a)\in\mathbb R$. La descripción espectral escrita arriba muestra
+entonces que cada $\lambda\in\spec_\A(a)$ es real.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ es $C^*$ unital; $a\in\A$, $a=a^*$}
+{Reducir a una subálgebra conmutativa que preserve el espectro (Tarea 1.9)}
+{Espectro vía caracteres + funcionales reales en autoadjuntos}
+{$\lambda\in\spec(a)\Rightarrow\lambda=\varphi(a)\in\mathbb R$}
+{$\spec(a)\subset\mathbb R$}
+
+\begin{cthejemplo}{(Valores propios reales de una matriz hermitiana)}
+Consideremos $H=\begin{pmatrix}2&i\\-i&3\end{pmatrix}\in M_2(\mathbb C)$.
+La transposición conjugada da $H^*=H$, así que la Proposición~2.13 predice
+$\spec(H)\subset\mathbb R$. En efecto,
+\[
+ \det(\lambda I-H)=(\lambda-2)(\lambda-3)-1
+ =\lambda^2-5\lambda+5,
+ \qquad
+ \spec(H)=\left\{\frac{5-\sqrt5}{2},\frac{5+\sqrt5}{2}\right\}.
+\]
+El cálculo finito confirma la conclusión espectral que la proposición extiende
+a elementos autoadjuntos sin una matriz asociada.
+\end{cthejemplo}
+
+\begin{cthnota}{(Dónde intervienen las hipótesis)}
+La igualdad $a=a^*$ permite aplicar la Tarea 1.9 en su caso involutivo y después
+la proposición sobre funcionales reales. La unidad interviene en la descripción
+del espectro mediante caracteres normalizados.
+\end{cthnota}
+
+
+\begin{cthdefinicion}{(Elemento positivo y orden)}
+Sea $\A$ una $C^*$-álgebra unital. Un elemento $x\in\A$ es \emph{positivo}, y escribimos
+$x\ge0$, si $x=x^*$ y $\spec_\A(x)\subset[0,\infty)$. Para $x,y\in\A$ autoadjuntos,
+$x\le y$ significa que $y-x\ge0$.
+\end{cthdefinicion}
+
+\begin{puente}
+Éste es uno de los cruces más claros entre las tareas y la Sección 2: la demostración original de la
+realidad del espectro usa explícitamente el ejercicio de la Tarea 1 que construye una subálgebra
+conmutativa que contiene al elemento y preserva su espectro. El ejercicio no es accesorio: es una
+pieza de la prueba.
+\end{puente}
+
+\section{Caracteres, permanencia espectral y representación}
+
+\begin{cthcorolario}{(Funcionales de norma en la unidad preservan la involución)}
+Sea $\A$ una $C^*$-álgebra unital y $\varphi:\A\to\mathbb C$ un funcional lineal
+continuo con $\|\varphi\|=\varphi(1_\A)$. Entonces, para todo $a\in\A$,
+\[
+ \varphi(a^*)=\overline{\varphi(a)}.
+\]
+En particular, esto vale para los caracteres de $\A$.
+\end{cthcorolario}
+\origen{Corolario 2.14}
+
+\begin{proof}[Demostración]
+Sea $a\in\A$ y escribamos $a=x+iy$, donde
+$x=(a+a^*)/2$ y $y=(a-a^*)/(2i)$ son autoadjuntos. Por la proposición
+anterior, $\varphi(x),\varphi(y)\in\mathbb R$, y
+\[
+ \varphi(a^*)=\varphi(x-iy)=\varphi(x)-i\varphi(y)
+ =\overline{\varphi(x)+i\varphi(y)}=\overline{\varphi(a)}.
+\]
+Si $\varphi$ es un carácter, entonces es un funcional continuo con
+$\varphi(1_\A)=\|\varphi\|=1$, de modo que cumple la hipótesis usada.
+\end{proof}
+
+\proofdiagram
+{$\varphi:\A\to\mathbb C$ continuo; $\|\varphi\|=\varphi(1_\A)$; $a=x+iy$ con $x,y$ autoadjuntos}
+{Proposición 2.12: $\varphi(x),\varphi(y)\in\mathbb R$}
+{$\varphi(a^*)=\varphi(x)-i\varphi(y)$}
+{$\varphi(a^*)=\overline{\varphi(a)}$}
+
+\begin{cthejemplo}{(Una evaluación preserva la conjugación)}[unbreakable]
+En $C([0,1])$ elijamos $f(t)=1+it$ y $x\in[0,1]$.
+La involución es conjugación puntual, por lo que
+$f^*(t)=1-it$. Para el carácter $\operatorname{ev}_x$,
+\[
+ \operatorname{ev}_x(f^*)=1-ix
+ =\overline{1+ix}
+ =\overline{\operatorname{ev}_x(f)}.
+\]
+Esta igualdad ilustra el Corolario~2.14 en un carácter concreto; el corolario
+también la garantiza para funcionales de norma alcanzada en la unidad.
+\end{cthejemplo}
+
+\begin{cthcorolario}{(La transformada de Gelfand es un $*$-homomorfismo)}
+Si $\A$ es una $C^*$-álgebra conmutativa unital, entonces
+\[
+ \Gamma:\A\to C(\Omega(\A)),\qquad a\mapsto\widehat a,
+\]
+es un $*$-homomorfismo unital.
+\end{cthcorolario}
+\origen{Corolario 2.15}
+
+\begin{proof}[Demostración]
+Para $a,b\in\A$ y $\varphi\in\Omega(\A)$,
+$\widehat{a+b}(\varphi)=\widehat a(\varphi)+\widehat b(\varphi)$,
+$\widehat{ab}(\varphi)=\widehat a(\varphi)\widehat b(\varphi)$ y
+$\widehat{1_\A}(\varphi)=1$, por linealidad, multiplicatividad y unidad del
+carácter. También $\widehat{\lambda a}(\varphi)=\lambda\widehat a(\varphi)$
+para $\lambda\in\mathbb C$. Por tanto la transformada de Gelfand es un
+homomorfismo lineal, multiplicativo y unital. Cada
+$\varphi\in\Omega(\A)$ satisface $\|\varphi\|=\varphi(1_\A)=1$, así que el corolario
+anterior da, para $a\in\A$,
+\[
+ \widehat{a^*}(\varphi)=\varphi(a^*)
+ =\overline{\varphi(a)}=(\widehat a)^*(\varphi).
+\]
+Como la igualdad vale para todo $\varphi\in\Omega(\A)$, la transformada preserva $*$.
+\end{proof}
+
+\proofdiagram
+{Gelfand es homomorfismo unital}
+{Los caracteres preservan $*$}
+{$\widehat{a^*}(\varphi)=\varphi(a^*)=\overline{\varphi(a)}$}
+{$\widehat{a^*}=(\widehat a)^*$}
+
+\begin{cthejemplo}{(Conjugación bajo la transformada de Gelfand)}
+Tomemos $\A=C([0,1])$ y $f(t)=1+it$. Como los caracteres son las evaluaciones,
+$\widehat f(\operatorname{ev}_x)=1+ix$ para cada $x\in[0,1]$. Asimismo,
+\[
+ \widehat{f^*}(\operatorname{ev}_x)=1-ix
+ =\overline{\widehat f(\operatorname{ev}_x)}.
+\]
+El Corolario~2.15 expresa esta identidad simultáneamente para todos los
+elementos y caracteres: la transformada de Gelfand respeta la involución.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Invertibilidad detectada por $a^*a$ y $aa^*$)}
+Para $a$ en una $C^*$-álgebra unital $\A$,
+\[
+ a\in\GL(\A)
+ \quad\Longleftrightarrow\quad
+ a^*a\in\GL(\A)\text{ y }aa^*\in\GL(\A).
+\]
+\end{cthproposicion}
+\origen{Proposición 2.16}
+
+\begin{proof}[Demostración]
+Si $a\in\GL(\A)$, la identidad
+$(a^{-1})^*a^*=a^*(a^{-1})^*=1_\A$ muestra que $a^*$ es invertible.
+Por tanto, sus productos $a^*a$ y
+$aa^*$ son invertibles. Para la recíproca, tomamos
+$y=(a^*a)^{-1}$ y $z=(aa^*)^{-1}$, de modo que
+$y(a^*a)=1_\A$ y $(aa^*)z=1_\A$. Entonces $ya^*$ es inverso izquierdo de $a$ y $a^*z$ es inverso
+derecho. Además,
+\[
+ ya^*=ya^*(aa^*z)=(ya^*a)a^*z=a^*z.
+\]
+Por tanto existe un inverso bilateral.
+\end{proof}
+
+\proofdiagrambranch
+{$a\in\A$; $a^*a\in\GL(\A)$}
+{$aa^*\in\GL(\A)$}
+{$y=(a^*a)^{-1}$ y $z=(aa^*)^{-1}$}
+{$ya^*$ y $a^*z$ coinciden por asociatividad}
+{$a\in\GL(\A)$}
+
+\begin{cthejemplo}{(Inversos de una matriz detectados por sus productos)}
+En $M_2(\mathbb C)$, sea
+$A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$. Tenemos
+\[
+ A^*A=\begin{pmatrix}1&1\\1&2\end{pmatrix},
+ \qquad
+ AA^*=\begin{pmatrix}2&1\\1&1\end{pmatrix},
+\]
+y ambos determinantes son $1$. Por la Proposición~2.16, $A$ es invertible;
+directamente, $A^{-1}=\begin{pmatrix}1&-1\\0&1\end{pmatrix}$.
+La comprobación en matrices cuadradas muestra cómo los dos productos
+proporcionan inversos izquierdo y derecho en el argumento abstracto.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Permanencia espectral en $C^*$-subálgebras)}
+Sea $\A$ una $C^*$-álgebra unital y $\B\subset\A$ una $C^*$-subálgebra unital
+con $1_\B=1_\A$. Para todo $b\in\B$,
+\[
+ b\in\GL(\B)\Longleftrightarrow b\in\GL(\A),
+ \qquad
+ \spec_\B(b)=\spec_\A(b).
+\]
+\end{cthproposicion}
+\origen{Proposición 2.17}
+
+\begin{proof}[Demostración]
+Si $b\in\GL(\B)$, su inverso $b^{-1}\in\B\subset\A$ satisface
+$bb^{-1}=b^{-1}b=1_\B=1_\A$; así $b\in\GL(\A)$.
+Para la otra dirección, sea primero $h\in\B$ autoadjunto e invertible en $\A$.
+Como $\spec_\B(h)\subset\mathbb R$, para cada $n\ge1$ el elemento
+$h+i n^{-1}1_\B$ es invertible en $\B$. Estos elementos convergen a $h$;
+la inversión es continua en $\GL(\A)$, por lo que sus inversos convergen en $\A$
+a $h^{-1}$. Como $\B$ es cerrada, $h^{-1}\in\B$.
+Para $b\in\B\cap\GL(\A)$ general, aplicamos este argumento a $b^*b$ y $bb^*$,
+invertibles en $\A$ cuando $b$ lo es, y obtenemos que ambos son invertibles en $\B$.
+La proposición anterior concluye que $b$ es invertible en $\B$.
+Finalmente, para cada $\lambda\in\mathbb C$ aplicamos la equivalencia de
+invertibilidad a $b-\lambda1_\B=b-\lambda1_\A$; resulta
+$\lambda\notin\spec_\B(b)$ si y sólo si
+$\lambda\notin\spec_\A(b)$, es decir,
+$\spec_\B(b)=\spec_\A(b)$.
+\end{proof}
+
+\proofdiagrambranch
+{$b\in\B\cap\GL(\A)$}
+{$h=b^*b$ o $bb^*$: autoadjunto e invertible en $\A$}
+{$\spec_\B(h)\subset\mathbb R$; $h+i n^{-1}1_\B\in\GL(\B)$}
+{Inversión continua en $\A$ y clausura de $\B$: $h^{-1}\in\B$}
+{$b^*b,bb^*\in\GL(\B)$; luego $b\in\GL(\B)$}
+
+\begin{cthejemplo}{(Contraejemplo: el álgebra del disco no preserva espectros)}
+La Tarea~1.12 compara el álgebra del disco $A(\mathbb D)$ con $C(\mathbb T)$.
+Tomemos la función coordenada $u(z)=z$ sobre $\mathbb T$. Como
+$|u(z)|=1$ en la circunferencia, $u$ es invertible en $C(\mathbb T)$,
+con inversa $\overline u$. Sin embargo, $\overline u$ no pertenece a
+$A(\mathbb D)$: una inversa holomorfa de $z$ en el disco tendría un polo
+en $0$. Por ello $0\in\spec_{A(\mathbb D)}(u)$ mientras
+$0\notin\spec_{C(\mathbb T)}(u)$.
+Esta subálgebra cerrada no es estable por la involución puntual y no cumple
+la hipótesis $C^*$ de la Proposición~2.17.
+\end{cthejemplo}
+
+\begin{cthnota}{(Dónde intervienen las hipótesis)}
+La estabilidad de $\B$ por involución permite usar $b^*b$ y $bb^*$ dentro de ella;
+la unidad común permite comparar la invertibilidad, y que $\B$ sea cerrada
+permite retener el límite de los inversos.
+\end{cthnota}
+
+
+\begin{cthproposicion}{(El espectro de un normal es el espacio de caracteres generado por él)}
+Sea $\A$ una $C^*$-álgebra unital y $a\in\A$ normal. Denotemos por
+$C^*(a,1_\A)$ la menor
+$C^*$-subálgebra unital de $\A$ que contiene a $a$. Entonces
+\[
+ \Omega(C^*(a,1_\A))\longrightarrow\spec_\A(a),\qquad
+ \varphi\longmapsto\varphi(a),
+\]
+es un homeomorfismo.
+\end{cthproposicion}
+\origen{Proposición 2.18}
+
+\begin{proof}[Demostración]
+La $C^*$-álgebra $C^*(a,1_\A)$ es conmutativa porque $a$ conmuta con $a^*$.
+Por permanencia espectral,
+el espectro de $a$ dentro de esta subálgebra es el mismo que en $\A$.
+En una álgebra de Banach conmutativa unital, todo punto del espectro de $a$
+es $\varphi(a)$ para algún carácter $\varphi$; de aquí se obtiene la
+sobreyectividad. La aplicación es continua porque la topología de
+$\Omega(C^*(a,1_\A))$ es la de convergencia puntual en los elementos del
+álgebra. Si $\varphi,\psi\in\Omega(C^*(a,1_\A))$ y
+$\varphi(a)=\psi(a)$, entonces también
+$\varphi(a^*)=\overline{\varphi(a)}=\overline{\psi(a)}=\psi(a^*)$. Como los polinomios en
+$a$ y $a^*$ son densos en $C^*(a,1_\A)$, la linealidad y multiplicatividad dan
+igualdad en esos polinomios, y la continuidad de los caracteres extiende la
+igualdad a toda la subálgebra. Así $\varphi=\psi$. El espacio maximal y el
+espectro son compactos Hausdorff; una biyección continua entre ellos tiene
+inversa continua y es un homeomorfismo.
+\end{proof}
+
+\proofdiagram
+{$a$ normal}
+{$C^*(a,1_\A)$ es conmutativa; permanencia espectral; caracteres}
+{Sobreyectiva por espectro; inyectiva porque $a,a^*$ generan densamente}
+{Biyectiva continua entre compactos Hausdorff: homeomorfismo}
+
+\begin{cthejemplo}{(Interpolación en el espectro de una matriz diagonal)}
+Sean $\lambda_1,\ldots,\lambda_n$ valores distintos y
+$A=\operatorname{diag}(\lambda_1,\ldots,\lambda_n)$.
+La Proposición~2.18 identifica los caracteres de $C^*(A,I_n)$ con esos
+valores propios. En concreto, para números arbitrarios $c_1,\ldots,c_n$,
+la interpolación de Lagrange produce un polinomio $p$ tal que
+$p(\lambda_j)=c_j$; entonces
+\[
+ p(A)=\operatorname{diag}(c_1,\ldots,c_n).
+\]
+Así $C^*(A,I_n)$ es toda el álgebra diagonal y se identifica con
+$C(\{\lambda_1,\ldots,\lambda_n\})$. Cada carácter selecciona una coordenada.
+\end{cthejemplo}
+
+\begin{cthteorema}{(Stone--Weierstrass complejo)}
+Sea $X$ compacto Hausdorff y $\mathcal D\subset C(X)$ una $*$-subálgebra unital que separa puntos.
+Entonces $\mathcal D$ es densa en $C(X)$ para la norma uniforme.
+\end{cthteorema}
+\origen{Teorema 2.19. Se usa como herramienta externa; no se reproduce aquí su demostración completa.}
+
+\begin{cthejemplo}{(Polinomios de coordenada y conjugada en un compacto)}
+Sea $K\subset\mathbb C$ compacto. Queremos aproximar funciones de $C(K)$
+mediante expresiones algebraicas de la coordenada $z$. La subálgebra unital
+de polinomios en $z$ y $\overline z$ separa puntos porque la función
+$z\mapsto z$ ya los distingue; además es estable por conjugación.
+El Teorema~2.19 de Stone--Weierstrass afirma entonces que es densa en
+$C(K)$ para la norma uniforme.
+Sobre $K=\mathbb T$ esto incluye los polinomios trigonométricos, pues
+$\overline z=z^{-1}$. La Tarea~2.8 utiliza precisamente esta densidad
+para el cálculo funcional.
+\end{cthejemplo}
+
+\begin{cthteorema}{(Gelfand--Naimark conmutativo)}
+Sea $\A$ una $C^*$-álgebra conmutativa unital. La transformada de Gelfand
+\[
+ \Gamma:\A\longrightarrow C(\Omega(\A))
+\]
+es un $*$-isomorfismo isométrico.
+\end{cthteorema}
+\origen{Teorema 2.20}
+
+\begin{proof}[Demostración]
+Para cada $a\in\A$, la conmutatividad hace normal a $a$. La descripción del
+espectro por caracteres, junto con el teorema de la norma de un normal, da
+\[
+ \|\widehat a\|_\infty=r(a)=\|a\|.
+\]
+Así $\Gamma$ es isométrica e inyectiva. Además su imagen es cerrada: una
+sucesión convergente de imágenes proviene, por la isometría, de una sucesión
+de Cauchy en $\A$, que converge por completitud. La imagen es una
+$*$-subálgebra unital de $C(\Omega(\A))$ y separa puntos: si $\varphi\neq\psi$, existe $a$ con
+$\varphi(a)\neq\psi(a)$. Stone--Weierstrass dice que la imagen es densa. Cerrada y densa implica
+que es todo $C(\Omega(\A))$.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ conmutativa $C^*$ unital; $a\in\A$}
+{Gelfand es $*$-homomorfismo; $\|a\|=r(a)$; Stone--Weierstrass}
+{Isometría: $\|\widehat a\|_\infty=r(a)=\|a\|$}
+{La imagen es cerrada, unital, $*$-estable y separa puntos; luego es densa}
+{$\Gamma$ es sobreyectiva e isométrica}
+
+\begin{cthejemplo}{(Matrices diagonales como funciones en dos puntos)}
+Sea $\A=\{\operatorname{diag}(\alpha,\beta):\alpha,\beta\in\mathbb C\}$.
+Sus dos caracteres son las evaluaciones de las entradas
+$\varphi_1(\operatorname{diag}(\alpha,\beta))=\alpha$ y
+$\varphi_2(\operatorname{diag}(\alpha,\beta))=\beta$.
+La transformada de Gelfand del Teorema~2.20 envía
+$\operatorname{diag}(\alpha,\beta)$ a la función
+$f:\{\varphi_1,\varphi_2\}\to\mathbb C$ con valores $\alpha,\beta$.
+La igualdad $\|\operatorname{diag}(\alpha,\beta)\|=\max\{|\alpha|,|\beta|\}
+=\|f\|_\infty$ permite ver la isometría del teorema en este modelo finito.
+\end{cthejemplo}
+
+\begin{cthcorolario}{(Clasificación de $C^*$-álgebras conmutativas unitales)}
+Sea $\A$ una $C^*$-álgebra conmutativa unital. Existe un compacto Hausdorff $X$ tal que
+$\A$ es isométricamente $*$-isomorfa a $C(X)$; ese espacio $X$ es único salvo homeomorfismo.
+\end{cthcorolario}
+\origen{Corolario 2.21}
+
+\begin{proof}[Demostración]
+La existencia se obtiene con $X=\Omega(\A)$ por Gelfand--Naimark.
+Para la unicidad, sea $Y$ compacto Hausdorff y $\varphi\in\Omega(C(Y))$.
+Si las funciones de $\ker\varphi$ no tuvieran un cero común, por compacidad
+los abiertos $\{y\in Y:f(y)\neq0\}$, con $f\in\ker\varphi$, tendrían una
+subcubierta finita. Existirían entonces $f_1,\ldots,f_m\in\ker\varphi$
+sin cero común. El corolario sobre la
+involución implica que $f_j^*\in\ker\varphi$; por tanto
+$g=\sum_{j=1}^m f_j^*f_j\in\ker\varphi$. Pero $g(y)>0$ para todo $y\in Y$,
+de modo que $g$ es invertible en $C(Y)$ con inversa $1/g$. Esto contradice
+$1=\varphi(1)=\varphi(g)\varphi(g^{-1})=0$.
+Existe, pues, $y_0\in Y$ en el que se anula todo $f\in\ker\varphi$.
+Para $h\in C(Y)$, la función $h-\varphi(h)1$ pertenece al núcleo, y entonces
+$h(y_0)=\varphi(h)$. Así $\varphi=\operatorname{ev}_{y_0}$.
+La aplicación $y\mapsto\operatorname{ev}_y$ es continua porque, para cada
+$h\in C(Y)$, su coordenada $y\mapsto\operatorname{ev}_y(h)=h(y)$ lo es.
+Es inyectiva porque $C(Y)$ separa puntos y sobreyectiva por lo anterior.
+Como $Y$ es compacto y $\Omega(C(Y))$ es Hausdorff, es un homeomorfismo.
+Si $F:\A\to C(Y)$ es un $*$-isomorfismo, la composición
+$\chi\mapsto\chi\circ F$ es un homeomorfismo de $\Omega(C(Y))$ a
+$\Omega(\A)$, con inversa inducida por $F^{-1}$. Por tanto
+$Y\cong\Omega(\A)=X$. La Tarea 2.5 desarrolla por separado esta identificación.
+\end{proof}
+
+\proofdiagram
+{$\A$ conmutativa $C^*$ unital; Gelfand--Naimark}
+{$X=\Omega(\A)$}
+{$\A\cong C(\Omega(\A))$; los caracteres de $C(X)$ son evaluaciones}
+{La representación existe y $X$ es único salvo homeomorfismo}
+
+\begin{cthejemplo}{(Reconstruir el intervalo a partir de su álgebra)}
+Consideremos $\A=C([0,1])$. La prueba del Corolario~2.21 muestra que cada
+carácter de $\A$ es una evaluación $\operatorname{ev}_x$ en un único
+$x\in[0,1]$. Así, la aplicación
+$x\mapsto\operatorname{ev}_x$ identifica topológicamente
+$[0,1]$ con $\Omega(\A)$.
+Si además $\A$ fuese $*$-isomorfa a $C(Y)$ para un compacto Hausdorff $Y$,
+el mismo corolario daría $Y\cong\Omega(\A)\cong[0,1]$.
+El álgebra de funciones recupera, por tanto, el espacio del que proviene.
+\end{cthejemplo}
+
+\begin{investigacion}[unbreakable]
+\textbf{Uso de construcción.} En \cite[Sec.~2, pp.~465--466]{Karlovich2017},
+$\SO(\mathbb R_+)$ es una $C^*$-subálgebra conmutativa unital de
+$L^\infty(\mathbb R_+)$: sus funciones son continuas y acotadas, y su oscilación
+en $[r,2r]$ tiende a cero cuando $r\to0$ o $r\to\infty$.
+Identificando $C(\overline{\mathbb R}_+)$ con sus
+restricciones a $\mathbb R_+=(0,\infty)$, donde
+$\overline{\mathbb R}_+=[0,\infty]$ es la compactificación, las fibras sobre
+$s\in\{0,\infty\}$ son
+\[
+ M_s(\SO(\mathbb R_+))=
+ \{\xi\in\Omega(\SO(\mathbb R_+)):
+ \xi|_{C(\overline{\mathbb R}_+)}=\operatorname{ev}_s\}.
+\]
+La Proposición~2.2 de esa fuente relaciona la evaluación de un carácter en una fibra
+con límites parciales de funciones lentamente oscilantes.
+\textbf{Lo que conviene reconocer:} los caracteres y el espacio maximal estudiados
+en el curso sirven aquí para codificar información en los extremos.
+\end{investigacion}
+
+\section{Cálculo funcional continuo}
+
+\begin{cthteorema}{(Cálculo funcional continuo para un elemento normal)}
+Sea $\A$ una $C^*$-álgebra unital y $a\in\A$ normal. Existe un único
+$*$-homomorfismo isométrico
+\[
+ C(\spec_\A(a))\longrightarrow\A,
+ \qquad f\longmapsto f(a),
+\]
+que envía la función identidad $z\mapsto z$ a $a$ y la función constante $1$ a $1_\A$.
+Su imagen es $C^*(a,1_\A)$.
+\end{cthteorema}
+\origen{Teorema 2.22}
+
+\begin{proof}[Demostración]
+Sea $\B=C^*(a,1_\A)$. Por Gelfand--Naimark,
+$\Gamma_\B:\B\to C(\Omega(\B))$ es un $*$-isomorfismo isométrico. La proposición anterior da el
+homeomorfismo
+$\Psi:\Omega(\B)\to\spec(a)$, $\Psi(\varphi)=\varphi(a)$. La composición
+\[
+ C(\spec(a))\xrightarrow{f\mapsto f\circ\Psi} C(\Omega(\B))
+ \xrightarrow{\Gamma_\B^{-1}}\B\subset\A
+\]
+es un $*$-isomorfismo isométrico de $C(\spec(a))$ sobre $\B$.
+Para la función identidad $\mathrm{id}(z)=z$, se tiene
+$(\mathrm{id}\circ\Psi)(\varphi)=\varphi(a)=\widehat a(\varphi)$; por
+tanto su imagen es $a$. La constante $1$ corresponde a
+$\widehat{1_\A}$, así que su imagen es $1_\A$.
+Si $F:C(\spec(a))\to\A$ es otro $*$-homomorfismo isométrico con esas
+propiedades, entonces $F(\overline{\mathrm{id}})=a^*$ y coincide con la
+construcción anterior en todos los polinomios en $z$ y $\overline z$.
+Stone--Weierstrass hace densa esa $*$-subálgebra unital en
+$C(\spec(a))$; la continuidad de ambos mapas extiende la igualdad a toda
+función. Así se obtienen la unicidad y la imagen indicadas.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ es $C^*$ unital; $a\in\A$ normal}
+{$C^*(a,1_\A)$ conmutativa + Gelfand--Naimark}
+{Identificar $\Omega(C^*(a,1_\A))$ con $\spec_\A(a)$}
+{Transportar funciones por el homeomorfismo y por la transformada de Gelfand}
+{Definir de forma única $f(a)$}
+
+\begin{cthejemplo}{(Raíz espectral de una matriz diagonal)}
+Tomemos la matriz normal positiva
+$A=\operatorname{diag}(1,4)$ y la función
+$f(t)=\sqrt t$ en $\spec(A)=\{1,4\}$. El Teorema~2.22 da
+\[
+ f(A)=\operatorname{diag}(f(1),f(4))
+     =\operatorname{diag}(1,2),
+ \qquad f(A)^2=A.
+\]
+En general, si
+$A=U\operatorname{diag}(\lambda_1,\ldots,\lambda_n)U^*$ es normal,
+$f(A)=U\operatorname{diag}(f(\lambda_1),\ldots,f(\lambda_n))U^*$.
+El ejemplo muestra que el cálculo funcional abstracto conserva la receta
+espectral familiar de matrices.
+\end{cthejemplo}
+
+\begin{cthnota}{(Dependencia con las tareas)}
+La normalidad hace conmutativa a $C^*(a,1_\A)$; la permanencia espectral identifica
+su espectro con el de $a$ en $\A$. La Tarea 2.4 combina este cálculo con el espectro
+de funciones continuas de la Tarea 1.10 para obtener
+$\spec(f(a))=f(\spec(a))$.
+\end{cthnota}
+
+
+\begin{cthdefinicion}{(Cálculo funcional por restricción desde un conjunto ambiente)}
+Sea $\A$ una $C^*$-álgebra unital, $a\in\A$ normal y $E\subset\mathbb C$
+localmente compacto con $\spec_\A(a)\subset E$. Para $f\in C_b(E)$ se define
+\[
+ f(a):=(f|_{\spec_\A(a)})(a).
+\]
+Así se obtiene un $*$-homomorfismo unital $C_b(E)\to\A$. La misma fórmula
+define $f(a)$ si $f:E\to\mathbb C$ es continua y no acotada, pues su restricción
+al compacto $\spec_\A(a)$ sí es acotada. Sólo importa dicha restricción.
+\end{cthdefinicion}
+\origen{Definición 2.23}
+
+\begin{cthobservacion}{(Polinomios en $a$ y $a^*$)}
+Sea $a$ normal en una $C^*$-álgebra unital $\A$. Si
+$f(z)=z^2-\overline z^{\,3}+1$ para $z\in\mathbb C$, entonces
+\[
+ f(a)=a^2-(a^*)^3+1_\A.
+\]
+Si $f(z)=|z|^2=\overline z z$, entonces $f(a)=a^*a$.
+\end{cthobservacion}
+\origen{Observación 2.24}
+
+\begin{cthobservacion}{(En $C(X)$, el cálculo funcional es composición)}
+Si $X$ es compacto Hausdorff, $g\in C(X)$ y $f\in C(g(X))$, entonces
+\[
+ f(g)=f\circ g.
+\]
+\end{cthobservacion}
+\origen{Observación 2.25}
+
+\begin{proof}[Demostración]
+Por la identificación $\Omega(C(X))\cong X$, la transformada de $g$ toma en
+$x\in X$ el valor $g(x)$, y $\spec(g)=g(X)$. La construcción del cálculo
+funcional transporta $f$ por esa transformada; en cada $x$ se obtiene
+$f(g)(x)=f(g(x))$. Dos funciones de $C(X)$ que coinciden en cada punto son
+iguales, de modo que $f(g)=f\circ g$.
+\end{proof}
+
+\begin{cthejemplo}{(La raíz de $t^2$ es $|t|$)}
+En $X=[-1,1]$ tomemos la función positiva $g(t)=t^2$.
+Como $\spec_{C(X)}(g)=g(X)=[0,1]$, la función continua
+$f(s)=\sqrt s$ puede aplicarse a $g$ mediante el Teorema~2.22.
+La Observación~2.25 identifica el resultado punto a punto:
+\[
+ \sqrt g(t)=f(g(t))=\sqrt{t^2}=|t|.
+\]
+La raíz positiva del elemento $g$ es $|t|$, no la función $t$,
+que cambia de signo.
+\end{cthejemplo}
+
+\begin{cthlema}{(Naturalidad del cálculo funcional)}
+Sean $\A,\B$ $C^*$-álgebras unitales, $\Phi:\A\to\B$ un $*$-homomorfismo unital,
+$a\in\A$ normal y $f\in C(\spec_\A(a))$. Como
+$\spec_\B(\Phi(a))\subset\spec_\A(a)$, se evalúa $f$ en $\Phi(a)$ por
+restricción a $\spec_\B(\Phi(a))$. Entonces
+\[
+ \Phi(f(a))=f(\Phi(a)).
+\]
+\end{cthlema}
+\origen{Lema 2.26}
+
+\begin{proof}[Demostración]
+El mapa $f\mapsto\Phi(f(a))$ es composición del cálculo funcional de $a$
+con $\Phi$; es un $*$-homomorfismo unital y contractivo por el teorema de
+contractividad anterior.
+El mapa $f\mapsto f(\Phi(a))$ es la restricción
+$C(\spec_\A(a))\to C(\spec_\B(\Phi(a)))$ seguida del cálculo funcional de
+$\Phi(a)$, que es normal porque $\Phi$ preserva producto e involución.
+También es un $*$-homomorfismo unital y contractivo. Ambos envían la función
+identidad a $\Phi(a)$ y la constante $1$ a $1_\B$; al preservar la involución,
+también envían $\overline z$ a $\Phi(a)^*$. Por linealidad y multiplicatividad
+coinciden en los polinomios en $z$ y $\overline z$. Estos son densos por
+Stone--Weierstrass, y la contractividad permite pasar al límite para todo
+$f\in C(\spec_\A(a))$.
+\end{proof}
+
+\proofdiagram
+{$\Phi:\A\to\B$ unital y $*$; $a\in\A$ normal}
+{Inclusión espectral; cálculo funcional; contractividad}
+{Los mapas $f\mapsto\Phi(f(a))$ y $f\mapsto f(\Phi(a))$ coinciden sobre la identidad y constantes}
+{Por unicidad/densidad, coinciden en todo $C(\spec(a))$}
+
+\begin{cthejemplo}{(Una raíz transportada a operadores de multiplicación)}
+Sea $\A=C([0,1])$ y represéntese en $H=L^2([0,1])$ mediante
+$\pi(f)=M_f$, el operador de multiplicación por $f$.
+Para $a(t)=t^2$, la raíz positiva en $\A$ es
+$\sqrt a(t)=t$. Por el Lema~2.26,
+\[
+ \pi(\sqrt a)=M_t=\sqrt{M_{t^2}}=\sqrt{\pi(a)}.
+\]
+En efecto, $M_t$ es positivo y $M_t^2=M_{t^2}$.
+Se obtiene el mismo operador al calcular primero la raíz en funciones
+o al calcularla después de representar el álgebra.
+\end{cthejemplo}
+
+\begin{cthteorema}{(Un $*$-monomorfismo unital es isométrico)}
+Sean $\A,\B$ $C^*$-álgebras unitales. Si $\Phi:\A\to\B$ es un $*$-homomorfismo unital
+e inyectivo, entonces
+\[
+ \|\Phi(a)\|=\|a\|\qquad(a\in\A).
+\]
+\end{cthteorema}
+\origen{Teorema 2.27}
+
+\begin{proof}[Demostración]
+Ya sabemos que $\|\Phi(a)\|\le\|a\|$. Supongamos desigualdad estricta para algún $a\neq0$ y
+pongamos $x=a^*a$. Entonces $x$ es autoadjunto,
+$\|\Phi(x)\|=\|\Phi(a)\|^2<\|a\|^2=\|x\|$.
+Como $x$ es autoadjunto y $\|x\|=r(x)$, alguno de los puntos $\pm\|x\|$ pertenece a
+$\spec(x)\subset[-\|x\|,\|x\|]$.
+Además, $\spec(\Phi(x))\subset[-\|\Phi(x)\|,\|\Phi(x)\|]$.
+Escribimos $c=\|\Phi(x)\|$ y $d=\|x\|$, con $0\le c<d$, y definimos
+\[
+ f(t)=\max\!\left\{0,\min\!\left\{1,\frac{|t|-c}{d-c}\right\}\right\}
+ \qquad(t\in\mathbb R).
+\]
+Esta función es continua, se anula en $[-c,c]$ y vale $1$ en ambos puntos
+$\pm d$. Entonces
+$f(\Phi(x))=0$, mientras $f(x)\neq0$ porque el cálculo funcional es isométrico
+y $f$ no se anula en $\spec(x)$. Por naturalidad,
+$0=f(\Phi(x))=\Phi(f(x))$, contradiciendo la inyectividad.
+\end{proof}
+
+\proofdiagrambranch
+{$\Phi:\A\to\B$ unital, $*$ e inyectivo}
+{$a\in\A$; $x=a^*a$ es autoadjunto}
+{Si $\|\Phi(x)\|<\|x\|$, separar los dos espectros con una función continua}
+{Naturalidad: $0=f(\Phi(x))=\Phi(f(x))$; inyectividad contradice $f(x)\neq0$}
+{$\|\Phi(a)\|=\|a\|$}
+
+\begin{cthejemplo}{(La representación diagonal de $C(\{1,2\})$)}
+Sea $X=\{1,2\}$ y $H=\ell^2(X)\cong\mathbb C^2$.
+La representación unital $\pi:C(X)\to\mathcal B(H)$ asigna a
+$f$ la matriz $M_f=\operatorname{diag}(f(1),f(2))$.
+Es fiel, pues $M_f=0$ implica $f(1)=f(2)=0$, y
+\[
+ \|\pi(f)\|=\max\{|f(1)|,|f(2)|\}=\|f\|_\infty.
+\]
+Este cálculo concreto coincide con la conclusión general del
+Teorema~2.27: una representación fiel preserva la norma.
+\end{cthejemplo}
+
+\section{Reconocer autoadjuntos, unitarios, proyecciones y positivos por el espectro}
+
+\begin{cthproposicion}{(Clasificación espectral de elementos normales)}
+Sea $\A$ una $C^*$-álgebra unital y $a\in\A$ normal. Entonces
+\begin{enumerate}[label=(\roman*)]
+\item $a=a^*$ si y sólo si $\spec(a)\subset\mathbb R$;
+\item $a$ es unitario si y sólo si $\spec(a)\subset\mathbb T$;
+\item $a$ es una proyección si y sólo si $\spec(a)\subset\{0,1\}$.
+\end{enumerate}
+\end{cthproposicion}
+\origen{Proposición 2.28; corresponde directamente a la Tarea 2.6}
+
+\begin{proof}[Demostración]
+Si $a=a^*$, ya sabemos $\spec(a)\subset\mathbb R$. Recíprocamente, si el espectro es real,
+las funciones $z$ y $\overline z$ coinciden en $\spec(a)$, de modo que por cálculo funcional
+$a=a^*$.
+
+Si $a$ es unitario, la identidad $a^*a=1_\A$ se traduce, por el cálculo funcional
+isométrico, en $|z|^2=1$ sobre $\spec(a)$; así $\spec(a)\subset\mathbb T$.
+Recíprocamente, si
+$\spec(a)\subset\mathbb T$, entonces $|z|^2=1$ sobre el espectro y
+$a^*a=(\overline z z)(a)=1_\A$; por normalidad también $aa^*=1_\A$.
+
+Si $a$ es proyección, $a^2-a=0$. La isometría del cálculo funcional aplicada
+a $z\mapsto z^2-z$ da $z^2-z=0$ en todo $\spec(a)$; por tanto
+$\spec(a)\subset\{0,1\}$. Recíprocamente, si el espectro
+está contenido en $\{0,1\}$, entonces $z^2-z=0$ y $\overline z-z=0$ sobre el espectro; por cálculo
+funcional $a^2=a$ y $a^*=a$.
+\end{proof}
+
+\proofdiagrambranch
+{$\A$ es $C^*$ unital; $a\in\A$ normal}
+{Cálculo funcional continuo}
+{Traducir $a^*=a$, $a^*a=1$, $a^2=a$ a identidades de funciones sobre $\spec(a)$}
+{$\overline z=z$, $|z|^2=1$, $z^2=z$ en el espectro}
+{Las inclusiones espectrales caracterizan las tres clases}
+
+\begin{cthejemplo}{(Contraejemplos: espectro pequeño sin normalidad)}
+En $M_2(\mathbb C)$, tomemos
+$N=\begin{pmatrix}0&1\\0&0\end{pmatrix}$ y
+$J=\begin{pmatrix}1&1\\0&1\end{pmatrix}$.
+Ambas son triangulares, de modo que
+$\spec(N)=\{0\}\subset\mathbb R\cap\{0,1\}$ y
+$\spec(J)=\{1\}\subset\mathbb T$.
+Sin embargo, $N^*\neq N$ y $N^2=0\neq N$;
+además, $J^*J=\begin{pmatrix}1&1\\1&2\end{pmatrix}\neq I$.
+La Tarea~2.6(d) desarrolla estos casos. Muestran que las conclusiones
+inversas de la Proposición~2.28 necesitan la normalidad.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Cuatro unitarios generan linealmente cada elemento)}
+Sea $\A$ una $C^*$-álgebra unital. Cada $a\in\A$ es combinación lineal de a lo más cuatro elementos
+unitarios.
+\end{cthproposicion}
+\origen{Proposición 2.29}
+
+\begin{proof}[Demostración]
+Escribimos $a=x_1+ix_2$ con $x_j$ autoadjuntos. Sean
+$r_j=\max\{1,\|x_j\|\}$ y $h_j=x_j/r_j$, de modo que $\|h_j\|\le1$.
+Como $h_j=h_j^*$, su espectro está en $[-1,1]$. La función continua
+$f(t)=t+i\sqrt{1-t^2}$ satisface
+$|f(t)|^2=t^2+(1-t^2)=1$ y $f(t)+\overline{f(t)}=2t$ en ese intervalo.
+Por cálculo funcional, $u_j=f(h_j)$ cumple
+$u_j^*u_j=u_ju_j^*=(|f|^2)(h_j)=1_\A$ y es unitario. Además,
+$u_j+u_j^*=(f+\overline f)(h_j)=2h_j$. Por tanto
+\[
+ a=\frac{r_1}{2}(u_1+u_1^*)+\frac{i r_2}{2}(u_2+u_2^*),
+\]
+la combinación anunciada.
+\end{proof}
+
+\proofdiagram
+{$\A$ es $C^*$ unital; $a=x_1+ix_2$ con $x_j=x_j^*$}
+{Escalar $h_j=x_j/r_j$ con $r_j=\max\{1,\|x_j\|\}$}
+{$u_j=f(h_j)$, $f(t)=t+i\sqrt{1-t^2}$; $x_j=r_j(u_j+u_j^*)/2$}
+{$a$ es combinación de $u_1,u_1^*,u_2,u_2^*$}
+
+\begin{cthejemplo}{(Un autoadjunto como media de dos unitarios)}
+En $M_2(\mathbb C)$ consideremos
+$H=\operatorname{diag}(1/2,-1/2)$.
+Es autoadjunto y $\|H\|\le1$. La construcción de la
+Proposición~2.29 produce
+\[
+ U=H+i\sqrt{I-H^2}
+ =\operatorname{diag}\!\left(
+ \frac12+i\frac{\sqrt3}{2},
+ -\frac12+i\frac{\sqrt3}{2}\right).
+\]
+Cada entrada diagonal tiene módulo uno, así que $U$ es unitario, y
+$H=(U+U^*)/2$. Este caso exhibe el paso que permite escribir
+cualquier elemento como combinación de hasta cuatro unitarios.
+\end{cthejemplo}
+
+\begin{cthproposicion}{(Raíz cuadrada positiva)}
+Sea $\A$ una $C^*$-álgebra unital y $a\in\A$ normal con
+$\spec_\A(a)\subset[0,\infty)$. Entonces
+existe un elemento autoadjunto positivo
+$y\in C^*(a,1_\A)$ tal que
+\[
+ y^2=a.
+\]
+La raíz obtenida por cálculo funcional se denota $y=\sqrt a$.
+\end{cthproposicion}
+\origen{Proposición 2.30}
+
+\begin{proof}[Demostración]
+La función $t\mapsto\sqrt t$ es continua y real en $\spec(a)$. Definimos
+$y=\sqrt{\,\cdot\,}(a)$. Entonces $y^*=y$ y $y^2=(t\mapsto t)(a)=a$.
+La identificación
+$C^*(a,1_\A)\cong C(\spec_\A(a))$ muestra que la transformada de $y$ es
+$t\mapsto\sqrt t\ge0$; por la descripción del espectro en un álgebra de funciones
+y la permanencia espectral, $\spec_\A(y)\subset[0,\infty)$.
+\end{proof}
+
+\proofdiagram
+{$\A$ es $C^*$ unital; $a\in\A$ normal y $\spec_\A(a)\subset[0,\infty)$}
+{Cálculo funcional continuo}
+{Aplicar $f(t)=\sqrt t$}
+{$y=f(a)$ es autoadjunto, $\spec(y)\subset[0,\infty)$ y $y^2=a$}
+
+\begin{cthejemplo}{(Módulo de una matriz nilpotente)}
+Sea $A=\begin{pmatrix}0&2\\0&0\end{pmatrix}$ en $M_2(\mathbb C)$.
+Aunque $A^2=0$, el producto
+\[
+ A^*A=\operatorname{diag}(0,4)
+\]
+es positivo. La Proposición~2.30 permite tomar su raíz positiva, que aquí
+se calcula directamente:
+\[
+ |A|=(A^*A)^{1/2}=\operatorname{diag}(0,2).
+\]
+Este $|A|$ conserva la magnitud de la acción de $A$ y es el objeto usado
+en la Tarea~2.7 para la descomposición polar. En general, aplicar
+la proposición a $a^*a$ requiere el hecho estándar $a^*a\ge0$.
+\end{cthejemplo}
+
+\begin{investigacion}
+\textbf{Ejemplo directo.} En \cite[Sec.~1, p.~20]{BFK2006}, los operadores
+$(U_z\varphi)(t)=\varphi(zt)$, con $z,t\in\mathbb T$ y
+$\varphi\in L^2(\mathbb T)$, forman una representación unitaria del grupo
+$\mathbb T$ sobre $L^2(\mathbb T)$; las rotaciones preservan la medida de longitud.
+\textbf{Lo que conviene reconocer:} el unitario abstracto aquí implementa una
+simetría geométrica concreta y participa en la extensión no local del álgebra
+estudiada en esa fuente.
+\end{investigacion}
+
+\section*{Nota histórica}
+\origen{Nota histórica del capítulo base, pp.~8--10}
+
+\paragraph{Los axiomas originales.}
+El trabajo de Gelfand y Naimark de 1943 buscaba representar $C^*$-álgebras,
+también no conmutativas, mediante operadores acotados en espacios de Hilbert.
+Las notas base recuerdan que la definición original incluía, además de
+$\|a^*a\|=\|a\|^2$, la isometría de la involución y la invertibilidad de
+$1+a^*a$. Después se demostró que estas condiciones adicionales se deducen de
+la identidad $C^*$.
+
+\paragraph{$B^*$ y $C^*$.}
+Durante un tiempo, $B^*$ designó la estructura axiomática y $C^*$ las
+subálgebras cerradas por adjuntos de operadores acotados en Hilbert. El teorema
+general de representación de Gelfand--Naimark identifica ambas descripciones;
+el teorema conmutativo demostrado aquí es el paso del curso hacia esa idea.
+
+\paragraph{Rigidez y cálculo funcional.}
+El Teorema~2.6, el Corolario~2.7 y el Teorema~2.27 de las notas base muestran tres formas de
+rigidez de la norma. La permanencia espectral contrasta con el álgebra del disco
+de la Tarea~1.12, que es una subálgebra cerrada de $C(\mathbb T)$ pero no una
+$C^*$-subálgebra. El cálculo funcional transporta funciones continuas del
+espectro a elementos del álgebra sin elegir primero una representación en
+Hilbert; Stone--Weierstrass explica por qué las funciones de $a$ y $a^*$ bastan.
+
+\paragraph{Topología y positividad.}
+La clasificación conmutativa permite recuperar el compacto $X$ desde los
+caracteres de $C(X)$. Esta lectura motivó el lenguaje posterior de topología no
+conmutativa. La raíz cuadrada de la Proposición~2.30 de las notas base abre el estudio sistemático
+de elementos positivos y del orden, mientras la Proposición~2.29 de esas notas anticipa la
+relevancia de los unitarios para la geometría del álgebra.

@@ -1,0 +1,786 @@
+\chapter{Tarea 2 resuelta: consecuencias del cálculo funcional}
+
+\begin{context}
+Al terminar esta tarea, podrás verificar una representación concreta de $C_b(X)$, reconstruir
+caracterizaciones espectrales de elementos normales y distinguir la convergencia en norma de la
+convergencia fuerte de operadores. Las dependencias indicadas después de cada solución permiten
+comprobar qué hipótesis hacen válido cada paso.
+\end{context}
+
+\section{Problema 1: $C_b(X)$ como $C^*$-álgebra concreta}
+
+Sea $X$ localmente compacto y Hausdorff.
+
+
+Sea $H=\ell^2(X)$ y, para $f\in C_b(X)$, definamos
+\[
+ (M_f\xi)(x)=f(x)\xi(x).
+\]
+Para un conjunto de índices arbitrario, la suma en $\|\xi\|_2^2$ se entiende como
+\[
+ \|\xi\|_2^2=\sup_{F\subset X\text{ finito}}\sum_{x\in F}|\xi(x)|^2.
+\]
+La estimación inferior se hará cuando $X\ne\varnothing$.
+
+\noindent\textbf{Enunciado.} Prueba que $M:C_b(X)\to\mathcal B(\ell^2(X))$, $f\mapsto M_f$, es un $*$-homomorfismo isométrico.
+
+\begin{proof}[Solución]
+Si $X=\varnothing$, $C_b(X)$ contiene sólo la función vacía y $\ell^2(X)=\{0\}$; por tanto
+$\mathcal B(\ell^2(X))=\{0\}$ y la única aplicación $f\mapsto M_f$ preserva operaciones y
+normas. Supongamos en adelante $X\ne\varnothing$.
+
+Para $\xi\in\ell^2(X)$,
+\[
+\|M_f\xi\|_2^2
+=\sum_{x\in X}|f(x)|^2|\xi(x)|^2
+\le\|f\|_\infty^2\|\xi\|_2^2,
+\]
+de modo que $\|M_f\|\le\|f\|_\infty$. Para la desigualdad inversa, dado
+$\varepsilon>0$ elegimos $x_0$ con $|f(x_0)|>\|f\|_\infty-\varepsilon$ y tomamos el vector
+$e_{x_0}$ concentrado en $x_0$. Entonces
+$\|M_fe_{x_0}\|=|f(x_0)|$, de donde $\|M_f\|=\|f\|_\infty$.
+
+Además,
+\[
+M_{f+g}=M_f+M_g,
+\qquad M_{fg}=M_fM_g,
+\qquad M_1=I.
+\]
+Finalmente,
+\[
+\langle M_f\xi,\eta\rangle
+=\sum_x f(x)\xi(x)\overline{\eta(x)}
+=\langle \xi,M_{\bar f}\eta\rangle,
+\]
+así que $M_f^*=M_{\bar f}$. Por tanto $M$ es un $*$-homomorfismo isométrico.
+\end{proof}
+
+\proofdiagram
+{$f\in C_b(X)$}
+{Norma en $\ell^2(X)$; conjugación puntual}
+{$\|M_f\|=\|f\|_\infty$, $M_{fg}=M_fM_g$, $M_{\bar f}=M_f^*$}
+{$f\mapsto M_f$ es un $*$-homomorfismo isométrico}
+
+\begin{cthejemplo}{(Un operador diagonal en el espacio de sucesiones)}
+Para ver la representación de T2.1 sobre un espacio conocido, tomemos $X=\mathbb N$ y
+$f(n)=1/(n+1)$.
+En $H=\ell^2(\mathbb N)$ se tiene $M_fe_n=(n+1)^{-1}e_n$; además,
+\[
+ \|M_f\|=\sup_{n\ge1}\|M_fe_n\|=\frac12=\|f\|_\infty.
+\]
+La función acotada aparece como operador diagonal, y su norma no cambia bajo el
+$*$-homomorfismo de T2.1.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se usan la definición de $C_b(X)$ de la Parte 1, la norma de $\ell^2(X)$ y la caracterización del adjunto en Hilbert. Aquí $X$ sirve como conjunto de índices, sin usar su topología para definir $\ell^2(X)$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Exhibe un $*$-monomorfismo isométrico hacia $\mathcal B(H)$, modelo concreto de los homomorfismos y representaciones que estudia la Sección 2.
+
+\section{Problema 2: espectros de idempotentes, productos y unitarios}
+
+Sea $\A$ un álgebra de Banach unital. En la conclusión sobre unitarios del inciso (c), $\A$
+es además una $C^*$-álgebra.
+
+\subsection*{2(a) Espectro de un idempotente}
+
+\noindent\textbf{Enunciado.} Si $e\in\A$ y $e^2=e$, prueba $\spec(e)\subset\{0,1\}$.
+
+\begin{proof}[Solución]
+Si $\lambda\neq0,1$, pongamos
+\[
+ b=\frac1\lambda 1+\frac{1}{\lambda(\lambda-1)}e.
+\]
+Como $e(1-e)=(1-e)e=0$ y $e^2=e$, podemos escribir
+\[
+ \lambda1-e=\lambda(1-e)+(\lambda-1)e,
+ \qquad b=\lambda^{-1}(1-e)+(\lambda-1)^{-1}e.
+\]
+Al multiplicar, los términos cruzados se anulan y queda
+$(\lambda1-e)b=b(\lambda1-e)=(1-e)+e=1$. Así todo
+$\lambda\notin\{0,1\}$ está en el resolvente y
+$\spec(e)\subset\{0,1\}$.
+\end{proof}
+
+\pagebreak
+\proofdiagram
+{$e^2=e$}
+{Resolver algebraicamente $(\lambda1-e)^{-1}$}
+{Para $\lambda\notin\{0,1\}$ construir $\lambda^{-1}1+[\lambda(\lambda-1)]^{-1}e$}
+{$\spec(e)\subset\{0,1\}$}
+
+\begin{cthejemplo}{(Espectro de una proyección matricial)}
+En $M_2(\mathbb C)$ queremos identificar los dos puntos permitidos por T2.2(a).
+Para $P=\operatorname{diag}(1,0)$, se cumple $P^2=P$ y
+$\lambda I-P=\operatorname{diag}(\lambda-1,\lambda)$.
+Esta matriz es invertible exactamente cuando $\lambda\ne0,1$; por ello
+$\spec(P)=\{0,1\}$. Si $P$ se sustituye por $0$ o $I$, el mismo cálculo deja sólo
+$\{0\}$ o $\{1\}$, respectivamente.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La ecuación $e^2=e$ permite verificar un inverso explícito de $\lambda1-e$ para $\lambda\ne0,1$; se aplica la definición de espectro de la Parte 1.
+
+\noindent\textbf{Qué prepara este ejercicio.} Da la implicación directa de la caracterización espectral de proyecciones en T2.6(c) y en la Proposición 2.28.
+
+\subsection*{2(b) Radio espectral de un producto conmutativo}
+
+\noindent\textbf{Enunciado.} Si $x,y\in\A$ conmutan, prueba $r(xy)\le r(x)r(y)$.
+
+\begin{proof}[Solución]
+La conmutatividad permite escribir $(xy)^n=x^ny^n$. Entonces
+\[
+\|(xy)^n\|^{1/n}
+\le\|x^n\|^{1/n}\|y^n\|^{1/n}.
+\]
+Al pasar al límite y usar la fórmula del radio espectral,
+$r(xy)\le r(x)r(y)$.
+\end{proof}
+
+\proofdiagram
+{$xy=yx$}
+{Fórmula del radio espectral}
+{$(xy)^n=x^ny^n$ y $\|(xy)^n\|\le\|x^n\|\|y^n\|$}
+{$r(xy)\le r(x)r(y)$}
+
+\begin{cthejemplo}{(La desigualdad del radio puede ser estricta)}
+En $C([0,1])$ podemos comprobar cuánto puede mejorar la cota de T2.2(b).
+Tomemos $f(t)=t$ y $g(t)=1-t$; conmutan porque el producto es puntual.
+Por T1.10, $r(f)=\|f\|_\infty=1$ y $r(g)=1$, mientras que
+\[
+ r(fg)=\max_{0\le t\le1}t(1-t)=\frac14<r(f)r(g)=1.
+\]
+La desigualdad es estricta porque los máximos de $f$ y $g$ ocurren en extremos distintos.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La conmutación permite $(xy)^n=x^ny^n$ y la fórmula del radio espectral de la Parte 1 convierte la estimación de normas en la desigualdad buscada.
+
+\noindent\textbf{Qué prepara este ejercicio.} Permite estimar productos dentro de subálgebras conmutativas como $C^*(x,1)$. La clasificación de T2.6 usa cálculo funcional y no depende de esta desigualdad.
+
+\subsection*{2(c) Espectro de un invertible con norma controlada}
+
+\noindent\textbf{Enunciado.} Si $z\in\GL(\A)$ y $\|z\|,\|z^{-1}\|\le1$, prueba $\spec(z)\subset\mathbb T$; deduce la misma inclusión para todo unitario de una $C^*$-álgebra unital.
+
+\begin{proof}[Solución]
+Si $\lambda\in\spec(z)$, entonces $|\lambda|\le r(z)\le\|z\|\le1$. Como $z$ es invertible,
+$0\notin\spec(z)$. Además
+\[
+ \lambda\in\spec(z)\quad\Longleftrightarrow\quad
+ \lambda^{-1}\in\spec(z^{-1}),
+\]
+porque
+$\lambda1-z=-\lambda z(\lambda^{-1}1-z^{-1})$. Por tanto
+$|\lambda|^{-1}\le r(z^{-1})\le1$, es decir $|\lambda|\ge1$. Luego $|\lambda|=1$.
+
+Si $u$ es unitario en una $C^*$-álgebra, $u^{-1}=u^*$ y
+$\|u\|=\|u^*\|=1$, así que el resultado anterior da
+$\spec(u)\subset\mathbb T$.
+\end{proof}
+
+\proofdiagrambranch
+{$z\in\GL(\A)$ y $\|z\|\le1$}
+{$\|z^{-1}\|\le1$}
+{$\lambda\in\spec(z)\Rightarrow |\lambda|\le1$ y $\lambda^{-1}\in\spec(z^{-1})$}
+{$|\lambda|^{-1}\le1$}
+{$|\lambda|=1$, luego $\spec(z)\subset\mathbb T$}
+
+\begin{cthejemplo}{(Espectro de una matriz unitaria diagonal)}
+Para ver la conclusión unitaria de T2.2(c) con dos valores espectrales, tomemos
+$U=\operatorname{diag}(1,i)$ en $M_2(\mathbb C)$.
+Se tiene $U^*U=I$, $U^{-1}=U^*$ y $\|U\|=\|U^{-1}\|=1$.
+Además $\det(\lambda I-U)=(\lambda-1)(\lambda-i)$, de modo que
+$\spec(U)=\{1,i\}\subset\mathbb T$.
+La cota de las normas fuerza que ambos puntos queden en el círculo unitario.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se usan la cota $r(z)\le\|z\|$, la relación entre los espectros de un invertible y su inverso, y ambas hipótesis $\|z\|,\|z^{-1}\|\le1$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Da la implicación unitaria de T2.6(b) y de la Proposición 2.28; para un unitario $u$, la identidad $C^*$ asegura $\|u\|=\|u^{-1}\|=1$.
+
+\begin{investigacion}[title={Rotaciones unitarias en $L^2(\mathbb T)$}]
+Para aplicar T2.2(c) en el modelo Hilbertiano de \cite{BFK2006}, fijemos $z\in\mathbb T$ y
+definamos $(U_z\varphi)(t)=\varphi(zt)$ sobre $L^2(\mathbb T)$.
+La invariancia de la medida de Haar bajo rotaciones da $\|U_z\varphi\|_2=\|\varphi\|_2$;
+además $U_{z^{-1}}U_z=U_zU_{z^{-1}}=I$. Así $U_z$ es unitario y
+$\|U_z\|=\|U_z^{-1}\|=1$.
+Por T2.2(c), $\spec(U_z)\subset\mathbb T$. La conclusión usa esas propiedades
+verificadas en $L^2(\mathbb T)$.
+\end{investigacion}
+
+\pagebreak
+\section{Problema 3: productos de $C^*$-álgebras y el ideal $c_0$}
+
+Sea $I$ un conjunto de índices y $(A_i)_{i\in I}$ una familia de $C^*$-álgebras. En el inciso
+(b) se toma $I=\mathbb N$.
+
+\subsection*{3(a) Producto acotado de una familia de $C^*$-álgebras}
+
+\noindent\textbf{Enunciado.} Prueba que el producto de familias $(a_i)_{i\in I}$ con $a_i\in A_i$ y $\sup_i\|a_i\|<\infty$ es una $C^*$-álgebra con operaciones puntuales y norma supremo.
+
+\begin{proof}[Solución]
+Sea
+\[
+\prod_{i\in I}^{\ell^\infty} A_i
+=\{(a_i): a_i\in A_i,\ \sup_i\|a_i\|<\infty\}.
+\]
+Las operaciones puntuales preservan la acotación uniforme; en particular,
+\[
+ \sup_i\|a_i+b_i\|\le\sup_i\|a_i\|+\sup_i\|b_i\|,
+ \qquad
+ \sup_i\|a_ib_i\|\le\bigl(\sup_i\|a_i\|\bigr)
+                        \bigl(\sup_i\|b_i\|\bigr).
+\]
+Con la norma $\|(a_i)\|=\sup_i\|a_i\|$ es, por tanto, una álgebra normada. Si
+$(a^{(n)})$ es de Cauchy, cada coordenada $a_i^{(n)}$ converge en $A_i$ a un elemento $a_i$.
+Fijado $\varepsilon>0$, existe $N$ tal que
+$\sup_i\|a_i^{(n)}-a_i^{(m)}\|<\varepsilon$ para $n,m\ge N$. Al hacer $m\to\infty$
+coordenada a coordenada, obtenemos $\|a_i^{(n)}-a_i\|\le\varepsilon$ para todo $i$ y $n\ge N$.
+En particular $\sup_i\|a_i\|\le\|a^{(N)}\|+\varepsilon<\infty$, y la misma estimación muestra
+$\|a^{(n)}-a\|\le\varepsilon$ para $n\ge N$. Por tanto el producto acotado es completo.
+Definiendo $(a_i)^*=(a_i^*)$,
+\[
+\|(a_i)^*(a_i)\|
+=\sup_i\|a_i^*a_i\|
+=\sup_i\|a_i\|^2
+=\|(a_i)\|^2.
+\]
+Así es una $C^*$-álgebra.
+\end{proof}
+
+\proofdiagram
+{$\{A_i\}_{i\in I}$ $C^*$-álgebras}
+{Operaciones coordenada a coordenada; norma supremo}
+{Completitud coordenada y $\|(a_i)^*(a_i)\|=\sup_i\|a_i^*a_i\|$}
+{$\prod_i A_i$ acotado es una $C^*$-álgebra}
+
+\begin{cthejemplo}{(Un producto acotado de matrices)}
+En el producto de T2.3(a), cada coordenada puede ser una matriz distinta.
+Tomemos $A_n=M_2(\mathbb C)$ y $a_n=\operatorname{diag}(1,1/n)$ para $n\ge1$.
+La familia $a=(a_n)$ pertenece al producto acotado porque $\sup_n\|a_n\|=1$; además
+\[
+ a_n^*a_n=\operatorname{diag}(1,1/n^2),
+ \qquad \|a^*a\|=1=\|a\|^2.
+\]
+La identidad $C^*$ del producto se verifica coordenada a coordenada, como en T2.3(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se aplican operaciones coordenada a coordenada, completitud de cada $A_i$ y la identidad $C^*$ en cada coordenada. La norma supremo restringe el producto a familias uniformemente acotadas.
+
+\noindent\textbf{Qué prepara este ejercicio.} Construye el álgebra ambiente de T2.3(b), donde las familias que tienden a cero forman un ideal cerrado.
+
+\subsection*{3(b) La suma $c_0$ es un ideal cerrado}
+
+\noindent\textbf{Enunciado.} Para $I=\mathbb N$, prueba que las sucesiones $(a_n)$ del producto acotado que cumplen $\|a_n\|\to0$ forman un ideal bilateral cerrado.
+
+\begin{proof}[Solución]
+Sea
+\[
+\bigoplus_{n\in\mathbb N}^{c_0}A_n
+=\{(a_n)\in\prod^{\ell^\infty}A_n:\|a_n\|\to0\}.
+\]
+Si $\|a_n\|,\|c_n\|\to0$, entonces
+$\|a_n+c_n\|\le\|a_n\|+\|c_n\|\to0$ y
+$\|\alpha a_n\|=|\alpha|\|a_n\|\to0$; por ello la suma $c_0$ es un subespacio lineal.
+Si $b=(b_n)$ está en el producto acotado y $a=(a_n)$ en la suma $c_0$, entonces
+\[
+\|b_na_n\|\le\|b\|_\infty\|a_n\|\to0,
+\quad
+\|a_nb_n\|\le\|a_n\|\|b\|_\infty\to0,
+\]
+así que es un ideal bilateral. Si $a^{(k)}\to a$ en norma supremo y cada $a^{(k)}$ tiende a cero en
+coordenadas, fijado $\varepsilon$ elegimos $k$ con
+$\|a-a^{(k)}\|_\infty<\varepsilon/2$ y después $N$ con
+$\|a_n^{(k)}\|<\varepsilon/2$ para $n\ge N$. Entonces $\|a_n\|<\varepsilon$ para $n\ge N$.
+Por tanto el ideal es cerrado.
+Además $(a_n^*)$ pertenece al mismo ideal porque $\|a_n^*\|=\|a_n\|\to0$.
+\end{proof}
+
+\proofdiagram
+{$a=(a_n)$ con $\|a_n\|\to0$}
+{Producto coordenada y norma supremo}
+{$\|b_na_n\|\le\|b\|_\infty\|a_n\|\to0$; límite uniforme preserva la condición}
+{$\bigoplus_n A_n$ es ideal bilateral cerrado}
+
+\begin{cthejemplo}{(El ideal clásico de sucesiones nulas)}
+Para reconocer la construcción de T2.3(b), pongamos $A_n=\mathbb C$ para cada $n$.
+La sucesión $a_n=1/n$ pertenece a $c_0$, mientras que $b_n=(-1)^n$ está en $\ell^\infty$.
+Su producto satisface $|b_na_n|=1/n\to0$, y lo mismo ocurre con $a_nb_n$.
+Así el ideal $c_0\subset\ell^\infty$ es el caso escalar de la propiedad bilateral probada en T2.3(b).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} El producto acotado de T2.3(a) aporta la norma supremo. Las estimaciones coordenada a coordenada prueban la propiedad de ideal y el criterio uniforme prueba el cierre.
+
+\noindent\textbf{Qué prepara este ejercicio.} Permite formar el cociente del producto por el ideal $c_0$ mediante T1.4; interpretar propiedades de ese cociente requiere resultados adicionales sobre cocientes de $C^*$-álgebras.
+
+\section{Problema 4: teorema del mapeo espectral continuo}
+
+Sea $\A$ una $C^*$-álgebra unital, $x\in\A$ normal y $f:\spec(x)\to\mathbb C$ continua.
+
+\noindent\textbf{Enunciado.} Prueba el teorema del mapeo espectral continuo: $\spec_\A(f(x))=f(\spec_\A(x))$.
+
+\begin{proof}[Solución]
+Trabajemos en $B=C^*(x,1)$, que es conmutativa. Por permanencia espectral, calcular el espectro de
+$f(x)$ en $B$ o en $\A$ da lo mismo. El cálculo funcional es un $*$-isomorfismo
+\[
+ C(\spec(x))\longrightarrow B.
+\]
+Bajo este isomorfismo, $f(x)$ corresponde a la función $f$. Por el Problema 10 de la Tarea 1, el
+espectro de $f$ en $C(\spec(x))$ es su rango. Por tanto
+\[
+ \spec_\A(f(x))=\spec_B(f(x))=f(\spec(x)).
+\]
+\end{proof}
+
+\proofdiagrambranch
+{$x$ normal}
+{$f\in C(\spec(x))$}
+{Cálculo funcional + permanencia espectral en $C^*(x,1)$}
+{Identificar $C^*(x,1)\cong C(\spec(x))$}
+{$\spec(f(x))=f(\spec(x))$}
+
+\begin{cthejemplo}{(Cuadrar un autoadjunto mediante el espectro)}
+En $M_2(\mathbb C)$, tomemos $x=\operatorname{diag}(-2,3)$ para comprobar T2.4.
+El elemento es autoadjunto y $\spec(x)=\{-2,3\}$.
+Como $x^2=\operatorname{diag}(4,9)$,
+\[
+ \spec(x^2)=\{4,9\}=\{\lambda^2:\lambda\in\spec(x)\}.
+\]
+El cuadrado transforma cada valor espectral mediante $t\mapsto t^2$ y produce espectro no negativo.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} El cálculo funcional para $x$ normal identifica $C^*(x,1)$ con $C(\spec(x))$; la permanencia espectral de la Sección 2 y T1.10 permiten calcular el espectro de $f(x)$ en la álgebra ambiente.
+
+\noindent\textbf{Qué prepara este ejercicio.} Transporta igualdades y restricciones espectrales de funciones a operadores; T2.6 lo aplica para reconocer autoadjuntos, unitarios y proyecciones normales.
+
+\section{Problema 5: $X\cong\Omega(C(X))$}
+
+Sea $X$ un espacio compacto Hausdorff y, para $x\in X$, sea
+$\operatorname{ev}_x(f)=f(x)$ la aplicación de evaluación sobre $C(X)$.
+
+\noindent\textbf{Enunciado.} Prueba que $x\mapsto\operatorname{ev}_x$ define un homeomorfismo $X\to\Omega(C(X))$.
+
+\begin{proof}[Solución]
+Para $f,g\in C(X)$, se tiene
+$\operatorname{ev}_x(fg)=f(x)g(x)$ y $\operatorname{ev}_x(1)=1$;
+además $|\operatorname{ev}_x(f)|\le\|f\|_\infty$. Así cada evaluación es un carácter continuo
+y el mapa está bien definido. Es inyectivo porque
+si $x\neq y$, existe $f\in C(X)$ con $f(x)\neq f(y)$.
+
+Sea ahora $\varphi\in\Omega(C(X))$ y $I=\ker\varphi$, que es maximal. Afirmamos que existe
+$x_0\in X$ tal que $I\subset I_{x_0}:=\{f:f(x_0)=0\}$. Si no, para cada $x\in X$ existiría
+$f_x\in I$ con $f_x(x)\neq0$. Los abiertos
+$U_x=\{y:|f_x(y)|>0\}$ cubrirían $X$; por compacidad escogeríamos
+$f_1,\dots,f_n\in I$ con $\sum_j|f_j|^2>0$ en todo $X$. Entonces
+\[
+ g:=\sum_{j=1}^n f_j^*f_j\in I
+\]
+sería una función estrictamente positiva y por tanto invertible en $C(X)$, imposible para un ideal
+propio. Así existe $x_0$ con $I\subset I_{x_0}$. Como $I_{x_0}$ es propio, la maximalidad da
+$I=I_{x_0}$. Para cada $f\in C(X)$, tenemos $f-f(x_0)1\in I=\ker\varphi$; como
+$\varphi(1)=1$, resulta $\varphi(f)=f(x_0)$. Por tanto
+$\varphi=\operatorname{ev}_{x_0}$.
+
+El mapa $x\mapsto\operatorname{ev}_x$ es continuo para la topología débil-$*$ porque, para cada
+$f\in C(X)$, la coordenada $x\mapsto\operatorname{ev}_x(f)=f(x)$ es continua. Como $X$ es compacto
+y $\Omega(C(X))$ es Hausdorff, una biyección continua es un homeomorfismo.
+\end{proof}
+
+\proofdiagrambranch
+{$x\mapsto\operatorname{ev}_x$}
+{Funciones continuas separan puntos en compactos Hausdorff}
+{Para sobreyectividad, $\ker\varphi$ es ideal maximal y debe ser $I_{x_0}$ para algún $x_0$}
+{Biyectividad continua entre compactos Hausdorff}
+{$X\cong\Omega(C(X))$}
+
+\begin{cthejemplo}{(Un carácter dado por un punto del círculo)}
+En $C(\mathbb T)$ queremos hacer visible el homeomorfismo de T2.5.
+Fijemos $w=e^{i\theta}\in\mathbb T$ y consideremos la evaluación
+$\operatorname{ev}_w(f)=f(w)$. Para las funciones $h(z)=z$ y $g(z)=1+z$,
+\[
+ \operatorname{ev}_w(h)=w,\qquad \operatorname{ev}_w(g)=1+w.
+\]
+El valor del carácter sobre $h$ identifica el punto $w$; T2.5 asegura que todo carácter de
+$C(\mathbb T)$ surge de una evaluación de este tipo.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se usan caracteres e ideales maximales de la Parte 1, separación de puntos de $C(X)$ y compacidad de $X$. La demostración del conjunto común de ceros usa $\sum_j|f_j|^2$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Completa la unicidad del espacio compacto en Gelfand--Naimark conmutativo: un $*$-isomorfismo $C(X)\cong C(Y)$ induce $X\cong Y$.
+
+\section{Problema 6: caracterizaciones espectrales y necesidad de normalidad}
+
+Sea $\A$ una $C^*$-álgebra unital y $x\in\A$ normal. El inciso (d) pide comprobar que la
+normalidad no puede omitirse en las tres recíprocas.
+
+\subsection*{6(a) Autoadjunto $\Longleftrightarrow$ espectro real para normales}
+
+\noindent\textbf{Enunciado.} Prueba que $x=x^*$ si y sólo si $\spec(x)\subset\mathbb R$.
+
+\begin{proof}[Solución]
+La implicación directa ya se demostró en la Sección 2. Para la recíproca, por cálculo funcional,
+$x$ corresponde a la función $z$ y $x^*$ a $\overline z$ sobre $\spec(x)$. Si el espectro es real,
+ambas funciones coinciden, luego $x=x^*$.
+\end{proof}
+
+\proofdiagram
+{$x$ normal}
+{Espectro de autoadjunto real; cálculo funcional}
+{Si $\spec(x)\subset\mathbb R$, entonces $z=\overline z$ sobre el espectro}
+{$x=x^*$}
+
+\begin{cthejemplo}{(Espectro real sin autoadjunción)}
+La recíproca de T2.6(a) necesita normalidad; una matriz triangular permite verlo.
+Para $N=\begin{pmatrix}0&1\\0&0\end{pmatrix}$,
+$\det(\lambda I-N)=\lambda^2$, luego $\spec(N)=\{0\}\subset\mathbb R$.
+Pero $N^*=\begin{pmatrix}0&0\\1&0\end{pmatrix}\ne N$.
+Además $N^*N=\operatorname{diag}(0,1)\ne\operatorname{diag}(1,0)=NN^*$.
+El espectro real no obliga a ser autoadjunto sin normalidad, como se precisa en T2.6(d).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La realidad del espectro de un autoadjunto se probó en la Sección 2; la recíproca usa cálculo funcional en $C^*(x,1)$, disponible porque $x$ es normal.
+
+\noindent\textbf{Qué prepara este ejercicio.} Identifica exactamente qué información espectral reconoce la autoadjunción. T2.6(d) muestra con una matriz nilpotente por qué la hipótesis de normalidad es necesaria.
+
+\subsection*{6(b) Unitario $\Longleftrightarrow$ espectro en $\mathbb T$ para normales}
+
+\noindent\textbf{Enunciado.} Prueba que $x$ es unitario si y sólo si $\spec(x)\subset\mathbb T$.
+
+\begin{proof}[Solución]
+Si $x$ es unitario, el Problema 2(c) da $\spec(x)\subset\mathbb T$. Recíprocamente, si $x$ es
+normal y el espectro está en $\mathbb T$, entonces
+\[
+ x^*x=(\overline z z)(x)=(|z|^2)(x)=1.
+\]
+Como $x$ es normal, $xx^*=x^*x=1$, así que es unitario.
+\end{proof}
+
+\proofdiagram
+{$x$ normal}
+{Problema 2(c); cálculo funcional}
+{$\spec(x)\subset\mathbb T\Rightarrow |z|^2=1$ en el espectro}
+{$x^*x=(\overline z z)(x)=1$ y, por normalidad, $xx^*=1$}
+
+\begin{cthejemplo}{(Espectro unitario sin unitariedad)}
+Para probar el límite de la recíproca en T2.6(b), tomemos
+$J=\begin{pmatrix}1&1\\0&1\end{pmatrix}$.
+Su polinomio característico es $(\lambda-1)^2$, de modo que
+$\spec(J)=\{1\}\subset\mathbb T$, pero
+$J^*J=\begin{pmatrix}1&1\\1&2\end{pmatrix}\ne I$.
+El espectro está en el círculo y la matriz no es unitaria: T2.6(d) explica el papel de la normalidad.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} T2.2(c) da la dirección directa. En la recíproca, la normalidad permite el cálculo funcional y la identidad $x^*x=(|z|^2)(x)$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Permite reconocer unitarios a partir de su espectro, por ejemplo en álgebras de operadores con shifts unitarios cuando se han verificado sus hipótesis.
+
+\subsection*{6(c) Proyección $\Longleftrightarrow$ espectro en $\{0,1\}$ para normales}
+
+\noindent\textbf{Enunciado.} Prueba que $x$ es una proyección si y sólo si $\spec(x)\subset\{0,1\}$.
+
+\begin{proof}[Solución]
+Si $x$ es una proyección, es idempotente y el Problema 2(a) da
+$\spec(x)\subset\{0,1\}$. Para la recíproca, si $x$ es normal y su espectro está contenido en
+$\{0,1\}$, el cálculo funcional da
+\[
+ x^2-x=(z^2-z)(x)=0,
+ \qquad
+ x^*-x=(\overline z-z)(x)=0.
+\]
+Así $x$ es una proyección.
+\end{proof}
+
+\proofdiagram
+{$x$ normal}
+{Espectro de idempotente; cálculo funcional}
+{$z^2-z=0$ y $\overline z-z=0$ sobre $\{0,1\}$}
+{$x^2=x$ y $x^*=x$}
+
+\begin{cthejemplo}{(Idempotente con espectro correcto que no es proyección)}
+En T2.6(c) la autoadjunción forma parte de ser proyección. Consideremos
+$E=\begin{pmatrix}1&1\\0&0\end{pmatrix}$.
+Se calcula $E^2=E$ y, por triangularidad, $\spec(E)=\{0,1\}$; no obstante,
+$E^*=\begin{pmatrix}1&0\\1&0\end{pmatrix}\ne E$.
+Así el espectro permitido y la idempotencia no bastan sin la normalidad que usa la
+recíproca de T2.6(c).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} T2.2(a) da la dirección directa. Para la recíproca, la normalidad permite transportar $z^2=z$ y $\overline z=z$ desde el espectro a identidades de $x$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Conecta la clasificación espectral de la Sección 2 con proyecciones de Cauchy sólo cuando, además de idempotencia, se verifica la autoadjunción de esas proyecciones.
+
+\subsection*{6(d) ¿Dónde se usa la normalidad?}
+
+\noindent\textbf{Enunciado.} Exhibe en $M_2(\mathbb C)$ tres elementos no normales que invaliden las recíprocas de los incisos (a)--(c) sin normalidad, y localiza el paso de cada prueba que usa esa hipótesis.
+
+\begin{proof}[Solución]
+Tomemos
+\[
+ N=\begin{pmatrix}0&1\\0&0\end{pmatrix},
+ \qquad J=I+N=\begin{pmatrix}1&1\\0&1\end{pmatrix},
+ \qquad E=\begin{pmatrix}1&1\\0&0\end{pmatrix}.
+\]
+Como son triangulares, $\spec(N)=\{0\}\subset\mathbb R$,
+$\spec(J)=\{1\}\subset\mathbb T$ y $\spec(E)=\{0,1\}$.
+Sin embargo, $N\ne N^*$,
+\[
+ J^*J=\begin{pmatrix}1&1\\1&2\end{pmatrix}\ne I.
+\]
+$E$ no es una proyección porque, aunque $E^2=E$, se tiene $E^*\ne E$.
+Las tres son no normales: en efecto,
+$N^*N=\operatorname{diag}(0,1)\ne\operatorname{diag}(1,0)=NN^*$ y
+$J^*J-JJ^*=N^*N-NN^*\ne0$; además,
+$E^*E=\begin{pmatrix}1&1\\1&1\end{pmatrix}$ y
+$EE^*=\operatorname{diag}(2,0)$ son distintos.
+
+La normalidad se usó en los incisos (a)--(c) para que $x$ y $x^*$ generen la
+$C^*$-álgebra conmutativa $C^*(x,1)$ y se pueda aplicar el cálculo funcional continuo.
+En (b) se usó además la igualdad $xx^*=x^*x$ tras obtener $x^*x=1$.
+\end{proof}
+
+\proofdiagram
+{$N$, $J=I+N$ y $E$ son no normales}
+{El cálculo funcional continuo sólo se construyó para normales}
+{La igualdad de funciones sobre el espectro se transporta a igualdad de elementos sólo vía ese cálculo}
+{Sin normalidad, el espectro no determina esas relaciones algebraicas}
+
+\begin{cthejemplo}{(Dos operadores con el mismo espectro)}
+Para ver qué pierde el espectro sin normalidad, comparemos $I$ con
+$J=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ en $M_2(\mathbb C)$.
+Ambos tienen espectro $\{1\}$, pero $I^*I=I$, mientras que
+$J^*J=\begin{pmatrix}1&1\\1&2\end{pmatrix}\ne I$.
+Sólo $I$ es unitario. La comparación concreta explica por qué T2.6(d) exige normalidad
+antes de recuperar propiedades algebraicas desde el espectro.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Los incisos T2.6(a)--(c) usan cálculo funcional sobre $C^*(x,1)$; esa subálgebra es conmutativa porque $x$ es normal. Los bloques de Jordan proporcionan contraejemplos.
+
+\noindent\textbf{Qué prepara este ejercicio.} Delimita el alcance de la Proposición 2.28 y evita inferir autoadjunción, unitariedad o proyección a partir del espectro de un operador no normal.
+
+\pagebreak
+\section{Problema 7: parte unitaria de la descomposición polar}
+
+Sea $\A$ una $C^*$-álgebra unital. Se define $|a|$ para todo $a\in\A$ y se supone que $a$ es
+invertible al construir el factor unitario.
+
+
+Definimos $|a|=(a^*a)^{1/2}$ por cálculo funcional positivo.
+
+\noindent\textbf{Enunciado.} Para $a\in\GL(\A)$, prueba que $u=a|a|^{-1}$ es unitario, donde $|a|=(a^*a)^{1/2}$.
+
+\begin{proof}[Solución]
+Si $a$ es invertible, entonces $a^*a$ tiene inverso $a^{-1}(a^*)^{-1}$.
+Como $|a|^2=a^*a$ es invertible, también lo es $|a|$: los elementos $|a|$ y
+$(|a|^2)^{-1}$ conmutan, y $|a|(|a|^2)^{-1}$ es un inverso bilateral de $|a|$.
+Podemos, por tanto, definir $u=a|a|^{-1}$.
+Como $|a|$ es positivo, $|a|^*=|a|$ y
+\[
+ u^*=|a|^{-1}a^*.
+\]
+Entonces
+\[
+ u^*u=|a|^{-1}a^*a|a|^{-1}
+ =|a|^{-1}|a|^2|a|^{-1}=1.
+\]
+Además
+\[
+ uu^*=a|a|^{-2}a^*
+ =a(a^*a)^{-1}a^*
+ =a\,a^{-1}(a^*)^{-1}a^*=1.
+\]
+Así $u$ es unitario y $a=u|a|$.
+\end{proof}
+
+\proofdiagram
+{$a\in\GL(\A)$}
+{Raíz positiva $|a|=(a^*a)^{1/2}$}
+{Definir $u=a|a|^{-1}$ y calcular $u^*u$, $uu^*$}
+{$u^*u=uu^*=1$; $u$ es unitario}
+
+\begin{cthejemplo}{(Descomposición polar de una matriz diagonal)}
+Para aplicar la fórmula de T2.7, tomemos la matriz invertible
+$A=\operatorname{diag}(2i,3)$.
+Entonces $A^*A=\operatorname{diag}(4,9)$,
+$|A|=\operatorname{diag}(2,3)$ y
+\[
+ U=A|A|^{-1}=\operatorname{diag}(i,1),\qquad U^*U=UU^*=I.
+\]
+La igualdad $A=U|A|$ separa una parte unitaria de una parte positiva, como afirma T2.7.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La raíz positiva $|a|=(a^*a)^{1/2}$ procede del cálculo funcional de la Sección 2. La invertibilidad de $a$ hace invertibles a $a^*a$ y $|a|$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Construye la descomposición polar $a=u|a|$ de un invertible y aclara dónde se usa la invertibilidad para obtener un factor unitario en la misma álgebra.
+
+\Needspace{15\baselineskip}
+\section{Problema 8: continuidad del cálculo funcional bajo convergencia de normales}
+
+Sea $\A$ una $C^*$-álgebra unital y sea $(x_n)$ una sucesión de elementos
+normales que converge en norma a $x$. Fijamos un compacto $K\subset\mathbb C$
+que contiene $\spec(x_n)$ para todo $n$ y $\spec(x)$, y tomamos $f\in C(K)$.
+
+\noindent\textbf{Enunciado.} Prueba que $x$ es normal y que $f(x_n)\to f(x)$ en norma para toda $f\in C(K)$.
+
+\begin{proof}[Solución]
+Por la Tarea 1.7, $x$ es normal. Sea $f\in C(K)$ y $\varepsilon>0$. Por Stone--Weierstrass existe
+un polinomio $p(z,\overline z)$ tal que
+\[
+ \sup_{z\in K}|f(z)-p(z,\overline z)|<\varepsilon.
+\]
+El cálculo funcional es contractivo, de modo que para todo $n$,
+\[
+\|f(x_n)-p(x_n,x_n^*)\|<\varepsilon,
+\qquad
+\|f(x)-p(x,x^*)\|<\varepsilon.
+\]
+Como $x_n\to x$, también $x_n^*\to x^*$, y por continuidad de suma y producto
+$p(x_n,x_n^*)\to p(x,x^*)$. Por tanto, para $n$ grande,
+\[
+\|f(x_n)-f(x)\|
+\le 2\varepsilon+\|p(x_n,x_n^*)-p(x,x^*)\|<3\varepsilon.
+\]
+Como $\varepsilon$ es arbitrario, $f(x_n)\to f(x)$.
+\end{proof}
+
+\proofdiagrambranch
+{$x_n\to x$ y cada $x_n$ normal}
+{$\spec(x_n),\spec(x)\subset K$ compacto}
+{Normalidad cerrada + Stone--Weierstrass aproxima $f$ por polinomios en $z,\bar z$}
+{Polinomios son continuos en $x_n,x_n^*$; controlar el error uniformemente}
+{$f(x_n)\to f(x)$}
+
+\begin{cthejemplo}{(Continuidad de la raíz positiva)}
+Para ver T2.8 en matrices positivas, fijemos
+$x_n=\operatorname{diag}(1+1/n,4)$ y $x=\operatorname{diag}(1,4)$.
+Todos sus espectros están en $K=[1,5]$ y $x_n\to x$ en norma.
+Con $f(t)=\sqrt t$,
+\[
+ f(x_n)=\operatorname{diag}(\sqrt{1+1/n},2)
+ \longrightarrow\operatorname{diag}(1,2)=f(x).
+\]
+El cálculo muestra que la raíz positiva varía continuamente bajo las hipótesis de T2.8.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} T1.7 garantiza que $x$ es normal; Stone--Weierstrass aproxima $f$ uniformemente por polinomios en $z,\overline z$, y el cálculo funcional controla el error.
+
+\noindent\textbf{Qué prepara este ejercicio.} Muestra la estabilidad en norma de $f(x_n)$, en particular de raíces positivas cuando los espectros están en un mismo compacto de $[0,\infty)$.
+
+\Needspace{17\baselineskip}
+\section{Problema 9: convergencia monótona de operadores autoadjuntos}
+
+Sea $H$ un espacio de Hilbert. Una red está indexada por un conjunto dirigido $\Lambda$.
+Para autoadjuntos $R,U\in\mathcal B(H)$, escribimos $R\le U$ cuando $U-R$ es positivo,
+es decir, cuando $\langle(U-R)\xi,\xi\rangle\ge0$ para todo $\xi\in H$.
+
+
+Sea $(T_\lambda)_{\lambda\in\Lambda}$ una red acotada de autoadjuntos con
+$T_{\lambda_1}\le T_{\lambda_2}$ si $\lambda_1\le\lambda_2$.
+Aquí ``convergencia puntual'' significa que, para cada $\xi\in H$,
+$\|T_\lambda\xi-T\xi\|\to0$; es la convergencia fuerte de operadores.
+
+\noindent\textbf{Enunciado.} Prueba que existe un autoadjunto $T\in\mathcal B(H)$ tal que $\|T_\lambda\xi-T\xi\|\to0$ para cada $\xi\in H$.
+
+\begin{proof}[Solución]
+Sea $M=\sup_\lambda\|T_\lambda\|$. Para cada $\xi\in H$, los números
+$q_\lambda(\xi)=\langle T_\lambda\xi,\xi\rangle$ forman una red creciente y acotada por
+$M\|\xi\|^2$, por lo que tienen límite $q(\xi)$. Mediante la identidad de polarización obtenemos
+una forma sesquilineal acotada
+\[
+ B(\xi,\eta)=\lim_\lambda\langle T_\lambda\xi,\eta\rangle.
+\]
+En efecto, $|\langle T_\lambda\xi,\eta\rangle|\le M\|\xi\|\|\eta\|$, y la misma cota pasa al
+límite.
+Con la convención de que el producto interior es lineal en la primera variable, la identidad de
+polarización expresa este límite mediante cuatro valores de $q$:
+\[
+ B(\xi,\eta)=\frac14\bigl(q(\xi+\eta)-q(\xi-\eta)
+   +i q(\xi+i\eta)-i q(\xi-i\eta)\bigr).
+\]
+Por Riesz existe un único $T\in\mathcal B(H)$ con
+$B(\xi,\eta)=\langle T\xi,\eta\rangle$, y la cota de $B$ implica $\|T\|\le M$.
+Como cada $T_\lambda$ es autoadjunto, $T$ también lo es, y
+$T_\lambda\le T$.
+
+Pongamos $A_\lambda=T-T_\lambda\ge0$. Entonces
+$\|A_\lambda\|\le 2M$. Como
+$\spec(A_\lambda)\subset[0,\|A_\lambda\|]$, la función
+$t\mapsto t(\|A_\lambda\|-t)$ es no negativa en ese espectro. El cálculo funcional positivo
+da $0\le A_\lambda^2\le\|A_\lambda\|A_\lambda\le2M A_\lambda$. Por tanto
+\[
+\|(T-T_\lambda)\xi\|^2
+=\langle A_\lambda^2\xi,\xi\rangle
+\le2M\langle A_\lambda\xi,\xi\rangle.
+\]
+El último término tiende a cero por definición de $T$. Así
+$T_\lambda\xi\to T\xi$ en norma para cada $\xi$.
+\end{proof}
+
+\proofdiagrambranch
+{Monotonía: $\langle T_\lambda\xi,\xi\rangle$ creciente}
+{Acotación uniforme $\sup\|T_\lambda\|<\infty$}
+{Definir una forma límite y usar Riesz para obtener $T$}
+{Usar $0\le(T-T_\lambda)^2\le\|T-T_\lambda\|(T-T_\lambda)$}
+{$T_\lambda\xi\to T\xi$ para cada $\xi$}
+
+\begin{cthejemplo}{(Convergencia fuerte de matrices crecientes)}
+Para observar el límite de T2.9, tomemos en $\mathbb C^2$
+$T_n=\operatorname{diag}(1-1/n,2-1/n)$, $n\ge1$.
+Se tiene $T_{n+1}-T_n=(1/n-1/(n+1))I\ge0$ y $\|T_n\|\le2$.
+Con $T=\operatorname{diag}(1,2)$,
+\[
+ \|(T-T_n)\xi\|=\frac1n\|\xi\|\longrightarrow0
+ \qquad(\xi\in\mathbb C^2).
+\]
+La convergencia aquí incluso es en norma operatorial; T2.9 garantiza la convergencia fuerte
+para redes acotadas en cualquier espacio de Hilbert.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} Se usan la convergencia de redes monótonas acotadas de números reales, la identidad de polarización, la representación de Riesz y el cálculo funcional positivo para justificar $0\le A^2\le\|A\|A$ cuando $A\ge0$.
+
+\noindent\textbf{Qué prepara este ejercicio.} Obtiene convergencia fuerte: $\|T_\lambda\xi-T\xi\|\to0$ para cada $\xi\in H$. Este resultado prepara técnicas de topologías de operadores, pero no es una consecuencia de la convergencia en norma de T2.8.
+
+\section{Problema 10: espectro del shift unilateral}
+
+
+Sea $S:\ell^2(\mathbb N)\to\ell^2(\mathbb N)$,
+\[
+S(x_1,x_2,\dots)=(0,x_1,x_2,\dots).
+\]
+
+\noindent\textbf{Enunciado.} Prueba que el espectro del shift unilateral es $\spec(S)=\overline{\mathbb D}$.
+
+\begin{proof}[Solución]
+Como $S$ es una isometría, $\|S\|=1$ y por la cota espectral
+$\spec(S)\subset\overline{\mathbb D}$. Ahora sea $|\lambda|<1$. El vector
+\[
+ v_\lambda=(1,\overline\lambda,\overline\lambda^2,\ldots)
+\]
+pertenece a $\ell^2$ y satisface
+\[
+ S^*v_\lambda=\overline\lambda\,v_\lambda.
+\]
+Así $\overline\lambda I-S^*$ no es invertible. Si $\lambda I-S$ fuese invertible, entonces su
+adjunto $\overline\lambda I-S^*$ también sería invertible, contradicción. Por tanto
+$\lambda\in\spec(S)$ para todo $|\lambda|<1$. Como el espectro es cerrado,
+$\overline{\mathbb D}\subset\spec(S)$. Junto con la inclusión opuesta,
+\[
+ \spec(S)=\overline{\mathbb D}.
+\]
+\end{proof}
+
+\proofdiagrambranch
+{$\|S\|=1\Rightarrow\spec(S)\subset\overline{\mathbb D}$}
+{Para $|\lambda|<1$, $S^*$ tiene vector propio de valor $\overline\lambda$}
+{Si $\lambda I-S$ fuera invertible, su adjunto también lo sería}
+{$\mathbb D\subset\spec(S)$; el espectro es cerrado}
+{$\spec(S)=\overline{\mathbb D}$}
+
+\begin{cthejemplo}{(Un disco espectral sin valores propios)}
+El shift unilateral de T2.10 ilustra la diferencia entre espectro y valores propios.
+Si $S\xi=\lambda\xi$, la primera coordenada da $0=\lambda\xi_1$; para
+$\lambda\ne0$, las coordenadas siguientes obligan sucesivamente a $\xi_n=0$.
+Para $\lambda=0$, la inyectividad de $S$ da igualmente $\xi=0$.
+Así $S$ no tiene valores propios, aunque T2.10 demuestra
+$\spec(S)=\overline{\mathbb D}$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencias.} La cota espectral de la Parte 1 da $\spec(S)\subset\overline{\mathbb D}$. T1.11(d) ya muestra $0\in\spec(S)$; los vectores propios de $S^*$ dan todos los puntos interiores y el cierre del espectro añade la frontera.
+
+\noindent\textbf{Qué prepara este ejercicio.} Contrasta el espectro de un operador no normal con la caracterización de unitarios de T2.6(b). No permite atribuir el mismo disco espectral a los shifts de composición del problema de Haseman.

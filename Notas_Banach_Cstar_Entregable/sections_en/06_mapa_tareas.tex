@@ -1,0 +1,170 @@
+\chapter{Dependency Map: Results, Assignments, and Research}
+
+\section{What an arrow means in this map}
+
+\begin{context}
+A solid arrow means that the source result is used in proving or constructing the target
+result. A dashed arrow marks an application or conceptual comparison: it does not claim
+that the target result follows from the first. The assumptions written along each path are
+part of the connection.
+\end{context}
+
+\section{Paths used in proofs}
+
+\begin{dependencias}
+\textbf{Continuity and inverses.}
+\[
+\boxed{\text{Neumann series}}
+\longrightarrow
+\boxed{\text{1.1(b): continuous inversion}}
+\longrightarrow
+\boxed{\text{Prop. 2.17: spectral permanence}}.
+\]
+The last arrow uses $(b+i/n)^{-1}\to b^{-1}$ in the ambient algebra and the fact that the
+$C^*$-subalgebra is closed. Problem 1.1(a) supplies continuity of multiplication through
+another route for Problems 1.3, 1.7, and 2.8.
+\end{dependencias}
+
+\begin{dependencias}
+\textbf{Commutative reduction.}
+\[
+\begin{gathered}
+\boxed{\text{Problem 1.2: commuting inverses}}
+\quad+\quad
+\boxed{\text{Problem 1.3: generated algebra}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{Problem 1.9: inverse-closed subalgebra}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{Prop. 2.13: real spectrum}}.
+\end{gathered}
+\]
+The last proof also uses the $C^*$ identity, the fact that characters are real on
+self-adjoint elements, and the description of the spectrum through characters.
+Problem 1.9 supplies the commutative subalgebra that preserves the spectrum;
+by itself it does not prove that the spectrum is real.
+\end{dependencias}
+
+\begin{dependencias}
+\textbf{From functions to functional calculus.}
+\[
+\begin{gathered}
+\boxed{\text{Problem 1.3(d): }C^*(a,1)\text{ commutative for normal $a$}}\\[2mm]
+\quad+\quad
+\boxed{\text{Prop. 2.17: spectral permanence}}
+\quad+\quad
+\boxed{\text{Thm. 2.20: Gelfand--Naimark}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{Thm. 2.22: functional calculus}}.
+\end{gathered}
+\]
+Problem 1.10 computes the spectrum of a continuous function and, together with functional
+calculus and spectral permanence, gives Problem 2.4. Problems 2.2(a,c) give the forward
+directions of Problem 2.6(c,b); the converses use normality and functional calculus.
+\end{dependencias}
+
+\begin{dependencias}
+\textbf{Continuity as the operator varies.}
+\[
+\begin{gathered}
+\boxed{\text{Problem 1.7: norm limit of normal elements is normal}}
+\quad+\quad
+\boxed{\text{Stone--Weierstrass}}\\[2mm]
+\quad+\quad
+\boxed{\text{isometric functional calculus}}\\[2mm]
+\Downarrow\\[2mm]
+\boxed{\text{Problem 2.8: }f(x_n)\to f(x)}.
+\end{gathered}
+\]
+Convergence here is in norm. Problem 2.9 studies a different situation: a bounded,
+increasing net of self-adjoint operators converges strongly, that is, vector by vector
+in the norm of $H$.
+\end{dependencias}
+
+\section{Coverage of the exercises}
+
+\small
+\begin{longtable}{>{\bfseries}p{1.3cm}p{4.3cm}p{8.2cm}}
+\toprule
+Problem & Result proved & Exact use or scope of the connection\\
+\midrule
+\endhead
+1.1 & Continuous multiplication and inversion & Multiplication supports Problems 1.3 and 1.7; inversion is used in Prop. 2.17, and multiplication again in Problem 2.8.\\
+1.2 & Commutation with inverses and adjoints & Used when adjoining inverses in the construction for Problem 1.9.\\
+1.3 & Generated algebra and commutation & For normal $a$, constructs commutative $C^*(a,1)$, used in Proposition 2.18 and Theorem 2.22.\\
+1.4 & Quotient by a closed ideal & Makes $\mathcal B(X)/\K(X)$ a Banach algebra; the Fredholm--invertibility equivalence is the external Atkinson theorem.\\
+1.5 & $C_0(X)$ closed in $C_b(X)$ & When $X$ is noncompact, it is nonunital; the general classification of $C_0(X)$ requires the nonunital version of the theorem in Section 2.\\
+1.6 & $\spec(x^*)=\overline{\spec(x)}$ & Symmetry holds in involutive algebras; reality of a self-adjoint element's spectrum also needs the $C^*$ argument of Prop. 2.13.\\
+1.7 & Normality is closed & The first assumption needed in Problem 2.8 to define $f(x)$ at the limit.\\
+1.8 & Spectral inclusion under homomorphisms & Applied to $a^*a$, it enters the proof that $*$-homomorphisms are contractive (Thm. 2.8).\\
+1.9 & Inverse-closed commutative subalgebra & Explicitly used in the proof of Prop. 2.13 to preserve a self-adjoint element's spectrum.\\
+1.10 & $\spec(f)=f(X)$ for compact $X$ & Computes the spectrum of $f$ in the proof of Problem 2.4; illustrates the $C(X)$ model of Gelfand--Naimark.\\
+1.11 & $\mathcal B(H)$ and unilateral shift & Part (a) gives a concrete model for Problem 2.1; (c,d) distinguish approximate point spectrum from spectrum, and Problem 2.10 completes the calculation of $\spec(S)$.\\
+1.12 & Disc algebra & Shows that a unital, closed inclusion of Banach algebras can change the spectrum; the inclusion is not one of $C^*$-subalgebras.\\
+\midrule
+2.1 & $C_b(X)\hookrightarrow\mathcal B(\ell^2(X))$ & Directly verifies an isometric $*$-homomorphism; a concrete example of Thm. 2.27.\\
+2.2 & Idempotents, products, unitaries & Parts (a,c) give forward directions of Prop. 2.28; (b) estimates radii of commuting products and is not needed for that proposition.\\
+2.3 & Bounded product and $c_0$ direct sum & Constructs a $C^*$-algebra and its closed ideal; Problem 1.4 allows the quotient to be viewed as a Banach algebra.\\
+2.4 & Continuous spectral mapping & Depends on Thm. 2.22, Prop. 2.17, and Problem 1.10; applies to functions of normal elements.\\
+2.5 & $X\cong\Omega(C(X))$ & Gives uniqueness of the compact space in Cor. 2.21.\\
+2.6 & Self-adjoints, unitaries, and projections & Reconstructs Prop. 2.28 through functional calculus and uses counterexamples to show why normality is needed.\\
+2.7 & Unitary factor of an invertible element & Uses the positive root from Prop. 2.30 and invertibility of $a^*a$ to obtain $a=u|a|$.\\
+2.8 & Continuity of $f(x_n)$ & Combines Problem 1.7, Stone--Weierstrass, and functional calculus; convergence is in norm.\\
+2.9 & Monotone convergence of self-adjoint operators & Uses positive order, polarization, and Riesz; concludes strong convergence without claiming norm convergence.\\
+2.10 & Spectrum of the unilateral shift & Extends Problem 1.11(d) to $\spec(S)=\overline{\mathbb D}$; $S$ is not normal.\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\section{Two carefully qualified bridges to Haseman}
+
+\begin{center}
+\begin{tikzpicture}[node distance=8mm]
+\node[taskbox,text width=2.6cm] (q) {Problem 1.4\\quotient by an ideal};
+\node[theorybox,text width=2.7cm,right=of q] (calkin) {$\K(X)$ closed\\$\mathcal B(X)/\K(X)$};
+\node[researchbox,text width=2.6cm,right=of calkin] (class) {Class of $A$\\$A+\K(X)$};
+\node[flowend,text width=2.7cm,right=of class] (fred) {Atkinson\\invertible $\Leftrightarrow$ Fredholm};
+\draw[arr] (q)--(calkin);
+\draw[arr] (calkin)--(class);
+\draw[arr] (class)--(fred);
+\end{tikzpicture}
+\end{center}
+
+\noindent For infinite-dimensional Banach $X$, the first arrow uses that $\K(X)$ is a closed
+ideal. The last is Atkinson's theorem, not a consequence of Problem 1.4. For operators
+in the Haseman research line, this formulation poses the Fredholm problem in a quotient;
+see \cite[p.~2]{Karlovich2025}. As a concrete check, on $X=\ell^2$ let $P$ project onto
+the first standard basis vector $e_1$, and set $A=I_X-P$. Then $A e_1=0$, but
+$A+\K(X)=I_X+\K(X)$ because $P$ is compact. The calculation shows what information
+the quotient retains and why Problem 1.4 prepares the formulation of Atkinson's theorem.
+
+\begin{center}
+\begin{tikzpicture}[node distance=9mm and 8mm]
+\node[theorybox,text width=3.0cm] (model) {Model $L^2(\Gamma_0)$,\\$\Gamma_0=\mathbb R$ or $\mathbb T$\\$S_{\Gamma_0}^2=I$, $S_{\Gamma_0}^*=S_{\Gamma_0}$};
+\node[taskbox,text width=3.0cm,right=of model] (orth) {$P_{\Gamma_0}^\pm=(I\pm S_{\Gamma_0})/2$\\orthogonal projections};
+\draw[arr] (model)--(orth);
+\node[researchbox,text width=3.0cm,below=of model] (plem) {Karlovich's open star\\Sokhotski--Plemelj};
+\node[researchbox,text width=3.0cm,right=of plem] (trace) {$P_\pm=(I\pm S_\Gamma)/2$\\trace components};
+\node[flowend,text width=3.0cm,right=of trace] (has) {$T=V_\alpha P_+ + M_GP_-$\\Haseman equation};
+\draw[arr] (plem)--(trace);
+\draw[arr] (trace)--(has);
+\draw[mergearr,dash pattern=on 4pt off 2pt] (orth.south)--(trace.north);
+\end{tikzpicture}
+\end{center}
+
+\noindent The dashed arrow compares only the form of the formulas. In the model of
+Bastos--Fernandes--Karlovich \cite[§2, p.~22]{BFK2006}, $P_{\Gamma_0}^\pm$ are
+orthogonal projections. On the open star of Karlovich 2017, boundary reduction to $T$
+follows from Sokhotski--Plemelj \cite[pp.~463--464]{Karlovich2017}; according to
+Theorem 5.3 of that source, $S_\Gamma^2=I$ does not hold there in general. Thus the
+operators $P_\pm$ in that equation are not called idempotents or projections here.
+For the check $\alpha=\mathrm{id}$ and $G=1$, the Haseman formula gives
+$T=P_++P_-=I$ by cancellation of the two $S_\Gamma$ terms. This calculation uses
+the Plemelj formula without requiring $S_\Gamma^2=I$.
+
+\begin{reflection}
+To check an arrow, locate the line of the proof that uses its source. For example, identify
+where Problem 1.9 enters the reality of the spectrum and where Problem 1.10 enters Problem
+2.4. Then verify in the $L^2(\Gamma_0)$ model how $S_{\Gamma_0}^2=I$ gives
+idempotents and how $S_{\Gamma_0}^*=S_{\Gamma_0}$ makes them orthogonal projections.
+Compare those assumptions with the assumptions for the open star.
+\end{reflection}

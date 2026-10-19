@@ -1,0 +1,269 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.55cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{enumitem}
+\usepackage{tgchorus}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\allowdisplaybreaks
+
+% --- Colors chosen to imitate the photos ---
+\definecolor{inkblue}{RGB}{43,54,215}
+\definecolor{inkgreen}{RGB}{0,145,105}
+\definecolor{inkred}{RGB}{220,40,45}
+\definecolor{gridgray}{RGB}{230,232,236}
+\definecolor{sourcegray}{RGB}{95,95,100}
+
+% --- Graph-paper background ---
+\AddToShipoutPictureBG{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[step=0.50cm,gridgray,very thin]
+      (current page.south west) grid (current page.north east);
+  \end{tikzpicture}%
+}
+
+\newcommand{\blue}[1]{{\color{inkblue}#1}}
+\newcommand{\green}[1]{{\color{inkgreen}#1}}
+\newcommand{\red}[1]{{\color{inkred}#1}}
+\newcommand{\src}[1]{\par{\raggedleft\footnotesize\color{sourcegray}\textit{#1}\par}}
+\newcommand{\hand}[1]{{\fontfamily{qzc}\selectfont #1}}
+\newcommand{\divider}{\vspace{0.2em}\noindent\rule{\textwidth}{1.25pt}\vspace{0.35em}}
+
+\begin{document}
+
+% ============================================================
+% Reconstructed first page (photos 160804 and 160940)
+% ============================================================
+\blue{\hand{\Large Theorem (Functional Calculus).}}
+
+\blue{\hand{Let $A$ be a unital $C^*$-algebra and $a\in A$ normal}}
+\red{$\bigl(a^*a=aa^*\bigr)$.}
+
+\blue{\hand{Then there is a unique isometric $*$-homomorphism}}
+\[
+  \blue{C(\sigma(a))\longrightarrow A}
+\]
+\blue{\hand{such that}}
+\[
+ \blue{\operatorname{id}_{\sigma(a)}\longmapsto a,
+ \qquad 1_{\sigma(a)}\longmapsto 1_A.}
+\]
+
+\green{\hand{Ex.}}
+\[
+\green{
+\operatorname{id}_{\sigma(a)}:\sigma(a)\to\mathbb C,
+\qquad \operatorname{id}_{\sigma(a)}(z)=z,
+}
+\]
+\[
+\green{
+1_{\sigma(a)}:\sigma(a)\to\mathbb C,
+\qquad 1_{\sigma(a)}(z)=1.
+}
+\]
+
+\src{Base result: Section 2 notes, Theorem 2.22 (Functional Calculus).}
+
+\medskip
+\textcolor{black}{\emph{Original typed annotation in the photo: ``by means of isometric it means that the norm is always one.''}}
+
+\red{\textbf{Correction.} ``Isometric'' means norm preserving:}
+\[
+\red{\|F(f)\|_A=\|f\|_{\infty}\quad\text{for every }f,}
+\]
+\red{not that every norm is equal to $1$.}
+
+\divider
+
+\blue{\hand{Proof.}}
+
+\blue{\hand{Put}}
+\[
+  \blue{B:=C^*(a,1_A).}
+\]
+\blue{\hand{Since $a$ is normal, $B$ is a unital commutative $C^*$-algebra.}}
+\src{Tarea 1, Problem 3(d): a $*$-commuting generating family generates a commutative involutive Banach algebra; see also the main study notes, \S4.3.}
+
+\blue{\hand{By the Gelfand--Naimark theorem,}}
+\[
+\blue{
+\Lambda_B:B\longrightarrow C(\Omega(B)),
+\qquad b\longmapsto \widehat b,
+}
+\]
+\blue{\hand{is an isometric $*$-isomorphism.}}
+\src{Section 2 notes, Theorem 2.20 (commutative Gelfand--Naimark).}
+
+\blue{\hand{We already showed}}
+\[
+ \blue{\Omega(B)=\Omega\!\left(C^*(a,1_A)\right)\cong \sigma(a)}
+\]
+\blue{\hand{via the homeomorphism}}
+\[
+  \blue{
+  \Phi:\Omega(B)\longrightarrow\sigma(a),
+  \qquad \Phi(\varphi)=\varphi(a).
+  }
+\]
+\src{Section 2 notes, Proposition 2.18.}
+
+\newpage
+
+% ============================================================
+% Isometric pullback/pushforward map (photo 160819)
+% ============================================================
+\blue{\hand{Then}}
+\[
+ \blue{
+ \Phi_*:C(\Omega(B))\longrightarrow C(\sigma(a)),
+ \qquad f\longmapsto f\circ\Phi^{-1},
+ }
+\]
+\blue{\hand{is an isometric $*$-isomorphism.}}
+
+\blue{\hand{Indeed,}}
+\begin{align*}
+\blue{\|\Phi_*(f)\|_\infty}
+&\blue{=\|f\circ\Phi^{-1}\|_\infty}\\
+&\blue{=\sup_{\lambda\in\sigma(a)}
+  \bigl|f\bigl(\Phi^{-1}(\lambda)\bigr)\bigr|}\\
+&\blue{=\sup_{\varphi\in\Omega(B)}|f(\varphi)|}\\
+&\blue{=\|f\|_\infty.}
+\end{align*}
+
+\green{The spectral description used here is}
+\[
+\green{
+\sigma(a)
+=\{\lambda\in\mathbb C:\lambda1_A-a\notin GL(A)\}
+=\{\varphi(a):\varphi\in\Omega(B)\},
+}
+\]
+\green{and, if $\lambda=\varphi(a)$, then}
+\[
+\green{\Phi^{-1}(\lambda)=\Phi^{-1}(\varphi(a))=\varphi.}
+\]
+\src{Definition of spectrum: Part 1, Definition 1.11. Spectrum via characters: Part 1, Theorem 1.22, applied inside the commutative algebra $B$; spectral permanence is Section 2, Proposition 2.17.}
+
+\divider
+
+\green{\hand{Surjectivity of $\Phi_*$.}}
+
+\green{Let $f\in C(\sigma(a))$. Since $\Phi$ is a homeomorphism, define}
+\[
+\green{g:=f\circ\Phi\in C(\Omega(B)).}
+\]
+\green{Then}
+\[
+\green{
+\Phi_*(g)
+=g\circ\Phi^{-1}
+=f\circ\Phi\circ\Phi^{-1}
+=f,
+}
+\]
+\green{so $\Phi_*$ is surjective.}
+
+\newpage
+
+% ============================================================
+% Composition with Gelfand transform (photos 160828/160852/160908)
+% ============================================================
+\blue{\hand{Let's consider}}
+\[
+\blue{
+\Phi_*\circ\Lambda_B:B\longrightarrow C(\sigma(a)).
+}
+\]
+\blue{\hand{Let $\lambda\in\sigma(a)$ and put}}
+\[
+ \blue{\varphi:=\Phi^{-1}(\lambda)\in\Omega(B).}
+\]
+
+\blue{\hand{For the unit,}}
+\begin{align*}
+\blue{\bigl((\Phi_*\circ\Lambda_B)(1_A)\bigr)(\lambda)}
+&\blue{=\Phi_*\bigl(\Lambda_B(1_A)\bigr)(\lambda)}\\
+&\blue{=\widehat{1_A}\bigl(\Phi^{-1}(\lambda)\bigr)}\\
+&\blue{=\widehat{1_A}(\varphi)}\\
+&\blue{=\varphi(1_A)}\\
+&\blue{=1}\\
+&\blue{=1_{\sigma(a)}(\lambda).}
+\end{align*}
+
+\blue{\hand{For $a$,}}
+\begin{align*}
+\blue{\bigl((\Phi_*\circ\Lambda_B)(a)\bigr)(\lambda)}
+&\blue{=\Phi_*\bigl(\Lambda_B(a)\bigr)(\lambda)}\\
+&\blue{=\widehat a\bigl(\Phi^{-1}(\lambda)\bigr)}\\
+&\blue{=\widehat a(\varphi)}\\
+&\blue{=\varphi(a)}\\
+&\blue{=\lambda}\\
+&\blue{=\operatorname{id}_{\sigma(a)}(\lambda).}
+\end{align*}
+
+\medskip
+\begin{center}
+\textcolor{black}{\itshape Instructor's annotation in the photograph:}\par
+\textcolor{black}{\itshape ``falta demostrar que es un isomorfismo isométrico''.}
+\end{center}
+
+\red{\textbf{Completion of that missing verification.}}
+Since \(\Lambda_B\) is an isometric $*$-isomorphism by Theorem 2.20 and
+\(\Phi_*\) is an isometric $*$-isomorphism by the calculation above, their
+composition is also an isometric $*$-isomorphism:
+\[
+\red{
+\Phi_*\circ\Lambda_B:B\xrightarrow{\ \cong\ } C(\sigma(a)).
+}
+\]
+
+\newpage
+
+% ============================================================
+% Final step (photos 160917/160931)
+% ============================================================
+\blue{\hand{Moreover, $\Phi_*\circ\Lambda_B$ is an isometric $*$-isomorphism.}}
+
+\blue{\hand{Therefore}}
+\[
+\blue{
+(\Phi_*\circ\Lambda_B)^{-1}:
+C(\sigma(a))\longrightarrow B\subseteq A
+}
+\]
+\blue{\hand{is an isometric $*$-isomorphism, and}}
+\[
+\blue{
+(\Phi_*\circ\Lambda_B)^{-1}
+\bigl(\operatorname{id}_{\sigma(a)}\bigr)=a,
+\qquad
+(\Phi_*\circ\Lambda_B)^{-1}
+\bigl(1_{\sigma(a)}\bigr)=1_A.
+}
+\]
+
+\src{This is exactly the construction used in the proof of Section 2, Theorem 2.22.}
+
+\divider
+
+\textcolor{sourcegray}{\textbf{Source-result key used in this transcription.}}
+\begin{itemize}[leftmargin=1.7em,itemsep=0.15em,topsep=0.2em]
+\item \textcolor{sourcegray}{\textbf{[P1]} Jorge Castillejos, \emph{C$^*$-álgebras: Teoría Espectral en álgebras de Banach}: Definition 1.11, Theorem 1.22, Definition 1.27.}
+\item \textcolor{sourcegray}{\textbf{[C2]} Jorge Castillejos, \emph{C$^*$-álgebras, Section 2}: Proposition 2.18, Theorem 2.19, Theorem 2.20, Theorem 2.22.}
+\item \textcolor{sourcegray}{\textbf{[T1]} \emph{C$^*$-álgebras, Tarea 1}: Problem 3(d), and Problem 9 for a spectrum-preserving commutative reduction.}
+\item \textcolor{sourcegray}{\textbf{[N]} Enrique Díaz Ocampo, \emph{Notas de estudio: teoría espectral en álgebras de Banach y C$^*$-álgebras}, \S3.4.}
+\end{itemize}
+
+\end{document}

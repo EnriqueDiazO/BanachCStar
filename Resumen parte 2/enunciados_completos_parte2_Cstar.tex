@@ -1,0 +1,80 @@
+% Archivo maestro: reúne definiciones y resultados de la Parte 2.
+% Para compilar como documento único se incluyen directamente los dos cuerpos
+% en una versión autocontenida generada a partir de Parte2.pdf.
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\Asa}{A_{\mathrm{sa}}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Pj}{\mathcal{P}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\id}{\mathrm{id}}
+\newenvironment{definicion}[1]{\par\medskip\noindent\textbf{Definición #1.}\ }{\par\medskip}
+\newenvironment{teorema}[1]{\par\medskip\noindent\textbf{Teorema #1.}\ \itshape}{\par\medskip}
+\newenvironment{proposicion}[1]{\par\medskip\noindent\textbf{Proposición #1.}\ \itshape}{\par\medskip}
+\newenvironment{corolario}[1]{\par\medskip\noindent\textbf{Corolario #1.}\ \itshape}{\par\medskip}
+\newenvironment{lema}[1]{\par\medskip\noindent\textbf{Lema #1.}\ \itshape}{\par\medskip}
+\newenvironment{observacion}[1]{\par\medskip\noindent\textbf{Observación #1.}\ }{\par\medskip}
+\title{Parte 2: $C^*$-álgebras\\Definiciones y enunciados numerados}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Definiciones}
+\begin{definicion}{2.1}
+Una $C^*$-álgebra $A$ es un álgebra de Banach involutiva tal que
+\[\lVert a^*a\rVert=\lVert a\rVert^2\qquad\forall a\in A,\]
+(identidad $C^*$).
+\end{definicion}
+\begin{definicion}{2.4}
+Sean $A$ y $B$ $C^*$-álgebras. Un $*$-homomorfismo es un mapeo $\varphi:A\to B$ lineal, multiplicativo y que preserva la involución, $\varphi(a^*)=\varphi(a)^*$. Si $A$ y $B$ tienen unidad, decimos que $\varphi$ es unital si $\varphi(1_A)=1_B$.
+\end{definicion}
+\begin{definicion}{2.5}
+Sea $a\in A$. Decimos que $a$ es:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+\item normal si $a^*a=aa^*$;
+\item autoadjunto si $a^*=a$. Denotamos al conjunto de autoadjuntos con $\Asa$;
+\item unitario si $a^*a=aa^*=1$ (asumiendo que $A$ tiene unidad). Escribimos $\U(A)=\{\text{unitarios de }A\}$;
+\item proyección si $a=a^*=a^2$. Escribimos $\Pj(A)=\{\text{proyecciones de }A\}$.
+\end{enumerate}
+\end{definicion}
+\begin{definicion}{2.23}
+Sea $A$ con unidad y $a\in A$ normal. Sea $E\subseteq\mathbb C$ un espacio localmente compacto que contiene a $\sigma(a)$. Definimos un $*$-homomorfismo unital
+\[C_b(E)\to A,\qquad f\mapsto (f|_{\sigma(a)})(a)=:f(a),\]
+utilizando el cálculo funcional. Si $f:E\to\mathbb C$ no es acotada, del mismo modo se define $f(a)\in A$ (pues lo único que importa es $f|_{\sigma(a)}$, que sí es acotada por ser $\sigma(a)$ compacto).
+\end{definicion}
+
+\section*{Resultados}
+\begin{observacion}{2.2}Si $A$ tiene unidad, entonces $1^*=1$ y $\lVert1\rVert=1$.\end{observacion}
+\begin{teorema}{2.6}Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ un elemento normal. Entonces $\lVert a\rVert=r(a)$.\end{teorema}
+\begin{corolario}{2.7}La norma en una $C^*$-álgebra es única y está dada por $\lVert a\rVert=r(a^*a)^{1/2}$.\end{corolario}
+\begin{teorema}{2.8}Sean $A$ y $B$ dos $C^*$-álgebras con unidad y $\Phi:A\to B$ un $*$-homomorfismo unital. Entonces $\Phi$ es acotado y $\lVert\Phi\rVert=1$.\end{teorema}
+\begin{observacion}{2.9}Sea $a\in A$. Entonces existen elementos únicos $x,y\in\Asa$ tales que $a=x+iy$. Precisamente $x=(a+a^*)/2$ y $y=(a-a^*)/(2i)$.\end{observacion}
+\begin{lema}{2.10}Sea $A$ una $C^*$-álgebra con unidad y $x\in\Asa$. Entonces $\lVert x+it1\rVert^2\le \lVert x\rVert^2+t^2$ para $t\in\mathbb R$.\end{lema}
+\begin{proposicion}{2.11}Sea $z\in\mathbb C$. Supongamos que existe $C\ge0$ tal que $|z+it|^2\le C+t^2$ para todo $t\in\mathbb R$. Entonces $z\in\mathbb R$.\end{proposicion}
+\begin{proposicion}{2.12}Sea $A$ una $C^*$-álgebra con unidad y $\varphi:A\to\mathbb C$ un funcional lineal tal que $\lVert\varphi\rVert=\varphi(1)$. Entonces $\varphi(a)\in\mathbb R$ para todo $a\in\Asa$.\end{proposicion}
+\begin{proposicion}{2.13}Sea $A$ una $C^*$-álgebra con unidad y $a\in\Asa$. Entonces $\sigma(a)\subseteq\mathbb R$.\end{proposicion}
+\begin{corolario}{2.14}Sea $A$ una $C^*$-álgebra con unidad y $\varphi:A\to\mathbb C$ un funcional lineal tal que $\lVert\varphi\rVert=\varphi(1)$. Entonces $\varphi(a^*)=\overline{\varphi(a)}$ para todo $a\in A$. En particular, los caracteres lo cumplen.\end{corolario}
+\begin{corolario}{2.15}Sea $A$ una $C^*$-álgebra conmutativa con unidad. Entonces la transformada de Gelfand $\Lambda:A\to C(\Omega(A))$, $a\mapsto\widehat a$, es un $*$-homomorfismo unital.\end{corolario}
+\begin{proposicion}{2.16}Sea $A$ una $C^*$-álgebra con unidad y $a\in A$. Entonces $a\in\GL(A)\Longleftrightarrow a^*a,aa^*\in\GL(A)$.\end{proposicion}
+\begin{proposicion}{2.17}Sea $A$ una $C^*$-álgebra con unidad $1_A$ y $B\subseteq A$ una $C^*$-subálgebra que contiene a $1_A$. Sea $b\in B$. Entonces $b\in\GL(B)\Longleftrightarrow b\in\GL(A)$, y en particular $\sigma_B(b)=\sigma_A(b)$.\end{proposicion}
+\begin{proposicion}{2.18}Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ normal. Entonces $\Omega(C^*(a,1))\to\sigma(a)$, $\varphi\mapsto\varphi(a)$, es un homeomorfismo.\end{proposicion}
+\begin{teorema}{2.19 (Stone--Weierstrass)}Sea $X$ un espacio compacto y Hausdorff, y sea $A\subseteq C(X)$ una $*$-subálgebra con unidad. Supongamos que $A$ separa puntos. Entonces $A$ es densa en $C(X)$ con la norma $\lVert\cdot\rVert_\infty$.\end{teorema}
+\begin{teorema}{2.20 (Gelfand--Naimark)}Sea $A$ una $C^*$-álgebra conmutativa con unidad. Entonces la transformada de Gelfand $\Lambda:A\to C(\Omega(A))$, $\widehat a(\varphi)=\varphi(a)$, es un $*$-isomorfismo isométrico.\end{teorema}
+\begin{corolario}{2.21}Toda $C^*$-álgebra conmutativa con unidad es isomorfa a $C(X)$ para algún espacio compacto y Hausdorff $X$. Además, $X$ es único salvo homeomorfismo.\end{corolario}
+\begin{teorema}{2.22 (Cálculo Funcional)}Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ normal. Entonces existe un único $*$-homomorfismo isométrico $C(\sigma(a))\to A$, $f\mapsto f(a)$, tal que $\id_{\sigma(a)}\mapsto a$ y $1_{\sigma(a)}\mapsto1_A$.\end{teorema}
+\begin{observacion}{2.24}Por ejemplo, $(\overline z z)(a)=a^*a$ y $(z^2-\overline z^{\,3}+1)(a)=a^2-(a^*)^3+1$.\end{observacion}
+\begin{observacion}{2.25}Si $X$ es compacto, $A=C(X)$ y $g\in C(X)$, entonces $\sigma(g)=g(X)$ y el cálculo funcional es $C(g(X))\to A$, $f\mapsto f(g)=f\circ g$.\end{observacion}
+\begin{lema}{2.26}Sean $A$ y $B$ dos $C^*$-álgebras con unidad y $\Phi:A\to B$ un $*$-homomorfismo unital. Sea $a\in A$ normal y $f:\sigma(a)\to\mathbb C$ continua. Entonces $\Phi(f(a))=f(\Phi(a))$.\end{lema}
+\begin{teorema}{2.27}Sean $A$ y $B$ dos $C^*$-álgebras con unidad y $\Phi:A\to B$ un $*$-homomorfismo inyectivo unital. Entonces $\Phi$ es isométrico: $\lVert\Phi(a)\rVert=\lVert a\rVert$ para todo $a\in A$.\end{teorema}
+\begin{proposicion}{2.28}Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ normal. Entonces: (i) $a=a^*\Longleftrightarrow\sigma(a)\subseteq\mathbb R$; (ii) $a\in\U(A)\Longleftrightarrow\sigma(a)\subseteq\T$; (iii) $a\in\Pj(A)\Longleftrightarrow\sigma(a)\subseteq\{0,1\}$.\end{proposicion}
+\begin{proposicion}{2.29}Sea $A$ una $C^*$-álgebra con unidad. Entonces cada elemento de $A$ es combinación lineal de a lo más cuatro unitarios.\end{proposicion}
+\begin{proposicion}{2.30}Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ normal con $\sigma(a)\subseteq\mathbb R^+=[0,\infty)$. Entonces existe $y=y^*\in A$ con $\sigma(y)\subseteq\mathbb R^+$ tal que $y^2=a$.\end{proposicion}
+\end{document}

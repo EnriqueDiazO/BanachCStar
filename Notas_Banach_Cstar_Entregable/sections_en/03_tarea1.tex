@@ -1,0 +1,888 @@
+\chapter{Assignment 1: worked solutions and connections to the theory}
+
+\begin{context}
+After completing this assignment, you will be able to explain which continuity properties support
+constructions by closure, decide in which algebra a spectrum is computed, and construct the commutative
+subalgebra used to study a self-adjoint element. Each solution identifies the results it uses and how its
+conclusion will be used later.
+\end{context}
+
+\section{Problem 1.1: continuity of multiplication and inversion}
+
+Let $\A$ be a Banach algebra. In part (b), assume in addition that it has an identity.
+
+\subsection*{1.1(a) Multiplication is jointly continuous}
+
+\noindent\textbf{Statement.} If $x_n\to x$ and $y_n\to y$ in $\A$, prove that $x_ny_n\to xy$; equivalently, prove joint continuity of multiplication $\A\times\A\to\A$.
+
+\begin{proof}[Solution]
+Since $x_n\to x$, the sequence $(x_n)$ is bounded: there is $M$ with $\|x_n\|\le M$. Thus
+\[
+\|x_ny_n-xy\|
+\le \|x_n\|\,\|y_n-y\|+\|x_n-x\|\,\|y\|
+\le M\|y_n-y\|+\|y\|\|x_n-x\|\to0.
+\]
+Hence multiplication $\A\times\A\to\A$ is jointly continuous.
+\end{proof}
+
+\proofdiagram
+{$x_n\to x$, $y_n\to y$}
+{$\|ab\|\le\|a\|\|b\|$}
+{Write $x_ny_n-xy=x_n(y_n-y)+(x_n-x)y$}
+{$\|x_ny_n-xy\|\to0$}
+
+\begin{cthejemplo}{(Product of convergent operator sequences)}
+In $\mathcal B(H)$ we check Problem 1.1(a) with $T_n=T+n^{-1}I$ and $S_n=S+n^{-1}I$.
+Then $T_nS_n-TS=n^{-1}(T+S)+n^{-2}I$, whence
+$\|T_nS_n-TS\|\le n^{-1}(\|T\|+\|S\|)+n^{-2}\to0$.
+This calculation shows that the product converges even when both factors vary simultaneously.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The submultiplicative inequality in the definition of a Banach algebra and the boundedness of every convergent sequence. The estimate separates the variation of the two factors.
+
+\noindent\textbf{How this problem is used later.} It allows passage to the closure of the algebras generated in Problem 1.3, passage to the limit in the normality relation in Problem 1.7, and control of polynomials in $x_n,x_n^*$ in Problem 2.8.
+
+\subsection*{1.1(b) Inversion is continuous on $\GL(\A)$}
+
+For this part, $\A$ is a unital Banach algebra and $\GL(\A)$ carries the norm inherited from
+$\A$.
+
+\noindent\textbf{Statement.} Prove that the map $\GL(\A)\to\GL(\A)$, $a\mapsto a^{-1}$, is continuous in the norm of $\A$.
+
+\begin{proof}[Solution]
+First, if $x\to1$ and $\|1-x\|<1$, the Neumann series gives
+\[
+ x^{-1}=\sum_{n=0}^\infty(1-x)^n,
+ \qquad
+ \|x^{-1}-1\|
+ \le \sum_{n=1}^\infty\|1-x\|^n
+ =\frac{\|1-x\|}{1-\|1-x\|}\to0.
+\]
+Therefore inversion is continuous at $1$. If $a_n\to a\in\GL(\A)$, then
+$a^{-1}a_n\to1$ and, for all sufficiently large $n$, $a_n$ is invertible. Moreover,
+\[
+ a_n^{-1}=(a^{-1}a_n)^{-1}a^{-1}\longrightarrow a^{-1}.
+\]
+\end{proof}
+
+\proofdiagram
+{$a_n\to a\in\GL(\A)$}
+{Continuity at $1$ by the Neumann series}
+{$a_n=a(a^{-1}a_n)$ and $a^{-1}a_n\to1$}
+{$a_n^{-1}=(a^{-1}a_n)^{-1}a^{-1}\to a^{-1}$}
+
+\begin{cthejemplo}{(Inverse of a small perturbation)}
+In $\mathcal B(H)$, we ask when a perturbation of the identity remains invertible.
+If $E\in\mathcal B(H)$ satisfies $\|E\|<1$, the Neumann series gives
+\[
+ (I+E)^{-1}=\sum_{k=0}^{\infty}(-E)^k,
+ \qquad \|(I+E)^{-1}-I\|\le\frac{\|E\|}{1-\|E\|}.
+\]
+The bound tends to zero with $\|E\|$: this is the concrete mechanism behind continuity in Problem 1.1(b).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The Neumann series from Part 1 gives an inverse for $1-h$ if $\|h\|<1$; openness of $\GL(\A)$ allows the formula to be applied near any invertible element.
+
+\noindent\textbf{How this problem is used later.} The proof of spectral permanence in Section 2 uses this continuity by going from $(b+i/n)^{-1}$ to $b^{-1}$ within a closed subalgebra.
+
+\Needspace{14\baselineskip}
+\section{Problem 1.2: commutation and inverses}
+
+Let $\A$ be a unital complex algebra, let $a,b\in\A$, and assume that $a$ is invertible. In part (b),
+assume in addition that $\A$ has an involution.
+
+Recall that $x$ and $y$ \emph{$*$-commute} when
+\[
+ xy=yx,
+ \qquad x^*y=yx^*.
+\]
+
+\subsection*{1.2(a) Commuting with $a$ is equivalent to commuting with $a^{-1}$}
+
+\noindent\textbf{Statement.} Prove that $ab=ba$ if and only if $a^{-1}b=ba^{-1}$.
+
+\begin{proof}[Solution]
+If $ab=ba$, multiply first on the left and then on the right by $a^{-1}$:
+\[
+ b=a^{-1}ba \quad\Longrightarrow\quad ba^{-1}=a^{-1}b.
+\]
+Conversely, if $a^{-1}b=ba^{-1}$, multiply first on the left and then on the
+right by $a$: from $b=aba^{-1}$ we obtain $ba=ab$. Thus $a$ commutes with $b$.
+\end{proof}
+
+\proofdiagram
+{$ab=ba$, $a$ invertible}
+{Multiply by $a^{-1}$ left and right}
+{$a^{-1}b=ba^{-1}$}
+{Equivalence, using $(a^{-1})^{-1}=a$}
+
+\begin{cthejemplo}{(Commutation of diagonal matrices and their inverses)}
+In $M_2(\mathbb C)$ we can see the equivalence of Problem 1.2(a) without resorting to limits.
+Let's take $A=\operatorname{diag}(2,3)$ and $B=\operatorname{diag}(5,7)$.
+As $A^{-1}=\operatorname{diag}(1/2,1/3)$,
+\[
+ AB=BA=\operatorname{diag}(10,21),\qquad
+ A^{-1}B=BA^{-1}=\operatorname{diag}(5/2,7/3).
+\]
+Taking the inverse changes the entries of $A$ but preserves its commutation with $B$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Only associativity, the identity, and the existence of $a^{-1}$ are needed; no norm is involved.
+
+\noindent\textbf{How this problem is used later.} In Problem 1.9 this identity is applied to $\lambda1-c$ to show that its inverse commutes with the chosen subalgebra.
+
+\subsection*{1.2(b) $*$-commutation and inverses}
+
+\noindent\textbf{Statement.} Prove that $a$ and $b$ $*$-commute if and only if $a^{-1}$ and $b$ $*$-commute.
+
+\begin{proof}[Solution]
+From $ab=ba$ and subpart (a), $a^{-1}b=ba^{-1}$. Additionally $a^*b=ba^*$; since $a^*$ is invertible,
+$(a^*)^{-1}b=b(a^*)^{-1}$. Since $(a^*)^{-1}=(a^{-1})^*$, both conditions of
+$*$-commutation hold. Conversely, if $a^{-1}$ and $b$ $*$-commute, apply the same argument
+to the invertible element $a^{-1}$: its inverse $a$ and its adjoint $a^*$ commute with $b$.
+\end{proof}
+
+\Needspace{14\baselineskip}
+\proofdiagram
+{$a$ and $b$ $*$-commute}
+{Subpart (a) applied to $a$ and $a^*$}
+{$a^{-1}$ and $(a^{-1})^*=(a^*)^{-1}$ commute with $b$}
+{$a^{-1}$ and $b$ $*$-commute}
+
+\begin{cthejemplo}{(The inverse of a normal matrix)}
+To check $*$-commutation in Problem 1.2(b), use the normal invertible matrix
+$A=\operatorname{diag}(2,i)$ in $M_2(\mathbb C)$.
+Then $A^{-1}=\operatorname{diag}(1/2,-i)$ and
+\[
+ A^{-1}(A^{-1})^*=(A^{-1})^*A^{-1}=\operatorname{diag}(1/4,1).
+\]
+Thus $A^{-1}$ remains normal: the key step is that its adjoint is the inverse of $A^*$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Problem 1.2(a) applies to both $a$ and $a^*$, along with $(a^{-1})^*=(a^*)^{-1}$. The definition of $*$-commutation sets the two relationships that need to be verified.
+
+\noindent\textbf{How this problem is used later.} It controls inverses in the involutive version of Problem 1.9 and explains why the inverse of an invertible normal element is again normal.
+
+\section{Problem 1.3: algebras generated by a set}
+
+Let $\A$ be a Banach algebra and $S\subset\A$. We define
+\[
+\mathcal B(S)=\overline{\spn\{s_1\cdots s_k:k\ge1,\ s_j\in S\}}.
+\]
+If $\A$ has an involution, we put $S^*=\{s^*:s\in S\}$ and
+$\mathcal B^*(S)=\mathcal B(S\cup S^*)$.
+
+\subsection*{1.3(a) Minimality of $\mathcal B(S)$ and $\mathcal B^*(S)$}
+
+\noindent\textbf{Statement.} Prove that $\mathcal B(S)$ is the smallest Banach subalgebra of $\A$ that contains $S$ and, when $\A$ is involutive, that $\mathcal B^*(S)$ is the minimal involutive Banach subalgebra containing $S$.
+
+\begin{proof}[Solution]
+The set of linear combinations of words in $S$ is a subalgebra; its closure is still a subalgebra by continuity of multiplication. Thus $\mathcal B(S)$ is a
+Banach subalgebra containing $S$. If $C\subset\A$ is any Banach subalgebra with $S\subset C$,
+then $C$ contains all the words $s_1\cdots s_k$, their linear combinations and, being
+closed, its closure. Therefore $\mathcal B(S)\subset C$.
+
+For $\mathcal B^*(S)$, apply the same argument to $S\cup S^*$. The generated algebra is stable under
+$*$: the adjoint of a word is another word in $S\cup S^*$, and the involution is continuous. Hence it is the smallest involutive Banach subalgebra containing $S$.
+\end{proof}
+
+\pagebreak
+\proofdiagram
+{$S\subset\A$}
+{Finite products, linear combinations and closure}
+{Every closed subalgebra containing $S$ contains every word, linear combination, and limit}
+{$\mathcal B(S)$ is the minimal Banach subalgebra containing $S$}
+
+\begin{cthejemplo}{(Adding the unit changes the generated algebra)}
+In $M_2(\mathbb C)$, the operator $T=\operatorname{diag}(0,2)$ distinguishes
+$\mathcal B(\{T\})$ from the unital algebra generated by $T$.
+As $T^k=\operatorname{diag}(0,2^k)$ for $k\ge1$,
+\[
+ \mathcal B(\{T\})=\{\operatorname{diag}(0,c):c\in\mathbb C\}.
+\]
+Adding $I$ gives all diagonal matrices. The distinction follows from the definition using words of positive length in Problem 1.3(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The closure of linear combinations of words is complete by being closed in $\A$; Problem 1.1(a) allows products to pass to the closure. The continuity of $*$ gives the involutive case.
+
+\noindent\textbf{How this problem is used later.} It constructs $C^*(a,1)$ concretely, the commutative subalgebra used in Section 2 for Gelfand--Naimark and functional calculus. The same generation operation appears in singular operator algebras.
+
+\begin{investigacion}[title={Generation of a real operator algebra}]
+To recognize Problem 1.3(a) in a research construction, consider the \emph{real} operator algebra in $\mathcal B(\mathbb R L^p(\Gamma,w))$ studied by Karlovich.
+Its generators include $M_a$ with $a\in\SO^\diamond(\Gamma)$, $S_\Gamma$ and
+real-linear conjugation $C$. For example, the word $M_aS_\Gamma C$ belongs to
+the generated algebra, as do real linear combinations of words and their limits in
+norm \cite[Eq.~(1.4), p.~3]{Karlovich2025}.
+The generation operation is that of Problem 1.3(a) on real scalars. The presence of $C$
+places this example outside the complex functional calculus of Section 2.
+\end{investigacion}
+
+\subsection*{1.3(b) commutation propagates to the generated algebra}
+
+\noindent\textbf{Statement.} If $a\in\A$ commutes with each $s\in S$, prove commutation with every $x\in\mathcal B(S)$. In the involutive case, if $a$ $*$-commutes with each $s\in S$, prove the same conclusion for $\mathcal B^*(S)$ and for $*$-commutation.
+
+\begin{proof}[Solution]
+If $a$ commutes with each $s\in S$, then by induction it commutes with each word
+$s_1\cdots s_k$. By linearity, it commutes with every linear combination of words. If
+$x_n\to x$ and $ax_n=x_na$, continuity of multiplication gives $ax=x a$. Thus it commutes with all of
+$\mathcal B(S)$.
+
+In the involutive case, if $a$ $*$-commutes with each $s\in S$, then $a$ and $a^*$ commute with
+$s$ and, taking adjoints, also with $s^*$. By the above argument, $a$ and $a^*$ commute with
+all $\mathcal B^*(S)$, which is exactly to say that $a$ $*$-commutes with all its elements.
+\end{proof}
+
+\proofdiagram
+{$as=sa$ for all $s\in S$}
+{Commutation is preserved under products and sums}
+{Pass to limits by continuity}
+{$ax=xa$ for all $x\in\mathcal B(S)$}
+
+\begin{cthejemplo}{(The commutant of diagonal matrices)}
+In $M_2(\mathbb C)$ we want to follow the commutation from a generator to its algebra.
+Let $D=\operatorname{diag}(1,2)$ and $A=\operatorname{diag}(3,4)$.
+For any polynomial $p$,
+\[
+ Ap(D)=\operatorname{diag}(3p(1),4p(2))=p(D)A.
+\]
+The equality persists in polynomial limits in norm, as stated in Problem 1.3(b).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The identity $as=sa$ is preserved when forming words and linear combinations; Problem 1.1(a) allows you to go to the limit. For $*$-commutation, the adjoint relations also apply.
+
+\noindent\textbf{How this problem is used later.} Propagation of commutation justifies adding an inverse in Problem 1.9 without losing commutativity and helps analyze commutants of operator families.
+
+\subsection*{1.3(c) If $S$ commutes pairwise, $\mathcal B(S)$ is commutative}
+
+\noindent\textbf{Statement.} If $st=ts$ for all $s,t\in S$, prove that $\mathcal B(S)$ is commutative.
+
+\begin{proof}[Solution]
+Two words $s_1\cdots s_k$ and $t_1\cdots t_m$ can be rearranged factor by factor because all
+generators commute. Therefore the words commute. By bilinearity the result extends to linear combinations of words, and by continuity to their closure.
+\end{proof}
+
+\proofdiagram
+{The elements of $S$ commute pairwise}
+{Reorder factors in two words}
+{The words commute; then their linear combinations too}
+{$\mathcal B(S)$ is commutative}
+
+\begin{cthejemplo}{(Algebra of a nilpotent)}
+The commutativity of an algebra generated by a single element does not require that it be normal.
+In $M_2(\mathbb C)$, let's take $N=\begin{pmatrix}0&1\\0&0\end{pmatrix}$.
+Since $N^2=0$, every word of positive length is $N$ or $0$, and
+$\mathcal B(\{N\})=\mathbb C N$.
+Two elements $cN,dN$ have product $0$ in either order. This illustrates Problem 1.3(c).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The construction of Problem 1.3(a) is used: if the generators commute pairwise, any two words can be reordered. Problem 1.1(a) extends the identity to its limits.
+
+\noindent\textbf{How this problem is used later.} It allows us to recognize the commutativity of $C^*(a,1)$ when $a$ is normal, a necessary step to represent that algebra as continuous functions in Section 2.
+
+\subsection*{1.3(d) $*$-commutation pairwise}
+
+\noindent\textbf{Statement.} In the involutive case, if each pair of elements of $S$ $*$-commutes, prove that $\mathcal B^*(S)$ is an involutive and commutative Banach subalgebra.
+
+\begin{proof}[Solution]
+Taking adjoints of $st=ts$ and $s^*t=ts^*$ also yields
+$st^*=t^*s$ and $s^*t^*=t^*s^*$. Therefore all the elements of $S\cup S^*$ commute pairwise.
+Applying part (c) to $S\cup S^*$ shows that $\mathcal B^*(S)$ is commutative; by construction,
+it is an involutive Banach algebra.
+\end{proof}
+
+\proofdiagram
+{Each pair $s,t\in S$ $*$-commutes}
+{Take adjoints from relations}
+{$S\cup S^*$ commutes pairwise}
+{$\mathcal B^*(S)$ is commutative and involutive}
+
+\begin{cthejemplo}{(A normal element generates a commutative involutive algebra)}
+In $M_2(\mathbb C)$, the matrix $A=\operatorname{diag}(1,i)$ shows why
+normality allows using functional calculus.
+Its adjoint is $A^*=\operatorname{diag}(1,-i)$, so $AA^*=A^*A=I$.
+Thus words in $A$, $A^*$, and $I$ are diagonal and commute, as does their closure.
+By Problem 1.3(d), $C^*(A,I)$ is commutative, as required to apply Section 2.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The definition of $*$-commutation applied to each pair of generators gives commutation in $S\cup S^*$; then Problem 1.3(c) is applied.
+
+\noindent\textbf{How this problem is used later.} If $a$ is normal, applying this part to $S=\{a,1\}$ gives the commutative $C^*$-subalgebra $C^*(a,1)$, starting point of continuous functional calculus.
+
+\section{Problem 1.4: the quotient by an ideal is a Banach algebra}
+
+Let $\A$ be a Banach algebra and $J\subset\A$ be a closed two-sided ideal.
+
+\noindent\textbf{Statement.} Prove that $(x+J)(y+J)=xy+J$ is well defined and that $\A/J$, with $\|x+J\|=\inf_{j\in J}\|x-j\|$, is a Banach algebra.
+
+\begin{proof}[Solution]
+If $x'=x+j_1$ and $y'=y+j_2$ with $j_1,j_2\in J$, then
+\[
+ x'y'-xy=xj_2+j_1y+j_1j_2\in J,
+\]
+so $(x+J)(y+J)=xy+J$ is well defined.
+
+For the norm, take $j_1,j_2\in J$: 
+\[
+(x-j_1)(y-j_2)=xy-\underbrace{(xj_2+j_1y-j_1j_2)}_{\in J},
+\]
+so
+\[
+\|xy+J\|\le\|x-j_1\|\,\|y-j_2\|.
+\]
+Taking the infimum over $j_1$ and $j_2$ gives
+$\|(x+J)(y+J)\|\le\|x+J\|\|y+J\|$. Finally, since $J$ is closed, the quotient space
+$\A/J$ is complete. This is a Banach algebra.
+\end{proof}
+
+\proofdiagrambranch
+{$J$ closed two-sided ideal}
+{$\|x+J\|=\inf_{b\in J}\|x-b\|$}
+{Check independence of representatives and submultiplicativity}
+{Use that the quotient by a closed subspace is Banach}
+{$\A/J$ is a Banach algebra}
+
+\begin{cthejemplo}{(A class in the Calkin algebra)}
+To see what the quotient in Problem 1.4 identifies, work in $X=\ell^2(\mathbb N)$.
+Let $P$ be the rank one projection onto $\mathbb C e_1$; then $P\in\K(X)$ and
+\[
+ (I+P)+\K(X)=I+\K(X).
+\]
+Two different operators represent the same class because their difference is compact.
+This is the basic equality that allows us to work in the Calkin algebra.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} A two-sided ideal ensures that the product of classes does not depend on representatives; closedness of $J$ ensures completeness of the quotient. The quotient norm and submultiplicativity in $\A$ are used.
+
+\noindent\textbf{How this problem is used later.} By taking $\A=\mathcal B(X)$ and $J=\K(X)$ we obtain the Calkin algebra. The equivalence between Fredholm and invertibility in that quotient is Atkinson's theorem, an additional result that this exercise allows us to formulate but does not prove.
+
+\begin{investigacion}[title={Fredholm operators in the Calkin algebra}]
+To place Problem 1.4 in an application, let $X$ be an infinite-dimensional Banach space and
+$\pi:\mathcal B(X)\to\mathcal B(X)/\K(X)$ the quotient map.
+The class $\pi(A)$ is invertible exactly when there exists $B\in\mathcal B(X)$ with
+$AB-I,BA-I\in\K(X)$; both equalities follow by multiplying classes in the quotient.
+Atkinson's theorem adds that this condition is equivalent to $A$ being Fredholm: range
+closed, finite-dimensional kernel, and finite-dimensional quotient $X/\operatorname{Ran}(A)$
+\cite[p.~2]{Karlovich2025}. Problem 1.4 provides the algebra in which this equivalence is formulated; Atkinson's theorem is an additional result.
+\end{investigacion}
+
+\section{Problem 1.5: \texorpdfstring{$C_0(X)$}{C0(X)} is a Banach subalgebra of \texorpdfstring{$C_b(X)$}{Cb(X)}}
+
+Let $X$ be a locally compact and Hausdorff space.
+
+\noindent\textbf{Statement.} Define
+\begin{multline*}
+C_0(X)=\{f\in C_b(X):\text{ for every }\varepsilon>0\text{ there is a compact }K\subset X\\
+\text{ such that }|f(x)|<\varepsilon\text{ outside }K\}.
+\end{multline*}
+Prove that it is a Banach subalgebra of $C_b(X)$.
+
+\begin{proof}[Solution]
+Any continuous function that vanishes at infinity is bounded: for $\varepsilon=1$ it is less than $1$ outside a compact set, and over that compact it reaches a finite maximum.
+Also, if $f,h\in C_0(X)$, we choose compact $K_f,K_h$ outside which
+$|f|,|h|<\varepsilon/2$; outside $K_f\cup K_h$ we have $|f+h|<\varepsilon$.
+Multiplication by scalars is verified by choosing the threshold
+$\varepsilon/(1+|c|)$ for $cf$. Thus $C_0(X)$ is a linear subspace of $C_b(X)$.
+
+If $f\in C_0(X)$ and $g\in C_b(X)$, given $\varepsilon>0$ we choose a compact $K$ such that
+$|f(x)|<\varepsilon/(1+\|g\|_\infty)$ outside $K$. So
+$|f(x)g(x)|<\varepsilon$ outside $K$, so $fg\in C_0(X)$. This even shows that $C_0(X)$
+is an ideal of $C_b(X)$.
+
+To show closedness, let $f_n\in C_0(X)$ and $f_n\to f$ uniformly. Given $\varepsilon>0$,
+we choose $n$ with $\|f-f_n\|_\infty<\varepsilon/2$ and a compact $K$ with
+$|f_n(x)|<\varepsilon/2$ outside $K$. Then $|f(x)|<\varepsilon$ outside $K$.
+Therefore $f\in C_0(X)$. A closed subspace of a Banach space is itself a Banach space.
+
+Pointwise conjugation preserves $C_0(X)$ and
+$\|f^*f\|_\infty=\sup_x|f(x)|^2=\|f\|_\infty^2$; therefore $C_0(X)$ is also a
+$C^*$-algebra, although it has no unit when $X$ is not compact.
+\end{proof}
+
+\proofdiagram
+{$f\in C_0(X)$, $g\in C_b(X)$}
+{Definition of vanishing at infinity}
+{$fg$ goes small out of a compact; uniform limits preserve the property}
+{$C_0(X)$ is a closed ideal of $C_b(X)$, then Banach}
+
+\begin{cthejemplo}{(A function that vanishes at infinity on the real line)}
+In $X=\mathbb R$ we want to compare a vanishing function with the unit of $C_b(X)$.
+For $f(x)=1/(1+x^2)$ and $\varepsilon>0$, if $|x|>\varepsilon^{-1/2}$ then
+$|f(x)|<\varepsilon$; therefore $f\in C_0(\mathbb R)$.
+The constant function $1$ does not satisfy that condition for $\varepsilon=1/2$ outside of any
+compact. Problem 1.5 places $f$ in the closed ideal $C_0(\mathbb R)$ and leaves the unit outside of it.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The definition of vanishing at infinity allows a compact to be chosen for each tolerance. The $C_b(X)$ uniform norm controls both products and limits.
+
+\noindent\textbf{How this problem is used later.} If $X$ is not compact, $C_0(X)$ is the non-unital commutative model; for compact $X$, it coincides with $C(X)$. The general classification of $C_0(X)$ requires the non-unital version of Gelfand--Naimark, while Section 2 demonstrates the unital version.
+
+\section{Problem 1.6: spectrum and involution}
+
+Let $\A$ be a unital involutive Banach algebra and $x\in\A$.
+
+\noindent\textbf{Statement.} For each $x\in\A$, prove $\spec(x^*)=\overline{\spec(x)}$.
+
+\begin{proof}[Solution]
+An element $a$ is invertible if and only if $a^*$ is, since from $ab=ba=1$ we obtain
+$b^*a^*=a^*b^*=1$. Now
+\[
+(\lambda1-x^*)^*=\overline\lambda1-x.
+\]
+Therefore
+\[
+\lambda1-x^*\notin\GL(\A)
+\Longleftrightarrow
+\overline\lambda1-x\notin\GL(\A),
+\]
+which is equivalent to
+\[
+ \spec(x^*)=\overline{\spec(x)}.
+\]
+\end{proof}
+
+\proofdiagram
+{$\lambda1-x^*$}
+{involution preserves invertibility: $a^{-1}\mapsto(a^*)^{-1}$}
+{$(\lambda1-x^*)^*=\overline\lambda1-x$}
+{$\lambda\in\spec(x^*)\Longleftrightarrow\overline\lambda\in\spec(x)$}
+
+\begin{cthejemplo}{(Spectrum of a non-normal adjoint)}
+The symmetry of Problem 1.6 does not require normality. Let's consider
+$A=\begin{pmatrix}1&1\\0&i\end{pmatrix}$ in $M_2(\mathbb C)$.
+Since $A$ is triangular, $\spec(A)=\{1,i\}$; its adjoint is lower triangular with diagonal
+$(1,-i)$, so $\spec(A^*)=\{1,-i\}=\overline{\spec(A)}$.
+Conjugation of the spectrum follows from the involution, even though $A$ does not commute with $A^*$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The spectrum definition of Part 1 and the identity $(a^*)^{-1}=(a^{-1})^*$ allow invertibility to be carried through the involution.
+
+\noindent\textbf{How this problem is used later.} It shows a spectral symmetry that holds before imposing the identity $C^*$. To conclude that the entire spectrum of a self-adjoint is real, Section 2 adds arguments proper to $C^*$-algebras.
+
+\section{Problem 1.7: normal elements form a closed set}
+
+Let $\A$ be a $C^*$-algebra and $x_n\to x$ in norm, with each $x_n$ being normal.
+
+\noindent\textbf{Statement.} Prove that the set $\{x\in\A:x^*x=xx^*\}$ of normal elements is closed in norm.
+
+\begin{proof}[Solution]
+As $\|x_n^*-x^*\|=\|x_n-x\|\to0$ and multiplication is jointly continuous,
+\[
+ x_n^*x_n\to x^*x,
+ \qquad
+ x_nx_n^*\to xx^*.
+\]
+But both terms are the same for each $n$. By uniqueness of limits, $x^*x=xx^*$.
+\end{proof}
+
+\proofdiagram
+{$x_n\to x$, $x_n^*x_n=x_nx_n^*$}
+{The involution is isometric; jointly continuous product}
+{$x_n^*\to x^*$ and both products converge}
+{$x^*x=xx^*$}
+
+\begin{cthejemplo}{(Limit of normal matrices)}
+In $M_2(\mathbb C)$ we can observe the closure of the set of normals without changing dimension.
+Let $A_n=\operatorname{diag}(1+1/n,i-1/n)$; each $A_n$ is normal and
+$\|A_n-\operatorname{diag}(1,i)\|=1/n$.
+The limit $A=\operatorname{diag}(1,i)$ also commutes with its adjoint.
+This is a concrete instance of the passage to the limit proved in Problem 1.7.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The isometric involution gives $x_n^*\to x^*$ and Problem 1.1(a) allows going to the limit in the two products of the normality equation.
+
+\noindent\textbf{How this problem is used later.} It is the first step of Problem 2.8: the limit $x$ is still normal, so $f(x)$ is defined by continuous functional calculus.
+
+\section{Problem 1.8: spectral inclusion under homomorphisms}
+
+Let $\A,\B$ be unital Banach algebras and $\psi:\A\to\B$ be a unital complex homomorphism.
+
+\noindent\textbf{Statement.} For each $x\in\A$, prove $\spec_\B(\psi(x))\subset\spec_\A(x)$ and $r_\B(\psi(x))\le r_\A(x)$.
+
+\begin{proof}[Solution]
+If $\lambda\notin\spec_\A(x)$, then $(\lambda1-x)^{-1}$ exists. Applying $\psi$,
+\[
+ \psi(\lambda1-x)\,\psi((\lambda1-x)^{-1})
+ =\psi((\lambda1-x)^{-1})\,\psi(\lambda1-x)=1_\B,
+\]
+so $\lambda1-\psi(x)$ is invertible. This proves
+$\spec_\B(\psi(x))\subset\spec_\A(x)$. Taking maxima of $|\lambda|$ we obtain
+$r(\psi(x))\le r(x)$.
+\end{proof}
+
+\proofdiagram
+{$\psi:\A\to\B$ unital homomorphism}
+{Unital homomorphisms send inverses to inverses}
+{$\lambda1-\psi(x)=\psi(\lambda1-x)$}
+{$\spec(\psi(x))\subset\spec(x)$ and $r(\psi(x))\le r(x)$}
+
+\begin{cthejemplo}{(Strict spectral inclusion in a quotient)}
+To show that the inclusion of Problem 1.8 can be strict, let's take
+$\A=\mathbb C\oplus\mathbb C$ with supremum norm and $J=\{0\}\oplus\mathbb C$.
+The class of $a=(1,2)$ in $\A/J\cong\mathbb C$ is $1$.
+As $\lambda1-a=(\lambda-1,\lambda-2)$ is invertible exactly when
+$\lambda\notin\{1,2\}$,
+\[
+ \spec_{\A/J}(a+J)=\{1\}\subsetneq\{1,2\}=\spec_\A(a).
+\]
+The quotient may lose spectral points, according to Problem 1.8.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} A unital homomorphism preserves the inverse of $\lambda1-x$ when it exists; the definition of spectrum converts this algebraic observation into an inclusion.
+
+\noindent\textbf{How this problem is used later.} In Section 2 we apply inclusion to $a^*a$ to prove that unital $*$-homomorphisms are contractive.
+
+\section{Problem 1.9: a spectrum-preserving commutative subalgebra}
+
+Let $\A$ be a unital Banach algebra and $S\subset\A$ be a family that commutes pairwise. For the
+involutive version, we further assume that $\A$ is involutive and the elements of $S$
+$*$-commute pairwise.
+
+\noindent\textbf{Statement.} Prove that there exists a unital and commutative Banach subalgebra $C\subset\A$ that contains $S$ and satisfies $\spec_C(s)=\spec_\A(s)$ for every $s\in S$. In the involutive case with $*$-commutation pairwise, require in addition that $C$ be involutive.
+
+\begin{proof}[Solution]
+Let $\mathscr F$ be the family of unital commutative Banach subalgebras $C\subset\A$ containing $S$, ordered by inclusion. It is non-empty: it contains the closure of the unital algebra generated by
+$S$. If $\{C_i\}$ is a chain, the closure of $\bigcup_i C_i$ is again a unital commutative Banach subalgebra containing $S$. By Zorn's lemma there exists a maximal element $C$.
+
+We assert that $C$ is inverse-closed in $\A$. If $c\in C$ is invertible in $\A$, then
+from $cd=dc$ for $d\in C$ it follows that $c^{-1}d=dc^{-1}$. Therefore the closed unital subalgebra
+generated by $C\cup\{c^{-1}\}$ is still commutative. Maximality forces
+$c^{-1}\in C$. Consequently, for $s\in S$,
+\[
+\lambda1-s\in\GL(\A)\Longleftrightarrow\lambda1-s\in\GL(C),
+\]
+and the spectra match.
+
+In the involutive case, we start from the family of involutive, commutative, unital Banach subalgebras containing $S$. The assumption of $*$-commutation guarantees that the family is non-empty by
+Problem 1.3(d), applied to $S\cup\{1\}$. If $c\in C$ is invertible in $\A$, both $c^{-1}$ and $(c^{-1})^*$ commute with
+$C$ and each other: $c,c^*\in C$ commute and their inverses as well. They can be added while keeping
+commutativity and involution. Maximality again forces $c^{-1}\in C$.
+\end{proof}
+
+\proofdiagrambranch
+{$S$ commutes pairwise}
+{Family of closed, commutative, unital subalgebras containing $S$}
+{Zorn produces a maximal; the inverses of its elements also commute with it}
+{Maximality forces the inverses to belong to the subalgebra}
+{$\spec_\A(s)=\spec_C(s)$ for $s\in S$}
+
+\begin{cthejemplo}{(A spectrally faithful subalgebra of matrices)}
+In $M_2(\mathbb C)$, the self-adjoint $A=\operatorname{diag}(1,2)$ allows building
+explicitly the subalgebra of Problem 1.9.
+Let's take $C$ as all diagonal matrices. The inverse of
+$\lambda I-A=\operatorname{diag}(\lambda-1,\lambda-2)$, when it exists, still belongs to $C$:
+\[
+ (\lambda I-A)^{-1}=\operatorname{diag}((\lambda-1)^{-1},(\lambda-2)^{-1}).
+\]
+Therefore $\spec_C(A)=\{1,2\}=\spec_{M_2(\mathbb C)}(A)$; the spectrum is conserved because
+the necessary inverses belong to $C$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Problem 1.3 is used to generate a commutative subalgebra, Problem 1.2 to commute with inverses and Zorn's lemma to choose a maximal subalgebra. The involutive version requires $*$-commutation.
+
+\noindent\textbf{How this problem is used later.} Section 2 uses this reduction to study a self-adjoint using characters without changing its spectrum. In the $C^*$ environment, spectral permanence then offers a more direct path to $C^*(a,1)$.
+
+\pagebreak
+\section{Problem 1.10: spectrum of a continuous function}
+
+Let $X$ be compact Hausdorff and $f\in C(X)$. Then we will compare with $C_b(X)$ for a locally compact non-compact space.
+
+\noindent\textbf{Statement.} Prove that $\spec_{C(X)}(f)=f(X)$ for each $f\in C(X)$ and decide, using an example, whether the equality still holds in $C_b(X)$ for $X$ only locally compact.
+
+\begin{proof}[Solution]
+If $\lambda\notin f(X)$, the function $\lambda-f$ has no zeros. Since $X$ is compact,
+$|\lambda-f|$ has positive minimum; therefore
+$(\lambda-f)^{-1}\in C(X)$ and $\lambda\notin\spec(f)$. If $\lambda=f(x_0)$, then
+$\lambda-f$ vanishes at $x_0$ and cannot be invertible. Therefore $\spec(f)=f(X)$.
+
+If $X$ is only locally compact and we use $C_b(X)$, the statement may fail because a nonvanishing function can approach zero without reaching zero. For example, in $X=(0,1)$, $f(x)=x$ has
+$f(X)=(0,1)$, but
+\[
+ \spec_{C_b((0,1))}(f)=[0,1].
+\]
+Indeed, for $\lambda\in(0,1)$ the function $\lambda-f$ vanishes; for $\lambda=0,1$,
+their reciprocals are unbounded. If $\lambda\notin[0,1]$, however,
+$|\lambda-f(x)|\ge\operatorname{dist}(\lambda,[0,1])>0$ for all $x$, so its reciprocal belongs to $C_b((0,1))$. This proves the announced equality.
+\end{proof}
+
+\proofdiagram
+{$f\in C(X)$, $X$ compact}
+{Pointwise invertibility in an algebra of functions}
+{$\lambda1-f$ invertible $\Longleftrightarrow$ $\lambda-f$ does not vanish}
+{$\spec(f)=f(X)$}
+
+\begin{cthejemplo}{(A spectrum shaped like a circle)}
+To read Problem 1.10 geometrically, consider $f(z)=2+z$ in $C(\mathbb T)$.
+Function $\lambda-f$ vanishes on $\mathbb T$ exactly when
+$\lambda=2+z$ for some $|z|=1$; outside those values it has a continuous reciprocal.
+Therefore
+\[
+ \spec_{C(\mathbb T)}(f)=\{\lambda\in\mathbb C:|\lambda-2|=1\}.
+\]
+The spectrum is the image of $f$, a circle with center $2$ and radius $1$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} In $C(X)$, $\lambda1-f$ is invertible exactly when $\lambda-f$ does not vanish; compactness of $X$ ensures that its reciprocal is continuous and bounded.
+
+\noindent\textbf{How this problem is used later.} Identifies the spectrum with a range of values in the Gelfand--Naimark representation and is the specific step that Problem 2.4 uses to demonstrate spectral mapping.
+
+\pagebreak
+\section{Problem 1.11: \texorpdfstring{$\mathcal B(H)$}{B(H)} and the unilateral shift}
+
+Let $H$ be a Hilbert space and $T\in\mathcal B(H)$. Subsections (b)--(d) change the assumptions
+on $H$ as stated in each part.
+
+\subsection*{1.11(a) $\mathcal B(H)$ is a $C^*$-algebra}
+
+\noindent\textbf{Statement.} Prove that $\mathcal B(H)$, with the operator norm and the involution $T\mapsto T^*$, is a $C^*$-algebra.
+
+\begin{proof}[Solution]
+Part 1 already established that bounded operators on a Banach space form a
+Banach algebra; therefore $\mathcal B(H)$ is complete. The adjoint rules give an involution.
+The norm of the adjoint coincides with that of $T$: by the characterization of the norm of a vector of
+a Hilbert space using inner products,
+\[
+ \|T^*\|=\sup_{\|\eta\|=\|\xi\|=1}|\langle T^*\eta,\xi\rangle|
+ =\sup_{\|\eta\|=\|\xi\|=1}|\langle\eta,T\xi\rangle|=\|T\|.
+\]
+Submultiplicativity then gives $\|T^*T\|\le\|T^*\|\|T\|=\|T\|^2$.
+For the reverse inequality, if $\|\xi\|=1$,
+\[
+\|T\xi\|^2=\langle T^*T\xi,\xi\rangle\le\|T^*T\|.
+\]
+Taking the supremum over $\xi$ gives $\|T\|^2\le\|T^*T\|$.
+\end{proof}
+
+\proofdiagram
+{$T\in\mathcal B(H)$}
+{adjoint properties}
+{$\|T^*T\|\le\|T\|^2$ and $\|T\xi\|^2=\langle T^*T\xi,\xi\rangle$}
+{$\|T^*T\|=\|T\|^2$}
+
+\begin{cthejemplo}{(The identity $C^*$ in a diagonal matrix)}
+In $H=\mathbb C^2$ we want to check the equality of norms that distinguishes
+$\mathcal B(H)$ as $C^*$-algebra.
+For $T=\operatorname{diag}(2,i)$, there is
+$T^*T=\operatorname{diag}(4,1)$, then $\|T^*T\|=4$ and $\|T\|=2$.
+Thus $\|T^*T\|=\|T\|^2$, the identity verified generally in Problem 1.11(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Part 1 presents $\mathcal B(H)$ as a Banach algebra; the properties of the adjoint and the operator norm allow the $C^*$-identity to be verified.
+
+\noindent\textbf{How this problem is used later.} Provides the concrete model from Section 2 and the operator space in which Problem 2.1 isometrically represents $C_b(X)$.
+
+\subsection*{1.11(b) In finite dimension, spectrum = eigenvalues}
+
+\noindent\textbf{Statement.} If $\dim H<\infty$, prove that $\spec(T)$ matches the set of eigenvalues of $T$.
+
+\begin{proof}[Solution]
+In finite dimension a linear operator is invertible if and only if its kernel is zero. So
+$\lambda I-T$ is noninvertible exactly when $\xi\neq0$ exists with
+$(\lambda I-T)\xi=0$, that is, $T\xi=\lambda\xi$.
+\end{proof}
+
+\proofdiagram
+{$\dim H<\infty$}
+{In finite dimension: injective $\Longleftrightarrow$ surjective}
+{$\lambda I-T$ non-invertible $\Longleftrightarrow\Ker(\lambda I-T)\neq0$}
+{$\lambda\in\spec(T)\Longleftrightarrow\lambda$ eigenvalue}
+
+\begin{cthejemplo}{(Eigenvalues of a triangular matrix)}
+In dimension two, the determinant allows the spectrum and
+eigenvectors of Problem 1.11(b).
+For $T=\begin{pmatrix}1&1\\0&2\end{pmatrix}$,
+$\det(\lambda I-T)=(\lambda-1)(\lambda-2)$.
+Also $Te_1=e_1$ and $T(1,1)=(2,2)$, so $1$ and $2$ are eigenvalues.
+There are no other spectral points: in finite dimension the singularity of $\lambda I-T$
+matches the existence of an eigenvector.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} In finite dimension, injectivity and surjectivity of $\lambda I-T$ are equivalent by rank and nullity. The definition of spectrum from Part 1 applies.
+
+\noindent\textbf{How this problem is used later.} Allows you to interpret the matrix examples in Section 2 as spectrum calculations using eigenvalues; Problem 1.11(c)--(d) show what changes in infinite dimension.
+
+\subsection*{1.11(c) Approximate eigenvectors produce spectral points}
+
+\noindent\textbf{Statement.} If $\lambda\in\mathbb C$ and there exist unit vectors $\xi_n\in H$ such that $\|(\lambda I-T)\xi_n\|\to0$, prove that $\lambda\in\spec(T)$.
+
+\begin{proof}[Solution]
+If $\lambda\notin\spec(T)$, then $R=(\lambda I-T)^{-1}$ is bounded. Therefore
+\[
+1=\|\xi_n\|=\|R(\lambda I-T)\xi_n\|
+\le\|R\|\,\|(\lambda I-T)\xi_n\|\to0,
+\]
+contradiction. Then $\lambda\in\spec(T)$.
+\end{proof}
+
+\proofdiagram
+{$\|\xi_n\|=1$, $\|(\lambda I-T)\xi_n\|\to0$}
+{Assume $\lambda I-T$ invertible}
+{$\xi_n=(\lambda I-T)^{-1}(\lambda I-T)\xi_n$}
+{$1\le\|(\lambda I-T)^{-1}\|\|(\lambda I-T)\xi_n\|\to0$, contradiction}
+
+\begin{cthejemplo}{(Approximate spectrum without eigenvector)}
+In $\ell^2(\mathbb N)$ we want to see that an approximate spectral point can lack
+eigenvector. Let's define $T(\xi_n)=(\xi_n/n)$ and take $\lambda=0$.
+Each $e_n$ is a unit vector and $\|Te_n\|=1/n\to0$, but $T\xi=0$ implies
+$\xi_n/n=0$ for all $n$ i.e. $\xi=0$.
+By Problem 1.11(c), $0\in\spec(T)$; the calculation distinguishes approximate spectrum from point spectrum.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} If $\lambda I-T$ is invertible, its inverse is bounded. The norm estimate of the composition contradicts the existence of almost null unit vectors.
+
+\noindent\textbf{How this problem is used later.} Defines the approximate point spectrum and prepares the comparison with the unilateral shift of Problem 1.11(d), whose spectral zero is not an approximate eigenvalue.
+
+\subsection*{1.11(d) Unilateral shift shows the difference}
+
+\noindent\textbf{Statement.} Let $S(x_1,x_2,\ldots)=(0,x_1,x_2,\ldots)$ be
+$\ell^2(\mathbb N)$. Prove that $0\in\spec(S)$ and that there are no unit vectors
+$\xi_n$ with $\|S\xi_n\|\to0$.
+
+\begin{proof}[Solution]
+$S$ is not surjective: no vector with non-zero first coordinate is in its range. So $S$ is not invertible and $0\in\spec(S)$. But
+\[
+ \|S\xi\|^2=0+\sum_{n\ge1}|\xi_n|^2=\|\xi\|^2.
+\]
+Therefore, for every unit vector $\xi$, $\|S\xi\|=1$; a sequence of unit vectors cannot exist with
+$\|S\xi_n\|\to0$.
+\end{proof}
+
+\proofdiagram
+{$S(x_1,x_2,\dots)=(0,x_1,x_2,\dots)$}
+{$S$ is isometry but is not surjective}
+{$0\in\spec(S)$; however $\|S\xi\|=\|\xi\|$}
+{No unit vectors with $\|S\xi_n\|\to0$}
+
+\begin{cthejemplo}{(An isometry that is not surjective)}
+To distinguish conservation of norm and invertibility in Problem 1.11(d), let's take the first
+$\ell^2(\mathbb N)$ base vector.
+The shift satisfies $Se_1=e_2$ and $\|Se_1\|=\|e_1\|=1$, but no vector can be mapped to $e_1$, because the first coordinate of $S\xi$ is always zero.
+Isometry is not surjective; that is why $0$ belongs to its spectrum without having unit vectors that are nearly annihilated.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The unilateral shift is an isometry, but its range omits vectors with a non-zero first coordinate. The definition of spectrum detects this lack of surjectivity.
+
+\noindent\textbf{How this problem is used later.} Problem 2.10 will determine the entire spectral disk using eigenvectors of adjoint. Isometry without surjectivity explains why $0$ can be spectral without being an approximate eigenvalue.
+
+\begin{investigacion}[title={Two shifts in different spaces}]
+To recognize the scope of Problem 1.11(d), let's compare the shift $S$ of $\ell^2(\mathbb N)$ with
+$V_\alpha$ in Haseman's formulation. The first one satisfies $Se_1=e_2$; the second
+composes boundary functions, $(V_\alpha f)(t)=f(\alpha(t))$
+\cite[pp.~463--464, ecs.~(1.1)--(1.2)]{Karlovich2017}.
+Both move data, but act in different spaces and geometries. Problem 1.11(d)
+determines $0\in\spec(S)$; it does not determine by analogy any point of $\spec(V_\alpha)$.
+\end{investigacion}
+
+\section{Problem 1.12: the disk algebra and failure of spectral permanence in general}
+
+Let $\mathbb D=\{z:|z|<1\}$, $\mathbb T=\{z:|z|=1\}$ and
+\[
+ A(\mathbb D)=\{f\in C(\overline{\mathbb D}): f\text{ is holomorphic on }\mathbb D\}.
+\]
+
+\subsection*{1.12(a) $A(\mathbb D)$ is a Banach algebra}
+
+\noindent\textbf{Statement.} Prove that $A(\mathbb D)$ is a unital Banach algebra with the norm of the supremum in $\overline{\mathbb D}$.
+
+\begin{proof}[Solution]
+Let $(f_n)$ be Cauchy in the supremum norm. It converges uniformly on $\overline{\mathbb D}$ to a
+continuous function $f$. In each $K\subset\mathbb D$ compact, the convergence is uniform; by
+Weierstrass' theorem, $f$ is holomorphic in $\mathbb D$. So $f\in A(\mathbb D)$ and the space is
+complete. The sums and products of holomorphic functions are holomorphic, and the constant function
+$1$ belongs to $A(\mathbb D)$; operations and norm are inherited from
+$C(\overline{\mathbb D})$.
+\end{proof}
+
+\proofdiagram
+{Cauchy sequence in supremum norm}
+{$C(\overline{\mathbb D})$ is Banach; Weierstrass theorem for holomorphic limits}
+{The uniform limit is continuous and the limit in interior compacts is holomorphic}
+{$A(\mathbb D)$ is closed, unital and Banach}
+
+\begin{cthejemplo}{(Polynomial approximation in disk algebra)}
+In $A(\mathbb D)$ we are interested in approximating holomorphic functions without leaving the uniform norm.
+For $f\in A(\mathbb D)$, the dilations $f_r(z)=f(rz)$ converge uniformly to $f$
+in $\overline{\mathbb D}$ when $r\uparrow1$, by uniform continuity of $f$.
+Each $f_r$ is holomorphic on a disk of radius $1/r>1$, so its Taylor polynomials
+converge uniformly on $\overline{\mathbb D}$.
+This explains why the polynomials form a dense subalgebra of the Banach algebra in Problem 1.12(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The completeness of $C(\overline{\mathbb D})$ and the Weierstrass theorem on local uniform limits of holomorphic functions guarantee that $A(\mathbb D)$ is closed.
+
+\noindent\textbf{How this problem is used later.} It makes it possible to treat the boundary restriction as an inclusion of Banach algebras in Problem 1.12(b) and to compare spectra in Problem 1.12(c).
+
+\subsection*{1.12(b) The boundary restriction is isometric}
+
+\noindent\textbf{Statement.} Prove that the restriction $f\mapsto f|_{\mathbb T}$ is a unital isometric homomorphism from $A(\mathbb D)$ into $C(\mathbb T)$.
+
+\begin{proof}[Solution]
+By the maximum modulus principle,
+\[
+ \|f\|_{C(\overline{\mathbb D})}=\max_{|z|=1}|f(z)|=\|f|_{\mathbb T}\|_{C(\mathbb T)}.
+\]
+Thus the restriction is isometric and injective. For $f,g\in A(\mathbb D)$ and $z\in\mathbb T$,
+\[
+ (f+g)|_{\mathbb T}(z)=f(z)+g(z),\qquad
+ (fg)|_{\mathbb T}(z)=f(z)g(z),\qquad
+ 1|_{\mathbb T}(z)=1.
+\]
+Therefore it is a unital homomorphism of Banach algebras.
+\end{proof}
+
+\proofdiagram
+{$f\in A(\mathbb D)$}
+{Maximum modulus principle for holomorphic functions}
+{$\max_{\overline{\mathbb D}}|f|=\max_{\mathbb T}|f|$}
+{$f\mapsto f|_{\mathbb T}$ is an isometric embedding}
+
+\begin{cthejemplo}{(The disk norm is attained on the boundary)}
+In $A(\mathbb D)$ we check Problem 1.12(b) with $f(z)=1+z^2$.
+For $|z|\le1$, $|f(z)|\le2$, and equality is achieved in $z=\pm1\in\mathbb T$.
+So $\|f\|_{C(\overline{\mathbb D})}=\|f|_{\mathbb T}\|_{C(\mathbb T)}=2$:
+The boundary already determines the norm of this function.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The maximum modulus principle identifies the norm on the closed disk with the norm on the boundary; therefore the restriction is isometric and injective.
+
+\noindent\textbf{How this problem is used later.} Provides an isometric and unital inclusion in $C(\mathbb T)$ for Problem 1.12(c), where the same function will have different inverses available depending on the algebra.
+
+\subsection*{1.12(c) The same element changes spectrum when changing algebra}
+
+\noindent\textbf{Statement.} For $h(z)=z$, prove $\spec_{A(\mathbb D)}(h)=\overline{\mathbb D}$ and $\spec_{C(\mathbb T)}(h|_{\mathbb T})=\mathbb T$.
+
+\begin{proof}[Solution]
+If $|\lambda|>1$, function $(\lambda-z)^{-1}$ is continuous in $\overline{\mathbb D}$ and holomorphic
+on $\mathbb D$, so $\lambda-h$ is invertible in $A(\mathbb D)$. If $|\lambda|<1$,
+$\lambda-z$ vanishes at $z=\lambda$; if $|\lambda|=1$, any putative inverse would agree on
+$\mathbb D$ with $(\lambda-z)^{-1}$, which becomes unbounded when approaching $\lambda$. Therefore
+\[
+ \spec_{A(\mathbb D)}(h)=\overline{\mathbb D}.
+\]
+
+In $C(\mathbb T)$, $\lambda-h$ is invertible exactly when it does not vanish on $\mathbb T$; hence
+\[
+ \spec_{C(\mathbb T)}(h)=\mathbb T.
+\]
+\end{proof}
+
+\proofdiagrambranch
+{$h(z)=z$ in $A(\mathbb D)$}
+{$h|_{\mathbb T}$ in $C(\mathbb T)$}
+{Invertibility of $\lambda-h$ depends on whether its reciprocal belongs to the algebra under consideration}
+{Invertibility fails in $A(\mathbb D)$ for $\lambda\in\overline{\mathbb D}$; in $C(\mathbb T)$ it fails only on $\mathbb T$}
+{$\spec_{A(\mathbb D)}(h)=\overline{\mathbb D}$, $\spec_{C(\mathbb T)}(h)=\mathbb T$}
+
+\begin{cthejemplo}{(The inverse depends on the ambient algebra)}
+To compare the two spectra of Problem 1.12(c), let's take $h(z)=z$ in $A(\mathbb D)$ and
+its restriction in $C(\mathbb T)$.
+In the first algebra, $0-h$ has no holomorphic inverse because $1/z$ has a pole at
+$0$; in the second, $h^{-1}(z)=\overline z$ is continuous over $\mathbb T$.
+So $0\in\spec_{A(\mathbb D)}(h)$ and $0\notin\spec_{C(\mathbb T)}(h|_{\mathbb T})$.
+The same boundary function has an inverse only in the larger algebra. Additionally,
+$\overline z$ does not come from $A(\mathbb D)$: if a function $g$ had those boundary values, $zg(z)=1$ in $\mathbb T$ and the maximum modulus principle would give $zg(z)=1$ in all
+$\mathbb D$, a contradiction at $z=0$. That is why the inclusion is not of $C^*$-subalgebras.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Spectrum definition and inclusion of Problem 1.12(b) are used; Problem 1.10 calculates the spectrum at $C(\mathbb T)$. In $A(\mathbb D)$ the reciprocal of $\lambda-z$ must also be holomorphic on the disk.
+
+\noindent\textbf{How this problem is used later.} It is the counterexample that motivates the $C^*$-subalgebra hypothesis in spectral permanence from Section 2: a closed and unital Banach subalgebra can change the spectrum.

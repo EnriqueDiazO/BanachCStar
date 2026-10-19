@@ -1,0 +1,105 @@
+\chapter{Mapa lógico de los dos temas}
+
+\section{La idea central}
+
+Sea $\A$ una álgebra de Banach compleja unital y $a\in\A$. La Parte 1 parte de una pregunta:
+¿cuándo existe $(\lambda1-a)^{-1}$? La serie de Neumann responde cerca de un invertible; el
+resolvente organiza la respuesta para todos los escalares; el espectro registra los valores donde
+falla la inversión. La Sección 2 añade la identidad $C^*$ y obtiene consecuencias que no valen en
+una álgebra de Banach arbitraria.
+
+\section{Mapa de la Parte 1}
+
+\begin{center}
+\begin{tikzpicture}[node distance=9mm and 8mm]
+  \node[theorybox,text width=3.25cm] (ban) {Álgebra de Banach unital\\completitud y producto};
+  \node[theorybox,text width=3.25cm,right=of ban] (neu) {Serie de Neumann\\$\|x\|<1\Rightarrow(1-x)^{-1}$};
+  \node[theorybox,text width=3.25cm,right=of neu] (open) {$\GL(\A)$ abierto\\inversión continua};
+  \node[theorybox,text width=3.25cm,below=of neu] (bound) {Cota para $|\lambda|>\|a\|$\\espectro compacto};
+  \node[theorybox,text width=3.25cm,right=of bound] (res) {Resolvente\\identidad y holomorfía};
+  \node[theorybox,text width=3.25cm,below=of bound] (non) {Espectro no vacío\\Liouville + Hahn--Banach};
+  \draw[arr] (ban)--(neu);
+  \draw[arr] (neu)--(open);
+  \draw[arr] (open)--(res);
+  \draw[arr] (neu)--(bound);
+  \draw[arr] (open.south west)--(bound.north east);
+  \draw[arr] (res.south) |- (non.east);
+  \draw[arr] (bound)--(non);
+\end{tikzpicture}
+\end{center}
+
+La flecha que llega a la no vacuidad necesita dos ingredientes distintos: la holomorfía del
+resolvente y su decaimiento en infinito, obtenido con la serie de Neumann. La compacticidad usa
+la apertura de $\GL(\A)$ para el cierre y la misma serie para la acotación.
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+  \node[theorybox,text width=3.25cm] (non) {Espectro no vacío};
+  \node[theorybox,text width=3.25cm,right=of non] (gm) {Gelfand--Mazur\\álgebras de división};
+  \node[theorybox,text width=3.25cm,right=of gm] (max) {Ideales maximales\\$\A/J\cong\mathbb C$ si $\A$ es conmutativa};
+  \node[theorybox,text width=3.25cm,below=of max] (char) {Caracteres\\$\Omega(\A)$};
+  \node[theorybox,text width=3.25cm,left=of char] (gel) {Transformada de Gelfand\\$a\mapsto\widehat a$};
+  \node[theorybox,text width=3.25cm,left=of gel] (rad) {Radio espectral\\resolvente + potencias};
+  \draw[arr] (non)--(gm);
+  \draw[arr] (gm)--(max);
+  \draw[arr] (max)--(char);
+  \draw[arr] (char)--(gel);
+  \draw[arr] (non)--(rad);
+\end{tikzpicture}
+\end{center}
+
+El radio espectral ocupa una rama propia: su fórmula utiliza la holomorfía del resolvente,
+la relación espectral para potencias y el principio de acotación uniforme; no se deduce de la
+transformada de Gelfand. La identificación entre caracteres e ideales maximales requiere
+conmutatividad, mientras que la teoría inicial del espectro no la requiere.
+
+\section{Mapa de la Sección 2}
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+  \node[theorybox,text width=3.25cm] (id) {Identidad $C^*$\\$\|a^*a\|=\|a\|^2$};
+  \node[theorybox,text width=3.25cm,right=of id] (nr) {Para $a$ normal\\$\|a\|=r(a)$};
+  \node[theorybox,text width=3.25cm,right=of nr] (uq) {Unicidad de la norma $C^*$\\por el radio de $a^*a$};
+  \draw[arr] (id)--(nr);
+  \draw[arr] (nr)--(uq);
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm and 8mm]
+  \node[theorybox,text width=3.25cm] (a) {$a$ normal en una $C^*$-álgebra unital};
+  \node[theorybox,text width=3.25cm,right=of a] (comm) {$C^*(a,1)$ conmutativa\\por $aa^*=a^*a$};
+  \node[theorybox,text width=3.25cm,right=of comm] (gn) {Gelfand--Naimark\\conmutativo};
+  \node[theorybox,text width=3.25cm,below=of gn] (fc) {Cálculo funcional continuo\\$f\mapsto f(a)$};
+  \node[theorybox,text width=3.25cm,left=of fc] (class) {Clasificación espectral\\y raíces positivas};
+  \draw[arr] (a)--(comm);
+  \draw[arr] (comm)--(gn);
+  \draw[arr] (gn)--(fc);
+  \draw[arr] (fc)--(class);
+\end{tikzpicture}
+\end{center}
+
+La igualdad $\|a\|=r(a)$ requiere normalidad y la identidad $C^*$.
+La conmutatividad de $C^*(a,1)$ se deduce directamente de
+$aa^*=a^*a$. La transformada de Gelfand de la Parte 1 y la igualdad de
+normas permiten la representación isométrica conmutativa. La permanencia
+espectral identifica el espectro de $a$ en $C^*(a,1)$ con el espectro
+ambiente. La raíz positiva y la descomposición polar usan después el cálculo
+funcional, con las hipótesis de sus enunciados.
+
+\section{Tres rutas de lectura}
+
+\noindent\textbf{Invertibilidad y espectro.} Serie de Neumann $\Rightarrow$ estabilidad de los invertibles
+$\Rightarrow$ resolvente holomorfo; junto con la estimación en infinito y Liouville, se obtiene
+$\sigma_{\A}(a)\neq\varnothing$. En operadores $A\in\mathcal B(X)$, el mismo resolvente es
+$(\lambda I_X-A)^{-1}$.
+
+\noindent\textbf{Conmutatividad y funciones.} Para $\A$ conmutativa y unital, los ideales maximales
+producen caracteres; éstos identifican $\sigma_{\A}(a)$ con el rango de $\widehat a$. Si $\A$
+es además una $C^*$-álgebra, la representación conmutativa permite el cálculo funcional.
+
+\noindent\textbf{Cocientes y operadores.} Para un espacio de Banach $X$, el ideal cerrado
+$\mathcal K(X)\triangleleft\mathcal B(X)$ conduce al cociente de Calkin. La invertibilidad de
+$A+\mathcal K(X)$ equivale a que $A$ sea Fredholm; esta equivalencia es un resultado de teoría de
+operadores que se usa después de construir el cociente, no un teorema elemental sobre toda
+álgebra de Banach. En el capítulo de investigación se muestran los operadores de Haseman.

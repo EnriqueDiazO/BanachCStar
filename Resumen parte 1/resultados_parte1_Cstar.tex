@@ -1,0 +1,303 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Cb}{C_b}
+\newcommand{\Czero}{C_0}
+\newcommand{\id}{\mathrm{id}}
+
+\newenvironment{teorema}[1]
+  {\par\medskip\noindent\textbf{Teorema #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{proposicion}[1]
+  {\par\medskip\noindent\textbf{Proposición #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{corolario}[1]
+  {\par\medskip\noindent\textbf{Corolario #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{lema}[1]
+  {\par\medskip\noindent\textbf{Lema #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{observacion}[1]
+  {\par\medskip\noindent\textbf{Observación #1.}\ }
+  {\par\medskip}
+\newenvironment{ejemplo}[1]
+  {\par\medskip\noindent\textbf{Ejemplo #1.}\ }
+  {\par\medskip}
+
+\title{Enunciados de la Parte 1 de $C^*$-álgebras: Teoría espectral en álgebras de Banach}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Índice}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Observaciones:} 1.2, 1.3, 1.9, 1.28.
+  \item \textbf{Ejemplos:} 1.5, 1.6, 1.30.
+  \item \textbf{Lemas:} 1.14.
+  \item \textbf{Proposiciones:} 1.8, 1.12, 1.18, 1.20, 1.21, 1.23, 1.31.
+  \item \textbf{Corolarios:} 1.10, 1.24.
+  \item \textbf{Teoremas:} 1.15, 1.16, 1.22, 1.26.
+\end{itemize}
+
+\section*{Enunciados}
+
+% Fuente: Parte1.pdf, p. 1
+\begin{observacion}{1.2}
+Identificamos
+\[
+  \mathbb{C}\cong\mathbb{C}1_A,
+  \qquad
+  \lambda\longmapsto\lambda 1_A.
+\]
+\end{observacion}
+
+% Fuente: Parte1.pdf, p. 1
+\begin{observacion}{1.3}
+Si $A$ no tiene unidad, es siempre posible agregar una unidad por medio del siguiente procedimiento:
+\[
+  A^+:=A\times\mathbb{C}
+\]
+con suma puntual,
+\[
+  (x,\lambda)\cdot(y,\mu)
+  =(xy+\lambda y+\mu x,\lambda\mu),
+  \qquad
+  \lVert(x,\lambda)\rVert=\lVert x\rVert+|\lambda|.
+\]
+Entonces $A^+$ es un álgebra de Banach con unidad
+\[
+  1_{A^+}=(0,1),
+\]
+y
+\[
+  x\longmapsto(x,0)
+\]
+define un encaje isométrico $A\subseteq A^+$.
+\end{observacion}
+
+% Fuente: Parte1.pdf, p. 2
+\begin{ejemplo}{1.5}
+Sea $X$ un espacio localmente compacto y Hausdorff. Definimos el álgebra de funciones acotadas sobre $X$ como
+\[
+  C_b(X):=\{f:X\to\mathbb{C}: f\text{ continua y acotada}\},
+  \qquad
+  \lVert f\rVert_\infty=\sup_{x\in X}|f(x)|.
+\]
+De modo que $C_b(X)$ es un álgebra de Banach. Si además definimos
+\[
+  f^*(x)=\overline{f(x)},
+\]
+entonces $C_b(X)$ es un álgebra de Banach involutiva. Si además $X$ es compacto, definimos
+\[
+  C(X):=C_b(X).
+\]
+\end{ejemplo}
+
+% Fuente: Parte1.pdf, p. 2
+\begin{ejemplo}{1.6}
+Si $E$ es un espacio de Banach,
+\[
+  L(E):=\{T:E\to E:T\text{ lineal y acotado}\}.
+\]
+$L(E)$ es un álgebra de Banach con la norma de operadores y la composición como producto. $L(E)$ es en general no conmutativa.
+\end{ejemplo}
+
+% Fuente: Parte1.pdf, p. 2
+\begin{proposicion}{1.8 (Serie de Neumann)}
+Sea $A$ un álgebra de Banach con unidad. Si $x\in A$ cumple
+\[
+  \lVert 1_A-x\rVert<1,
+\]
+entonces $x$ es invertible y
+\[
+  x^{-1}=\sum_{n=0}^{\infty}(1_A-x)^n.
+\]
+\end{proposicion}
+
+% Fuente: Parte1.pdf, p. 2
+\begin{observacion}{1.9}
+Sea $A$ un álgebra de Banach con unidad y sean $x,z\in A$. Si $z$ es invertible y
+\[
+  \lVert z-x\rVert<\lVert z^{-1}\rVert^{-1},
+\]
+entonces $x$ es invertible. Como consecuencia,
+\[
+  \GL(A)
+\]
+es un abierto de $A$.
+\end{observacion}
+
+% Fuente: Parte1.pdf, p. 3
+\begin{corolario}{1.10}
+Sea $A$ un álgebra de Banach con unidad. Sean $x\in A$ y $\lambda\in\mathbb{C}$ tales que
+\[
+  \lVert x\rVert<|\lambda|.
+\]
+Entonces
+\[
+  \lambda 1_A-x\in A
+\]
+es invertible.
+\end{corolario}
+
+% Fuente: Parte1.pdf, p. 3
+\begin{proposicion}{1.12}
+El espectro $\sigma(x)\subseteq\mathbb{C}$ es un subconjunto compacto de
+\[
+  \{\lambda\in\mathbb{C}:|\lambda|\leq\lVert x\rVert\}
+  =B_{\lVert x\rVert}(0).
+\]
+\end{proposicion}
+
+% Fuente: Parte1.pdf, p. 3
+\begin{lema}{1.14}
+El resolvente es una función holomorfa, con derivada
+\[
+  R_x'(z)=-(z1_A-x)^{-2}.
+\]
+\end{lema}
+
+% Fuente: Parte1.pdf, pp. 3--4
+\begin{teorema}{1.15}
+El espectro $\sigma(x)$ es no vacío.
+\end{teorema}
+
+% Fuente: Parte1.pdf, p. 4
+\begin{teorema}{1.16 (Gelfand--Mazur)}
+Sea $A$ un álgebra de Banach con unidad en la que todo elemento distinto de cero es invertible, es decir,
+\[
+  \GL(A)=A\setminus\{0\}.
+\]
+Entonces
+\[
+  A=\mathbb{C}1_A.
+\]
+\end{teorema}
+
+% Fuente: Parte1.pdf, p. 4
+\begin{proposicion}{1.18}
+Sea $A$ un álgebra de Banach con unidad. Todo carácter
+\[
+  \varphi:A\to\mathbb{C}
+\]
+es continuo. De hecho,
+\[
+  \lVert\varphi\rVert=\varphi(1_A)=1.
+\]
+\end{proposicion}
+
+% Fuente: Parte1.pdf, pp. 4--5
+\begin{proposicion}{1.20}
+Sea $A$ un álgebra de Banach con unidad. Supongamos que $J\subseteq A$ es un ideal maximal. Entonces:
+\begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+  \item $J$ es cerrado;
+  \item si $A$ es conmutativa, entonces
+  \[
+    A/J\cong\mathbb{C}.
+  \]
+\end{enumerate}
+\end{proposicion}
+
+% Fuente: Parte1.pdf, p. 5
+\begin{proposicion}{1.21}
+Sea $A$ un álgebra de Banach conmutativa con unidad. La asignación
+\[
+  \Omega(A)\longrightarrow\{\text{ideales maximales}\},
+  \qquad
+  \varphi\longmapsto\ker\varphi,
+\]
+es una biyección.
+\end{proposicion}
+
+% Fuente: Parte1.pdf, p. 5
+\begin{teorema}{1.22}
+Sea $A$ un álgebra de Banach conmutativa con unidad y $x\in A$. Entonces
+\[
+  \sigma(x)=\{\varphi(x):\varphi\in\Omega(A)\}.
+\]
+\end{teorema}
+
+% Fuente: Parte1.pdf, pp. 5--6
+\begin{proposicion}{1.23}
+Sea $A$ un álgebra de Banach con unidad y $x,y\in A$. Entonces
+\[
+  1_A-xy\in\GL(A)
+  \quad\Longleftrightarrow\quad
+  1_A-yx\in\GL(A).
+\]
+\end{proposicion}
+
+% Fuente: Parte1.pdf, p. 6
+\begin{corolario}{1.24}
+Sea $A$ un álgebra de Banach con unidad. Si $x,y\in A$, entonces
+\[
+  \sigma(xy)\cup\{0\}
+  =
+  \sigma(yx)\cup\{0\}.
+\]
+\end{corolario}
+
+% Fuente: Parte1.pdf, pp. 6--8
+\begin{teorema}{1.26 (Fórmula del Radio Espectral)}
+Sea $A$ un álgebra de Banach con unidad y $x\in A$. Entonces el límite
+\[
+  \lim_{n\to\infty}\lVert x^n\rVert^{1/n}
+\]
+existe y
+\[
+  r(x)
+  =\lim_{n\to\infty}\lVert x^n\rVert^{1/n}
+  =\inf_{n\in\mathbb{N}}\lVert x^n\rVert^{1/n}.
+\]
+\end{teorema}
+
+% Fuente: Parte1.pdf, p. 9
+\begin{observacion}{1.28}
+La transformada de Gelfand es lineal y multiplicativa:
+\[
+  \widehat{x+\lambda y}(\varphi)
+  =\varphi(x+\lambda y)
+  =\varphi(x)+\lambda\varphi(y)
+  =\widehat{x}(\varphi)+\lambda\widehat{y}(\varphi),
+\]
+\[
+  \widehat{xy}(\varphi)
+  =\varphi(xy)
+  =\varphi(x)\varphi(y)
+  =\widehat{x}(\varphi)\widehat{y}(\varphi).
+\]
+Además,
+\[
+  \lVert\widehat{x}\rVert
+  =\sup_{\varphi\in\Omega(A)}|\varphi(x)|
+  =r(x)
+  \leq\lVert x\rVert.
+\]
+Por lo tanto, la transformada de Gelfand es un homomorfismo contractivo que preserva la unidad.
+\end{observacion}
+
+% Fuente: Parte1.pdf, p. 9
+\begin{ejemplo}{1.30}
+Sea $X$ localmente compacto y Hausdorff, y sea $x\in X$. Definimos
+\[
+  I_x=\{f\in C_0(X):f(x)=0\}.
+\]
+Entonces $I_x$ es un ideal modular. Además, $I_x$ tiene codimensión $1$ en $C_0(X)$ y, por tanto, es maximal.
+\end{ejemplo}
+
+% Fuente: Parte1.pdf, p. 9
+\begin{proposicion}{1.31}
+Un ideal $I$ es modular si y sólo si $A/I$ tiene unidad.
+\end{proposicion}
+
+\end{document}

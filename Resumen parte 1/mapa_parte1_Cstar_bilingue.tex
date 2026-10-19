@@ -1,0 +1,239 @@
+\documentclass[10pt,a3paper,landscape]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,spanish]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds}
+\geometry{margin=8mm}
+\pagestyle{empty}
+
+% -----------------------------------------------------------------------------
+% MODO DE SALIDA / OUTPUT MODE
+%   spanish    -> solo español / Spanish only
+%   english    -> solo inglés / English only
+%   bilingual  -> página 1 español, página 2 inglés / page 1 Spanish, page 2 English
+% -----------------------------------------------------------------------------
+\newcommand{\MapMode}{bilingual}
+
+\newif\ifenglishmap
+\newcommand{\txt}[2]{\ifenglishmap #2\else #1\fi}
+
+% Colores por tipo de objeto matemático
+\definecolor{cDef}{HTML}{DDEEFF}
+\definecolor{cObs}{HTML}{EEE6FF}
+\definecolor{cEx}{HTML}{FFF0CC}
+\definecolor{cLemma}{HTML}{E6E1FF}
+\definecolor{cProp}{HTML}{FFE0E8}
+\definecolor{cCor}{HTML}{FFF3D6}
+\definecolor{cThm}{HTML}{DDF3E4}
+\definecolor{cHead}{HTML}{17365D}
+\definecolor{cGroup}{HTML}{F8FAFC}
+\definecolor{cConcept}{HTML}{6B7280}
+
+\tikzset{
+  base/.style={draw, rounded corners=2.2mm, very thick, align=center,
+    inner sep=2.2mm, minimum height=15mm, text width=39mm,
+    font=\sffamily\fontsize{8.2}{9.5}\selectfont},
+  defn/.style={base, fill=cDef, draw=blue!55!black},
+  obs/.style={base, fill=cObs, draw=violet!60!black},
+  ex/.style={base, fill=cEx, draw=orange!65!black},
+  lemma/.style={base, fill=cLemma, draw=purple!60!black},
+  prop/.style={base, fill=cProp, draw=red!55!black},
+  cor/.style={base, fill=cCor, draw=orange!70!black},
+  thm/.style={base, fill=cThm, draw=green!45!black},
+  group/.style={draw=cConcept!55, fill=cGroup, rounded corners=4mm, line width=.8pt},
+  dep/.style={-{Stealth[length=2.5mm]}, line width=1.0pt, draw=black!78},
+  use/.style={-{Stealth[length=2.5mm]}, line width=.9pt, draw=blue!65!black},
+  concept/.style={-{Stealth[length=2.2mm]}, dashed, line width=.8pt, draw=cConcept},
+  examplearrow/.style={-{Stealth[length=2.2mm]}, dotted, line width=1pt, draw=orange!75!black},
+  title/.style={font=\sffamily\bfseries\fontsize{19}{22}\selectfont, text=cHead, align=center},
+  grouptitle/.style={font=\sffamily\bfseries\fontsize{10.5}{12}\selectfont, text=cHead}
+}
+
+\newcommand{\Obj}[4]{% tipo, número, contenido, página
+  \textbf{#1 #2}\\[-1mm]#3\\[-.5mm]{\scriptsize\textit{\txt{pág.}{p.} #4}}
+}
+
+\newcommand{\MapPage}{%
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+% Título
+\node[title, text width=35cm] (title) at (18.5,23.9)
+{\txt{Parte 1: Teoría Espectral en Álgebras de Banach}{Part 1: Spectral Theory in Banach Algebras}\\[-1mm]
+ {\large\normalfont\txt{Mapa de dependencias conceptuales y lógicas}{Conceptual and logical dependency map}}};
+
+% -----------------------------------------------------------------------------
+% BLOQUE A. Fundamentos
+% -----------------------------------------------------------------------------
+\node[defn] (d11) at (2.6,20.7) {\Obj{\txt{Def.}{Def.}}{1.1}{\txt{Álgebra de Banach}{Banach algebra}}{1}};
+\node[obs] (o12) at (7.1,20.7) {\Obj{\txt{Obs.}{Obs.}}{1.2}{$\mathbb C\cong \mathbb C1_A$}{1}};
+\node[obs] (o13) at (11.6,20.7) {\Obj{\txt{Obs.}{Obs.}}{1.3}{\txt{Adición de unidad $A^+=A\times\mathbb C$}{Unitization $A^+=A\times\mathbb C$}}{1}};
+\node[defn] (d14) at (16.1,20.7) {\Obj{\txt{Def.}{Def.}}{1.4}{\txt{Álgebra involutiva}{Involutive algebra}}{1}};
+\node[ex] (e15) at (20.6,20.7) {\Obj{\txt{Ej.}{Ex.}}{1.5}{$C_b(X)$: \txt{funciones continuas acotadas}{bounded continuous functions}}{2}};
+\node[ex] (e16) at (25.1,20.7) {\Obj{\txt{Ej.}{Ex.}}{1.6}{$L(E)$: \txt{operadores lineales acotados}{bounded linear operators}}{2}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(d11)(o12)(o13)(d14)(e15)(e16), inner sep=4mm,
+ label={[grouptitle]above:\txt{I. Estructura básica}{I. Basic structure}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE B. Invertibilidad, espectro y resolvente
+% -----------------------------------------------------------------------------
+\node[defn] (d17) at (2.6,16.8) {\Obj{\txt{Def.}{Def.}}{1.7}{$GL(A)$: \txt{elementos invertibles}{invertible elements}}{2}};
+\node[prop] (p18) at (7.1,16.8) {\Obj{\txt{Prop.}{Prop.}}{1.8}{\txt{Serie de Neumann}{Neumann series}\\$\|1-x\|<1\Rightarrow x^{-1}=\sum_{n\ge0}(1-x)^n$}{2}};
+\node[obs] (o19) at (11.6,16.8) {\Obj{\txt{Obs.}{Obs.}}{1.9}{\txt{Estabilidad de la invertibilidad; $GL(A)$ es abierto}{Stability of invertibility; $GL(A)$ is open}}{2}};
+\node[cor] (c110) at (16.1,16.8) {\Obj{\txt{Cor.}{Cor.}}{1.10}{$\|x\|<|\lambda|\Rightarrow \lambda1-x\in GL(A)$}{3}};
+\node[defn] (d111) at (20.6,16.8) {\Obj{\txt{Def.}{Def.}}{1.11}{\txt{Espectro}{Spectrum}\\$\sigma(x)=\{\lambda:\lambda1-x\notin GL(A)\}$}{3}};
+\node[prop] (p112) at (25.1,16.8) {\Obj{\txt{Prop.}{Prop.}}{1.12}{\txt{$\sigma(x)$ es compacto y $\sigma(x)\subseteq\overline B_{\|x\|}(0)$}{$\sigma(x)$ is compact and $\sigma(x)\subseteq\overline B_{\|x\|}(0)$}}{3}};
+\node[defn] (d113) at (29.6,16.8) {\Obj{\txt{Def.}{Def.}}{1.13}{\txt{Resolvente}{Resolvent}\\$\rho(x)=\mathbb C\setminus\sigma(x)$, $R_x(z)=(z-x)^{-1}$}{3}};
+\node[lemma] (l114) at (34.1,16.8) {\Obj{\txt{Lema}{Lemma}}{1.14}{$R_x$ \txt{holomorfa, $R_x'(z)=-(z-x)^{-2}$}{holomorphic, $R_x'(z)=-(z-x)^{-2}$}}{3}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(d17)(p18)(o19)(c110)(d111)(p112)(d113)(l114), inner sep=4mm,
+ label={[grouptitle]above:\txt{II. Invertibilidad, espectro y resolvente}{II. Invertibility, spectrum and resolvent}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE C. Espectro no vacío, Gelfand-Mazur, caracteres
+% -----------------------------------------------------------------------------
+\node[thm] (t115) at (2.6,12.7) {\Obj{\txt{Teo.}{Thm.}}{1.15}{\txt{El espectro $\sigma(x)$ es no vacío}{The spectrum $\sigma(x)$ is nonempty}}{3}};
+\node[thm] (t116) at (7.1,12.7) {\Obj{\txt{Teo.}{Thm.}}{1.16}{\txt{Gelfand--Mazur: si todo $a\neq0$ es invertible, $A=\mathbb C1_A$}{Gelfand--Mazur: if every $a\neq0$ is invertible, $A=\mathbb C1_A$}}{4}};
+\node[defn] (d117) at (11.6,12.7) {\Obj{\txt{Def.}{Def.}}{1.17}{\txt{Carácter}{Character}\\$\varphi:A\to\mathbb C$ \txt{lineal, multiplicativo y no nulo}{linear, multiplicative, nonzero}}{4}};
+\node[prop] (p118) at (16.1,12.7) {\Obj{\txt{Prop.}{Prop.}}{1.18}{\txt{Todo carácter es continuo y $\|\varphi\|=\varphi(1)=1$}{Every character is continuous and $\|\varphi\|=\varphi(1)=1$}}{4}};
+\node[defn] (d119) at (20.6,12.7) {\Obj{\txt{Def.}{Def.}}{1.19}{\txt{Espectro de Gelfand / espacio de ideales maximales}{Gelfand spectrum / maximal ideal space}\\$\Omega(A)$}{4}};
+\node[prop] (p120) at (25.1,12.7) {\Obj{\txt{Prop.}{Prop.}}{1.20}{\txt{Ideal maximal $J$: cerrado; si $A$ conmutativa, $A/J\cong\mathbb C$}{Maximal ideal $J$: closed; if $A$ is commutative, $A/J\cong\mathbb C$}}{4}};
+\node[prop] (p121) at (29.6,12.7) {\Obj{\txt{Prop.}{Prop.}}{1.21}{$\Omega(A)\longleftrightarrow\{\text{\txt{ideales maximales}{maximal ideals}}\}$\\$\varphi\mapsto\ker\varphi$}{5}};
+\node[thm] (t122) at (34.1,12.7) {\Obj{\txt{Teo.}{Thm.}}{1.22}{$\sigma(x)=\{\varphi(x):\varphi\in\Omega(A)\}$}{5}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(t115)(t116)(d117)(p118)(d119)(p120)(p121)(t122), inner sep=4mm,
+ label={[grouptitle]above:\txt{III. No vacuidad del espectro, caracteres e ideales maximales}{III. Nonempty spectrum, characters and maximal ideals}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE D. Productos y radio espectral
+% -----------------------------------------------------------------------------
+\node[prop] (p123) at (2.6,8.55) {\Obj{\txt{Prop.}{Prop.}}{1.23}{$1-xy\in GL(A)\Longleftrightarrow 1-yx\in GL(A)$}{5}};
+\node[cor] (c124) at (7.1,8.55) {\Obj{\txt{Cor.}{Cor.}}{1.24}{$\sigma(xy)\cup\{0\}=\sigma(yx)\cup\{0\}$}{6}};
+\node[defn] (d125) at (11.6,8.55) {\Obj{\txt{Def.}{Def.}}{1.25}{\txt{Radio espectral}{Spectral radius}\\$r(x)=\max\{|\lambda|:\lambda\in\sigma(x)\}$}{6}};
+\node[thm] (t126) at (16.1,8.55) {\Obj{\txt{Teo.}{Thm.}}{1.26}{\txt{Fórmula del radio espectral}{Spectral radius formula}\\$r(x)=\lim_{n\to\infty}\|x^n\|^{1/n}=\inf_n\|x^n\|^{1/n}$}{6--8}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(p123)(c124)(d125)(t126), inner sep=4mm,
+ label={[grouptitle]above:\txt{IV. Productos y radio espectral}{IV. Products and spectral radius}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% BLOQUE E. Transformada de Gelfand e ideales modulares
+% -----------------------------------------------------------------------------
+\node[defn] (d127) at (20.6,8.55) {\Obj{\txt{Def.}{Def.}}{1.27}{\txt{Transformada de Gelfand}{Gelfand transform}\\$\widehat{x}(\varphi)=\varphi(x)$}{9}};
+\node[obs] (o128) at (25.1,8.55) {\Obj{\txt{Obs.}{Obs.}}{1.28}{\txt{$x\mapsto\widehat{x}$ es homomorfismo contractivo; $\|\widehat{x}\|_\infty=r(x)\le\|x\|$}{$x\mapsto\widehat{x}$ is a contractive homomorphism; $\|\widehat{x}\|_\infty=r(x)\le\|x\|$}}{9}};
+\node[defn] (d129) at (29.6,8.55) {\Obj{\txt{Def.}{Def.}}{1.29}{\txt{Ideal modular: $\exists u\in A$ con $a-ua,a-au\in I$ para todo $a$}{Modular ideal: $\exists u\in A$ with $a-ua,a-au\in I$ for every $a$}}{9}};
+\node[ex] (e130) at (34.1,8.55) {\Obj{\txt{Ej.}{Ex.}}{1.30}{$I_x=\{f\in C_0(X):f(x)=0\}$\\\txt{es modular (y maximal)}{is modular (and maximal)}}{9}};
+\node[prop] (p131) at (34.1,4.65) {\Obj{\txt{Prop.}{Prop.}}{1.31}{\txt{$I$ modular $\Longleftrightarrow A/I$ tiene unidad}{$I$ modular $\Longleftrightarrow A/I$ has an identity}}{9}};
+
+\begin{scope}[on background layer]
+\node[group, fit=(d127)(o128)(d129)(e130)(p131), inner sep=4mm,
+ label={[grouptitle]above:\txt{V. Transformada de Gelfand e ideales modulares}{V. Gelfand transform and modular ideals}}] {};
+\end{scope}
+
+% -----------------------------------------------------------------------------
+% FLECHAS: dependencia matemática / mathematical dependencies
+% -----------------------------------------------------------------------------
+\draw[dep] (d11) -- (o12);
+\draw[dep] (d11) -- (o13);
+\draw[concept] (d11) -- (d14);
+\draw[examplearrow] (d11) to[bend right=15] (e15);
+\draw[examplearrow] (d11) to[bend right=8] (e16);
+\draw[examplearrow] (d14) -- (e15);
+
+\draw[dep] (d11) -- (d17);
+\draw[dep] (d17) -- (p18);
+\draw[dep] (p18) -- (o19);
+\draw[dep] (p18) to[bend left=10] (c110);
+\draw[dep] (d17) to[bend right=10] (d111);
+\draw[use] (c110) -- (p112);
+\draw[dep] (d111) -- (p112);
+\draw[dep] (d111) -- (d113);
+\draw[dep] (d113) -- (l114);
+\draw[use] (l114) to[bend left=10] (t115);
+\draw[use] (t115) -- (t116);
+
+\draw[concept] (d11) -- (d117);
+\draw[dep] (d117) -- (p118);
+\draw[dep] (p118) -- (d119);
+\draw[use] (t116) to[bend left=10] (p120);
+\draw[dep] (d119) -- (p121);
+\draw[dep] (p120) -- (p121);
+\draw[dep] (p121) -- (t122);
+\draw[use] (d111) to[bend left=14] (t122);
+
+\draw[dep] (d17) to[bend right=10] (p123);
+\draw[dep] (p123) -- (c124);
+\draw[dep] (d111) to[bend right=12] (c124);
+\draw[dep] (d111) to[bend right=8] (d125);
+\draw[use] (p112) to[bend left=8] (d125);
+\draw[use] (t115) to[bend right=10] (d125);
+\draw[dep] (d125) -- (t126);
+\draw[use] (l114) to[bend left=20] (t126);
+
+\draw[dep] (d119) to[bend right=10] (d127);
+\draw[use] (t122) to[bend right=12] (d127);
+\draw[dep] (d127) -- (o128);
+\draw[use] (t122) to[bend left=10] (o128);
+\draw[use] (d125) to[bend right=8] (o128);
+\draw[concept] (d11) to[bend left=8] (d129);
+\draw[examplearrow] (d129) -- (e130);
+\draw[dep] (d129) -- (p131);
+\draw[use] (e130) -- (p131);
+
+% -----------------------------------------------------------------------------
+% LEYENDA
+% -----------------------------------------------------------------------------
+\node[anchor=west, font=\sffamily\bfseries\fontsize{8.5}{10}\selectfont, text=cHead]
+ at (0.2,3.05) {\txt{Leyenda}{Legend}:};
+\node[defn, text width=20mm, minimum height=7mm, inner sep=1mm, anchor=west] at (2.1,3.05) {\txt{Definición}{Definition}};
+\node[obs, text width=20mm, minimum height=7mm, inner sep=1mm, anchor=west] at (5.05,3.05) {\txt{Observación}{Observation}};
+\node[ex, text width=20mm, minimum height=7mm, inner sep=1mm, anchor=west] at (8.0,3.05) {\txt{Ejemplo}{Example}};
+\node[lemma, text width=20mm, minimum height=7mm, inner sep=1mm, anchor=west] at (10.95,3.05) {\txt{Lema}{Lemma}};
+\node[prop, text width=20mm, minimum height=7mm, inner sep=1mm, anchor=west] at (13.9,3.05) {\txt{Proposición}{Proposition}};
+\node[cor, text width=20mm, minimum height=7mm, inner sep=1mm, anchor=west] at (16.85,3.05) {\txt{Corolario}{Corollary}};
+\node[thm, text width=20mm, minimum height=7mm, inner sep=1mm, anchor=west] at (19.8,3.05) {\txt{Teorema}{Theorem}};
+
+\draw[dep] (23.1,3.05) -- (24.4,3.05);
+\node[anchor=west, font=\sffamily\fontsize{7.6}{8.8}\selectfont] at (24.6,3.05) {\txt{dependencia directa / se usa en la prueba}{direct dependency / used in proof}};
+\draw[use] (30.1,3.05) -- (31.4,3.05);
+\node[anchor=west, font=\sffamily\fontsize{7.6}{8.8}\selectfont] at (31.6,3.05) {\txt{resultado usado}{result used}};
+
+\draw[concept] (23.1,2.25) -- (24.4,2.25);
+\node[anchor=west, font=\sffamily\fontsize{7.6}{8.8}\selectfont] at (24.6,2.25) {\txt{relación conceptual}{conceptual relation}};
+\draw[examplearrow] (30.1,2.25) -- (31.4,2.25);
+\node[anchor=west, font=\sffamily\fontsize{7.6}{8.8}\selectfont] at (31.6,2.25) {\txt{ejemplifica}{exemplifies}};
+
+\node[anchor=west, font=\sffamily\fontsize{7.2}{8.5}\selectfont, text=black!65,
+ text width=35cm] at (0.2,1.25)
+{\txt{Fuente: Parte1.pdf. El mapa conserva la numeración y el orden temático del documento; las flechas sintetizan dependencias explícitas de las pruebas y relaciones conceptuales del capítulo.}{Source: Parte1.pdf. The map preserves the numbering and thematic order of the document; arrows summarize explicit proof dependencies and conceptual relations in the chapter.}};
+
+\end{tikzpicture}
+\end{center}
+}
+
+\begin{document}
+\ifthenelse{\equal{\MapMode}{spanish}}{% 
+  \englishmapfalse\selectlanguage{spanish}\MapPage
+}{\ifthenelse{\equal{\MapMode}{english}}{% 
+  \englishmaptrue\selectlanguage{english}\MapPage
+}{% bilingual
+  \englishmapfalse\selectlanguage{spanish}\MapPage
+  \newpage
+  \englishmaptrue\selectlanguage{english}\MapPage
+}}
+\end{document}

@@ -1,0 +1,311 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\Asa}{A_{\mathrm{sa}}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Pj}{\mathcal{P}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\id}{\mathrm{id}}
+
+\newenvironment{teorema}[1]
+  {\par\medskip\noindent\textbf{Teorema #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{proposicion}[1]
+  {\par\medskip\noindent\textbf{Proposición #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{corolario}[1]
+  {\par\medskip\noindent\textbf{Corolario #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{lema}[1]
+  {\par\medskip\noindent\textbf{Lema #1.}\ \itshape}
+  {\par\medskip}
+\newenvironment{observacion}[1]
+  {\par\medskip\noindent\textbf{Observación #1.}\ }
+  {\par\medskip}
+
+\title{Enunciados de la Parte 2: $C^*$-álgebras}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Índice}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Observaciones:} 2.2, 2.9, 2.24, 2.25.
+  \item \textbf{Lemas:} 2.10, 2.26.
+  \item \textbf{Proposiciones:} 2.11, 2.12, 2.13, 2.16, 2.17, 2.18, 2.28, 2.29, 2.30.
+  \item \textbf{Corolarios:} 2.7, 2.14, 2.15, 2.21.
+  \item \textbf{Teoremas:} 2.6, 2.8, 2.19, 2.20, 2.22, 2.27.
+\end{itemize}
+
+\section*{Enunciados}
+
+% Fuente: Parte2.pdf, p. 1
+\begin{observacion}{2.2}
+Si $A$ tiene unidad, entonces
+\[
+  1^*=1
+  \qquad\text{y}\qquad
+  \lVert 1\rVert=1.
+\]
+\end{observacion}
+
+% Fuente: Parte2.pdf, p. 1
+\begin{teorema}{2.6}
+Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ un elemento normal. Entonces
+\[
+  \lVert a\rVert=r(a).
+\]
+\end{teorema}
+
+% Fuente: Parte2.pdf, p. 2
+\begin{corolario}{2.7}
+La norma en una $C^*$-álgebra es única y está dada por
+\[
+  \lVert a\rVert=r(a^*a)^{1/2}.
+\]
+\end{corolario}
+
+% Fuente: Parte2.pdf, p. 2
+\begin{teorema}{2.8}
+Sean $A$ y $B$ dos $C^*$-álgebras con unidad y $\Phi:A\to B$ un $*$-homomorfismo unital. Entonces $\Phi$ es acotado y
+\[
+  \lVert\Phi\rVert=1.
+\]
+\end{teorema}
+
+% Fuente: Parte2.pdf, p. 2
+\begin{observacion}{2.9}
+Sea $a\in A$. Entonces existen elementos únicos $x,y\in\Asa$ tales que
+\[
+  a=x+iy.
+\]
+Precisamente,
+\[
+  x=\frac{a+a^*}{2},
+  \qquad
+  y=\frac{a-a^*}{2i}.
+\]
+Llamamos a $x$ la \emph{parte real} y a $y$ la \emph{parte imaginaria} de $a$ (a veces $\operatorname{re}(a)=x$, $\operatorname{im}(a)=y$).
+\end{observacion}
+
+% Fuente: Parte2.pdf, p. 2
+\begin{lema}{2.10}
+Sea $A$ una $C^*$-álgebra con unidad y $x\in\Asa$. Entonces
+\[
+  \lVert x+it1\rVert^2\leq \lVert x\rVert^2+t^2,
+  \qquad t\in\mathbb{R}.
+\]
+\end{lema}
+
+% Fuente: Parte2.pdf, pp. 2--3
+\begin{proposicion}{2.11}
+Sea $z\in\mathbb{C}$. Supongamos que existe $C\geq0$ tal que
+\[
+  |z+it|^2\leq C+t^2
+  \qquad \forall t\in\mathbb{R}.
+\]
+Entonces $z\in\mathbb{R}$.
+\end{proposicion}
+
+% Fuente: Parte2.pdf, p. 3
+\begin{proposicion}{2.12}
+Sea $A$ una $C^*$-álgebra con unidad y $\varphi:A\to\mathbb{C}$ un funcional lineal tal que
+\[
+  \lVert\varphi\rVert=\varphi(1).
+\]
+Entonces
+\[
+  \varphi(a)\in\mathbb{R}
+  \qquad\text{para todo } a\in\Asa.
+\]
+\end{proposicion}
+
+% Fuente: Parte2.pdf, p. 3
+\begin{proposicion}{2.13}
+Sea $A$ una $C^*$-álgebra con unidad y $a\in\Asa$. Entonces
+\[
+  \sigma(a)\subseteq\mathbb{R}.
+\]
+\end{proposicion}
+
+% Fuente: Parte2.pdf, p. 3
+\begin{corolario}{2.14}
+Sea $A$ una $C^*$-álgebra con unidad y $\varphi:A\to\mathbb{C}$ un funcional lineal tal que
+\[
+  \lVert\varphi\rVert=\varphi(1).
+\]
+Entonces
+\[
+  \varphi(a^*)=\overline{\varphi(a)}
+  \qquad\text{para todo }a\in A.
+\]
+En particular, los caracteres lo cumplen.
+\end{corolario}
+
+% Fuente: Parte2.pdf, pp. 3--4
+\begin{corolario}{2.15}
+Sea $A$ una $C^*$-álgebra conmutativa con unidad. Entonces la transformada de Gelfand
+\[
+  \Lambda:A\longrightarrow C(\Omega(A)),
+  \qquad
+  a\longmapsto \widehat a,
+\]
+es un $*$-homomorfismo unital.
+\end{corolario}
+
+% Fuente: Parte2.pdf, p. 4
+\begin{proposicion}{2.16}
+Sea $A$ una $C^*$-álgebra con unidad y $a\in A$. Entonces
+\[
+  a\in\GL(A)
+  \quad\Longleftrightarrow\quad
+  a^*a,\;aa^*\in\GL(A).
+\]
+\end{proposicion}
+
+% Fuente: Parte2.pdf, p. 4
+\begin{proposicion}{2.17}
+Sea $A$ una $C^*$-álgebra con unidad $1_A$ y $B\subseteq A$ una $C^*$-subálgebra que contiene a la unidad $1_A$. Sea $b\in B$. Entonces
+\[
+  b\in\GL(B)
+  \quad\Longleftrightarrow\quad
+  b\in\GL(A),
+\]
+y en particular
+\[
+  \sigma_B(b)=\sigma_A(b).
+\]
+\end{proposicion}
+
+% Fuente: Parte2.pdf, pp. 4--5
+\begin{proposicion}{2.18}
+Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ normal. Entonces la función
+\[
+  \Omega\bigl(C^*(a,1)\bigr)\longrightarrow\sigma(a),
+  \qquad
+  \varphi\longmapsto\varphi(a),
+\]
+es un homeomorfismo.
+\end{proposicion}
+
+% Fuente: Parte2.pdf, p. 5
+\begin{teorema}{2.19 (Stone--Weierstrass)}
+Sea $X$ un espacio compacto y Hausdorff, y sea $A\subseteq C(X)$ una $*$-subálgebra con unidad. Supongamos que $A$ separa puntos, i.e. si $x\neq y$ entonces existe $f\in A$ con $f(x)\neq f(y)$. Entonces $A$ es densa en $C(X)$ con la norma $\lVert\cdot\rVert_\infty$.
+\end{teorema}
+
+% Fuente: Parte2.pdf, p. 5
+\begin{teorema}{2.20 (Gelfand--Naimark)}
+Sea $A$ una $C^*$-álgebra conmutativa con unidad. Entonces la transformada de Gelfand
+\[
+  \Lambda:A\longrightarrow C(\Omega(A)),
+  \qquad
+  \widehat a(\varphi)=\varphi(a),
+\]
+es un $*$-isomorfismo isométrico.
+\end{teorema}
+
+% Fuente: Parte2.pdf, p. 6
+\begin{corolario}{2.21}
+Toda $C^*$-álgebra conmutativa con unidad es isomorfa a $C(X)$ para algún espacio compacto y Hausdorff $X$. Además, $X$ es único salvo homeomorfismo.
+\end{corolario}
+
+% Fuente: Parte2.pdf, p. 6
+\begin{teorema}{2.22 (Cálculo Funcional)}
+Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ normal. Entonces existe un único $*$-homomorfismo isométrico
+\[
+  C(\sigma(a))\longrightarrow A,
+  \qquad
+  f\longmapsto f(a),
+\]
+tal que
+\[
+  \id_{\sigma(a)}\longmapsto a
+  \qquad\text{y}\qquad
+  1_{\sigma(a)}\longmapsto 1_A.
+\]
+\end{teorema}
+
+% Fuente: Parte2.pdf, p. 7
+\begin{observacion}{2.24}
+Por ejemplo,
+\[
+  (\overline z z)(a)=a^*a,
+  \qquad
+  (z^2-\overline z^{\,3}+1)(a)=a^2-(a^*)^3+1,
+  \qquad\text{etc.}
+\]
+\end{observacion}
+
+% Fuente: Parte2.pdf, p. 7
+\begin{observacion}{2.25}
+Supongamos que $X$ es compacto y $A:=C(X)$. Fijemos $g\in C(X)$, cuyo espectro es
+\[
+  \sigma(g)=g(X).
+\]
+El cálculo funcional está dado por
+\[
+  C(g(X))\longrightarrow A,
+  \qquad
+  f\longmapsto f(g)=f\circ g.
+\]
+Se sigue que lo anterior define un $*$-homomorfismo unital que cumple
+\[
+  \id_{g(X)}\longmapsto g.
+\]
+\end{observacion}
+
+% Fuente: Parte2.pdf, p. 7
+\begin{lema}{2.26}
+Sean $A$ y $B$ dos $C^*$-álgebras con unidad y $\Phi:A\to B$ un $*$-homomorfismo unital. Sea $a\in A$ un elemento normal y $f:\sigma(a)\to\mathbb{C}$ una función continua. Entonces
+\[
+  \Phi\bigl(f(a)\bigr)=f\bigl(\Phi(a)\bigr).
+\]
+\end{lema}
+
+% Fuente: Parte2.pdf, p. 7
+\begin{teorema}{2.27}
+Sean $A$ y $B$ dos $C^*$-álgebras con unidad y $\Phi:A\to B$ un $*$-homomorfismo inyectivo unital. Entonces $\Phi$ es isométrico, i.e.
+\[
+  \lVert\Phi(a)\rVert=\lVert a\rVert
+  \qquad\text{para todo }a\in A.
+\]
+\end{teorema}
+
+% Fuente: Parte2.pdf, p. 8
+\begin{proposicion}{2.28}
+Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ un elemento normal. Entonces
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+  \item $a=a^* \Longleftrightarrow \sigma(a)\subseteq\mathbb{R}$;
+  \item $a\in\U(A) \Longleftrightarrow \sigma(a)\subseteq\T$;
+  \item $a\in\Pj(A) \Longleftrightarrow \sigma(a)\subseteq\{0,1\}$.
+\end{enumerate}
+\end{proposicion}
+
+% Fuente: Parte2.pdf, p. 8
+\begin{proposicion}{2.29}
+Sea $A$ una $C^*$-álgebra con unidad. Entonces cada elemento de $A$ es combinación lineal de a lo más cuatro unitarios.
+\end{proposicion}
+
+% Fuente: Parte2.pdf, p. 8
+\begin{proposicion}{2.30}
+Sea $A$ una $C^*$-álgebra con unidad y $a\in A$ normal con
+\[
+  \sigma(a)\subseteq\mathbb{R}^+=[0,\infty).
+\]
+Entonces existe $y=y^*\in A$ con $\sigma(y)\subseteq\mathbb{R}^+$ tal que
+\[
+  y^2=a.
+\]
+\end{proposicion}
+
+\end{document}

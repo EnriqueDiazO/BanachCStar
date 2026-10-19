@@ -1,0 +1,784 @@
+\chapter{Assignment 2: worked solutions on functional calculus}
+
+\begin{context}
+After completing this assignment, you will be able to verify a concrete representation of $C_b(X)$, reconstruct
+spectral characterizations of normal elements, and distinguish norm convergence from strong operator
+convergence. The dependencies given after each solution show which hypotheses justify each step.
+\end{context}
+
+\section{Problem 2.1: \texorpdfstring{$C_b(X)$}{Cb(X)} as a concrete \texorpdfstring{$C^*$}{C-star}-algebra}
+
+Let $X$ be locally compact and Hausdorff.
+
+
+Let $H=\ell^2(X)$ and, for $f\in C_b(X)$, define
+\[
+ (M_f\xi)(x)=f(x)\xi(x).
+\]
+For an arbitrary index set, the sum in $\|\xi\|_2^2$ is understood as
+\[
+ \|\xi\|_2^2=\sup_{F\subset X\text{ finite}}\sum_{x\in F}|\xi(x)|^2.
+\]
+We establish the lower norm bound when $X\ne\varnothing$.
+
+\noindent\textbf{Statement.} Prove that $M:C_b(X)\to\mathcal B(\ell^2(X))$, $f\mapsto M_f$, is an isometric $*$-homomorphism.
+
+\begin{proof}[Solution]
+If $X=\varnothing$, $C_b(X)$ contains only the empty function and $\ell^2(X)=\{0\}$; therefore
+$\mathcal B(\ell^2(X))=\{0\}$ and the unique map $f\mapsto M_f$ preserves operations and
+norms. Assume henceforth that $X\ne\varnothing$.
+
+For $\xi\in\ell^2(X)$,
+\[
+\|M_f\xi\|_2^2
+=\sum_{x\in X}|f(x)|^2|\xi(x)|^2
+\le\|f\|_\infty^2\|\xi\|_2^2,
+\]
+so $\|M_f\|\le\|f\|_\infty$. For the reverse inequality, given
+$\varepsilon>0$ we choose $x_0$ with $|f(x_0)|>\|f\|_\infty-\varepsilon$ and take the vector
+$e_{x_0}$ supported at $x_0$. Then
+$\|M_fe_{x_0}\|=|f(x_0)|$, whence $\|M_f\|=\|f\|_\infty$.
+
+Additionally,
+\[
+M_{f+g}=M_f+M_g,
+\qquad M_{fg}=M_fM_g,
+\qquad M_1=I.
+\]
+Finally,
+\[
+\langle M_f\xi,\eta\rangle
+=\sum_x f(x)\xi(x)\overline{\eta(x)}
+=\langle \xi,M_{\bar f}\eta\rangle,
+\]
+so $M_f^*=M_{\bar f}$. Therefore $M$ is an isometric $*$-homomorphism.
+\end{proof}
+
+\proofdiagram
+{$f\in C_b(X)$}
+{Norm in $\ell^2(X)$; pointwise conjugation}
+{$\|M_f\|=\|f\|_\infty$, $M_{fg}=M_fM_g$, $M_{\bar f}=M_f^*$}
+{$f\mapsto M_f$ is an isometric $*$-homomorphism}
+
+\begin{cthejemplo}{(A diagonal operator on the space of sequences)}
+To see the representation of Problem 2.1 over a known space, let's take $X=\mathbb N$ and
+$f(n)=1/(n+1)$.
+In $H=\ell^2(\mathbb N)$ we have $M_fe_n=(n+1)^{-1}e_n$; also,
+\[
+ \|M_f\|=\sup_{n\ge1}\|M_fe_n\|=\frac12=\|f\|_\infty.
+\]
+The bounded function appears as a diagonal operator, and its norm is preserved by
+the isometric $*$-homomorphism of Problem 2.1.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The definition of $C_b(X)$ from Part 1, the norm on $\ell^2(X)$, and the Hilbert space characterization of the adjoint. Here $X$ serves as an index set; its topology is not used to define $\ell^2(X)$.
+
+\noindent\textbf{How this problem is used later.} It exhibits an isometric $*$-monomorphism into $\mathcal B(H)$, a concrete model of the homomorphisms and representations studied in Section 2.
+
+\section{Problem 2.2: spectra of idempotents, products, and unitaries}
+
+Let $\A$ be a unital Banach algebra. For the conclusion about unitaries in part (c), $\A$
+is also a $C^*$-algebra.
+
+\subsection*{2.2(a) Spectrum of an idempotent}
+
+\noindent\textbf{Statement.} If $e\in\A$ and $e^2=e$, prove $\spec(e)\subset\{0,1\}$.
+
+\begin{proof}[Solution]
+If $\lambda\neq0,1$, set
+\[
+ b=\frac1\lambda 1+\frac{1}{\lambda(\lambda-1)}e.
+\]
+Since $e(1-e)=(1-e)e=0$ and $e^2=e$, we can write
+\[
+ \lambda1-e=\lambda(1-e)+(\lambda-1)e,
+ \qquad b=\lambda^{-1}(1-e)+(\lambda-1)^{-1}e.
+\]
+On multiplication, the cross terms vanish and
+$(\lambda1-e)b=b(\lambda1-e)=(1-e)+e=1$. Thus every
+$\lambda\notin\{0,1\}$ belongs to the resolvent set and
+$\spec(e)\subset\{0,1\}$.
+\end{proof}
+
+\pagebreak
+\proofdiagram
+{$e^2=e$}
+{Solve algebraically $(\lambda1-e)^{-1}$}
+{For $\lambda\notin\{0,1\}$, construct $\lambda^{-1}1+[\lambda(\lambda-1)]^{-1}e$}
+{$\spec(e)\subset\{0,1\}$}
+
+\begin{cthejemplo}{(Spectrum of a matrix projection)}
+In $M_2(\mathbb C)$ we want to identify the two points allowed by Problem 2.2(a).
+For $P=\operatorname{diag}(1,0)$, $P^2=P$ and
+$\lambda I-P=\operatorname{diag}(\lambda-1,\lambda)$.
+This matrix is invertible exactly when $\lambda\ne0,1$; therefore
+$\spec(P)=\{0,1\}$. If $P$ is replaced by $0$ or $I$, the same calculation leaves only
+$\{0\}$ or $\{1\}$, respectively.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The equation $e^2=e$ allows us to check an explicit inverse of $\lambda1-e$ for $\lambda\ne0,1$; the definition of spectrum in Part 1 applies.
+
+\noindent\textbf{How this problem is used later.} This gives the forward implication of the spectral characterization of projections in Problem 2.6(c) and in Proposition 2.28.
+
+\subsection*{2.2(b) Spectral radius of a commutative product}
+
+\noindent\textbf{Statement.} If $x,y\in\A$ commute, prove $r(xy)\le r(x)r(y)$.
+
+\begin{proof}[Solution]
+Commutativity allows us to write $(xy)^n=x^ny^n$. So
+\[
+\|(xy)^n\|^{1/n}
+\le\|x^n\|^{1/n}\|y^n\|^{1/n}.
+\]
+Passing to the limit and using the spectral radius formula,
+$r(xy)\le r(x)r(y)$.
+\end{proof}
+
+\proofdiagram
+{$xy=yx$}
+{Spectral radius formula}
+{$(xy)^n=x^ny^n$ and $\|(xy)^n\|\le\|x^n\|\|y^n\|$}
+{$r(xy)\le r(x)r(y)$}
+
+\begin{cthejemplo}{(The spectral radius inequality can be strict)}
+In $C([0,1])$ we can check how much the bound of Problem 2.2(b) can be improved.
+Let's take $f(t)=t$ and $g(t)=1-t$; they commute because multiplication is pointwise.
+By Problem 1.10, $r(f)=\|f\|_\infty=1$ and $r(g)=1$, while
+\[
+ r(fg)=\max_{0\le t\le1}t(1-t)=\frac14<r(f)r(g)=1.
+\]
+The inequality is strict because the maxima of $f$ and $g$ occur at opposite endpoints.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The commutation allows $(xy)^n=x^ny^n$ and the spectral radius formula from Part 1 converts the estimate of norms to the desired inequality.
+
+\noindent\textbf{How this problem is used later.} It allows estimating products within commutative subalgebras such as $C^*(x,1)$. The classification of Problem 2.6 uses functional calculus and does not depend on this inequality.
+
+\subsection*{2.2(c) Spectrum of an invertible with controlled norm}
+
+\noindent\textbf{Statement.} If $z\in\GL(\A)$ and $\|z\|,\|z^{-1}\|\le1$, prove $\spec(z)\subset\mathbb T$; deduce the same inclusion for every unitary element of a unital $C^*$-algebra.
+
+\begin{proof}[Solution]
+If $\lambda\in\spec(z)$, then $|\lambda|\le r(z)\le\|z\|\le1$. Since $z$ is invertible,
+$0\notin\spec(z)$. Additionally
+\[
+ \lambda\in\spec(z)\quad\Longleftrightarrow\quad
+ \lambda^{-1}\in\spec(z^{-1}),
+\]
+because
+$\lambda1-z=-\lambda z(\lambda^{-1}1-z^{-1})$. Therefore
+$|\lambda|^{-1}\le r(z^{-1})\le1$, that is $|\lambda|\ge1$. Hence $|\lambda|=1$.
+
+If $u$ is unitary in a $C^*$-algebra, $u^{-1}=u^*$ and
+$\|u\|=\|u^*\|=1$, so the above result gives
+$\spec(u)\subset\mathbb T$.
+\end{proof}
+
+\proofdiagrambranch
+{$z\in\GL(\A)$ and $\|z\|\le1$}
+{$\|z^{-1}\|\le1$}
+{$\lambda\in\spec(z)\Rightarrow |\lambda|\le1$ and $\lambda^{-1}\in\spec(z^{-1})$}
+{$|\lambda|^{-1}\le1$}
+{$|\lambda|=1$, then $\spec(z)\subset\mathbb T$}
+
+\begin{cthejemplo}{(Spectrum of a unitary diagonal matrix)}
+To see the unitary conclusion of Problem 2.2(c) with two spectral values, let's take
+$U=\operatorname{diag}(1,i)$ in $M_2(\mathbb C)$.
+We have $U^*U=I$, $U^{-1}=U^*$ and $\|U\|=\|U^{-1}\|=1$.
+Moreover, $\det(\lambda I-U)=(\lambda-1)(\lambda-i)$, so
+$\spec(U)=\{1,i\}\subset\mathbb T$.
+The norm bounds force both points to be on the unit circle.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The bound $r(z)\le\|z\|$, the relationship between the spectra of an invertible and its inverse, and both hypotheses $\|z\|,\|z^{-1}\|\le1$ are used.
+
+\noindent\textbf{How this problem is used later.} This gives the unitary implication of Problem 2.6(b) and Proposition 2.28; for a unitary $u$, the identity $C^*$ ensures $\|u\|=\|u^{-1}\|=1$.
+
+\begin{investigacion}[title={Unitary rotations on $L^2(\mathbb T)$}]
+To apply Problem 2.2(c) in the Hilbert space model of \cite{BFK2006}, fix $z\in\mathbb T$ and
+define $(U_z\varphi)(t)=\varphi(zt)$ on $L^2(\mathbb T)$.
+The invariance of the Haar measure under rotations gives $\|U_z\varphi\|_2=\|\varphi\|_2$;
+also $U_{z^{-1}}U_z=U_zU_{z^{-1}}=I$. Thus $U_z$ is unitary and
+$\|U_z\|=\|U_z^{-1}\|=1$.
+By Problem 2.2(c), $\spec(U_z)\subset\mathbb T$. The conclusion uses those properties
+verified on $L^2(\mathbb T)$.
+\end{investigacion}
+
+\pagebreak
+\section{Problem 2.3: products of \texorpdfstring{$C^*$}{C-star}-algebras and the ideal \texorpdfstring{$c_0$}{c0}}
+
+Let $I$ be a set of indices and $(A_i)_{i\in I}$ be a family of $C^*$-algebras. In part
+(b), take $I=\mathbb N$.
+
+\subsection*{2.3(a) Bounded product of a family of $C^*$-algebras}
+
+\noindent\textbf{Statement.} Prove that the product of families $(a_i)_{i\in I}$ with $a_i\in A_i$ and $\sup_i\|a_i\|<\infty$ is a $C^*$-algebra with pointwise operations and supremum norm.
+
+\begin{proof}[Solution]
+Let
+\[
+\prod_{i\in I}^{\ell^\infty} A_i
+=\{(a_i): a_i\in A_i,\ \sup_i\|a_i\|<\infty\}.
+\]
+Pointwise operations preserve uniform boundedness; in particular,
+\[
+ \sup_i\|a_i+b_i\|\le\sup_i\|a_i\|+\sup_i\|b_i\|,
+ \qquad
+ \sup_i\|a_ib_i\|\le\bigl(\sup_i\|a_i\|\bigr)
+                        \bigl(\sup_i\|b_i\|\bigr).
+\]
+With the norm $\|(a_i)\|=\sup_i\|a_i\|$, this is a normed algebra. If
+$(a^{(n)})$ is Cauchy, each coordinate $a_i^{(n)}$ converges in $A_i$ to an element $a_i$.
+Fix $\varepsilon>0$. There is $N$ such that
+$\sup_i\|a_i^{(n)}-a_i^{(m)}\|<\varepsilon$ for $n,m\ge N$. Letting $m\to\infty$
+coordinate by coordinate, we get $\|a_i^{(n)}-a_i\|\le\varepsilon$ for all $i$ and $n\ge N$.
+In particular $\sup_i\|a_i\|\le\|a^{(N)}\|+\varepsilon<\infty$, and the same estimate shows
+$\|a^{(n)}-a\|\le\varepsilon$ for $n\ge N$. Therefore the bounded product is complete.
+Defining $(a_i)^*=(a_i^*)$,
+\[
+\|(a_i)^*(a_i)\|
+=\sup_i\|a_i^*a_i\|
+=\sup_i\|a_i\|^2
+=\|(a_i)\|^2.
+\]
+This is a $C^*$-algebra.
+\end{proof}
+
+\proofdiagram
+{$\{A_i\}_{i\in I}$ $C^*$-algebras}
+{Coordinatewise operations; supremum norm}
+{Coordinate completeness and $\|(a_i)^*(a_i)\|=\sup_i\|a_i^*a_i\|$}
+{The bounded product $\prod_i A_i$ is a $C^*$-algebra}
+
+\begin{cthejemplo}{(A bounded product of matrices)}
+In the product of Problem 2.3(a), each coordinate can be a different matrix.
+Let's take $A_n=M_2(\mathbb C)$ and $a_n=\operatorname{diag}(1,1/n)$ for $n\ge1$.
+The family $a=(a_n)$ belongs to the bounded product because $\sup_n\|a_n\|=1$; moreover,
+\[
+ a_n^*a_n=\operatorname{diag}(1,1/n^2),
+ \qquad \|a^*a\|=1=\|a\|^2.
+\]
+The $C^*$-identity for the product is verified coordinate by coordinate, as in Problem 2.3(a).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Coordinate-by-coordinate operations, completeness of each $A_i$, and the $C^*$-identity are applied on each coordinate. The supremum norm restricts the product to uniformly bounded families.
+
+\noindent\textbf{How this problem is used later.} This constructs the ambient algebra of Problem 2.3(b), where families tending to zero form a closed ideal.
+
+\subsection*{2.3(b) The sum $c_0$ is a closed ideal}
+
+\noindent\textbf{Statement.} For $I=\mathbb N$, prove that the sequences $(a_n)$ of the bounded product satisfying $\|a_n\|\to0$ form a closed two-sided ideal.
+
+\begin{proof}[Solution]
+Let
+\[
+\bigoplus_{n\in\mathbb N}^{c_0}A_n
+=\{(a_n)\in\prod^{\ell^\infty}A_n:\|a_n\|\to0\}.
+\]
+If $\|a_n\|,\|c_n\|\to0$, then
+$\|a_n+c_n\|\le\|a_n\|+\|c_n\|\to0$ and
+$\|\alpha a_n\|=|\alpha|\|a_n\|\to0$; therefore the $c_0$-sum is a linear subspace.
+If $b=(b_n)$ is in the bounded product and $a=(a_n)$ is in the $c_0$-sum, then
+\[
+\|b_na_n\|\le\|b\|_\infty\|a_n\|\to0,
+\quad
+\|a_nb_n\|\le\|a_n\|\|b\|_\infty\to0,
+\]
+so it is a two-sided ideal. If $a^{(k)}\to a$ in supremum norm and each $a^{(k)}$ tends to zero in
+coordinates, fix a positive $\varepsilon$ and choose $k$ with
+$\|a-a^{(k)}\|_\infty<\varepsilon/2$ and then $N$ with
+$\|a_n^{(k)}\|<\varepsilon/2$ for $n\ge N$. Then $\|a_n\|<\varepsilon$ for $n\ge N$.
+Therefore the ideal is closed.
+Furthermore $(a_n^*)$ belongs to the same ideal because $\|a_n^*\|=\|a_n\|\to0$.
+\end{proof}
+
+\proofdiagram
+{$a=(a_n)$ with $\|a_n\|\to0$}
+{Coordinatewise product and supremum norm}
+{$\|b_na_n\|\le\|b\|_\infty\|a_n\|\to0$; uniform limit preserves condition}
+{$\bigoplus_n A_n$ is a closed two-sided ideal}
+
+\begin{cthejemplo}{(The classical ideal of null sequences)}
+To recognize the construction of Problem 2.3(b), let's put $A_n=\mathbb C$ for each $n$.
+The sequence $a_n=1/n$ belongs to $c_0$, while $b_n=(-1)^n$ is in $\ell^\infty$.
+Their product satisfies $|b_na_n|=1/n\to0$, and the same goes for $a_nb_n$.
+Thus the ideal $c_0\subset\ell^\infty$ is the scalar case of the two-sided ideal property proved in Problem 2.3(b).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The bounded product of Problem 2.3(a) provides the supremum norm. Coordinate-by-coordinate estimates prove the ideal property, and the uniform criterion proves closedness.
+
+\noindent\textbf{How this problem is used later.} This allows us to form the quotient of the product by the ideal $c_0$ using Problem 1.4; interpreting that quotient requires further results about quotients of $C^*$-algebras.
+
+\section{Problem 2.4: continuous spectral mapping theorem}
+
+Let $\A$ be a unital $C^*$-algebra, let $x\in\A$ be normal, and let $f:\spec(x)\to\mathbb C$ be continuous.
+
+\noindent\textbf{Statement.} Prove the continuous spectral mapping theorem: $\spec_\A(f(x))=f(\spec_\A(x))$.
+
+\begin{proof}[Solution]
+Work in $B=C^*(x,1)$, which is commutative. By spectral permanence, the spectrum of
+$f(x)$ is the same whether computed in $B$ or in $\A$. The functional calculus is a $*$-isomorphism
+\[
+ C(\spec(x))\longrightarrow B.
+\]
+Under this isomorphism, $f(x)$ corresponds to the function $f$. By Problem 1.10, the
+spectrum of $f$ in $C(\spec(x))$ is its range. Therefore
+\[
+ \spec_\A(f(x))=\spec_B(f(x))=f(\spec(x)).
+\]
+\end{proof}
+
+\proofdiagrambranch
+{$x$ normal}
+{$f\in C(\spec(x))$}
+{Functional calculus + spectral permanence in $C^*(x,1)$}
+{Identify $C^*(x,1)\cong C(\spec(x))$}
+{$\spec(f(x))=f(\spec(x))$}
+
+\begin{cthejemplo}{(Squaring a self-adjoint element using its spectrum)}
+In $M_2(\mathbb C)$, take $x=\operatorname{diag}(-2,3)$ to check Problem 2.4.
+The element is self-adjoint and $\spec(x)=\{-2,3\}$.
+As $x^2=\operatorname{diag}(4,9)$,
+\[
+ \spec(x^2)=\{4,9\}=\{\lambda^2:\lambda\in\spec(x)\}.
+\]
+The square transforms each spectral value by $t\mapsto t^2$ and produces a nonnegative spectrum.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The functional calculus for normal $x$ identifies $C^*(x,1)$ with $C(\spec(x))$; the spectral permanence of Section 2 and Problem 1.10 allow the spectrum of $f(x)$ to be calculated in the ambient algebra.
+
+\noindent\textbf{How this problem is used later.} This transfers equalities and spectral restrictions from functions to operators; Problem 2.6 applies it to recognize self-adjoint elements, unitary elements, and normal projections.
+
+\section{Problem 2.5: \texorpdfstring{$X\cong\Omega(C(X))$}{X is homeomorphic to Omega(C(X))}}
+
+Let $X$ be a compact Hausdorff space and, for $x\in X$, let
+$\operatorname{ev}_x(f)=f(x)$ be the evaluation map on $C(X)$.
+
+\noindent\textbf{Statement.} Prove that $x\mapsto\operatorname{ev}_x$ defines a homeomorphism $X\to\Omega(C(X))$.
+
+\begin{proof}[Solution]
+For $f,g\in C(X)$, we have
+$\operatorname{ev}_x(fg)=f(x)g(x)$ and $\operatorname{ev}_x(1)=1$;
+also $|\operatorname{ev}_x(f)|\le\|f\|_\infty$. Thus each evaluation is a continuous character
+and the map is well defined. It is injective because
+if $x\neq y$, there is $f\in C(X)$ with $f(x)\neq f(y)$.
+
+Now let $\varphi\in\Omega(C(X))$ and set $I=\ker\varphi$, a maximal ideal. We claim that there is
+$x_0\in X$ such that $I\subset I_{x_0}:=\{f:f(x_0)=0\}$. Otherwise, for each $x\in X$ there would be
+$f_x\in I$ with $f_x(x)\neq0$. The open sets
+$U_x=\{y:|f_x(y)|>0\}$ would cover $X$; by compactness we could choose
+$f_1,\dots,f_n\in I$ with $\sum_j|f_j|^2>0$ throughout $X$. Then
+\[
+ g:=\sum_{j=1}^n f_j^*f_j\in I
+\]
+would be a strictly positive function and therefore invertible in $C(X)$, impossible for a proper ideal. Thus there is $x_0$ with $I\subset I_{x_0}$. Since $I_{x_0}$ is proper, maximality gives
+$I=I_{x_0}$. For each $f\in C(X)$, we have $f-f(x_0)1\in I=\ker\varphi$; since
+$\varphi(1)=1$, it follows that $\varphi(f)=f(x_0)$. Therefore
+$\varphi=\operatorname{ev}_{x_0}$.
+
+The map $x\mapsto\operatorname{ev}_x$ is continuous for the weak-$*$ topology because, for each
+$f\in C(X)$, the coordinate $x\mapsto\operatorname{ev}_x(f)=f(x)$ is continuous. As $X$ is compact
+and $\Omega(C(X))$ is Hausdorff, a continuous bijection is a homeomorphism.
+\end{proof}
+
+\proofdiagrambranch
+{$x\mapsto\operatorname{ev}_x$}
+{Continuous functions separate points in compact Hausdorff spaces}
+{For surjectivity, $\ker\varphi$ is a maximal ideal and must be $I_{x_0}$ for some $x_0$}
+{Continuous bijection between compact Hausdorff spaces}
+{$X\cong\Omega(C(X))$}
+
+\begin{cthejemplo}{(A character given by a point on the circle)}
+In $C(\mathbb T)$ we want to make the homeomorphism of Problem 2.5 visible.
+Let's set $w=e^{i\theta}\in\mathbb T$ and consider the evaluation
+$\operatorname{ev}_w(f)=f(w)$. For functions $h(z)=z$ and $g(z)=1+z$,
+\[
+ \operatorname{ev}_w(h)=w,\qquad \operatorname{ev}_w(g)=1+w.
+\]
+The value of the character on $h$ identifies the point $w$; Problem 2.5 ensures that every character in
+$C(\mathbb T)$ arises from such an evaluation.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Characters and maximal ideals from Part 1, point separation from $C(X)$, and compactness from $X$ are used. The common-zero-set argument uses $\sum_j|f_j|^2$.
+
+\noindent\textbf{How this problem is used later.} This completes the uniqueness of the compact space in commutative Gelfand--Naimark: a $*$-isomorphism $C(X)\cong C(Y)$ induces $X\cong Y$.
+
+\section{Problem 2.6: spectral characterizations and the role of normality}
+
+Let $\A$ be a unital $C^*$-algebra and let $x\in\A$ be normal. Part (d) asks us to show that
+normality cannot be omitted from the three converses.
+
+\subsection*{2.6(a) Self-adjoint $\Longleftrightarrow$ real spectrum for normal elements}
+
+\noindent\textbf{Statement.} Prove that $x=x^*$ if and only if $\spec(x)\subset\mathbb R$.
+
+\begin{proof}[Solution]
+The direct implication has already been proven in Section 2. For the converse, by functional calculus,
+$x$ corresponds to the function $z$ and $x^*$ to $\overline z$ on $\spec(x)$. If the spectrum is real,
+the functions agree, so $x=x^*$.
+\end{proof}
+
+\proofdiagram
+{$x$ normal}
+{Real spectrum of a self-adjoint element; functional calculus}
+{If $\spec(x)\subset\mathbb R$, then $z=\overline z$ on the spectrum}
+{$x=x^*$}
+
+\begin{cthejemplo}{(Real spectrum without self-adjointness)}
+The converse of Problem 2.6(a) requires normality; a triangular matrix allows you to see it.
+For $N=\begin{pmatrix}0&1\\0&0\end{pmatrix}$,
+$\det(\lambda I-N)=\lambda^2$, then $\spec(N)=\{0\}\subset\mathbb R$.
+But $N^*=\begin{pmatrix}0&0\\1&0\end{pmatrix}\ne N$.
+Additionally $N^*N=\operatorname{diag}(0,1)\ne\operatorname{diag}(1,0)=NN^*$.
+A real spectrum does not force self-adjointness without normality, as shown in Problem 2.6(d).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The reality of the spectrum of a self-adjoint element was proved in Section 2; the converse uses functional calculus in $C^*(x,1)$, available because $x$ is normal.
+
+\noindent\textbf{How this problem is used later.} This identifies exactly which spectral condition characterizes self-adjointness. Problem 2.6(d) shows with a nilpotent matrix why the normality hypothesis is necessary.
+
+\subsection*{2.6(b) Unitary $\Longleftrightarrow$ spectrum in $\mathbb T$ for normal elements}
+
+\noindent\textbf{Statement.} Prove that $x$ is unitary if and only if $\spec(x)\subset\mathbb T$.
+
+\begin{proof}[Solution]
+If $x$ is unitary, Problem 2.2(c) gives $\spec(x)\subset\mathbb T$. Conversely, if $x$ is
+normal and the spectrum lies in $\mathbb T$, then
+\[
+ x^*x=(\overline z z)(x)=(|z|^2)(x)=1.
+\]
+As $x$ is normal, $xx^*=x^*x=1$, so it is unitary.
+\end{proof}
+
+\proofdiagram
+{$x$ normal}
+{Problem 2.2(c); functional calculus}
+{$\spec(x)\subset\mathbb T\Rightarrow |z|^2=1$ on spectrum}
+{$x^*x=(\overline z z)(x)=1$ and, by normality, $xx^*=1$}
+
+\begin{cthejemplo}{(Spectrum on the unit circle without unitarity)}
+To show the limitation of the converse in Problem 2.6(b), let's take
+$J=\begin{pmatrix}1&1\\0&1\end{pmatrix}$.
+Its characteristic polynomial is $(\lambda-1)^2$, so
+$\spec(J)=\{1\}\subset\mathbb T$, but
+$J^*J=\begin{pmatrix}1&1\\1&2\end{pmatrix}\ne I$.
+The spectrum is on the circle and the matrix is non-unitary: Problem 2.6(d) explains the role of normality.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Problem 2.2(c) gives the forward implication. In the converse, normality allows functional calculus and the identity $x^*x=(|z|^2)(x)$.
+
+\noindent\textbf{How this problem is used later.} It allows recognizing unitary elements from their spectrum, for example in algebras of operators with unitary shifts when their hypotheses have been verified.
+
+\subsection*{2.6(c) Projection $\Longleftrightarrow$ spectrum on $\{0,1\}$ for normals}
+
+\noindent\textbf{Statement.} Prove that $x$ is a projection if and only if $\spec(x)\subset\{0,1\}$.
+
+\begin{proof}[Solution]
+If $x$ is a projection, it is idempotent and Problem 2.2(a) gives
+$\spec(x)\subset\{0,1\}$. For the converse, if $x$ is normal and its spectrum is contained in
+$\{0,1\}$, functional calculus gives
+\[
+ x^2-x=(z^2-z)(x)=0,
+ \qquad
+ x^*-x=(\overline z-z)(x)=0.
+\]
+So $x$ is a projection.
+\end{proof}
+
+\proofdiagram
+{$x$ normal}
+{Spectrum of an idempotent; functional calculus}
+{$z^2-z=0$ and $\overline z-z=0$ on $\{0,1\}$}
+{$x^2=x$ and $x^*=x$}
+
+\begin{cthejemplo}{(An idempotent with the expected spectrum that is not a projection)}
+In Problem 2.6(c), self-adjointness is part of the definition of a projection. Let's consider
+$E=\begin{pmatrix}1&1\\0&0\end{pmatrix}$.
+A calculation gives $E^2=E$ and, by triangularity, $\spec(E)=\{0,1\}$; however,
+$E^*=\begin{pmatrix}1&0\\1&0\end{pmatrix}\ne E$.
+Thus, the permitted spectrum and idempotence are not enough without the normality used by the
+converse of Problem 2.6(c).
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Problem 2.2(a) gives the forward implication. For the converse, normality allows $z^2=z$ and $\overline z=z$ to be transported from the spectrum to identities of $x$.
+
+\noindent\textbf{How this problem is used later.} This connects the spectral classification of Section 2 with Cauchy projections only when, in addition to idempotence, the self-adjointness of those projections is verified.
+
+\subsection*{2.6(d) Where is normality used?}
+
+\noindent\textbf{Statement.} Display in $M_2(\mathbb C)$ three non-normal elements that invalidate the converses of parts (a)--(c) without normality, and locate the step of each proof that uses that hypothesis.
+
+\begin{proof}[Solution]
+Let's take
+\[
+ N=\begin{pmatrix}0&1\\0&0\end{pmatrix},
+ \qquad J=I+N=\begin{pmatrix}1&1\\0&1\end{pmatrix},
+ \qquad E=\begin{pmatrix}1&1\\0&0\end{pmatrix}.
+\]
+As they are triangular, $\spec(N)=\{0\}\subset\mathbb R$,
+$\spec(J)=\{1\}\subset\mathbb T$ and $\spec(E)=\{0,1\}$.
+However, $N\ne N^*$,
+\[
+ J^*J=\begin{pmatrix}1&1\\1&2\end{pmatrix}\ne I.
+\]
+$E$ is not a projection because, although $E^2=E$, it has $E^*\ne E$.
+All three are non-normal: indeed,
+$N^*N=\operatorname{diag}(0,1)\ne\operatorname{diag}(1,0)=NN^*$ and
+$J^*J-JJ^*=N^*N-NN^*\ne0$; also,
+$E^*E=\begin{pmatrix}1&1\\1&1\end{pmatrix}$ and
+$EE^*=\operatorname{diag}(2,0)$ are different.
+
+Normality was used in parts (a)--(c) so that $x$ and $x^*$ generate the
+commutative $C^*$-algebra $C^*(x,1)$ and continuous functional calculus can be applied.
+In (b) the equality $xx^*=x^*x$ was also used after obtaining $x^*x=1$.
+\end{proof}
+
+\proofdiagram
+{$N$, $J=I+N$ and $E$ are non-normal}
+{Continuous functional calculus was only built for normals}
+{Functional calculus transfers equality of functions on the spectrum to equality of elements}
+{Without normality, the spectrum does not determine these algebraic relationships}
+
+\begin{cthejemplo}{(Two operators with the same spectrum)}
+To see what the spectrum loses without normality, let's compare $I$ with
+$J=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ in $M_2(\mathbb C)$.
+Both have spectrum $\{1\}$, but $I^*I=I$, while
+$J^*J=\begin{pmatrix}1&1\\1&2\end{pmatrix}\ne I$.
+Only $I$ is unitary. The concrete comparison explains why Problem 2.6(d) requires normality
+before retrieving algebraic properties from the spectrum.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Parts 2.6(a)--(c) use functional calculus on $C^*(x,1)$; that subalgebra is commutative because $x$ is normal. Jordan blocks provide counterexamples.
+
+\noindent\textbf{How this problem is used later.} This delimits the scope of Proposition 2.28 and prevents us from inferring self-adjointness, unitarity or projection from the spectrum of a non-normal operator.
+
+\pagebreak
+\section{Problem 2.7: Unitary part of polar decomposition}
+
+Let $\A$ be a unital $C^*$-algebra. We define $|a|$ for every $a\in\A$ and assume that $a$ is
+invertible when constructing the unitary factor.
+
+
+We define $|a|=(a^*a)^{1/2}$ by positive functional calculus.
+
+\noindent\textbf{Statement.} For $a\in\GL(\A)$, prove that $u=a|a|^{-1}$ is unitary, where $|a|=(a^*a)^{1/2}$.
+
+\begin{proof}[Solution]
+If $a$ is invertible, then $a^*a$ has inverse $a^{-1}(a^*)^{-1}$.
+Since $|a|^2=a^*a$ is invertible, so is $|a|$: the elements $|a|$ and
+$(|a|^2)^{-1}$ commute, and $|a|(|a|^2)^{-1}$ is a two-sided inverse of $|a|$.
+We can, therefore, define $u=a|a|^{-1}$.
+As $|a|$ is positive, $|a|^*=|a|$ and
+\[
+ u^*=|a|^{-1}a^*.
+\]
+Then
+\[
+ u^*u=|a|^{-1}a^*a|a|^{-1}
+ =|a|^{-1}|a|^2|a|^{-1}=1.
+\]
+Moreover,
+\[
+ uu^*=a|a|^{-2}a^*
+ =a(a^*a)^{-1}a^*
+ =a\,a^{-1}(a^*)^{-1}a^*=1.
+\]
+Thus $u$ is unitary and $a=u|a|$.
+\end{proof}
+
+\proofdiagram
+{$a\in\GL(\A)$}
+{Positive root $|a|=(a^*a)^{1/2}$}
+{Define $u=a|a|^{-1}$ and calculate $u^*u$, $uu^*$}
+{$u^*u=uu^*=1$; $u$ is unitary}
+
+\begin{cthejemplo}{(Polar decomposition of a diagonal matrix)}
+To apply the formula in Problem 2.7, let's take the invertible matrix
+$A=\operatorname{diag}(2i,3)$.
+Then $A^*A=\operatorname{diag}(4,9)$,
+$|A|=\operatorname{diag}(2,3)$ and
+\[
+ U=A|A|^{-1}=\operatorname{diag}(i,1),\qquad U^*U=UU^*=I.
+\]
+The equality $A=U|A|$ separates a unitary part from a positive part, as stated in Problem 2.7.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The positive root $|a|=(a^*a)^{1/2}$ comes from the functional calculus of Section 2. Invertibility of $a$ implies invertibility of both $a^*a$ and $|a|$.
+
+\noindent\textbf{How this problem is used later.} This constructs the polar decomposition $a=u|a|$ of an invertible element and clarifies where invertibility is used to obtain a unitary factor in the same algebra.
+
+\Needspace{15\baselineskip}
+\section{Problem 2.8: continuity of functional calculus under convergence of normal elements}
+
+Let $\A$ be a unital $C^*$-algebra and let $(x_n)$ be a sequence of normal elements
+converging in norm to $x$. Fix a compact set $K\subset\mathbb C$ containing $\spec(x_n)$
+for every $n$ and $\spec(x)$, and let $f\in C(K)$.
+
+\noindent\textbf{Statement.} Prove that $x$ is normal and that $f(x_n)\to f(x)$ in norm for all $f\in C(K)$.
+
+\begin{proof}[Solution]
+By Problem 1.7, $x$ is normal. Let $f\in C(K)$ and $\varepsilon>0$. Stone--Weierstrass provides
+a polynomial $p(z,\overline z)$ such that
+\[
+ \sup_{z\in K}|f(z)-p(z,\overline z)|<\varepsilon.
+\]
+Functional calculus is contractive, so for all $n$,
+\[
+\|f(x_n)-p(x_n,x_n^*)\|<\varepsilon,
+\qquad
+\|f(x)-p(x,x^*)\|<\varepsilon.
+\]
+Since $x_n\to x$, we also have $x_n^*\to x^*$; continuity of addition and multiplication gives
+$p(x_n,x_n^*)\to p(x,x^*)$. Therefore, for large $n$,
+\[
+\|f(x_n)-f(x)\|
+\le 2\varepsilon+\|p(x_n,x_n^*)-p(x,x^*)\|<3\varepsilon.
+\]
+As $\varepsilon$ is arbitrary, $f(x_n)\to f(x)$.
+\end{proof}
+
+\proofdiagrambranch
+{$x_n\to x$ and each $x_n$ is normal}
+{$\spec(x_n),\spec(x)\subset K$ compact}
+{Closedness of normal elements; Stone--Weierstrass approximates $f$ by polynomials in $z,\bar z$}
+{Polynomials are continuous in $x_n,x_n^*$; control error uniformly}
+{$f(x_n)\to f(x)$}
+
+\begin{cthejemplo}{(Continuity of the positive square root)}
+To see Problem 2.8 in positive matrices, let's set
+$x_n=\operatorname{diag}(1+1/n,4)$ and $x=\operatorname{diag}(1,4)$.
+All these spectra lie in $K=[1,5]$ and $x_n\to x$ in norm.
+With $f(t)=\sqrt t$,
+\[
+ f(x_n)=\operatorname{diag}(\sqrt{1+1/n},2)
+ \longrightarrow\operatorname{diag}(1,2)=f(x).
+\]
+The calculation shows that the positive square root varies continuously under the assumptions of Problem 2.8.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Problem 1.7 guarantees that $x$ is normal; Stone--Weierstrass approximates $f$ uniformly by polynomials in $z,\overline z$, and functional calculus controls the error.
+
+\noindent\textbf{How this problem is used later.} Shows the stability in norm of $f(x_n)$, in particular of positive roots when the spectra are in one compact subset of $[0,\infty)$.
+
+\Needspace{17\baselineskip}
+\section{Problem 2.9: monotone convergence of self-adjoint operators}
+
+Let $H$ be a Hilbert space. A net is indexed by a directed set $\Lambda$.
+For self-adjoint $R,U\in\mathcal B(H)$, we write $R\le U$ when $U-R$ is positive,
+that is, when $\langle(U-R)\xi,\xi\rangle\ge0$ for all $\xi\in H$.
+
+
+Let $(T_\lambda)_{\lambda\in\Lambda}$ be a bounded net of self-adjoint operators with
+$T_{\lambda_1}\le T_{\lambda_2}$ if $\lambda_1\le\lambda_2$.
+Here ``pointwise convergence'' means that, for each $\xi\in H$,
+$\|T_\lambda\xi-T\xi\|\to0$; it is strong operator convergence.
+
+\noindent\textbf{Statement.} Prove that there exists a self-adjoint $T\in\mathcal B(H)$ such that $\|T_\lambda\xi-T\xi\|\to0$ for each $\xi\in H$.
+
+\begin{proof}[Solution]
+Let $M=\sup_\lambda\|T_\lambda\|$. For each $\xi\in H$, the numbers
+$q_\lambda(\xi)=\langle T_\lambda\xi,\xi\rangle$ form an increasing net bounded by
+$M\|\xi\|^2$, so they converge to a limit $q(\xi)$. Using the polarization identity we obtain
+a bounded sesquilinear form
+\[
+ B(\xi,\eta)=\lim_\lambda\langle T_\lambda\xi,\eta\rangle.
+\]
+Indeed, $|\langle T_\lambda\xi,\eta\rangle|\le M\|\xi\|\|\eta\|$, and the same bound passes to the
+limit.
+With the convention that the inner product is linear in the first variable, the polarization identity
+expresses this limit using four values of $q$:
+\[
+ B(\xi,\eta)=\frac14\bigl(q(\xi+\eta)-q(\xi-\eta)
+   +i q(\xi+i\eta)-i q(\xi-i\eta)\bigr).
+\]
+By the Riesz representation theorem there is a unique $T\in\mathcal B(H)$ with
+$B(\xi,\eta)=\langle T\xi,\eta\rangle$, and the bound of $B$ implies $\|T\|\le M$.
+Since each $T_\lambda$ is self-adjoint, so is $T$, and
+$T_\lambda\le T$.
+
+Set $A_\lambda=T-T_\lambda\ge0$. Then
+$\|A_\lambda\|\le 2M$. Since
+$\spec(A_\lambda)\subset[0,\|A_\lambda\|]$, the function
+$t\mapsto t(\|A_\lambda\|-t)$ is nonnegative on that spectrum. Positive functional calculus
+gives $0\le A_\lambda^2\le\|A_\lambda\|A_\lambda\le2M A_\lambda$. Therefore
+\[
+\|(T-T_\lambda)\xi\|^2
+=\langle A_\lambda^2\xi,\xi\rangle
+\le2M\langle A_\lambda\xi,\xi\rangle.
+\]
+The last term tends to zero by definition of $T$. So
+$T_\lambda\xi\to T\xi$ in norm for each $\xi$.
+\end{proof}
+
+\proofdiagrambranch
+{Monotonicity: increasing $\langle T_\lambda\xi,\xi\rangle$}
+{Uniform boundedness $\sup\|T_\lambda\|<\infty$}
+{Define a limit form and use Riesz to obtain $T$}
+{Use $0\le(T-T_\lambda)^2\le\|T-T_\lambda\|(T-T_\lambda)$}
+{$T_\lambda\xi\to T\xi$ for each $\xi$}
+
+\begin{cthejemplo}{(Strong convergence of increasing matrices)}
+To see the limit in Problem 2.9, take in $\mathbb C^2$
+$T_n=\operatorname{diag}(1-1/n,2-1/n)$, $n\ge1$.
+We have $T_{n+1}-T_n=(1/n-1/(n+1))I\ge0$ and $\|T_n\|\le2$.
+With $T=\operatorname{diag}(1,2)$,
+\[
+ \|(T-T_n)\xi\|=\frac1n\|\xi\|\longrightarrow0
+ \qquad(\xi\in\mathbb C^2).
+\]
+The convergence here is even in operator norm; Problem 2.9 ensures strong convergence
+for bounded nets on any Hilbert space.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} Convergence of bounded monotone nets of real numbers, polarization identity, Riesz representation, and positive functional calculus are used to justify $0\le A^2\le\|A\|A$ when $A\ge0$.
+
+\noindent\textbf{How this problem is used later.} This gives strong convergence: $\|T_\lambda\xi-T\xi\|\to0$ for each $\xi\in H$. This result prepares techniques for operator topologies, but is not a consequence of the convergence in norm of Problem 2.8.
+
+\section{Problem 2.10: spectrum of the unilateral shift}
+
+
+Let $S:\ell^2(\mathbb N)\to\ell^2(\mathbb N)$ be given by
+\[
+S(x_1,x_2,\dots)=(0,x_1,x_2,\dots).
+\]
+
+\noindent\textbf{Statement.} Prove that the spectrum of the unilateral shift is $\spec(S)=\overline{\mathbb D}$.
+
+\begin{proof}[Solution]
+Since $S$ is an isometry, $\|S\|=1$ and by the spectral bound
+$\spec(S)\subset\overline{\mathbb D}$. Now let $|\lambda|<1$. The vector
+\[
+ v_\lambda=(1,\overline\lambda,\overline\lambda^2,\ldots)
+\]
+belongs to $\ell^2$ and satisfies
+\[
+ S^*v_\lambda=\overline\lambda\,v_\lambda.
+\]
+Thus $\overline\lambda I-S^*$ is not invertible. If $\lambda I-S$ were invertible, then its
+adjoint $\overline\lambda I-S^*$ would also be invertible, contradiction. Therefore
+$\lambda\in\spec(S)$ for all $|\lambda|<1$. Since the spectrum is closed,
+$\overline{\mathbb D}\subset\spec(S)$. Along with the opposite inclusion,
+\[
+ \spec(S)=\overline{\mathbb D}.
+\]
+\end{proof}
+
+\proofdiagrambranch
+{$\|S\|=1\Rightarrow\spec(S)\subset\overline{\mathbb D}$}
+{For $|\lambda|<1$, $S^*$ has eigenvector of value $\overline\lambda$}
+{If $\lambda I-S$ were invertible, its adjoint would be too}
+{$\mathbb D\subset\spec(S)$; the spectrum is closed}
+{$\spec(S)=\overline{\mathbb D}$}
+
+\begin{cthejemplo}{(A spectral disk with no eigenvalues)}
+The unilateral shift of Problem 2.10 illustrates the difference between spectrum and eigenvalues.
+If $S\xi=\lambda\xi$, the first coordinate gives $0=\lambda\xi_1$; for
+$\lambda\ne0$, the subsequent coordinates successively force $\xi_n=0$.
+For $\lambda=0$, injectivity of $S$ likewise gives $\xi=0$.
+Thus $S$ has no eigenvalues, although Problem 2.10 proves
+$\spec(S)=\overline{\mathbb D}$.
+\end{cthejemplo}
+
+\noindent\textbf{Dependencies.} The spectral bound of Part 1 gives $\spec(S)\subset\overline{\mathbb D}$. Problem 1.11(d) already shows $0\in\spec(S)$; the eigenvectors of $S^*$ give all the interior points and the closure of the spectrum adds the boundary.
+
+\noindent\textbf{How this problem is used later.} This contrasts the spectrum of a non-normal operator with the characterization of unitary operators in Problem 2.6(b). It does not allow attributing the same spectral disk to the composition shifts of the Haseman problem.

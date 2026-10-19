@@ -1,0 +1,178 @@
+\documentclass{notes}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,fit,calc,matrix}
+\usepackage{mathmongo-macros}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,citecolor=teal!55!black,urlcolor=blue!55!black}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\K}{\mathcal K}
+\newcommand{\Calkin}{\mathcal Q}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\spn}{\operatorname{span}}
+\newcommand{\alg}{\operatorname{alg}}
+\newcommand{\Id}{I}
+\newcommand{\spec}{\sigma}
+\newcommand{\rad}{r}
+\newcommand{\bbD}{\mathbb D}
+\newcommand{\bbT}{\mathbb T}
+\newcommand{\SO}{\operatorname{SO}}
+\newcommand{\PSO}{\operatorname{PSO}}
+\newcommand{\ran}{\operatorname{Ran}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\clos}{\overline}
+
+\newcommand{\origen}[1]{%
+  \par\smallskip{\footnotesize\color{DIgray}\textbf{Correspondencia con las notas base:} #1.}\par\smallskip
+}
+
+\newtcolorbox{dependencias}[1][]{
+  notesbase,
+  title={Dependencias lógicas},
+  colback=DIlightblue,
+  colframe=DIblue,
+  #1
+}
+\newtcolorbox{investigacion}[1][]{
+  notesbase,
+  title={Ejemplo tomado de la línea de investigación Haseman/SIO},
+  colback=DIlightgreen,
+  colframe=DIgreen,
+  #1
+}
+\newtcolorbox{puente}[1][]{
+  notesbase,
+  title={Puente hacia la Sección 2},
+  colback=DIlightpurple,
+  colframe=DIpurple,
+  #1
+}
+\newtcolorbox{criterio}[1][]{
+  notesbase,
+  title={Qué conviene recordar},
+  colback=DIlightorange,
+  colframe=DIorange,
+  #1
+}
+
+\tikzset{
+  flowbox/.style={draw=DIblue, rounded corners=3pt, very thick, fill=DIlightblue,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  flowbox2/.style={draw=DIteal, rounded corners=3pt, very thick, fill=BootTealLight,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  flowbox3/.style={draw=DIpurple, rounded corners=3pt, very thick, fill=DIlightpurple,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  flowend/.style={draw=DIgreen, rounded corners=3pt, very thick, fill=DIlightgreen,
+    align=center, text width=3.0cm, minimum height=1.15cm, inner sep=6pt},
+  taskbox/.style={draw=DIorange, rounded corners=3pt, thick, fill=DIlightorange,
+    align=center, text width=3.1cm, minimum height=0.95cm, inner sep=4pt},
+  theorybox/.style={draw=DIblue, rounded corners=3pt, thick, fill=DIlightblue,
+    align=center, text width=3.15cm, minimum height=0.95cm, inner sep=4pt},
+  researchbox/.style={draw=DIgreen, rounded corners=3pt, thick, fill=DIlightgreen,
+    align=center, text width=3.2cm, minimum height=0.95cm, inner sep=4pt},
+  arr/.style={-{Latex[length=2.6mm]},thick,draw=DIgray},
+  mergearr/.style={-{Latex[length=2.6mm]},thick,draw=DIpurple}
+}
+
+\newcommand{\proofdiagram}[4]{%
+\begin{center}
+\begin{tikzpicture}[node distance=7mm]
+  \node[flowbox] (h) {\textbf{Hipótesis / datos}\\#1};
+  \node[flowbox2,right=of h] (r) {\textbf{Resultados previos}\\#2};
+  \node[flowbox3,right=of r] (m) {\textbf{Mecanismo central}\\#3};
+  \node[flowend,right=of m] (c) {\textbf{Conclusión}\\#4};
+  \draw[arr] (h) -- (r);
+  \draw[arr] (r) -- (m);
+  \draw[arr] (m) -- (c);
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\proofdiagrambranch}[5]{%
+\begin{center}
+\begin{tikzpicture}[node distance=7mm]
+  \node[flowbox] (h1) {\textbf{Dato 1}\\#1};
+  \node[flowbox,below=of h1] (h2) {\textbf{Dato 2}\\#2};
+  \node[flowbox2,anchor=west] (r) at ($(h1.east)!0.5!(h2.east)+(9mm,0)$)
+    {\textbf{Herramienta}\\#3};
+  \node[flowbox3,right=of r] (m) {\textbf{Paso decisivo}\\#4};
+  \node[flowend,right=of m] (c) {\textbf{Conclusión}\\#5};
+  \draw[arr] (h1.east) -- (r.west);
+  \draw[arr] (h2.east) -- (r.west);
+  \draw[arr] (r) -- (m);
+  \draw[arr] (m) -- (c);
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\examplediagram}[5]{%
+\begin{center}
+\begin{tikzpicture}[node distance=6mm and 7mm]
+  \node[theorybox] (g) {\textbf{Concepto / resultado general}\\#1};
+  \node[taskbox,right=of g] (k) {\textbf{Qué se concreta}\\#2};
+  \node[researchbox,right=of k] (t) {\textbf{Expresión teórica}\\#3};
+  \node[theorybox,below=of t] (s) {\textbf{Expresión simbólica}\\#4};
+  \node[taskbox,left=of s] (i) {\textbf{Interpretación}\\#5};
+  \draw[arr] (g) -- (k);
+  \draw[arr] (k) -- (t);
+  \draw[arr] (t) -- (s);
+  \draw[arr] (s) -- (i);
+\end{tikzpicture}
+\end{center}
+}
+
+\newcommand{\tasksource}[1]{\par\smallskip\textbf{Resultados usados:} #1\par\smallskip}
+\newcommand{\researchcite}[1]{\textcolor{DIgreen}{\textbf{Conexión de investigación:} #1}}
+
+\title{Notas de estudio: teoría espectral en álgebras de Banach y $C^*$-álgebras}
+\author{Enrique Díaz Ocampo}
+\date{Septiembre de 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\begin{context}
+Estas notas reúnen la \emph{Parte 1: Teoría espectral en álgebras de Banach}
+\cite{CastillejosParte1}, la \emph{Sección 2: $C^*$-álgebras}
+\cite{CastillejosCap2}, la \emph{Tarea 1} y la \emph{Tarea 2}. Cada resultado se lee desde
+sus hipótesis hasta la demostración y el diagrama que la resume. Los ejemplos
+elementales preceden las conexiones con la literatura: cocientes por compactos,
+funciones lentamente oscilantes y componentes de Cauchy del problema de
+Haseman. Cada conexión declara su espacio de acción y las hipótesis adicionales
+que necesita; así se puede volver desde una aplicación a los resultados del curso.
+\end{context}
+
+\input{sections/00_mapa_global}
+\input{sections/01_banach}
+\input{sections/02_cstar}
+\input{sections/03_tarea1}
+\input{sections/04_tarea2}
+\input{sections/05_investigacion}
+\input{sections/06_mapa_tareas}
+\input{sections/07_indice_literatura}
+
+\renewcommand{\bibname}{Referencias de trabajo}
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Referencias de trabajo}
+\bibitem{CastillejosParte1} J. Castillejos, \emph{$C^*$-álgebras: Parte 1. Teoría espectral en álgebras de Banach}, notas de curso proporcionadas por el usuario.
+\bibitem{CastillejosCap2} J. Castillejos, \emph{$C^*$-álgebras: Sección 2}, notas de curso proporcionadas por el usuario.
+\bibitem{Karlovich2017} Yu. I. Karlovich, \emph{The Haseman Boundary Value Problem with Slowly Oscillating Coefficients and Shifts}, Operator Theory: Advances and Applications 259 (2017), 463--500.
+\bibitem{Karlovich2025} Yu. I. Karlovich, \emph{Algebras of singular integral operators with complex conjugation on curves with cusps}, Bol. Soc. Mat. Mex. 31 (2025), 102.
+\bibitem{BFK2006} M. A. Bastos, C. A. Fernandes, Yu. I. Karlovich, \emph{$C^*$-Algebras of Integral Operators with Piecewise Slowly Oscillating Coefficients and Shifts Acting Freely}, Integral Equations Operator Theory 55 (2006), 19--67.
+\end{thebibliography}
+
+\end{document}

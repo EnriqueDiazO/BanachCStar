@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\Cstar}{C^*}
+\newcommand{\Asa}{A_{\mathrm{sa}}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Pj}{\mathcal{P}}
+\newcommand{\one}{\mathbf{1}}
+
+\newenvironment{definicion}[1]
+  {\par\medskip\noindent\textbf{Definición #1.}\ }
+  {\par\medskip}
+
+\title{Definiciones de la Parte 2: $C^*$-álgebras}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Índice de definiciones}
+\begin{enumerate}[label=\textbf{Definición 2.\arabic*.},leftmargin=*,start=1]
+  \item $C^*$-álgebra. \hfill (p. 1)
+\end{enumerate}
+\begin{enumerate}[label=\textbf{Definición 2.\arabic*.},leftmargin=*,start=4]
+  \item $*$-homomorfismo. \hfill (p. 1)
+  \item Elementos normales, autoadjuntos, unitarios y proyecciones. \hfill (p. 1)
+\end{enumerate}
+\begin{enumerate}[label=\textbf{Definición 2.\arabic*.},leftmargin=*,start=23]
+  \item Extensión del cálculo funcional. \hfill (p. 6)
+\end{enumerate}
+
+\medskip
+\noindent\textit{Nota.} El documento original pasa de la Definición/Observación 2.2 a la Definición 2.4; se conserva exactamente esa numeración y no se introduce una ``Definición 2.3''.
+
+\section*{Definiciones}
+
+% Fuente: Parte2.pdf, p. 1
+\begin{definicion}{2.1}
+Una $C^*$-álgebra $A$ es un álgebra de Banach involutiva tal que
+\[
+  \lVert a^*a\rVert = \lVert a\rVert^2,
+  \qquad \forall a\in A,
+\]
+(identidad $C^*$).
+\end{definicion}
+
+% Fuente: Parte2.pdf, p. 1
+\begin{definicion}{2.4}
+Sean $A$ y $B$ $C^*$-álgebras. Un $*$-homomorfismo es un mapeo
+\[
+  \varphi:A\longrightarrow B
+\]
+lineal, multiplicativo y que preserva la involución,
+\[
+  \varphi(a^*)=\varphi(a)^*.
+\]
+Si $A$ y $B$ tienen unidad, decimos que $\varphi$ es \emph{unital} si
+\[
+  \varphi(1_A)=1_B.
+\]
+\end{definicion}
+
+% Fuente: Parte2.pdf, p. 1
+\begin{definicion}{2.5}
+Sea $a\in A$. Decimos que $a$ es:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em]
+  \item \emph{normal} si
+  \[
+    a^*a=aa^*;
+  \]
+
+  \item \emph{autoadjunto} si
+  \[
+    a^*=a.
+  \]
+  Denotamos al conjunto de autoadjuntos con $\Asa$;
+
+  \item \emph{unitario} si
+  \[
+    a^*a=aa^*=1
+  \]
+  (asumiendo que $A$ tiene unidad). Escribimos
+  \[
+    \U(A)=\{\text{unitarios de }A\};
+  \]
+
+  \item \emph{proyección} si
+  \[
+    a=a^*=a^2.
+  \]
+  Escribimos
+  \[
+    \Pj(A)=\{\text{proyecciones de }A\}.
+  \]
+\end{enumerate}
+\end{definicion}
+
+% Fuente: Parte2.pdf, p. 6
+\begin{definicion}{2.23}
+Sea $A$ con unidad y $a\in A$ normal. Sea $E\subseteq\mathbb{C}$ un espacio localmente compacto que contiene a $\sigma(a)$. Definimos un $*$-homomorfismo unital
+\[
+  C_b(E)\longrightarrow A,
+  \qquad
+  f\longmapsto \bigl(f|_{\sigma(a)}\bigr)(a)=:f(a),
+\]
+utilizando el cálculo funcional. Si $f:E\to\mathbb{C}$ no es acotada, del mismo modo se define $f(a)\in A$ (pues lo único que importa es $f|_{\sigma(a)}$, que sí es acotada por ser $\sigma(a)$ compacto).
+\end{definicion}
+
+\end{document}
