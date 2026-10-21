@@ -1,0 +1,383 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+% -----------------------------------------------------------------------------
+% Notación
+% -----------------------------------------------------------------------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\BH}{\mathcal{B}(H)}
+\newcommand{\spann}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\id}{\mathrm{id}}
+
+% Entornos simples: deliberadamente sin cajas ni fondos de color.
+\newenvironment{definicion}{\par\medskip\noindent\textbf{Definición.}\ }{\par\medskip}
+\newenvironment{ejemplo}{\par\medskip\noindent\textbf{Ejemplo.}\ }{\par\medskip}
+\newenvironment{observacion}{\par\medskip\noindent\textbf{Observación.}\ }{\par\medskip}
+\newenvironment{ejercicio}{\par\medskip\noindent\textbf{Ejercicio.}\ }{\par\medskip}
+\newenvironment{calculo}{\par\medskip\noindent\textbf{Cálculo.}\ }{\par\medskip}
+
+\title{Sesión del 19 de octubre\\Ejemplos concretos de $C^*$-álgebras}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent
+Estas notas son una transcripción depurada de las fotografías de la sesión. Se han
+eliminado únicamente repeticiones fotográficas del mismo desarrollo; se conserva
+la notación y el orden matemático de la clase. Cuando una igualdad de las fotos
+presenta una ambigüedad de conjugación, se señala explícitamente en una nota de
+transcripción al final.
+
+\section{Convención para el producto interno}
+
+Sea $H$ un espacio de Hilbert complejo y sea $(e_i)$ una base ortonormal de $H$.
+La convención utilizada en la sesión es que el producto interno es \emph{lineal en
+la primera variable}. En particular,
+\begin{align*}
+\langle \alpha h_1+\beta h_2,g\rangle
+ &=\alpha\langle h_1,g\rangle+\beta\langle h_2,g\rangle,\\
+\langle h,h\rangle&\ge 0,
+\qquad
+\langle h,h\rangle=0\iff h=0,\\
+\langle g,h\rangle&=\overline{\langle h,g\rangle}.
+\end{align*}
+Por consiguiente, la segunda variable es conjugado-lineal:
+\[
+\langle h,\alpha g_1+\beta g_2\rangle
+=
+\overline{\alpha}\,\langle h,g_1\rangle
++
+\overline{\beta}\,\langle h,g_2\rangle.
+\]
+
+\section{Operadores de rango uno en $\mathcal{B}(H)$}
+
+\begin{definicion}
+Para $i,j$ se define el operador
+\[
+ e_i\otimes e_j:H\longrightarrow H,
+ \qquad
+ (e_i\otimes e_j)(h):=\langle h,e_j\rangle e_i.
+\]
+En estas notas el símbolo $e_i\otimes e_j$ denota este operador de rango uno.
+\end{definicion}
+
+Su imagen es
+\[
+(e_i\otimes e_j)(H)=\C e_i,
+\]
+y, por tanto,
+\[
+\dim (e_i\otimes e_j)(H)=1.
+\]
+Así, $e_i\otimes e_j$ es un operador de rango uno.
+
+Además, por Cauchy--Schwarz y porque $\|e_i\|=\|e_j\|=1$,
+\begin{align*}
+\|(e_i\otimes e_j)(h)\|
+ &=\|\langle h,e_j\rangle e_i\|\\
+ &=|\langle h,e_j\rangle|\,\|e_i\|\\
+ &\le \|h\|\,\|e_j\|\,\|e_i\|\\
+ &=\|h\|.
+\end{align*}
+En particular,
+\[
+\|e_i\otimes e_j\|\le 1,
+\qquad
+ e_i\otimes e_j\in\BH.
+\]
+
+\subsection{Adjunto de los operadores $e_i\otimes e_j$}
+
+Escribamos
+\[
+T_{ij}:=e_i\otimes e_j.
+\]
+Entonces
+\[
+T_{ij}^*=T_{ji},
+\qquad\text{es decir,}\qquad
+(e_i\otimes e_j)^*=e_j\otimes e_i.
+\]
+
+En efecto, para $h,g\in H$,
+\begin{align*}
+\langle T_{ij}h,g\rangle
+ &=\langle \langle h,e_j\rangle e_i,g\rangle\\
+ &=\langle h,e_j\rangle\langle e_i,g\rangle\\
+ &=\langle h,\langle g,e_i\rangle e_j\rangle\\
+ &=\langle h,T_{ji}g\rangle.
+\end{align*}
+Por la definición del adjunto se obtiene $T_{ij}^*=T_{ji}$.
+
+\subsection{Regla de multiplicación}
+
+Para índices $i,j,r,s$,
+\[
+(e_i\otimes e_j)(e_r\otimes e_s)
+=
+\delta_{jr}\,e_i\otimes e_s.
+\]
+En efecto, para $h\in H$,
+\begin{align*}
+(e_i\otimes e_j)(e_r\otimes e_s)(h)
+ &= (e_i\otimes e_j)\bigl(\langle h,e_s\rangle e_r\bigr)\\
+ &=\langle h,e_s\rangle\langle e_r,e_j\rangle e_i\\
+ &=\delta_{jr}\langle h,e_s\rangle e_i.
+\end{align*}
+
+Esta es la misma regla que satisfacen las unidades matriciales.
+
+\subsection{Composición con un operador arbitrario}
+
+Sea $T\in\BH$. En las fotografías se dejan como ejercicio las identidades
+\[
+T\circ(e_i\otimes e_j)=T(e_i)\otimes e_j
+\]
+y
+\[
+(e_i\otimes e_j)\circ T=e_i\otimes T^*(e_j).
+\]
+
+La segunda identidad se lee directamente de
+\[
+((e_i\otimes e_j)T)(h)
+ =\langle Th,e_j\rangle e_i
+ =\langle h,T^*e_j\rangle e_i.
+\]
+
+\section{Proyecciones de rango finito}
+
+Para cada $i$,
+\[
+p_i:=e_i\otimes e_i
+\]
+es una proyección de $\BH$, pues
+\[
+p_i^*=p_i
+\]
+y, usando la regla de multiplicación,
+\[
+p_i^2=(e_i\otimes e_i)(e_i\otimes e_i)=e_i\otimes e_i=p_i.
+\]
+Además,
+\[
+p_i(H)=\C e_i,
+\]
+de modo que $p_i$ tiene rango uno.
+
+\subsection{La esquina determinada por una proyección de rango uno}
+
+Sea $p_i=e_i\otimes e_i$ y sea $T\in\BH$. Escribamos
+\[
+T(e_i)=\sum_r \lambda_r e_r.
+\]
+Entonces la esquina
+\[
+p_i\BH p_i
+\]
+consiste en múltiplos escalares de $p_i$. En particular,
+\[
+p_i\BH p_i=\C p_i\cong\C,
+\qquad
+\lambda p_i\longmapsto \lambda.
+\]
+
+Una forma directa de ver el coeficiente es
+\begin{align*}
+p_iTp_i(h)
+ &=p_iT\bigl(\langle h,e_i\rangle e_i\bigr)\\
+ &=\langle h,e_i\rangle p_iT(e_i)\\
+ &=\langle h,e_i\rangle
+   \left\langle \sum_r\lambda_r e_r,e_i\right\rangle e_i\\
+ &=\lambda_i\langle h,e_i\rangle e_i\\
+ &=\lambda_i p_i(h).
+\end{align*}
+Por tanto,
+\[
+p_iTp_i=\lambda_i p_i.
+\]
+
+\begin{ejercicio}
+Si $A$ es una $C^*$-álgebra y $p\in A$ es una proyección, comprobar que
+\[
+pAp:=\{pap:a\in A\}
+\]
+es una $C^*$-subálgebra de $A$. En las fotografías esta subálgebra se denomina
+\emph{corner} o \emph{esquina} determinada por $p$.
+\end{ejercicio}
+
+En particular, cuando $p$ es una proyección de rango uno en una representación
+sobre un espacio de Hilbert,
+\[
+pAp\cong\C
+\]
+en la situación considerada en clase.
+
+\subsection{Rango de una proyección}
+
+En la sesión se usa la terminología
+\[
+p\text{ es de rango uno}
+\quad\Longleftrightarrow\quad
+\dim p(H)=1,
+\]
+y, más generalmente,
+\[
+p\text{ es de rango }n
+\quad\Longleftrightarrow\quad
+\dim p(H)=n.
+\]
+
+\begin{ejemplo}
+Consideremos
+\[
+p=e_1\otimes e_1+e_2\otimes e_2.
+\]
+Usando la regla de multiplicación de las unidades matriciales,
+\begin{align*}
+p^2
+ &= (e_1\otimes e_1+e_2\otimes e_2)^2\\
+ &=e_1\otimes e_1+e_2\otimes e_2\\
+ &=p.
+\end{align*}
+Además $p^*=p$, y
+\[
+p(H)=\C e_1+\C e_2\cong\C^2.
+\]
+Por tanto, $p$ es una proyección de rango $2$.
+\end{ejemplo}
+
+\section{La esquina $p\mathcal{B}(H)p$ para una proyección de rango dos}
+
+Sea
+\[
+p=e_1\otimes e_1+e_2\otimes e_2.
+\]
+Para $T\in\BH$, escribimos las coordenadas de $T$ respecto de la base ortonormal
+como
+\[
+T(e_r)=\sum_k\lambda_{kr}e_k.
+\]
+Entonces
+\begin{align*}
+(e_i\otimes e_j)T(e_r\otimes e_s)
+ &= (e_i\otimes e_j)\bigl(T(e_r)\otimes e_s\bigr)\\
+ &= (e_i\otimes e_j)
+    \left(\sum_k\lambda_{kr}e_k\otimes e_s\right)\\
+ &=\sum_k\lambda_{kr}(e_i\otimes e_j)(e_k\otimes e_s)\\
+ &=\sum_k\lambda_{kr}\delta_{jk}\,e_i\otimes e_s\\
+ &=\lambda_{jr}\,e_i\otimes e_s.
+\end{align*}
+
+Por consiguiente,
+\begin{align*}
+pTp
+ &= (e_1\otimes e_1+e_2\otimes e_2)
+    T
+    (e_1\otimes e_1+e_2\otimes e_2)\\
+ &= (e_1\otimes e_1)T(e_1\otimes e_1)
+  +(e_1\otimes e_1)T(e_2\otimes e_2)\\
+ &\qquad
+  +(e_2\otimes e_2)T(e_1\otimes e_1)
+  +(e_2\otimes e_2)T(e_2\otimes e_2)\\
+ &=\lambda_{11}e_1\otimes e_1
+  +\lambda_{12}e_1\otimes e_2
+  +\lambda_{21}e_2\otimes e_1
+  +\lambda_{22}e_2\otimes e_2.
+\end{align*}
+
+Así, todo elemento de $p\BH p$ queda determinado por cuatro coeficientes
+complejos. Como espacio vectorial complejo,
+\[
+\dim_{\C}(p\BH p)=4.
+\]
+La base natural es
+\[
+\{e_1\otimes e_1,\ e_1\otimes e_2,\ e_2\otimes e_1,\ e_2\otimes e_2\}.
+\]
+Las reglas de producto
+\[
+(e_i\otimes e_j)(e_r\otimes e_s)=\delta_{jr}e_i\otimes e_s
+\]
+son las reglas de multiplicación matricial de $M_2(\C)$.
+
+\begin{ejercicio}
+Sea $S\in\BH$. Calcular explícitamente
+\[
+pSp.
+\]
+Después calcular
+\[
+(pSp)(pTp).
+\]
+\end{ejercicio}
+
+\section{El ejemplo conmutativo $\C^n$}
+
+En la parte final de la sesión se considera $\C^n$ con operaciones coordenada a
+coordenada. Para
+\[
+z=(z_i)_{i=1}^n,
+\qquad
+w=(w_i)_{i=1}^n,
+\]
+se define
+\[
+zw=(z_iw_i)_{i=1}^n,
+\qquad
+z^*=(\overline{z_i})_{i=1}^n,
+\]
+y la norma
+\[
+\|z\|_\infty=\max_{1\le i\le n}|z_i|.
+\]
+
+Con estas operaciones, $\C^n$ es una $C^*$-álgebra conmutativa con unidad
+\[
+1=(1,\ldots,1).
+\]
+En las fotografías se relaciona este ejemplo con el teorema de representación
+para $C^*$-álgebras conmutativas:
+\[
+\C^n\cong C(X),
+\]
+y se deja planteada la pregunta:
+\begin{center}
+\emph{¿Cuál es el espacio $X$ en este ejemplo?}
+\end{center}
+
+\section*{Notas de transcripción}
+
+\begin{enumerate}[leftmargin=2.2em]
+\item Las fotografías 9 y 10 contienen esencialmente el mismo desarrollo; se
+transcribió una sola vez.
+
+\item En el cálculo manuscrito de $p_iTp_i$ aparece en una de las fotografías un
+coeficiente $\overline{\lambda_i}$. Con la convención escrita al inicio de la
+misma sesión ---producto interno lineal en la primera variable--- y con
+$T(e_i)=\sum_r\lambda_r e_r$, el cálculo directo da $\lambda_i$. Por ello, en el
+texto principal se ha usado la versión consistente con la convención mostrada en
+las fotografías, en lugar de modificarla silenciosamente.
+
+\item En una anotación visual aparece $p\BH p\cong\C^4$ para la proyección de
+rango dos. El cálculo de la clase sí muestra que el espacio tiene dimensión
+compleja $4$. En estas notas se registra esa identificación como identificación
+de espacios vectoriales; las reglas de producto escritas en la sesión son las de
+las unidades matriciales y, por tanto, describen la estructura matricial
+correspondiente.
+\end{enumerate}
+
+\end{document}

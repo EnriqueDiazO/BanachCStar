@@ -1,0 +1,460 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,mathtools,amsthm}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+% -----------------------------------------------------------------------------
+% Notation
+% -----------------------------------------------------------------------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\BH}{\mathcal{B}(H)}
+\newcommand{\FH}{\mathcal{F}(H)}
+\newcommand{\KH}{\mathcal{K}(H)}
+\newcommand{\QH}{\mathcal{Q}(H)}
+\newcommand{\spann}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\ran}{\operatorname{ran}}
+
+% Simple environments: deliberately without boxes or colored backgrounds.
+\newenvironment{definition}{\par\medskip\noindent\textbf{Definition.}\ }{\par\medskip}
+\newenvironment{proposition}{\par\medskip\noindent\textbf{Proposition.}\ }{\par\medskip}
+\newenvironment{observation}{\par\medskip\noindent\textbf{Observation.}\ }{\par\medskip}
+\newenvironment{exercise}{\par\medskip\noindent\textbf{Exercise.}\ }{\par\medskip}
+\newenvironment{calculation}{\par\medskip\noindent\textbf{Calculation.}\ }{\par\medskip}
+
+\title{Continuation of the $C^*$-Algebra Notes\\Finite-Dimensional Corners, Compact Operators, and the Calkin Algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent
+These notes continue the rank-one and corner calculations developed in the previous
+session.  The handwritten order has been preserved, while a few short explanations
+have been added to make the transitions explicit.  Such additions are marked in the
+text or in footnotes.
+
+Throughout, let $H$ be an infinite-dimensional separable complex Hilbert space with
+fixed orthonormal basis
+\[
+(e_1,e_2,\ldots).
+\]
+We keep the convention from the preceding notes that the inner product is linear in
+the first variable, and
+\[
+(e_i\otimes e_j)(h)=\langle h,e_j\rangle e_i.
+\]
+The assumption that the basis is indexed by $\N$ is exactly the separability assumption
+used implicitly in the handwritten notes.\footnote{For a nonseparable Hilbert space one
+usually replaces the sequence $(p_n)$ below by a directed family of finite-dimensional
+projections.  The definition of $\KH$ remains the same, but some statements about the
+ideal structure of $\BH$ require additional care.}
+
+\section{The rank-two corner revisited}
+
+Let
+\[
+p=e_1\otimes e_1+e_2\otimes e_2.
+\]
+If $S\in\BH$, write
+\[
+S(e_j)=\sum_{k=1}^{\infty}\alpha_{kj}e_k,
+\qquad j=1,2.
+\]
+Using the matrix-unit relation
+\[
+(e_i\otimes e_j)(e_r\otimes e_s)
+ =\delta_{jr}\,e_i\otimes e_s,
+\]
+one obtains
+\begin{align*}
+pSp
+&=\alpha_{11}e_1\otimes e_1
+ +\alpha_{12}e_1\otimes e_2
+ +\alpha_{21}e_2\otimes e_1
+ +\alpha_{22}e_2\otimes e_2.
+\end{align*}
+Therefore the map
+\[
+pSp\longmapsto
+\begin{pmatrix}
+\alpha_{11}&\alpha_{12}\\
+\alpha_{21}&\alpha_{22}
+\end{pmatrix}
+\]
+identifies the corner $p\BH p$ with $M_2(\C)$ as a $C^*$-algebra.\footnote{In the
+handwritten notes the four coefficients are also displayed as a point of $\C^4$.
+That is correct as a \emph{vector-space} identification.  The algebra product,
+however, is the matrix product, so the natural algebraic identification is
+$p\BH p\cong M_2(\C)$, not coordinatewise multiplication on $\C^4$.}
+
+\section{The finite-dimensional projections $p_n$}
+
+For $n\in\N$, define
+\[
+p_n:=\sum_{i=1}^{n}e_i\otimes e_i.
+\]
+Then $p_n$ is the orthogonal projection onto
+\[
+H_n:=\spann\{e_1,\ldots,e_n\}.
+\]
+
+\begin{proposition}
+For every $n\ge1$,
+\[
+p_n\BH p_n\cong M_n(\C).
+\]
+\end{proposition}
+
+\noindent
+Indeed, if
+\[
+T(e_j)=\sum_{k=1}^{\infty}\alpha_{kj}e_k,
+\]
+then
+\[
+p_nTp_n
+ =\sum_{i,j=1}^{n}\alpha_{ij}\,e_i\otimes e_j.
+\]
+Hence the $*$-isomorphism is given by
+\[
+\Phi_n:p_n\BH p_n\longrightarrow M_n(\C),
+\qquad
+\Phi_n(p_nTp_n)=[\alpha_{ij}]_{i,j=1}^{n}.
+\]
+The unit of the corner is $p_n$, and under $\Phi_n$ it corresponds to $I_n$.
+This is the standard realization of $M_n(\C)$ as a finite-dimensional corner of
+$\BH$.\footnote{Compare Davidson, \cite[\S I.10]{Davidson1996}, and Erdman,
+\cite[\S 7.3--7.4]{Erdman2011}.}
+
+\subsection{Compatibility of the corners}
+
+The handwritten notes record the inclusion
+\[
+p_n\BH p_n\subseteq p_{n+1}\BH p_{n+1}.
+\]
+To see it, first note that
+\begin{align*}
+p_np_{n+1}
+&=\left(\sum_{i=1}^{n}e_i\otimes e_i\right)
+  \left(\sum_{j=1}^{n+1}e_j\otimes e_j\right)\\
+&=\sum_{i=1}^{n}e_i\otimes e_i
+ =p_n,
+\end{align*}
+and similarly $p_{n+1}p_n=p_n$.
+Thus, for $T\in\BH$,
+\begin{align*}
+p_{n+1}(p_nTp_n)p_{n+1}
+ &=p_nTp_n.
+\end{align*}
+Therefore $p_nTp_n$ belongs to the $(n+1)$-st corner.
+
+Under the identifications $p_n\BH p_n\cong M_n(\C)$, this is exactly the usual
+block embedding
+\[
+M_n(\C)\hookrightarrow M_{n+1}(\C),
+\qquad
+x\longmapsto
+\begin{pmatrix}
+x&0\\
+0&0
+\end{pmatrix}.
+\]
+Consequently,
+\[
+\bigcup_{n=1}^{\infty}M_n(\C)
+\cong
+\bigcup_{n=1}^{\infty}p_n\BH p_n
+\subseteq \BH.
+\]
+This union is an increasing $*$-subalgebra of $\BH$ consisting of operators whose
+matrix, relative to the chosen basis, has support in a finite upper-left block.\footnote{For
+a fixed basis this algebraic union need not equal all of $\FH$: a rank-one operator
+$\xi\otimes\eta$ may involve vectors $\xi,\eta$ with infinitely many nonzero basis
+coefficients.  What is true, and what is used below, is that the norm closure of this
+increasing union is $\KH$.}
+
+\section{Finite-rank operators}
+
+Let $\FH$ denote the linear space of finite-rank operators in $\BH$.
+
+\begin{proposition}
+If $T\in\FH$, then $T$ is a finite sum of rank-one operators.  More precisely,
+if
+\[
+\{e_1,\ldots,e_n\}
+\]
+is an orthonormal basis for $\ran T$, then
+\[
+\boxed{
+T=\sum_{i=1}^{n}e_i\otimes T^*(e_i).
+}
+\]
+\end{proposition}
+
+\begin{proof}
+For $h\in H$, since $Th\in\ran T$,
+\begin{align*}
+Th
+ &=\sum_{i=1}^{n}\langle Th,e_i\rangle e_i\\
+ &=\sum_{i=1}^{n}\langle h,T^*e_i\rangle e_i\\
+ &=\left(\sum_{i=1}^{n}e_i\otimes T^*(e_i)\right)(h).
+\end{align*}
+Therefore
+\[
+T=\sum_{i=1}^{n}e_i\otimes T^*(e_i).
+\]
+\end{proof}
+
+This proves, in particular, that the finite-rank operators are exactly the finite
+linear combinations of rank-one operators.\footnote{A standard reference is Conway,
+\cite[Chapter II, \S4]{Conway1990}; see also the explicit rank-one discussion in
+Erdman, \cite[\S 7.3]{Erdman2011}.}
+
+\section{The algebra of compact operators}
+
+\begin{definition}
+The $C^*$-algebra of compact operators on $H$ is
+\[
+\boxed{
+\KH:=\overline{\FH}^{\,\|\cdot\|}.
+}
+\]
+That is, $\KH$ is the operator-norm closure of the finite-rank operators.
+\end{definition}
+
+On a Hilbert space this norm-closure definition agrees with the usual topological
+definition: $T\in\BH$ is compact if it maps the closed unit ball into a relatively
+compact subset of $H$.\footnote{This equivalence is one of the standard basic results
+on compact operators; see Conway, \cite[Chapter II, Theorem 4.4]{Conway1990}, or
+MIT 18.102, Lecture 18, \cite{MIT2009}.}
+
+\subsection{Compact operators from the matrix corners}
+
+The finite-dimensional corners form a norm-dense subalgebra of $\KH$:
+\[
+\boxed{
+\KH
+ =\overline{\bigcup_{n=1}^{\infty}p_n\BH p_n}^{\,\|\cdot\|}
+ \cong
+ \overline{\bigcup_{n=1}^{\infty}M_n(\C)}^{\,\|\cdot\|}.
+}
+\]
+Here each $M_n(\C)$ is embedded in $M_{n+1}(\C)$ by
+\[
+x\mapsto
+\begin{pmatrix}
+x&0\\
+0&0
+\end{pmatrix}.
+\]
+The closure is essential: the algebraic union contains only finite matrices, whereas
+$\KH$ also contains norm limits of such matrices.\footnote{This viewpoint is the
+first model of an inductive-limit construction and is closely related to the later
+theory of AF $C^*$-algebras.  Davidson's text develops this point of view systematically;
+see \cite[Chapters I and III]{Davidson1996}.}
+
+A useful approximation statement is
+\[
+T\in\KH
+\quad\Longrightarrow\quad
+\|T-p_nTp_n\|\longrightarrow0.
+\]
+For a compact operator this follows from the strong convergence $p_n\to I$ together
+with uniform convergence on compact subsets.  This supplies the link between the
+handwritten increasing matrix corners and the full compact-operator algebra.
+
+\subsection{$*$-closedness}
+
+Suppose $T_m\in\FH$ and
+\[
+T_m\longrightarrow T
+\qquad\text{in operator norm}.
+\]
+Since finite rank is preserved by taking adjoints,
+\[
+T_m^*\in\FH.
+\]
+Moreover,
+\[
+\|T_m^*-T^*\|=\|T_m-T\|\longrightarrow0.
+\]
+Therefore
+\[
+T\in\KH\quad\Longrightarrow\quad T^*\in\KH.
+\]
+Thus $\KH$ is closed under the involution.
+
+The inclusions
+\[
+M_n(\C)\subseteq\KH
+\qquad(n\ge1)
+\]
+show that $\KH$ is infinite-dimensional whenever $H$ is infinite-dimensional, since
+\[
+\dim_{\C}M_n(\C)=n^2\longrightarrow\infty.
+\]
+
+\section{$\KH$ as an ideal in $\BH$}
+
+\begin{proposition}
+If $T\in\KH$ and $S\in\BH$, then
+\[
+TS\in\KH
+\qquad\text{and}\qquad
+ST\in\KH.
+\]
+Consequently, $\KH$ is a closed two-sided $*$-ideal of $\BH$.
+\end{proposition}
+
+\begin{proof}
+Choose finite-rank operators $T_m$ such that
+\[
+\|T_m-T\|\longrightarrow0.
+\]
+Then $T_mS$ and $ST_m$ are finite rank, while
+\begin{align*}
+\|T_mS-TS\|
+ &\le \|T_m-T\|\,\|S\|\longrightarrow0,\\
+\|ST_m-ST\|
+ &\le \|S\|\,\|T_m-T\|\longrightarrow0.
+\end{align*}
+Hence $TS,ST\in\KH$.
+\end{proof}
+
+The handwritten sentence that $\KH$ is ``the unique $C^*$-ideal of $\BH$'' should be
+read more precisely as follows.\footnote{The ideals $\{0\}$ and $\BH$ are always present,
+so ``unique'' here means unique \emph{nonzero proper norm-closed two-sided ideal}.}
+
+\begin{proposition}
+If $H$ is separable and infinite-dimensional, then $\KH$ is the unique nonzero proper
+norm-closed two-sided ideal of $\BH$.
+\end{proposition}
+
+This separability hypothesis matters: for nonseparable Hilbert spaces, $\BH$ has
+additional nontrivial closed ideals.\footnote{For a precise statement, see Blackadar,
+\cite[\S I.8.7]{Blackadar2006}.  In particular, he explicitly distinguishes the
+separable and nonseparable cases.}
+
+\section{The Calkin algebra}
+
+\begin{definition}
+The \emph{Calkin algebra} is the quotient $C^*$-algebra
+\[
+\boxed{
+\QH:=\BH/\KH.
+}
+\]
+If
+\[
+\pi:\BH\longrightarrow\QH,
+\qquad
+\pi(T)=T+\KH,
+\]
+denotes the quotient map, then the inclusion
+\[
+\iota:\KH\hookrightarrow\BH
+\]
+and $\pi$ give the short exact sequence
+\[
+\boxed{
+0\longrightarrow\KH
+\xrightarrow{\ \iota\ }
+\BH
+\xrightarrow{\ \pi\ }
+\QH
+\longrightarrow0.
+}
+\]
+\end{definition}
+
+Thus the Calkin algebra identifies two bounded operators whenever they differ by a
+compact operator.  In this sense it records operator-theoretic information ``modulo
+compact perturbations.''\footnote{For later study: Atkinson's theorem says that
+$T\in\BH$ is Fredholm if and only if its coset $\pi(T)$ is invertible in the Calkin
+algebra.  This theorem was not written in the photographs, but it explains why the
+quotient $\BH/\KH$ becomes central in Fredholm theory; see Murphy,
+\cite[\S 1.4]{Murphy1990}, or Blackadar, \cite[Chapter I]{Blackadar2006}.}
+
+\section*{Reading guide for the photographs}
+
+The mathematical chain represented in the photographs is
+\[
+\boxed{
+\begin{gathered}
+ p_n\BH p_n\cong M_n(\C),
+ \qquad
+ M_n(\C)\hookrightarrow M_{n+1}(\C),\\[2mm]
+ \bigcup_{n\ge1}p_n\BH p_n
+ \ \text{is norm dense in}\ \KH,\\[2mm]
+ \FH
+ =\spann\{\text{rank-one operators}\},
+ \qquad
+ \KH=\overline{\FH}^{\|\cdot\|},\\[2mm]
+ \KH\triangleleft\BH,
+ \qquad
+ \QH=\BH/\KH,\\[2mm]
+ 0\longrightarrow\KH\longrightarrow\BH
+ \longrightarrow\QH\longrightarrow0.
+\end{gathered}
+}
+\]
+The sequence should be read as a passage from finite matrices to finite-rank
+operators, then to their norm closure, and finally to the quotient that forgets compact
+perturbations.
+
+\section*{References and where to look}
+
+\begin{thebibliography}{9}
+
+\bibitem{Conway1990}
+J.~B. Conway,
+\emph{A Course in Functional Analysis}, 2nd ed.,
+Graduate Texts in Mathematics 96, Springer, 1990.
+See Chapter II, especially \S4 ``Compact Operators.''
+
+\bibitem{Murphy1990}
+G.~J. Murphy,
+\emph{$C^*$-Algebras and Operator Theory},
+Academic Press, 1990.
+See \S1.4 for compact and Fredholm operators and Chapter 2 for Hilbert-space
+operator $C^*$-algebras.
+
+\bibitem{Davidson1996}
+K.~R. Davidson,
+\emph{$C^*$-Algebras by Example},
+Fields Institute Monographs 6, American Mathematical Society, 1996.
+See \S I.10, ``$C^*$-Algebras of Compact Operators,'' and Chapter III for AF
+algebras and inductive-limit ideas.
+
+\bibitem{Blackadar2006}
+B.~Blackadar,
+\emph{Operator Algebras: Theory of $C^*$-Algebras and von Neumann Algebras},
+Encyclopaedia of Mathematical Sciences 122, Springer, 2006.
+See \S I.8 on compact operators and \S I.8.7 on ideals of $\mathcal B(H)$.
+
+\bibitem{Erdman2011}
+J.~M. Erdman,
+\emph{Lecture Notes on Operator Algebras},
+Portland State University, 2011.
+See \S7.3 ``Finite Rank Operators'' and \S7.4 ``Compact Operators.''
+Available online from Portland State University.
+
+\bibitem{MIT2009}
+R.~B. Melrose,
+\emph{18.102 Introduction to Functional Analysis --- Lecture 18: Compact Operators},
+MIT OpenCourseWare, Spring 2009.
+The lecture proves that compact operators on a separable Hilbert space are exactly
+the norm limits of finite-rank operators.
+
+\end{thebibliography}
+
+\end{document}

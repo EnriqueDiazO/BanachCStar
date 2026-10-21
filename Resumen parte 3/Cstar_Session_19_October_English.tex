@@ -1,0 +1,358 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+% -----------------------------------------------------------------------------
+% Notation
+% -----------------------------------------------------------------------------
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\BH}{\mathcal{B}(H)}
+\newcommand{\spann}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\id}{\mathrm{id}}
+
+% Simple environments: deliberately without boxes or colored backgrounds.
+\newenvironment{definition}{\par\medskip\noindent\textbf{Definition.}\ }{\par\medskip}
+\newenvironment{example}{\par\medskip\noindent\textbf{Example.}\ }{\par\medskip}
+\newenvironment{observation}{\par\medskip\noindent\textbf{Observation.}\ }{\par\medskip}
+\newenvironment{exercise}{\par\medskip\noindent\textbf{Exercise.}\ }{\par\medskip}
+\newenvironment{calculation}{\par\medskip\noindent\textbf{Calculation.}\ }{\par\medskip}
+
+\title{October 19 Session\\Concrete Examples of $C^*$-Algebras}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+
+\section{Convention for the inner product}
+
+Let $H$ be a complex Hilbert space and let $(e_i)$ be an orthonormal basis of $H$.
+The convention used in the session is that the inner product is \emph{linear in
+the first variable}. In particular,
+\begin{align*}
+\langle \alpha h_1+\beta h_2,g\rangle
+ &=\alpha\langle h_1,g\rangle+\beta\langle h_2,g\rangle,\\
+\langle h,h\rangle&\ge 0,
+\qquad
+\langle h,h\rangle=0\iff h=0,\\
+\langle g,h\rangle&=\overline{\langle h,g\rangle}.
+\end{align*}
+Consequently, the second variable is conjugate-linear:
+\[
+\langle h,\alpha g_1+\beta g_2\rangle
+=
+\overline{\alpha}\,\langle h,g_1\rangle
++
+\overline{\beta}\,\langle h,g_2\rangle.
+\]
+
+\section{Rank-one operators in $\mathcal{B}(H)$}
+
+\begin{definition}
+For $i,j$, define the operator
+\[
+ e_i\otimes e_j:H\longrightarrow H,
+ \qquad
+ (e_i\otimes e_j)(h):=\langle h,e_j\rangle e_i.
+\]
+In these notes the symbol $e_i\otimes e_j$ denotes this rank-one operator.
+\end{definition}
+
+Its range is
+\[
+(e_i\otimes e_j)(H)=\C e_i,
+\]
+and therefore
+\[
+\dim (e_i\otimes e_j)(H)=1.
+\]
+Thus, $e_i\otimes e_j$ is a rank-one operator.
+
+Moreover, by the Cauchy--Schwarz inequality and because $\|e_i\|=\|e_j\|=1$,
+\begin{align*}
+\|(e_i\otimes e_j)(h)\|
+ &=\|\langle h,e_j\rangle e_i\|\\
+ &=|\langle h,e_j\rangle|\,\|e_i\|\\
+ &\le \|h\|\,\|e_j\|\,\|e_i\|\\
+ &=\|h\|.
+\end{align*}
+In particular,
+\[
+\|e_i\otimes e_j\|\le 1,
+\qquad
+ e_i\otimes e_j\in\BH.
+\]
+
+\subsection{Adjoint of the operators $e_i\otimes e_j$}
+
+Write
+\[
+T_{ij}:=e_i\otimes e_j.
+\]
+Then
+\[
+T_{ij}^*=T_{ji},
+\qquad\text{that is,}\qquad
+(e_i\otimes e_j)^*=e_j\otimes e_i.
+\]
+
+Indeed, for $h,g\in H$,
+\begin{align*}
+\langle T_{ij}h,g\rangle
+ &=\langle \langle h,e_j\rangle e_i,g\rangle\\
+ &=\langle h,e_j\rangle\langle e_i,g\rangle\\
+ &=\langle h,\langle g,e_i\rangle e_j\rangle\\
+ &=\langle h,T_{ji}g\rangle.
+\end{align*}
+By the definition of the adjoint, it follows that $T_{ij}^*=T_{ji}$.
+
+\subsection{Multiplication rule}
+
+For indices $i,j,r,s$,
+\[
+(e_i\otimes e_j)(e_r\otimes e_s)
+=
+\delta_{jr}\,e_i\otimes e_s.
+\]
+Indeed, for $h\in H$,
+\begin{align*}
+(e_i\otimes e_j)(e_r\otimes e_s)(h)
+ &= (e_i\otimes e_j)\bigl(\langle h,e_s\rangle e_r\bigr)\\
+ &=\langle h,e_s\rangle\langle e_r,e_j\rangle e_i\\
+ &=\delta_{jr}\langle h,e_s\rangle e_i.
+\end{align*}
+
+This is exactly the multiplication rule satisfied by matrix units.
+
+\subsection{Composition with an arbitrary operator}
+
+Let $T\in\BH$. In the photographs, the following identities are left as exercises:
+\[
+T\circ(e_i\otimes e_j)=T(e_i)\otimes e_j
+\]
+and
+\[
+(e_i\otimes e_j)\circ T=e_i\otimes T^*(e_j).
+\]
+
+The second identity follows directly from
+\[
+((e_i\otimes e_j)T)(h)
+ =\langle Th,e_j\rangle e_i
+ =\langle h,T^*e_j\rangle e_i.
+\]
+
+\section{Finite-rank projections}
+
+For each $i$,
+\[
+p_i:=e_i\otimes e_i
+\]
+is a projection in $\BH$, since
+\[
+p_i^*=p_i
+\]
+and, using the multiplication rule,
+\[
+p_i^2=(e_i\otimes e_i)(e_i\otimes e_i)=e_i\otimes e_i=p_i.
+\]
+Moreover,
+\[
+p_i(H)=\C e_i,
+\]
+so $p_i$ has rank one.
+
+\subsection{The corner determined by a rank-one projection}
+
+Let $p_i=e_i\otimes e_i$ and let $T\in\BH$. Write
+\[
+T(e_i)=\sum_r \lambda_r e_r.
+\]
+Then the corner
+\[
+p_i\BH p_i
+\]
+consists of scalar multiples of $p_i$. In particular,
+\[
+p_i\BH p_i=\C p_i\cong\C,
+\qquad
+\lambda p_i\longmapsto \lambda.
+\]
+
+A direct way to identify the coefficient is
+\begin{align*}
+p_iTp_i(h)
+ &=p_iT\bigl(\langle h,e_i\rangle e_i\bigr)\\
+ &=\langle h,e_i\rangle p_iT(e_i)\\
+ &=\langle h,e_i\rangle
+   \left\langle \sum_r\lambda_r e_r,e_i\right\rangle e_i\\
+ &=\lambda_i\langle h,e_i\rangle e_i\\
+ &=\lambda_i p_i(h).
+\end{align*}
+Therefore,
+\[
+p_iTp_i=\lambda_i p_i.
+\]
+
+\begin{exercise}
+If $A$ is a $C^*$-algebra and $p\in A$ is a projection, verify that
+\[
+pAp:=\{pap:a\in A\}
+\]
+is a $C^*$-subalgebra of $A$. In the photographs this subalgebra is called the
+\emph{corner} determined by $p$.
+\end{exercise}
+
+In particular, when $p$ is a rank-one projection in a representation on a Hilbert
+space,
+\[
+pAp\cong\C
+\]
+in the situation considered in class.
+
+\subsection{Rank of a projection}
+
+The terminology used in the session is
+\[
+p\text{ has rank one}
+\quad\Longleftrightarrow\quad
+\dim p(H)=1,
+\]
+and, more generally,
+\[
+p\text{ has rank }n
+\quad\Longleftrightarrow\quad
+\dim p(H)=n.
+\]
+
+\begin{example}
+Consider
+\[
+p=e_1\otimes e_1+e_2\otimes e_2.
+\]
+Using the multiplication rule for matrix units,
+\begin{align*}
+p^2
+ &= (e_1\otimes e_1+e_2\otimes e_2)^2\\
+ &=e_1\otimes e_1+e_2\otimes e_2\\
+ &=p.
+\end{align*}
+Moreover, $p^*=p$, and
+\[
+p(H)=\C e_1+\C e_2\cong\C^2.
+\]
+Therefore, $p$ is a rank-two projection.
+\end{example}
+
+\section{The corner $p\mathcal{B}(H)p$ for a rank-two projection}
+
+Let
+\[
+p=e_1\otimes e_1+e_2\otimes e_2.
+\]
+For $T\in\BH$, write the coordinates of $T$ with respect to the orthonormal basis as
+\[
+T(e_r)=\sum_k\lambda_{kr}e_k.
+\]
+Then
+\begin{align*}
+(e_i\otimes e_j)T(e_r\otimes e_s)
+ &= (e_i\otimes e_j)\bigl(T(e_r)\otimes e_s\bigr)\\
+ &= (e_i\otimes e_j)
+    \left(\sum_k\lambda_{kr}e_k\otimes e_s\right)\\
+ &=\sum_k\lambda_{kr}(e_i\otimes e_j)(e_k\otimes e_s)\\
+ &=\sum_k\lambda_{kr}\delta_{jk}\,e_i\otimes e_s\\
+ &=\lambda_{jr}\,e_i\otimes e_s.
+\end{align*}
+
+Consequently,
+\begin{align*}
+pTp
+ &= (e_1\otimes e_1+e_2\otimes e_2)
+    T
+    (e_1\otimes e_1+e_2\otimes e_2)\\
+ &= (e_1\otimes e_1)T(e_1\otimes e_1)
+  +(e_1\otimes e_1)T(e_2\otimes e_2)\\
+ &\qquad
+  +(e_2\otimes e_2)T(e_1\otimes e_1)
+  +(e_2\otimes e_2)T(e_2\otimes e_2)\\
+ &=\lambda_{11}e_1\otimes e_1
+  +\lambda_{12}e_1\otimes e_2
+  +\lambda_{21}e_2\otimes e_1
+  +\lambda_{22}e_2\otimes e_2.
+\end{align*}
+
+Thus every element of $p\BH p$ is determined by four complex coefficients. As a
+complex vector space,
+\[
+\dim_{\C}(p\BH p)=4.
+\]
+A natural basis is
+\[
+\{e_1\otimes e_1,\ e_1\otimes e_2,\ e_2\otimes e_1,\ e_2\otimes e_2\}.
+\]
+The multiplication rules
+\[
+(e_i\otimes e_j)(e_r\otimes e_s)=\delta_{jr}e_i\otimes e_s
+\]
+are precisely the matrix-unit multiplication rules of $M_2(\C)$.
+
+\begin{exercise}
+Let $S\in\BH$. Compute explicitly
+\[
+pSp.
+\]
+Then compute
+\[
+(pSp)(pTp).
+\]
+\end{exercise}
+
+\section{The commutative example $\C^n$}
+
+In the final part of the session, $\C^n$ is considered with coordinatewise
+operations. For
+\[
+z=(z_i)_{i=1}^n,
+\qquad
+w=(w_i)_{i=1}^n,
+\]
+define
+\[
+zw=(z_iw_i)_{i=1}^n,
+\qquad
+z^*=(\overline{z_i})_{i=1}^n,
+\]
+and the norm
+\[
+\|z\|_\infty=\max_{1\le i\le n}|z_i|.
+\]
+
+With these operations, $\C^n$ is a unital commutative $C^*$-algebra with unit
+\[
+1=(1,\ldots,1).
+\]
+In the photographs this example is related to the representation theorem for
+commutative $C^*$-algebras:
+\[
+\C^n\cong C(X),
+\]
+and the following question is left open:
+\begin{center}
+\emph{What is the space $X$ in this example?}
+\end{center}
+
+
+
+\end{document}
